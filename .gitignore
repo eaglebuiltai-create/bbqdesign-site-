@@ -11,6 +11,9 @@
 # Cloudflare
 .wrangler/
 
+# Vercel CLI project link
+.vercel/
+
 # Neon link state (project/branch ids, machine-specific)
 .neon
 
