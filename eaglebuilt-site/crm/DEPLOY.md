@@ -110,19 +110,39 @@ Bring local dev up with:
 cd "C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site\crm" && npm run dev
 ```
 
-⚠️ **Local dev currently points at `production`.** Anything you do at
-localhost:3000 writes to the live lead database. Creating a second Neon branch
-for development is the fix — see "Two things to decide later".
+A second branch, `dev` (`br-purple-mouse-ar6vbxb7`), was created 2026-09-21 and
+`crm/.env` is linked to it. Local work never touches live leads — verified by
+writing to `dev` and confirming the row did not appear in `production`.
+
+Switch branches with `neon link --branch <name>`, which rewrites the two URLs
+in `.env` and leaves your other keys alone. Check which one you are on:
+
+```bash
+grep NEON_BRANCH ./crm/.env
+```
 
 ### 2. Deploy to Vercel
 
-Import the repo and set **Root Directory** to `eaglebuilt-site/crm`. Copy the
-environment values out of `crm/.env`, which `neon link` already filled in:
+Import the repo and set **Root Directory** to `eaglebuilt-site/crm`.
+
+⚠️ **Do not copy the database URLs out of `crm/.env`** — it is linked to the
+`dev` branch, and Vercel must use `production`. Get those two separately:
+
+```bash
+neon connection-string production --project-id dry-heart-88431848 --pooled
+```
+
+```bash
+neon connection-string production --project-id dry-heart-88431848
+```
+
+The first (with `-pooler` in the host) is `DATABASE_URL`; the second is
+`DATABASE_URL_UNPOOLED`. The remaining values do come from `crm/.env`:
 
 | Variable | Where it comes from |
 |---|---|
-| `DATABASE_URL` | `crm/.env` — Neon pooled (`-pooler` in the host) |
-| `DATABASE_URL_UNPOOLED` | `crm/.env` — Neon direct. Migrations use this |
+| `DATABASE_URL` | `neon connection-string production --pooled` |
+| `DATABASE_URL_UNPOOLED` | `neon connection-string production` |
 | `NEXTAUTH_URL` | `https://crm.eaglebuilt.ai` — **not** the localhost value in `.env` |
 | `NEXTAUTH_SECRET` | `crm/.env` |
 | `LEADS_API_KEY` | `crm/.env` — needed again in step 4, must match exactly |
@@ -181,8 +201,9 @@ If you ever do want All Deployments, the Worker would need **Protection Bypass
 for Automation** — a secret header on every ingest call. More moving parts for
 no gain.
 
-If you later want preview builds to stop touching live data, give them their own
-Neon branch — see "Two things to decide later".
+Preview builds still run against whatever `DATABASE_URL` you set in Vercel. If
+you want them off live data too, give the Preview environment the `dev` branch
+strings in Vercel's per-environment env var settings.
 
 ### 3. Point `crm.eaglebuilt.ai` at it
 
