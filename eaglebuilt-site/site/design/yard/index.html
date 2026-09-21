@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>EagleBuilt AI — Backyard Planner</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070A12; --panel:#0C111C; --line:#1B2536; --line2:#22304A;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  --blue:#2E9BFF; --blueL:#7FC4FF; --red:#E8342B; --ok:#7FD3AA; --warn:#E7C89A;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100%}
+
+header{display:flex;align-items:center;gap:12px;padding:9px 14px;
+  border-bottom:1px solid var(--line);background:var(--panel);flex:none}
+.brand{font-weight:800;letter-spacing:.3px;font-size:14px}
+.brand i{color:var(--blue);font-style:normal}
+.tag{font-size:11px;color:var(--dim);border:1px solid var(--line2);border-radius:999px;padding:3px 10px}
+header .sp{flex:1}
+
+main{flex:1;display:flex;min-height:0}
+#stage{flex:1;position:relative;min-width:0;background:#080C15}
+canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+
+.tools{position:absolute;top:12px;left:12px;display:flex;gap:6px;flex-wrap:wrap;z-index:6}
+.tools button{background:rgba(12,17,28,.94);border:1px solid var(--line2);color:var(--muted);
+  border-radius:9px;padding:8px 12px;font-size:12.5px;cursor:pointer;font-family:inherit}
+.tools button:hover{border-color:#33507c;color:var(--txt)}
+.tools button.on{background:var(--blue);border-color:var(--blue);color:#04101f;font-weight:700}
+.hint{position:absolute;bottom:12px;left:12px;z-index:6;background:rgba(12,17,28,.94);
+  border:1px solid var(--line2);border-radius:9px;padding:7px 11px;font-size:12px;color:var(--muted)}
+
+aside{width:340px;flex:none;background:var(--panel);border-left:1px solid var(--line);
+  overflow-y:auto;padding:14px}
+@media(max-width:900px){ main{flex-direction:column}
+  aside{width:auto;max-height:50%;border-left:none;border-top:1px solid var(--line)} }
+.grp{margin-bottom:15px}
+.grp h4{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
+  margin-bottom:8px;font-weight:700}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button{background:#111a29;border:1px solid var(--line2);color:var(--muted);
+  border-radius:8px;padding:7px 11px;font-size:12.5px;cursor:pointer;font-family:inherit}
+.presets button:hover{border-color:#33507c;color:var(--txt)}
+.presets button.on{background:var(--blue);border-color:var(--blue);color:#04101f;font-weight:700}
+.field{margin-bottom:9px}
+.field label{display:block;font-size:11.5px;color:var(--dim);margin-bottom:4px}
+input[type=text],select{width:100%;background:#070c15;border:1px solid var(--line2);
+  color:var(--txt);border-radius:8px;padding:9px 10px;font-size:13.5px;font-family:inherit}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{background:var(--red);color:#fff;border:none;border-radius:9px;padding:10px 14px;
+  font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--muted)}
+.btn.mic{background:#111a29;border:1px solid var(--line2);color:var(--muted)}
+.btn.mic.live{background:var(--red);border-color:var(--red);color:#fff}
+
+.ql{display:flex;justify-content:space-between;gap:10px;padding:6px 0;font-size:13px;
+  border-bottom:1px solid var(--line)}
+.ql:last-child{border-bottom:none}
+.ql span{color:var(--muted)} .ql b{color:var(--txt);white-space:nowrap}
+.ql i{display:block;font-style:normal;font-size:11px;color:var(--dim);margin-top:1px}
+.total{background:#0E1725;border:1px solid var(--line2);border-radius:10px;padding:11px 13px;margin-top:9px}
+.total .n{font-size:25px;font-weight:800;color:var(--blueL);letter-spacing:-.5px}
+.total .l{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px}
+.note{background:#0E1420;border:1px solid var(--line2);border-radius:9px;padding:9px 11px;
+  font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:9px}
+.warn{border-color:#4A3E24;background:#1A1710;color:var(--warn)}
+.empty{color:var(--dim);font-size:12px;padding:6px 0}
+</style>
+<script src="/assets/track.js"></script>
+<script src="/assets/emailcheck.js"></script>
+</head>
+<body>
+<!-- ══════════════════════════════════════════════════════════════════════
+     EMAIL GATE. Self-contained on purpose — its own eb-prefixed styles and
+     its own IIFE, so it cannot collide with anything in the designer below.
+     Shown before first paint, so a returning visitor never sees it flash.
+     ══════════════════════════════════════════════════════════════════════ -->
+<style>
+#ebGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;
+  justify-content:center;padding:20px;background:rgba(4,7,13,.88);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+#ebGate[hidden]{display:none}
+#ebGate .ebCard{width:100%;max-width:400px;background:#0C111C;border:1px solid #22304A;
+  border-radius:14px;padding:22px;color:#E7EEF7;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#ebGate .ebBrand{font-weight:800;letter-spacing:.3px;font-size:13px;margin-bottom:14px}
+#ebGate .ebBrand i{color:#2E9BFF;font-style:normal}
+#ebGate h2{font-size:19px;margin:0 0 6px;letter-spacing:-.2px;font-weight:800}
+#ebGate .ebLede{color:#8DA0B8;font-size:13px;margin:0 0 16px}
+#ebGate label{display:block;font-size:11.5px;color:#5F7391;margin:0 0 4px}
+#ebGate label span{color:#3E4E66}
+#ebGate input{width:100%;background:#070c15;border:1px solid #22304A;color:#E7EEF7;
+  border-radius:8px;padding:10px 11px;font-size:16px;font-family:inherit;margin-bottom:11px}
+#ebGate input:focus{outline:none;border-color:#2E9BFF}
+#ebGate button{width:100%;background:#E8342B;color:#fff;border:none;border-radius:9px;
+  padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+#ebGate button:disabled{opacity:.6;cursor:default}
+#ebGate .ebErr{color:#E8342B;font-size:12px;margin:8px 0 0;display:none}
+#ebGate .ebFine{color:#5F7391;font-size:11px;margin:12px 0 0;line-height:1.5}
+
+#demoWrap{position:fixed;inset:0;z-index:9998;display:flex;align-items:center;
+  justify-content:center;padding:24px;background:rgba(4,7,13,.9)}
+#demoWrap[hidden]{display:none}
+#demoBox{position:relative;width:100%;max-width:960px}
+#demoFrame{position:relative;padding-top:56.25%;background:#000;border-radius:12px;
+  overflow:hidden;border:1px solid #22304A}
+#demoFrame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#demoClose{position:absolute;top:-38px;right:0;background:transparent;border:none;
+  color:#8DA0B8;font-size:28px;line-height:1;cursor:pointer;font-family:inherit}
+#demoClose:hover{color:#E7EEF7}
+</style>
+
+<div id="ebGate" hidden>
+  <div class="ebCard">
+    <div class="ebBrand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <h2>Start your design</h2>
+    <p class="ebLede">Free to use. Add your email and the designer opens &mdash; we use it to
+      send you the design and its itemized budget when you are done.</p>
+    <form id="ebGateForm" novalidate>
+      <label for="ebEmail">Email</label>
+      <input type="email" id="ebEmail" autocomplete="email" placeholder="you@example.com">
+      <label for="ebZip">ZIP code <span>&mdash; optional</span></label>
+      <input type="text" id="ebZip" inputmode="numeric" autocomplete="postal-code" placeholder="95630">
+      <button type="submit" id="ebGo">Start designing</button>
+      <p class="ebErr" id="ebErr"></p>
+      <p class="ebFine">Everything the designer produces is a budget proposal. Final pricing
+        follows a field verification visit. No lists, no spam.</p>
+      <p class="ebFine" style="margin-top:8px">Rather we designed it?
+        <a href="/consultation/" style="color:#7FC4FF">Book a free consultation</a>.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY  = "eb.designer.lead";
+  var TOOL = ({ "/design/app/":       "Kitchen",
+                "/design/firepit/":   "Fire pit",
+                "/design/fireplace/": "Fireplace",
+                "/design/yard/":      "Backyard" })[location.pathname] || "Designer";
+  var gate = document.getElementById("ebGate");
+
+  /* A browser that blocks storage throws on read. Show the gate in that case —
+     but the write below is also wrapped, so a blocked browser still gets in,
+     it just gets asked again next visit. Never trap anyone outside. */
+  var seen = false;
+  try { seen = !!localStorage.getItem(KEY); } catch (e) {}
+  if (seen) return;
+  gate.hidden = false;
+
+  var form = document.getElementById("ebGateForm");
+  var err  = document.getElementById("ebErr");
+  var btn  = document.getElementById("ebGo");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = (document.getElementById("ebEmail").value || "").trim();
+    var zip   = (document.getElementById("ebZip").value || "").trim();
+
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
+      err.textContent = "Please enter an email we can send the design to.";
+      err.style.display = "block";
+      document.getElementById("ebEmail").focus();
+      return;
+    }
+    if (window.EBEmailCheck && !EBEmailCheck.gate(email, document.getElementById("ebEmail"), err)) return;
+    btn.disabled = true;
+    btn.textContent = "Opening…";
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ email: email, zip: zip, ts: Date.now() }));
+    } catch (e2) {}
+
+    /* Fire and forget. The visitor is let in whatever the network does — a
+       failed POST must never read as a broken tool, and the full lead still
+       goes out when they send the design. */
+    try {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
+          from_name:  "EagleBuilt AI Designer",
+          subject:    TOOL + " designer opened — " + email,
+          lead_stage: "opened the designer",
+          email:      email,
+          zip:        zip || "—",
+          page:       location.pathname
+        })
+      }).catch(function () {});
+    } catch (e3) {}
+
+    /* And into the CRM. Same-origin, so the ingest key stays in the Worker
+       and never reaches the page — see src/worker.js. Fire and forget for the
+       same reason as above: the visitor is never held up by it, and a CRM
+       outage cannot look like a broken tool. */
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:  email,
+          zip:    zip,
+          source: TOOL + " designer"
+        })
+      }).catch(function () {});
+    } catch (e4) {}
+
+    gate.hidden = true;
+    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL });
+  });
+})();
+</script>
+
+<div id="app">
+  <header>
+    <div class="brand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <div class="tag">Backyard Planner</div>
+    <button class="mini" id="demoBtn" style="padding:4px 10px;font-size:11.5px">Watch demo</button>
+    <div class="sp"></div>
+    <div class="tag" id="stamp">preview</div>
+  </header>
+
+  <!-- Demo. The iframe has no src until it is opened, so YouTube is not
+       contacted on page load and nothing is dropped on a visitor who never
+       asks for it. -->
+  <div id="demoWrap" hidden>
+    <div id="demoBox">
+      <button id="demoClose" aria-label="Close">&times;</button>
+      <div id="demoFrame"></div>
+    </div>
+  </div>
+
+  <main>
+    <div id="stage">
+      <canvas id="c"></canvas>
+      <div class="tools" id="tools">
+        <button data-t="select" class="on">Select</button>
+        <button data-t="patio">Draw hardscape</button>
+        <button data-t="firepit">Fire pit</button>
+        <button data-t="kitchen">Kitchen</button>
+      </div>
+      <div class="hint" id="hint">Set the yard size, then draw</div>
+      <input type="file" id="planFile" accept="image/*" hidden>
+    </div>
+
+    <aside>
+      <div class="grp">
+        <h4>Your yard</h4>
+        <div class="row2">
+          <div class="field"><label>Width</label><input type="text" id="yW" spellcheck="false"></div>
+          <div class="field"><label>Depth</label><input type="text" id="yD" spellcheck="false"></div>
+        </div>
+        <div class="presets" style="margin-bottom:8px">
+          <button id="micBtn" class="btn mic" style="width:auto;padding:7px 11px">🎤 Say the size</button>
+          <button id="upBtn" class="btn ghost" style="width:auto;padding:7px 11px">Trace a plot map</button>
+        </div>
+        <div class="note" id="yardNote">Tell me the size — say or type it, e.g. “45 by 50”.</div>
+      </div>
+
+      <div class="grp" id="selGrp" style="display:none">
+        <h4>Selected area</h4>
+        <div class="field" id="fldShape"><label>Shape</label>
+          <select id="selShape">
+            <option value="round">Round</option>
+            <option value="square">Square</option>
+            <option value="rect">Rectangular</option>
+            <option value="linear">Linear</option>
+          </select></div>
+        <div class="field" id="fldMat"><label>Surface</label>
+          <select id="selMat"></select></div>
+        <div class="field" id="fldPattern"><label>Pattern</label>
+          <select id="selPattern"></select></div>
+        <div class="field" id="fldFinish"><label>Decorative finish</label>
+          <div class="presets">
+            <button class="mini" id="fxStain">Acid stain +$5/sq ft</button>
+            <button class="mini" id="fxSeed">Hand seed +$3/sq ft</button>
+          </div></div>
+        <div class="field" id="fldSaw"><label>Saw cut &mdash; <b id="sawLfV">none</b> @ $3/ft</label>
+          <select id="selSaw">
+            <option value="none">None</option>
+            <option value="g4">4 ft grid</option>
+            <option value="g5">5 ft grid</option>
+            <option value="g6">6 ft grid</option>
+          </select></div>
+        <div class="field"><label>Access</label>
+          <select id="selAccess"></select></div>
+        <div class="row2">
+          <div class="field"><label>Width</label><input type="text" id="selW" spellcheck="false"></div>
+          <div class="field"><label>Depth</label><input type="text" id="selD" spellcheck="false"></div>
+        </div>
+        <div class="presets">
+          <button id="delBtn" class="btn ghost" style="width:auto;padding:7px 11px">Delete</button>
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Budget proposal</h4>
+        <div id="q"><div class="empty">Draw an area to see a number</div></div>
+        <div class="total"><div class="l">Budget range</div><div class="n" id="tot">—</div></div>
+        <div class="note">Budget proposal only. Final pricing follows a site visit — access,
+          grade, existing utilities and jurisdiction all move the number.</div>
+        <button class="btn" id="copyBtn" style="margin-top:9px">Copy proposal</button>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+/* ==========================================================================
+   EAGLEBUILT AI — BACKYARD PLANNER (preview)
+   A scaled property canvas you can put real areas on. Four ways in, because
+   customers arrive differently: type it, say it, draw it, or trace a plot map.
+
+   RATES — John's confirmed numbers (see PRICING.md):
+     decorative concrete   max($2,500, sqft x rate)  broom 15 / stamped 18 / 2-colour 20
+                           + placement per pour: $600 first truck, +$300 each extra
+                           3.5-4" slab, ~sqft/81 cubic yards at 4", 9 yards a truck
+     pavers                max($2,500, sqft x rate)  17 standard / 21 premium
+                           + pattern 0/2/3, + hand-carry access 2
+     fire pit              max($3,250, perimeter_ft x $150)
+   Everything is a BUDGET PROPOSAL. Never call it a firm price.
+   ========================================================================== */
+const RATE = {
+  concreteMin: 2500, paverMin: 2500,
+  concrete: { broom:15, stamped:18, stamped2:20 },
+  /* Decorative adders on the concrete rate (John, 2026-09-06/07). The stain rate
+     carries the sealer — acid stain has to be sealed, so it is neither optional
+     nor billed apart. Salt finish is standard pricing and adds nothing. */
+  finish: { stain:5, seed:3 },
+  /* Saw cut is per LINEAR foot of cut, not per square foot. Billing it by area
+     over-charged it about threefold: a 20 x 30 patio on a 5 ft grid is 190 lf of
+     cut, not 600 sq ft. */
+  sawLf: 3,
+  sawGrid: { none:0, g4:4, g5:5, g6:6 },
+  paver:    { standard:17, premium:21 },
+  paverPattern: { running:0, herringbone:2, custom:3 },
+  access:   { machine:0, hand:2 },
+  placeFirst: 600, placeExtra: 300, yardsPerTruck: 9,
+  firepitMin: 3250, firepitLf: 150
+};
+const SURFACES = [
+  { k:"broom",     n:"Broom concrete, 1 colour",   kind:"concrete" },
+  { k:"stamped",   n:"Stamped concrete, 1 colour", kind:"concrete" },
+  { k:"stamped2",  n:"Stamped concrete, 2 colour", kind:"concrete" },
+  { k:"standard",  n:"Pavers — standard",          kind:"paver" },
+  { k:"premium",   n:"Pavers — premium",           kind:"paver" }
+];
+const PATTERNS = [
+  { k:"running",     n:"Running bond" },
+  { k:"herringbone", n:"Herringbone" },
+  { k:"custom",      n:"Circle / custom" }
+];
+const ACCESS = [
+  { k:"machine", n:"Machine access to the back" },
+  { k:"hand",    n:"Hand-carried / tight access" }
+];
+const FILL = {
+  broom:"#6E7681", stamped:"#7C7468", stamped2:"#87796A",
+  standard:"#8A8073", premium:"#9A8C7B",
+  firepit:"#5A626E", kitchen:"#55606F"
+};
+
+const S = {
+  yardW: 45*12, yardD: 50*12,           // inches
+  tool: "select", items: [], sel: null,
+  access: "machine",
+  plan: null, planOp: 0.5
+};
+let uid = 1;
+
+/* ---------- canvas + scale ---------- */
+const cv = document.getElementById("c"), g = cv.getContext("2d");
+const view = { s:1, ox:0, oy:0 };
+function fit(){
+  const W = cv.clientWidth || 900, H = cv.clientHeight || 600;
+  const pad = 60;
+  view.s = Math.min((W-pad*2)/S.yardW, (H-pad*2)/S.yardD);
+  view.ox = (W - S.yardW*view.s)/2;
+  view.oy = (H - S.yardD*view.s)/2;
+}
+const X = x => view.ox + x*view.s;
+const Y = y => view.oy + y*view.s;
+const invX = px => (px - view.ox)/view.s;
+const invY = py => (py - view.oy)/view.s;
+
+function draw(){
+  const dpr = Math.min(2, devicePixelRatio||1);
+  const W = cv.clientWidth || 900, H = cv.clientHeight || 600;
+  cv.width = W*dpr; cv.height = H*dpr;
+  g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);
+  fit();
+
+  // traced plot map behind everything
+  if (S.plan){
+    g.save(); g.globalAlpha = S.planOp;
+    g.drawImage(S.plan, X(0), Y(0), S.yardW*view.s, S.yardD*view.s);
+    g.restore();
+  }
+
+  // yard
+  g.fillStyle = "#0E141E";
+  g.fillRect(X(0), Y(0), S.yardW*view.s, S.yardD*view.s);
+  g.strokeStyle = "#2B3A52"; g.lineWidth = 2;
+  g.strokeRect(X(0), Y(0), S.yardW*view.s, S.yardD*view.s);
+
+  // 5 ft grid so area reads
+  g.strokeStyle = "rgba(255,255,255,.045)"; g.lineWidth = 1;
+  for (let x = 60; x < S.yardW; x += 60){
+    g.beginPath(); g.moveTo(X(x), Y(0)); g.lineTo(X(x), Y(S.yardD)); g.stroke();
+  }
+  for (let y = 60; y < S.yardD; y += 60){
+    g.beginPath(); g.moveTo(X(0), Y(y)); g.lineTo(X(S.yardW), Y(y)); g.stroke();
+  }
+
+  // house edge marker along the top
+  g.fillStyle = "#1B2536";
+  g.fillRect(X(0), Y(0)-14, S.yardW*view.s, 14);
+  g.fillStyle = "#5F7391"; g.font = "600 10px Inter, system-ui, sans-serif";
+  g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText("HOUSE", X(S.yardW/2), Y(0)-7);
+
+  S.items.forEach(it => {
+    const sel = it.id === S.sel;
+    const round = it.type === "firepit" && it.shape === "round";
+    g.fillStyle = FILL[it.mat || it.type] || "#6E7681";
+    g.globalAlpha = .92;
+    if (round){
+      g.beginPath();
+      g.ellipse(X(it.x + it.w/2), Y(it.y + it.d/2),
+                it.w/2*view.s, it.d/2*view.s, 0, 0, 7);
+      g.fill();
+    } else { shapePath(it); g.fill(); }
+    g.globalAlpha = 1;
+    g.strokeStyle = sel ? "#2E9BFF" : "rgba(255,255,255,.22)";
+    g.lineWidth = sel ? 2.5 : 1;
+    if (round){
+      g.beginPath();
+      g.ellipse(X(it.x + it.w/2), Y(it.y + it.d/2),
+                it.w/2*view.s, it.d/2*view.s, 0, 0, 7);
+      g.stroke();
+    } else { shapePath(it); g.stroke(); }
+    if (curvable(it)) drawRadii(it);
+    if (sel && curvable(it)) drawHandles(it);
+
+    // label + area
+    const cx = X(it.x + it.w/2), cy = Y(it.y + it.d/2);
+    g.fillStyle = "rgba(255,255,255,.86)";
+    g.font = "700 11px Inter, system-ui, sans-serif";
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText(label(it), cx, cy - 7);
+    g.font = "500 10px Inter, system-ui, sans-serif";
+    g.fillStyle = "rgba(255,255,255,.6)";
+    /* Once an edge is curved the bounding box is not the shape, so show the
+       area and the run of edge — which is what banding and seat wall price by. */
+    g.fillText(curved(it)
+      ? Math.round(sqft(it)) + " sq ft  ·  " + ftin(polyPerim(outline(it))) + " edge"
+      : ftin(it.w) + " × " + ftin(it.d) + "  ·  " + Math.round(sqft(it)) + " sq ft",
+      cx, cy + 7);
+  });
+
+  // yard dimensions
+  g.fillStyle = "#8DA0B8"; g.font = "600 11px Inter, system-ui, sans-serif";
+  g.textAlign = "center";
+  g.fillText(ftin(S.yardW), X(S.yardW/2), Y(S.yardD) + 18);
+  g.save();
+  g.translate(X(0) - 18, Y(S.yardD/2)); g.rotate(-Math.PI/2);
+  g.fillText(ftin(S.yardD), 0, 0);
+  g.restore();
+
+  if (drag && drag.mode === "new"){
+    const r = norm(drag);
+    g.strokeStyle = "#2E9BFF"; g.lineWidth = 1.5; g.setLineDash([5,4]);
+    g.strokeRect(X(r.x), Y(r.y), r.w*view.s, r.d*view.s);
+    g.setLineDash([]);
+  }
+}
+function label(it){
+  if (it.type === "firepit"){
+    const nm = { round:"Round", square:"Square", rect:"Rectangular", linear:"Linear" };
+    return (nm[it.shape] || "") + " fire pit";
+  }
+  if (it.type === "kitchen") return "Outdoor kitchen";
+  const s = SURFACES.find(x => x.k === it.mat);
+  return s ? s.n.replace(/,.*$/,"") : "Hardscape";
+}
+/* ---------- CURVED EDGES AND TRUE RADII ----------
+   A patio carries two independent things:
+
+     it.cv = [top, right, bottom, left]   how far each edge bows out, inches
+     it.r  = [TL, TR, BR, BL]             true corner radius, inches
+
+   The bow is the serpentine case — marked on the ground with upside-down paint
+   and adjusted by eye, so it is dragged, never typed. The radius is the case
+   that gets staked: it has a real centre point and a real R, and both are drawn
+   so the crew can pull a tape to them.
+
+   Area, perimeter, the canvas path and the hit test all read the SAME flattened
+   outline, so a curve can never price differently from how it looks. */
+
+const NORMAL   = [[0,-1],[1,0],[0,1],[-1,0]];   // outward, per edge
+const EDGE_DIR = [[1,0],[0,1],[-1,0],[0,-1]];   // along edge e, corner e -> e+1
+
+function curvable(it){ return it.type === "patio"; }
+function overhang(it){
+  const c = it.cv || [0,0,0,0];
+  return { t: Math.max(0, c[0]), r: Math.max(0, c[1]),
+           b: Math.max(0, c[2]), l: Math.max(0, c[3]) };
+}
+function curved(it){
+  return !!((it.cv && it.cv.some(v => Math.abs(v) > 0.5)) ||
+            (it.r  && it.r.some(v => v > 0.5)));
+}
+function corners(it){
+  const x0=it.x, y0=it.y, x1=it.x+it.w, y1=it.y+it.d;
+  return [[x0,y0],[x1,y0],[x1,y1],[x0,y1]];
+}
+/* Clamped so two radii on one edge cannot eat more than the edge. */
+function radii(it){
+  /* Cap each radius at half the short side first. Subtracting the overshoot in
+     halves, as this did at first, never converges: one huge radius just walks
+     around the four edges shedding half its excess each time and still comes
+     out bigger than the patio. */
+  const cap = Math.min(it.w, it.d) / 2;
+  const r = (it.r || [0,0,0,0]).map(v => Math.max(0, Math.min(cap, v)));
+  for (let e = 0; e < 4; e++){
+    const len = (e % 2 === 0) ? it.w : it.d;
+    const a = e, b = (e+1) % 4, sum = r[a] + r[b];
+    if (sum > len){ const k = len/sum; r[a] *= k; r[b] *= k; }
+  }
+  return r;
+}
+/* Where edge e starts and ends once the corner radii have eaten into it. */
+function edgeEnds(it, e){
+  const c = corners(it), r = radii(it);
+  const d0 = EDGE_DIR[e], d1 = EDGE_DIR[(e+1) % 4];
+  const a = c[e], b = c[(e+1) % 4];
+  return [[a[0] + d0[0]*r[e],       a[1] + d0[1]*r[e]],
+          [b[0] - d0[0]*r[(e+1)%4], b[1] - d0[1]*r[(e+1)%4]]];
+}
+function arcCentre(it, i){
+  const c = corners(it), r = radii(it)[i];
+  if (!r) return null;
+  const dOut = EDGE_DIR[i], dIn = EDGE_DIR[(i+3) % 4];
+  return [c[i][0] + dOut[0]*r - dIn[0]*r, c[i][1] + dOut[1]*r - dIn[1]*r];
+}
+function arcLen(it, i){ return radii(it)[i] * Math.PI / 2; }
+
+function outline(it, steps){
+  steps = steps || 18;
+  const c = corners(it), r = radii(it), cv = it.cv || [0,0,0,0];
+  const pts = [];
+  for (let e = 0; e < 4; e++){
+    /* Corner e first: a quarter arc from the incoming edge to the outgoing one. */
+    if (r[e] > 0.5){
+      const cen = arcCentre(it, e);
+      const dIn = EDGE_DIR[(e+3) % 4], dOut = EDGE_DIR[e];
+      const tIn  = [c[e][0] - dIn[0]*r[e],  c[e][1] - dIn[1]*r[e]];
+      const tOut = [c[e][0] + dOut[0]*r[e], c[e][1] + dOut[1]*r[e]];
+      let a0 = Math.atan2(tIn[1]-cen[1], tIn[0]-cen[0]);
+      let a1 = Math.atan2(tOut[1]-cen[1], tOut[0]-cen[0]);
+      let da = a1 - a0;
+      while (da >  Math.PI) da -= 2*Math.PI;
+      while (da < -Math.PI) da += 2*Math.PI;
+      const n = 10;
+      for (let k = 0; k <= n; k++){
+        const t = a0 + da*(k/n);
+        pts.push([cen[0] + Math.cos(t)*r[e], cen[1] + Math.sin(t)*r[e]]);
+      }
+    } else {
+      pts.push(c[e]);
+    }
+    /* Then edge e, between the tangent points, bowed if it has a bulge. */
+    const ends = edgeEnds(it, e), a = ends[0], b = ends[1];
+    const k = cv[e] || 0;
+    if (Math.abs(k) > 0.5){
+      const nm = NORMAL[e];
+      const m = [(a[0]+b[0])/2 + nm[0]*2*k, (a[1]+b[1])/2 + nm[1]*2*k];
+      for (let i = 1; i < steps; i++){
+        const t = i/steps, u = 1-t;
+        pts.push([u*u*a[0] + 2*u*t*m[0] + t*t*b[0],
+                  u*u*a[1] + 2*u*t*m[1] + t*t*b[1]]);
+      }
+    }
+    pts.push(b);
+  }
+  return pts;
+}
+function polyArea(p){
+  let a = 0;
+  for (let i = 0, N = p.length; i < N; i++){ const q = p[(i+1)%N];
+    a += p[i][0]*q[1] - q[0]*p[i][1]; }
+  return Math.abs(a)/2;
+}
+function polyPerim(p){
+  let L = 0;
+  for (let i = 0, N = p.length; i < N; i++){ const q = p[(i+1)%N];
+    L += Math.hypot(q[0]-p[i][0], q[1]-p[i][1]); }
+  return L;
+}
+/* Drawn from the very same points the area is measured from. */
+function shapePath(it){
+  const p = outline(it, 22);
+  g.beginPath();
+  g.moveTo(X(p[0][0]), Y(p[0][1]));
+  for (let i = 1; i < p.length; i++) g.lineTo(X(p[i][0]), Y(p[i][1]));
+  g.closePath();
+}
+
+/* Edge handle sits at the middle of the bow; corner handle rides the inward
+   diagonal at the radius distance, so pulling it away from the corner opens
+   the radius. */
+function handlePt(it, e){
+  const ends = edgeEnds(it, e), a = ends[0], b = ends[1];
+  const k = (it.cv && it.cv[e]) || 0, nm = NORMAL[e];
+  return [(a[0]+b[0])/2 + nm[0]*k, (a[1]+b[1])/2 + nm[1]*k];
+}
+function cornerDiag(i){
+  const dOut = EDGE_DIR[i], dIn = EDGE_DIR[(i+3) % 4];
+  const v = [dOut[0]-dIn[0], dOut[1]-dIn[1]], L = Math.hypot(v[0], v[1]) || 1;
+  return [v[0]/L, v[1]/L];
+}
+function cornerHandlePt(it, i){
+  const c = corners(it)[i], d = cornerDiag(i), r = radii(it)[i];
+  const off = r > 0.5 ? r : 14/Math.max(view.s, 1e-6);
+  return [c[0] + d[0]*off, c[1] + d[1]*off];
+}
+function drawHandles(it){
+  for (let e = 0; e < 4; e++){
+    const p = handlePt(it, e);
+    g.beginPath(); g.arc(X(p[0]), Y(p[1]), 5, 0, 7);
+    g.fillStyle = "#2E9BFF"; g.fill();
+    g.strokeStyle = "#04101f"; g.lineWidth = 1.5; g.stroke();
+  }
+  /* Squares, so a radius handle never reads as a bow handle. */
+  for (let i = 0; i < 4; i++){
+    const p = cornerHandlePt(it, i);
+    g.fillStyle = "#7FD3AA"; g.strokeStyle = "#04101f"; g.lineWidth = 1.5;
+    g.fillRect(X(p[0])-4, Y(p[1])-4, 8, 8);
+    g.strokeRect(X(p[0])-4, Y(p[1])-4, 8, 8);
+  }
+}
+/* The centre point and the R value, always on — they are what the crew stakes
+   to, not decoration for the selected item. */
+function drawRadii(it){
+  const r = radii(it);
+  for (let i = 0; i < 4; i++){
+    if (r[i] <= 0.5) continue;
+    const cen = arcCentre(it, i);
+    const px = X(cen[0]), py = Y(cen[1]);
+    g.strokeStyle = "rgba(127,211,170,.9)"; g.lineWidth = 1;
+    g.beginPath();
+    g.moveTo(px-5, py); g.lineTo(px+5, py);
+    g.moveTo(px, py-5); g.lineTo(px, py+5);
+    g.stroke();
+    g.beginPath(); g.arc(px, py, 2.5, 0, 7);
+    g.fillStyle = "rgba(127,211,170,.9)"; g.fill();
+    /* Radius line out to the arc, so the R reads as a measurement. */
+    const d = cornerDiag(i);
+    g.setLineDash([3,3]);
+    g.beginPath();
+    g.moveTo(px, py);
+    g.lineTo(X(cen[0] - d[0]*r[i]), Y(cen[1] - d[1]*r[i]));
+    g.stroke();
+    g.setLineDash([]);
+    g.font = "600 10px Inter, system-ui, sans-serif";
+    g.textAlign = "center"; g.textBaseline = "middle";
+    const txt = "R " + ftin(r[i]) + " · " + ftin(arcLen(it, i)) + " arc";
+    const wpx = g.measureText(txt).width;
+    g.fillStyle = "rgba(7,10,18,.9)";
+    g.fillRect(px - wpx/2 - 4, py + 9, wpx + 8, 14);
+    g.fillStyle = "rgba(127,211,170,.95)";
+    g.fillText(txt, px, py + 16);
+  }
+}
+
+/* A plain rectangle flattens to exactly w x d, so nothing that was straight
+   changes price. */
+const sqft = it => polyArea(outline(it)) / 144;
+/* Cuts run both ways on a grid across the bounding box. A curved edge shortens
+   the odd cut, so this reads a little long — the right way round for a budget. */
+function sawCutLf(it){
+  const sp = RATE.sawGrid[it.saw || "none"];
+  if (!sp) return 0;
+  const w = it.w/12, d = it.d/12;
+  return Math.max(0, Math.floor((w - .01)/sp)) * d + Math.max(0, Math.floor((d - .01)/sp)) * w;
+}
+const ftin = n => {
+  const f = Math.floor(n/12), i = Math.round(n - f*12);
+  return f + "'" + (i ? " " + i + '"' : "");
+};
+const money = v => "$" + Math.round(v).toLocaleString();
+
+/* ---------- pricing ---------- */
+function priceItem(it){
+  if (it.type === "firepit"){
+    /* Round, square, rectangular and linear are all real builds — John builds to
+       whatever the yard needs. Perimeter is the right basis for all of them; a
+       round pit just measures its circumference rather than four sides. */
+    const per = it.shape === "round"
+      ? Math.PI * it.w / 12
+      : 2*(it.w + it.d)/12;
+    const nm = { round:"Round", square:"Square", rect:"Rectangular", linear:"Linear" };
+    return { label:(nm[it.shape] || "") + " fire pit",
+             detail:per.toFixed(1) + " lf perimeter"
+               + (per * RATE.firepitLf < RATE.firepitMin ? " · minimum build" : ""),
+             v: Math.max(RATE.firepitMin, per * RATE.firepitLf) };
+  }
+  if (it.type === "kitchen") return null;      // priced in the kitchen designer
+
+  const a = sqft(it);
+  const surf = SURFACES.find(s => s.k === it.mat) || SURFACES[0];
+  if (surf.kind === "concrete"){
+    const add = (it.stain ? RATE.finish.stain : 0) + (it.seed ? RATE.finish.seed : 0);
+    const rate = RATE.concrete[it.mat] + add;
+    const base = Math.max(RATE.concreteMin, a * rate);
+    /* NOTE: no placement here. Placement is a mobilisation cost for the whole
+       job, not per area — two patios poured the same day share one truck and
+       one pump. Charging it per area double-billed it. See placementCost(). */
+    const cut = sawCutLf(it), cutCost = cut * RATE.sawLf;
+    const fx = [it.stain ? "acid stain, sealed" : null, it.seed ? "hand seeded" : null]
+      .filter(Boolean).join(" · ");
+    /* The saw cutting sits outside the minimum — the minimum covers getting a
+       pour to the site, the cutting is separate labour on top. */
+    return { label:surf.n + (fx ? " — " + fx : ""),
+             detail:Math.round(a) + " sq ft @ " + money(rate) + "/sq ft"
+               + (base > a*rate ? " · minimum" : "")
+               + (cut ? " · saw cut " + Math.round(cut) + " lf @ " + money(RATE.sawLf) : ""),
+             v: base + cutCost, concrete:true, sqft:a };
+  }
+  const rate = RATE.paver[it.mat] + RATE.paverPattern[it.pattern||"running"] + RATE.access[S.access];
+  const base = Math.max(RATE.paverMin, a * rate);
+  return { label:surf.n, detail:Math.round(a) + " sq ft @ " + money(rate) + "/sq ft"
+             + (base > a*rate ? " · minimum" : ""), v: base };
+}
+/* Placement is a mobilisation cost for the whole job. Every concrete area poured
+   the same day shares one truck run and one pump, so it is computed once across
+   all of them — not per area. A two-colour area needs its own second pour, and
+   that one does cost again. */
+function placementCost(){
+  const conc = S.items.filter(it => it.type === "patio" &&
+    (SURFACES.find(s => s.k === it.mat) || {}).kind === "concrete");
+  if (!conc.length) return null;
+  const totalSqft = conc.reduce((a,it) => a + sqft(it), 0);
+  const yards = totalSqft * (4/12) / 27;
+  const trucks = Math.max(1, Math.ceil(yards / RATE.yardsPerTruck));
+  const first = RATE.placeFirst + RATE.placeExtra * (trucks - 1);
+  const extraPours = conc.filter(it => it.mat === "stamped2").length;
+  return { v: first + extraPours * RATE.placeFirst,
+           pours: 1 + extraPours, trucks, yards, areas: conc.length };
+}
+function renderQuote(){
+  const lines = [];
+  let total = 0, kitchens = 0;
+  S.items.forEach(it => {
+    if (it.type === "kitchen"){ kitchens++; return; }
+    const p = priceItem(it); if (!p) return;
+    lines.push(`<div class="ql"><span>${p.label}<i>${p.detail}</i></span><b>${money(p.v)}</b></div>`);
+    total += p.v;
+  });
+  const pl = placementCost();
+  if (pl){
+    lines.push(`<div class="ql"><span>Concrete placement
+      <i>${pl.areas > 1 ? pl.areas + " areas · " : ""}${pl.pours} pour${pl.pours>1?"s":""} ·
+      ${pl.trucks} truck${pl.trucks>1?"s":""} · ${pl.yards.toFixed(1)} yd</i></span>
+      <b>${money(pl.v)}</b></div>`);
+    total += pl.v;
+  }
+  if (kitchens) lines.push(`<div class="ql"><span>Outdoor kitchen × ${kitchens}
+    <i>designed and priced in the kitchen tool</i></span><b style="color:#5F7391">separate</b></div>`);
+  document.getElementById("q").innerHTML = lines.length ? lines.join("")
+    : '<div class="empty">Draw an area to see a number</div>';
+  /* A budget proposal is a range, not a figure. Showing one number invites it
+     being treated as a quote, which is exactly what the site visit is for. */
+  document.getElementById("tot").textContent = total
+    ? money(total) + " – " + money(total * 1.15) : "—";
+}
+
+/* ---------- interaction ---------- */
+let drag = null;
+/* Snap to 6". Dragging freely gives 30'9" x 8'10" patios — nobody pours those,
+   and a ragged dimension on a proposal makes it look machine-generated rather
+   than measured. 6" is fine enough to place things and coarse enough to read. */
+const SNAP = 6;
+const snap = v => Math.round(v / SNAP) * SNAP;
+function norm(d){
+  return { x: snap(Math.min(d.x0,d.x1)), y: snap(Math.min(d.y0,d.y1)),
+           w: snap(Math.abs(d.x1-d.x0)), d: snap(Math.abs(d.y1-d.y0)) };
+}
+function hitHandle(x,y){
+  const it = S.items.find(i => i.id === S.sel);
+  if (!it || !curvable(it)) return null;
+  const tol = 11/view.s;
+  /* Corners first: near the end of an edge the two handles can overlap, and the
+     radius is the one you meant. */
+  for (let i = 0; i < 4; i++){
+    const p = cornerHandlePt(it, i);
+    if (Math.hypot(x-p[0], y-p[1]) < tol) return { it, e:i, kind:"r" };
+  }
+  for (let e = 0; e < 4; e++){
+    const p = handlePt(it, e);
+    if (Math.hypot(x-p[0], y-p[1]) < tol) return { it, e, kind:"cv" };
+  }
+  return null;
+}
+function hit(x,y){
+  for (let i = S.items.length-1; i >= 0; i--){
+    const it = S.items[i];
+    if (x >= it.x && x <= it.x+it.w && y >= it.y && y <= it.y+it.d) return it;
+  }
+  return null;
+}
+cv.addEventListener("pointerdown", e => {
+  const r = cv.getBoundingClientRect();
+  const x = invX(e.clientX - r.left), y = invY(e.clientY - r.top);
+  cv.setPointerCapture(e.pointerId);
+  if (S.tool === "select"){
+    /* Handles first — they sit on the edge, so the item under them would win. */
+    const h = hitHandle(x,y);
+    if (h){ drag = { mode: h.kind === "r" ? "radius" : "curve",
+                     id:h.it.id, edge:h.e }; draw(); return; }
+    const it = hit(x,y);
+    S.sel = it ? it.id : null;
+    if (it) drag = { mode:"move", id:it.id, gx:x-it.x, gy:y-it.y };
+    syncSel(); draw(); return;
+  }
+  drag = { mode:"new", x0:x, y0:y, x1:x, y1:y };
+});
+cv.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const r = cv.getBoundingClientRect();
+  const x = invX(e.clientX - r.left), y = invY(e.clientY - r.top);
+  if (drag.mode === "new"){ drag.x1 = x; drag.y1 = y; draw(); }
+  else if (drag.mode === "radius"){
+    const it = S.items.find(i => i.id === drag.id); if (!it) return;
+    if (!it.r) it.r = [0,0,0,0];
+    const c = corners(it)[drag.edge], d = cornerDiag(drag.edge);
+    /* How far the handle has been pulled along the inward diagonal, 3" steps. */
+    const r = Math.round((((x-c[0])*d[0] + (y-c[1])*d[1])) / 3) * 3;
+    it.r[drag.edge] = Math.max(0, Math.min(Math.min(it.w, it.d)/2, r));
+    renderQuote(); draw();
+  }
+  else if (drag.mode === "curve"){
+    const it = S.items.find(i => i.id === drag.id); if (!it) return;
+    if (!it.cv) it.cv = [0,0,0,0];
+    const c = corners(it), a = c[drag.edge], b = c[(drag.edge+1)%4], nm = NORMAL[drag.edge];
+    const mx = (a[0]+b[0])/2, my = (a[1]+b[1])/2;
+    /* Signed distance along the outward normal. 3" steps: fine enough to shape
+       by eye, coarse enough that the dimensions stay readable. */
+    let k = Math.round(((x-mx)*nm[0] + (y-my)*nm[1]) / 3) * 3;
+    /* Two limits, and both were missing. Inward, an edge has to leave room for
+       whatever the opposite edge has already taken — clamping each edge on its
+       own let both sides bow in until the patio was a 12" neck. Outward, the
+       pour cannot leave the yard; nothing stopped a bow crossing the property
+       line by ten feet. */
+    const opp = (drag.edge + 2) % 4;
+    const span = (drag.edge % 2 === 0) ? it.d : it.w;
+    const oppIn = Math.max(0, -(it.cv[opp] || 0));
+    const minK = -Math.max(0, span - 24 - oppIn);
+    const maxK = Math.max(0,
+        drag.edge === 0 ? it.y
+      : drag.edge === 1 ? S.yardW - it.x - it.w
+      : drag.edge === 2 ? S.yardD - it.y - it.d
+      :                   it.x);
+    it.cv[drag.edge] = Math.max(minK, Math.min(maxK, k));
+    renderQuote(); draw();
+  }
+  else if (drag.mode === "move"){
+    const it = S.items.find(i => i.id === drag.id); if (!it) return;
+    const o = overhang(it);
+    const hiX = Math.max(o.l, S.yardW - it.w - o.r);
+    const hiY = Math.max(o.t, S.yardD - it.d - o.b);
+    it.x = Math.max(o.l, Math.min(hiX, snap(x - drag.gx)));
+    it.y = Math.max(o.t, Math.min(hiY, snap(y - drag.gy)));
+    draw();
+  }
+});
+cv.addEventListener("dblclick", e => {
+  const r = cv.getBoundingClientRect();
+  const h = hitHandle(invX(e.clientX - r.left), invY(e.clientY - r.top));
+  if (!h) return;
+  if (h.kind === "r"){ if (h.it.r) h.it.r[h.e] = 0; }
+  else if (h.it.cv) h.it.cv[h.e] = 0;
+  renderQuote(); draw();
+});
+addEventListener("pointerup", () => {
+  if (drag && drag.mode === "new"){
+    const r = norm(drag);
+    if (r.w > 18 && r.d > 18){
+      const it = { id: uid++, x:r.x, y:r.y, w:r.w, d:r.d, type:S.tool };
+      if (S.tool === "patio"){ it.type = "patio"; it.mat = "stamped"; it.pattern = "running"; }
+      if (S.tool === "firepit"){ it.shape = "round"; it.d = it.w; }   // round is the common one
+      S.items.push(it); S.sel = it.id;
+      setTool("select"); syncSel();
+    }
+  }
+  drag = null; renderQuote(); draw();
+});
+
+function setTool(t){
+  S.tool = t;
+  document.querySelectorAll("#tools button").forEach(b => b.classList.toggle("on", b.dataset.t === t));
+  document.getElementById("hint").textContent =
+    t === "select" ? "Drag to move · blue dot bows an edge · green square sets a corner radius · double-click to reset"
+    : t === "patio" ? "Drag out the patio area"
+    : "Drag out the footprint";
+  cv.style.cursor = t === "select" ? "default" : "crosshair";
+}
+(function(){
+  const wrap = document.getElementById("demoWrap");
+  const box  = document.getElementById("demoFrame");
+  const VID  = "uZhNbtxYtrU";
+  function open(){
+    box.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + VID +
+      '?rel=0&autoplay=1" title="Backyard planner demo" allow="autoplay; fullscreen" ' +
+      'allowfullscreen></iframe>';
+    wrap.hidden = false;
+  }
+  /* Clearing the iframe is what actually stops playback — hiding the wrapper
+     leaves the audio running behind it. */
+  function close(){ wrap.hidden = true; box.innerHTML = ""; }
+  document.getElementById("demoBtn").onclick = open;
+  document.getElementById("demoClose").onclick = close;
+  wrap.addEventListener("click", e => { if (e.target === wrap) close(); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && !wrap.hidden) close(); });
+})();
+
+document.getElementById("tools").onclick = e => {
+  const b = e.target.closest("[data-t]"); if (b) setTool(b.dataset.t);
+};
+
+/* ---------- selection panel ---------- */
+document.getElementById("fxStain").onclick = () => {
+  const it = S.items.find(i => i.id === S.sel); if (!it) return;
+  it.stain = !it.stain; renderQuote(); syncSel(); draw();
+};
+document.getElementById("fxSeed").onclick = () => {
+  const it = S.items.find(i => i.id === S.sel); if (!it) return;
+  it.seed = !it.seed; renderQuote(); syncSel(); draw();
+};
+document.getElementById("selSaw").onchange = e => {
+  const it = S.items.find(i => i.id === S.sel); if (!it) return;
+  it.saw = e.target.value; renderQuote(); syncSel(); draw();
+};
+function syncSel(){
+  const it = S.items.find(i => i.id === S.sel);
+  const box = document.getElementById("selGrp");
+  if (!it || it.type === "kitchen"){ box.style.display = "none"; return; }
+  box.style.display = "";
+  const isPatio = it.type === "patio";
+  /* Shape only means something for a fire pit; surface only for hardscape. */
+  document.getElementById("fldShape").style.display = isPatio ? "none" : "";
+  document.getElementById("fldMat").style.display = isPatio ? "" : "none";
+  if (!isPatio) document.getElementById("selShape").value = it.shape || "round";
+  document.getElementById("selMat").innerHTML = isPatio
+    ? SURFACES.map(s => `<option value="${s.k}">${s.n}</option>`).join("")
+    : "";
+  if (isPatio) document.getElementById("selMat").value = it.mat;
+  const surf = SURFACES.find(s => s.k === it.mat);
+  document.getElementById("fldPattern").style.display =
+    (isPatio && surf && surf.kind === "paver") ? "" : "none";
+  document.getElementById("selPattern").innerHTML =
+    PATTERNS.map(p => `<option value="${p.k}">${p.n}</option>`).join("");
+  if (it.pattern) document.getElementById("selPattern").value = it.pattern;
+  /* Concrete only — you do not acid stain a paver. */
+  const isConc = isPatio && surf && surf.kind === "concrete";
+  document.getElementById("fldFinish").style.display = isConc ? "" : "none";
+  document.getElementById("fxStain").classList.toggle("on", !!it.stain);
+  document.getElementById("fxSeed").classList.toggle("on", !!it.seed);
+  document.getElementById("fldSaw").style.display = isConc ? "" : "none";
+  document.getElementById("selSaw").value = it.saw || "none";
+  const cut = sawCutLf(it);
+  document.getElementById("sawLfV").textContent = cut ? Math.round(cut) + " lf" : "none";
+  document.getElementById("selAccess").innerHTML =
+    ACCESS.map(a => `<option value="${a.k}">${a.n}</option>`).join("");
+  document.getElementById("selAccess").value = S.access;
+  document.getElementById("selW").value = ftin(it.w);
+  document.getElementById("selD").value = ftin(it.d);
+}
+document.getElementById("selMat").onchange = e => {
+  const it = S.items.find(i => i.id === S.sel); if (!it) return;
+  it.mat = e.target.value; syncSel(); renderQuote(); draw();
+};
+document.getElementById("selShape").onchange = e => {
+  const it = S.items.find(i => i.id === S.sel); if (!it) return;
+  it.shape = e.target.value;
+  /* Round and square are equal-sided by definition — carry the larger dimension
+     so switching shape never silently shrinks what was drawn. */
+  if (it.shape === "round" || it.shape === "square"){
+    const s = Math.max(it.w, it.d); it.w = s; it.d = s;
+  }
+  syncSel(); renderQuote(); draw();
+};
+document.getElementById("selPattern").onchange = e => {
+  const it = S.items.find(i => i.id === S.sel); if (!it) return;
+  it.pattern = e.target.value; renderQuote();
+};
+document.getElementById("selAccess").onchange = e => { S.access = e.target.value; renderQuote(); };
+["selW","selD"].forEach(id => {
+  document.getElementById(id).onchange = e => {
+    const it = S.items.find(i => i.id === S.sel); if (!it) return;
+    const v = parseLen(e.target.value); if (v == null) return syncSel();
+    if (id === "selW") it.w = Math.max(12, Math.min(S.yardW, v));
+    else it.d = Math.max(12, Math.min(S.yardD, v));
+    renderQuote(); draw(); syncSel();
+  };
+});
+document.getElementById("delBtn").onclick = () => {
+  S.items = S.items.filter(i => i.id !== S.sel);
+  S.sel = null; syncSel(); renderQuote(); draw();
+};
+
+/* ---------- yard size: typed, spoken, or traced ---------- */
+function parseLen(str){
+  const t = String(str).trim(); if (!t) return null;
+  const fr = t.match(/(\d+)\s*\/\s*(\d+)/);
+  const fv = fr && +fr[2] ? (+fr[1])/(+fr[2]) : 0;
+  const rest = fr ? t.replace(fr[0]," ") : t;
+  const ft = rest.match(/(-?[\d.]+)\s*(?:'|ft\b|feet\b|foot\b)/i);
+  const inch = rest.match(/(-?[\d.]+)\s*(?:"|in\b|inch)/i);
+  if (ft || inch) return (ft?parseFloat(ft[1])*12:0) + (inch?parseFloat(inch[1]):0) + fv;
+  const n = parseFloat(rest);
+  /* A bare number in this box means FEET — nobody describes a yard in inches. */
+  return isNaN(n) ? null : n*12 + fv;
+}
+function setYard(wFt, dFt){
+  S.yardW = Math.max(120, Math.min(600*12, wFt*12));
+  S.yardD = Math.max(120, Math.min(600*12, dFt*12));
+  document.getElementById("yW").value = (S.yardW/12) + "'";
+  document.getElementById("yD").value = (S.yardD/12) + "'";
+  document.getElementById("yardNote").textContent =
+    Math.round(S.yardW/12 * S.yardD/12).toLocaleString() + " sq ft of yard to work with.";
+  draw();
+}
+["yW","yD"].forEach(id => {
+  document.getElementById(id).onchange = () => {
+    const w = parseLen(document.getElementById("yW").value);
+    const d = parseLen(document.getElementById("yD").value);
+    if (w && d) setYard(w/12, d/12);
+  };
+});
+
+/* Spoken size. "it's a 45 by 50 deep rectangle backyard" and the handful of
+   other ways people say it — x, by, and plain "45 50". */
+function parseSpokenYard(said){
+  const t = " " + said.toLowerCase()
+    .replace(/[^a-z0-9.\s]/g," ").replace(/\s+/g," ") + " ";
+  const words = { one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,
+    twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90,hundred:100 };
+  let s = t;
+  Object.keys(words).sort((a,b)=>b.length-a.length)
+    .forEach(w => s = s.replace(new RegExp("\\b"+w+"\\b","g"), words[w]));
+  const m = s.match(/(\d+(?:\.\d+)?)\s*(?:x|by|×)\s*(\d+(?:\.\d+)?)/)
+         || s.match(/(\d+(?:\.\d+)?)\s*(?:foot|feet|ft)?\s+(?:wide|across)[^0-9]*(\d+(?:\.\d+)?)/)
+         || s.match(/(\d+(?:\.\d+)?)\s+(\d+(?:\.\d+)?)\s*(?:foot|feet|ft)?\s*(?:deep|back)/);
+  if (!m) return null;
+  const a = parseFloat(m[1]), b = parseFloat(m[2]);
+  if (!(a > 4 && b > 4 && a < 600 && b < 600)) return null;
+  return { w:a, d:b };
+}
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micBtn = document.getElementById("micBtn");
+if (!SR) micBtn.style.display = "none";
+let rec = null;
+micBtn.onclick = () => {
+  if (!SR) return;
+  if (rec){ rec.stop(); return; }
+  rec = new SR(); rec.lang = "en-US"; rec.interimResults = false; rec.maxAlternatives = 3;
+  micBtn.classList.add("live"); micBtn.textContent = "Listening…";
+  rec.onresult = ev => {
+    const said = ev.results[0][0].transcript;
+    const got = parseSpokenYard(said);
+    const note = document.getElementById("yardNote");
+    if (got){ setYard(got.w, got.d); }
+    else note.textContent = "Heard “" + said + "” — say it like “45 by 50”.";
+  };
+  rec.onerror = () => {};
+  rec.onend = () => { rec = null; micBtn.classList.remove("live");
+    micBtn.textContent = "🎤 Say the size"; };
+  rec.start();
+};
+
+/* Trace a plot map: drop the image behind the yard so areas can be drawn over it. */
+document.getElementById("upBtn").onclick = () => document.getElementById("planFile").click();
+document.getElementById("planFile").onchange = e => {
+  const f = e.target.files && e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => { const im = new Image();
+    im.onload = () => { S.plan = im;
+      document.getElementById("yardNote").textContent =
+        "Plot map traced in. Set the yard size to match its scale, then draw over it.";
+      draw(); };
+    im.src = rd.result; };
+  rd.readAsDataURL(f);
+  e.target.value = "";
+};
+
+document.getElementById("copyBtn").onclick = () => {
+  const W = 64, pad = (s,n) => String(s).padEnd(n);
+  const L = [];
+  L.push("EAGLEBUILT AI — BACKYARD BUDGET PROPOSAL");
+  L.push("=".repeat(W));
+  L.push("Yard: " + ftin(S.yardW) + " × " + ftin(S.yardD)
+    + "   (" + Math.round(S.yardW/12 * S.yardD/12).toLocaleString() + " sq ft)");
+  L.push("");
+  L.push(pad("ITEM", 34) + pad("SIZE", 20) + "AMOUNT");
+  L.push("-".repeat(W));
+
+  let total = 0, n = 0;
+  S.items.forEach(it => {
+    if (it.type === "kitchen"){
+      n++;
+      L.push(pad(n + ". Outdoor kitchen", 34)
+        + pad(ftin(it.w) + " × " + ftin(it.d), 20) + "see kitchen proposal");
+      return;
+    }
+    const p = priceItem(it); if (!p) return;
+    n++;
+    L.push(pad(n + ". " + p.label, 34)
+      + pad(ftin(it.w) + " × " + ftin(it.d), 20) + money(p.v));
+    L.push("     " + p.detail);
+    total += p.v;
+  });
+
+  const pl = placementCost();
+  if (pl){
+    n++;
+    L.push(pad(n + ". Concrete placement", 34) + pad(pl.yards.toFixed(1) + " yd", 20) + money(pl.v));
+    L.push("     " + (pl.areas > 1 ? pl.areas + " areas poured together · " : "")
+      + pl.pours + " pour" + (pl.pours>1?"s":"") + " · " + pl.trucks
+      + " truck" + (pl.trucks>1?"s":"") + " · pump or wheelbarrow");
+    total += pl.v;
+  }
+
+  L.push("-".repeat(W));
+  L.push(pad("BUDGET RANGE", 54) + money(total) + " – " + money(total*1.15));
+  L.push("");
+  L.push("INCLUDED IN THE HARDSCAPE RATES");
+  L.push("  Grading and site work, compacted subgrade, base rock and crushed");
+  L.push("  rock fill. Slab poured 3.5\"–4\" thick.");
+  L.push("");
+  L.push("This is a BUDGET PROPOSAL, not a firm quote. Final pricing follows a");
+  L.push("site visit — access, grade, existing utilities and jurisdiction all");
+  L.push("move the number, and none of them are visible from a drawing.");
+  L.push("");
+  L.push("John Simpson · EagleBuilt AI");
+  L.push("CSLB #992251 — General Contractor & C-29 Masonry");
+  L.push("(949) 564-1948 · info@eaglebuilt.ai");
+
+  navigator.clipboard.writeText(L.join("\n")).then(() => {
+    const b = document.getElementById("copyBtn");
+    b.textContent = "Copied"; setTimeout(()=>b.textContent="Copy proposal",1400);
+  }, ()=>{});
+};
+
+addEventListener("resize", draw);
+document.getElementById("stamp").textContent = "preview · 2026-08-28";
+setYard(45, 50);
+setTool("select");
+renderQuote();
+draw();
+</script>
+</body>
+</html>

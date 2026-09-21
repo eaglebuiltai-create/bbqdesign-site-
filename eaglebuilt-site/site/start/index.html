@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>EagleBuilt AI — Design It. We Build It.</title>
+<meta name="description" content="Design your outdoor kitchen in 3D with real grill cutouts and live pricing, then have EagleBuilt build it. Sacramento and the foothills.">
+<link rel="canonical" href="https://eaglebuilt.ai/">
+<!-- Splash / campaign entry page: points its canonical at the homepage and stays
+     out of the index so it never competes with / in search. -->
+<meta name="robots" content="noindex, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://eaglebuilt.ai/start/">
+<meta property="og:title" content="EagleBuilt AI — Design It. We Build It.">
+<meta property="og:description" content="Design your outdoor kitchen in 3D with real grill cutouts and live pricing. Free.">
+<meta property="og:image" content="https://eaglebuilt.ai/design/tool-preview.jpg">
+<meta property="og:image:width" content="1440">
+<meta property="og:image:height" content="810">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://eaglebuilt.ai/design/tool-preview.jpg">
+
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<link rel="preload" as="image" href="/design/tool-preview.jpg" fetchpriority="high">
+
+<!-- Styles are inline on purpose. This page is the first thing paid traffic,
+     a QR code or a business card lands on: one request, one paint. -->
+<style>
+:root{
+  --bg:#070A12; --panel:#0F1826; --line:#1E2C42; --line2:#2A3B57;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  --blue:#2E9BFF; --blue2:#7FC4FF; --red:#E8342B;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100svh;background:var(--bg);color:var(--txt);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;
+  background-image:
+    radial-gradient(1000px 600px at 12% -12%,rgba(46,155,255,.18),transparent 62%),
+    radial-gradient(900px 560px at 92% 4%,rgba(232,52,43,.11),transparent 60%);
+  background-repeat:no-repeat;
+}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--blue2);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:8px;top:8px;z-index:9;background:var(--panel);padding:10px 14px;border-radius:8px}
+
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 22px}
+
+/* brand bar */
+.top{padding:22px 0 0}
+.brand{display:inline-flex;align-items:center;gap:11px}
+.brand img{height:34px;width:auto;filter:drop-shadow(0 1px 10px rgba(46,155,255,.4))}
+.brand b{font-size:16px;letter-spacing:.055em;font-weight:800;color:var(--txt)}
+.brand b i{font-style:normal;color:var(--red)}
+.brand:hover{text-decoration:none}
+
+/* the splash */
+main{flex:1;display:flex;align-items:center;padding:34px 0 20px}
+.grid{display:grid;grid-template-columns:1fr 1.02fr;gap:52px;align-items:center;width:100%}
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr;gap:26px}
+  main{padding:24px 0 14px}
+}
+/* Phones: tighten the copy block so the CTA and the top of the render both
+   sit above the fold on a 375x812 screen. */
+@media(max-width:560px){
+  .eyebrow{margin-bottom:14px}
+  h1{margin-bottom:14px}
+  .lede{margin-bottom:22px;line-height:1.5}
+  .cta{gap:10px}
+  .btn{padding:15px 26px}
+}
+
+.eyebrow{
+  display:inline-block;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue2);font-weight:800;margin:0 0 18px;
+  background:rgba(46,155,255,.1);border:1px solid rgba(46,155,255,.28);
+  padding:6px 12px;border-radius:20px;
+}
+h1{
+  font-size:clamp(34px,5.6vw,58px);line-height:1.06;letter-spacing:-.03em;
+  font-weight:800;margin:0 0 18px;text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--blue2)}
+.lede{font-size:clamp(16.5px,1.9vw,19.5px);color:var(--muted);max-width:46ch;margin:0 0 28px}
+.lede b{color:var(--txt);font-weight:650}
+
+.cta{display:flex;gap:13px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:16px 30px;border-radius:10px;font-weight:750;font-size:16.5px;border:0;
+  background:linear-gradient(180deg,#2E9BFF,#1668C4);color:#fff;
+  box-shadow:0 6px 26px rgba(46,155,255,.34);transition:.15s;
+}
+.btn:hover{filter:brightness(1.09);text-decoration:none}
+.btn.ghost{
+  background:transparent;border:1px solid var(--line2);color:var(--txt);
+  box-shadow:none;font-weight:700;
+}
+.btn.ghost:hover{background:#16233A}
+.note{font-size:13.5px;color:var(--muted);margin:16px 0 0}
+
+/* the render */
+.shot{
+  position:relative;border-radius:14px;overflow:hidden;
+  border:1px solid var(--line2);box-shadow:0 26px 70px rgba(0,0,0,.6);
+}
+.shot img{width:100%}
+.shot figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:26px 18px 12px;font-size:13px;color:var(--muted);
+  background:linear-gradient(180deg,transparent,rgba(7,10,18,.92));
+}
+
+/* proof strip */
+.strip{border-top:1px solid var(--line);padding:18px 0 26px}
+.stats{display:flex;flex-wrap:wrap;gap:10px 34px;align-items:baseline;margin:0 0 12px;padding:0;list-style:none}
+.stats li{color:var(--muted);font-size:14.5px}
+.stats b{color:var(--txt);font-weight:800;font-size:19px;letter-spacing:-.02em;margin-right:7px}
+.legal{color:var(--dim);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+.legal a{color:var(--dim)}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="top">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/assets/eaglebuilt-emblem.png" alt="" width="120" height="34">
+      <b>EAGLEBUILT<i>&nbsp;AI</i></b>
+    </a>
+  </div>
+</div>
+
+<main id="main">
+  <div class="wrap grid">
+
+    <div>
+      <span class="eyebrow">Sacramento &amp; the foothills</span>
+      <h1>Design it in 3D.<br><em>We build it.</em></h1>
+      <p class="lede">
+        Lay out your outdoor kitchen around the grill you actually want — real manufacturer
+        cutouts, a price that moves as you build, and drawings good enough to hand a mason.
+        <b>Then we pour the concrete.</b>
+      </p>
+      <div class="cta">
+        <a class="btn" href="/design/">Start designing</a>
+        <a class="btn ghost" href="tel:+19495641948">(949) 564-1948</a>
+      </div>
+      <p class="note">Free — your email opens it. About five minutes, nothing to install.</p>
+    </div>
+
+    <figure class="shot" style="margin:0">
+      <img src="/design/tool-preview.jpg" width="1440" height="810" fetchpriority="high"
+           alt="A 3D view in the EagleBuilt designer of an outdoor kitchen island with a built-in grill, storage drawers, doors, a sink and a refrigerator">
+      <figcaption>Your island, in the browser, before a block is laid.</figcaption>
+    </figure>
+
+  </div>
+</main>
+
+<div class="strip">
+  <div class="wrap">
+    <ul class="stats">
+      <li><b>124</b>real components</li>
+      <li><b>10</b>grill brands</li>
+      <li><b>36</b>years building them</li>
+    </ul>
+    <div class="legal">
+      <span>CSLB Lic. #992251 &middot; General Contractor &amp; C-29 Masonry</span>
+      <a href="/">Full site</a>
+      <a href="/cost/">What it costs</a>
+      <a href="/projects/">Projects</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

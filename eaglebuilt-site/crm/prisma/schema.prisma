@@ -1,0 +1,60 @@
+// EagleBuilt CRM — Prisma schema
+// Postgres (Neon). SQLite was the archive default, but Vercel's filesystem is
+// ephemeral — a SQLite file there is wiped on every redeploy, taking the leads
+// with it. Local dev uses a separate Neon branch; see DEPLOY.md.
+// Status values enforced in app: new|contacted|quoted|sold|building|done|lost
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  // Pooled connection for the app (Vercel runs serverless — without the pooler
+  // each function instance opens its own connection and Neon runs out).
+  url       = env("DATABASE_URL")
+  // Direct connection for migrations, which cannot run through the pooler.
+  // Name matches what `neon link` writes, so re-pulling env never needs patching.
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  notes        Note[]
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  email         String
+  zip           String
+  name          String?
+  phone         String?
+  designSummary String?
+  source        String   @default("designer")
+  status        String   @default("new")
+  nextFollowUp  DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  notes         Note[]
+
+  @@index([status])
+  @@index([nextFollowUp])
+  @@index([email])
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  body      String
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}

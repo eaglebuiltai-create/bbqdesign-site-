@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>EagleBuilt AI — Fire Pit Designer</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070A12; --panel:#0C111C; --line:#1B2536; --line2:#22304A;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  --blue:#2E9BFF; --blueL:#7FC4FF; --red:#E8342B; --ok:#7FD3AA;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100%}
+
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;
+  border-bottom:1px solid var(--line);background:var(--panel);flex:none}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.3px;font-size:14px}
+.brand i{color:var(--blue);font-style:normal}
+.tag{font-size:11px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:999px;padding:3px 10px}
+header .sp{flex:1}
+
+main{flex:1;display:flex;min-height:0}
+#stage{flex:1;position:relative;min-width:0;background:
+  radial-gradient(120% 90% at 50% 12%,#101a2e 0%,#070A12 70%)}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+
+.overlay{position:absolute;display:flex;gap:6px;flex-wrap:wrap;z-index:5}
+.overlay.tl{top:12px;left:12px} .overlay.br{bottom:12px;right:12px}
+.overlay.tr{top:12px;right:12px}
+.chip{background:rgba(12,17,28,.92);border:1px solid var(--line2);border-radius:9px;
+  padding:6px 10px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.chip b{color:var(--txt);font-weight:700}
+
+aside{width:330px;flex:none;background:var(--panel);border-left:1px solid var(--line);
+  overflow-y:auto;padding:14px}
+@media(max-width:860px){
+  main{flex-direction:column}
+  aside{width:auto;max-height:52%;border-left:none;border-top:1px solid var(--line)}
+}
+.grp{margin-bottom:16px}
+.grp h4{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
+  margin-bottom:8px;font-weight:700}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button, .mini{background:#111a29;border:1px solid var(--line2);color:var(--muted);
+  border-radius:8px;padding:7px 11px;font-size:12.5px;cursor:pointer;font-family:inherit;
+  transition:.12s}
+.presets button:hover,.mini:hover{border-color:#33507c;color:var(--txt)}
+.presets button.on{background:var(--blue);border-color:var(--blue);color:#04101f;font-weight:700}
+.field{margin-bottom:9px}
+.field label{display:block;font-size:11.5px;color:var(--dim);margin-bottom:4px}
+input[type=text],select{width:100%;background:#070c15;border:1px solid var(--line2);
+  color:var(--txt);border-radius:8px;padding:8px 10px;font-size:13.5px;font-family:inherit}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+.ql{display:flex;justify-content:space-between;gap:10px;padding:6px 0;
+  font-size:13px;border-bottom:1px solid var(--line)}
+.ql:last-child{border-bottom:none}
+.ql span{color:var(--muted)} .ql b{color:var(--txt);white-space:nowrap}
+.ql i{display:block;font-style:normal;font-size:11px;color:var(--dim);margin-top:1px}
+.ql.sub{border-top:1px solid var(--line2);margin-top:4px;padding-top:8px}
+.ql.sub b, .ql.sub span{color:var(--txt);font-weight:700}
+.total{background:#0E1725;border:1px solid var(--line2);border-radius:10px;
+  padding:11px 13px;margin-top:10px}
+.total .n{font-size:26px;font-weight:800;color:var(--blueL);letter-spacing:-.5px}
+.total .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px}
+.note{background:#0E1420;border:1px solid var(--line2);border-radius:9px;
+  padding:9px 11px;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:9px}
+.btn{display:inline-block;background:var(--red);color:#fff;border:none;border-radius:9px;
+  padding:10px 16px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--muted)}
+.sw{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.sw i{width:26px;height:26px;border-radius:6px;border:2px solid transparent;cursor:pointer;display:block}
+.sw i.on{border-color:var(--blue)}
+</style>
+<script src="/assets/track.js"></script>
+<script src="/assets/emailcheck.js"></script>
+</head>
+<body>
+<!-- ══════════════════════════════════════════════════════════════════════
+     EMAIL GATE. Self-contained on purpose — its own eb-prefixed styles and
+     its own IIFE, so it cannot collide with anything in the designer below.
+     Shown before first paint, so a returning visitor never sees it flash.
+     ══════════════════════════════════════════════════════════════════════ -->
+<style>
+#ebGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;
+  justify-content:center;padding:20px;background:rgba(4,7,13,.88);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+#ebGate[hidden]{display:none}
+#ebGate .ebCard{width:100%;max-width:400px;background:#0C111C;border:1px solid #22304A;
+  border-radius:14px;padding:22px;color:#E7EEF7;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#ebGate .ebBrand{font-weight:800;letter-spacing:.3px;font-size:13px;margin-bottom:14px}
+#ebGate .ebBrand i{color:#2E9BFF;font-style:normal}
+#ebGate h2{font-size:19px;margin:0 0 6px;letter-spacing:-.2px;font-weight:800}
+#ebGate .ebLede{color:#8DA0B8;font-size:13px;margin:0 0 16px}
+#ebGate label{display:block;font-size:11.5px;color:#5F7391;margin:0 0 4px}
+#ebGate label span{color:#3E4E66}
+#ebGate input{width:100%;background:#070c15;border:1px solid #22304A;color:#E7EEF7;
+  border-radius:8px;padding:10px 11px;font-size:16px;font-family:inherit;margin-bottom:11px}
+#ebGate input:focus{outline:none;border-color:#2E9BFF}
+#ebGate button{width:100%;background:#E8342B;color:#fff;border:none;border-radius:9px;
+  padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+#ebGate button:disabled{opacity:.6;cursor:default}
+#ebGate .ebErr{color:#E8342B;font-size:12px;margin:8px 0 0;display:none}
+#ebGate .ebFine{color:#5F7391;font-size:11px;margin:12px 0 0;line-height:1.5}
+</style>
+
+<div id="ebGate" hidden>
+  <div class="ebCard">
+    <div class="ebBrand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <h2>Start your design</h2>
+    <p class="ebLede">Free to use. Add your email and the designer opens &mdash; we use it to
+      send you the design and its itemized budget when you are done.</p>
+    <form id="ebGateForm" novalidate>
+      <label for="ebEmail">Email</label>
+      <input type="email" id="ebEmail" autocomplete="email" placeholder="you@example.com">
+      <label for="ebZip">ZIP code <span>&mdash; optional</span></label>
+      <input type="text" id="ebZip" inputmode="numeric" autocomplete="postal-code" placeholder="95630">
+      <button type="submit" id="ebGo">Start designing</button>
+      <p class="ebErr" id="ebErr"></p>
+      <p class="ebFine">Everything the designer produces is a budget proposal. Final pricing
+        follows a field verification visit. No lists, no spam.</p>
+      <p class="ebFine" style="margin-top:8px">Rather we designed it?
+        <a href="/consultation/" style="color:#7FC4FF">Book a free consultation</a>.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY  = "eb.designer.lead";
+  var TOOL = ({ "/design/app/":       "Kitchen",
+                "/design/firepit/":   "Fire pit",
+                "/design/fireplace/": "Fireplace",
+                "/design/yard/":      "Backyard" })[location.pathname] || "Designer";
+  var gate = document.getElementById("ebGate");
+
+  /* A browser that blocks storage throws on read. Show the gate in that case —
+     but the write below is also wrapped, so a blocked browser still gets in,
+     it just gets asked again next visit. Never trap anyone outside. */
+  var seen = false;
+  try { seen = !!localStorage.getItem(KEY); } catch (e) {}
+  if (seen) return;
+  gate.hidden = false;
+
+  var form = document.getElementById("ebGateForm");
+  var err  = document.getElementById("ebErr");
+  var btn  = document.getElementById("ebGo");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = (document.getElementById("ebEmail").value || "").trim();
+    var zip   = (document.getElementById("ebZip").value || "").trim();
+
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
+      err.textContent = "Please enter an email we can send the design to.";
+      err.style.display = "block";
+      document.getElementById("ebEmail").focus();
+      return;
+    }
+    if (window.EBEmailCheck && !EBEmailCheck.gate(email, document.getElementById("ebEmail"), err)) return;
+    btn.disabled = true;
+    btn.textContent = "Opening…";
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ email: email, zip: zip, ts: Date.now() }));
+    } catch (e2) {}
+
+    /* Fire and forget. The visitor is let in whatever the network does — a
+       failed POST must never read as a broken tool, and the full lead still
+       goes out when they send the design. */
+    try {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
+          from_name:  "EagleBuilt AI Designer",
+          subject:    TOOL + " designer opened — " + email,
+          lead_stage: "opened the designer",
+          email:      email,
+          zip:        zip || "—",
+          page:       location.pathname
+        })
+      }).catch(function () {});
+    } catch (e3) {}
+
+    /* And into the CRM. Same-origin, so the ingest key stays in the Worker
+       and never reaches the page — see src/worker.js. Fire and forget for the
+       same reason as above: the visitor is never held up by it, and a CRM
+       outage cannot look like a broken tool. */
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:  email,
+          zip:    zip,
+          source: TOOL + " designer"
+        })
+      }).catch(function () {});
+    } catch (e4) {}
+
+    gate.hidden = true;
+    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL });
+  });
+})();
+</script>
+
+<div id="app">
+  <header>
+    <div class="brand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <div class="tag">Fire Pit Designer</div>
+    <div class="sp"></div>
+    <div class="tag" id="stamp">preview</div>
+  </header>
+
+  <main>
+    <div id="stage">
+      <canvas id="c"></canvas>
+      <div class="overlay tl">
+        <div class="chip" id="dims"><b>—</b></div>
+      </div>
+      <div class="overlay tr">
+        <div class="presets" id="view">
+          <button class="mini" data-v="3d">3D</button>
+          <button class="mini" data-v="plan">Plan</button>
+          <button class="mini" data-v="el">Elevation</button>
+        </div>
+      </div>
+      <div class="overlay br">
+        <div class="chip" id="hint">drag to orbit · scroll to zoom</div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="grp">
+        <h4>Shape</h4>
+        <div class="presets" id="shape">
+          <button data-s="round">Round</button>
+          <button data-s="square">Square</button>
+          <button data-s="rect">Rectangular</button>
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Size</h4>
+        <div class="row2">
+          <div class="field"><label id="lblA">Diameter</label>
+            <input type="text" id="inA" spellcheck="false"></div>
+          <div class="field" id="fldB"><label>Depth</label>
+            <input type="text" id="inB" spellcheck="false"></div>
+        </div>
+        <div class="field">
+          <label>Wall height — <b id="hVal">16&quot;</b> block, <span id="finH">19&quot;</span> finished</label>
+          <input type="range" id="inH" min="8" max="24" step="8">
+        </div>
+        <div class="note" id="sizeNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Body finish</h4>
+        <div class="presets" id="body">
+          <button data-f="stucco">Stucco</button>
+          <button data-f="stone">Stone veneer</button>
+        </div>
+        <div class="sw" id="bodySw"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Cap</h4>
+        <div class="presets" id="cap">
+          <button data-c="concrete">Color concrete</button>
+          <button data-c="stone">Stone</button>
+        </div>
+        <div class="field" style="margin-top:8px">
+          <label>Overhang — <b id="ohVal">1½&quot;</b></label>
+          <input type="range" id="inOH" min="1" max="5" step="0.5">
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Media</h4>
+        <div class="presets" id="media">
+          <button data-m="lava">Lava rock</button>
+          <button data-m="glass">Fire glass</button>
+        </div>
+        <div class="sw" id="mediaSw"></div>
+        <div class="presets" style="margin-top:8px">
+          <button class="mini" id="flameBtn">Flame on</button>
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Burner, pan &amp; igniter</h4>
+        <div class="presets" id="burner">
+          <button data-b="owner">By owner</button>
+          <button data-b="eb">EagleBuilt supplies</button>
+        </div>
+        <div class="note" id="burnerNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Add-ons</h4>
+        <div class="field">
+          <label>Seat wall — <b id="swVal">0 ft</b> @ $150/ft</label>
+          <input type="range" id="inSW" min="0" max="40" step="1">
+        </div>
+        <div class="field">
+          <label>Gas line by EagleBuilt — <b id="gasVal">0 ft</b> @ $20/ft</label>
+          <input type="range" id="inGas" min="0" max="100" step="5">
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Estimate</h4>
+        <div id="q"></div>
+        <div class="total">
+          <div class="l">Project total</div>
+          <div class="n" id="tot">—</div>
+        </div>
+        <div class="note" id="qnote"></div>
+        <div class="note">Budget proposal only. Final pricing follows a site visit — access,
+          grade and existing utilities all move the number.</div>
+        <button class="btn" id="btnSpec" style="margin-top:10px">Copy spec</button>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+/* ==========================================================================
+   EAGLEBUILT AI — FIRE PIT DESIGNER
+   Standalone preview. Deliberately separate from the kitchen designer so the
+   live tool is untouched while this is reviewed.
+
+   PRICING — John's real numbers, 2026-08-26:
+     pit   = max($3,250, perimeter_ft x $150)   stucco + 3" concrete cap + key valve
+     stone = +$35/sq ft of exterior face
+     seat wall = $150/lf   gas run = $20/lf
+   The $3,250 is a floor, not a rate: a 5 ft round is 15.7 lf and a 5 ft square
+   is 20 lf, and both are $3,250 — the linear rate only takes over past ~21.7 lf.
+   ========================================================================== */
+const PRICE = { min:3250, lf:150, stoneSqft:35, seatLf:150, gasLf:20 };
+
+/* Build standard: 6" CMU, 2 courses = 16", plus a 3" poured cap = 19" finished.
+   Cap overhangs 1.5" on stucco; 3" on stone to clear the veneer. */
+const CAP_T = 3, WALL_T = 6;
+
+const S = {
+  view:"3d",
+  shape:"round", A:60, B:44, wallH:16,
+  body:"stucco", bodyTone:0, cap:"concrete", oh:1.5,
+  media:"lava", mediaTone:0, flame:true,
+  burner:"owner",
+  seat:0, gas:0
+};
+
+const BODY_SW = {
+  stucco:["#D8D4CC","#C9CFD4","#BFB6A8","#E4E1D8"],
+  stone :["#A9A296","#8E8B84","#B9AE9B","#7E8A8C"]
+};
+const CAP_COL = {
+  concrete:{ top:"#8E9298", side:"#7C8087" },
+  stone   :{ top:"#B3AB9C", side:"#9C9486" }
+};
+const MEDIA_SW = {
+  lava :["#2A2422","#3A302B","#1E1A19"],
+  glass:["#2B6FD6","#1FA6A0","#8A4FD0","#C9A227"]
+};
+
+/* ---------- geometry helpers: everything is quads ---------- */
+function ringPts(cx, cz, r, n, y){
+  const p = [];
+  for (let i = 0; i < n; i++){
+    const a = i / n * Math.PI * 2;
+    p.push([cx + Math.cos(a)*r, y, cz + Math.sin(a)*r]);
+  }
+  return p;
+}
+function rectPts(cx, cz, hw, hd, y){
+  return [[cx-hw,y,cz-hd],[cx+hw,y,cz-hd],[cx+hw,y,cz+hd],[cx-hw,y,cz+hd]];
+}
+
+/* ---------- scene build ---------- */
+function faces(){
+  const F = [];
+  const round = S.shape === "round";
+  const segs = 48;
+  const hw = S.A/2, hd = (S.shape === "rect" ? S.B/2 : S.A/2);
+  const wallTop = S.wallH, capTop = S.wallH + CAP_T;
+  const oh = S.oh;
+
+  const bodyCol = BODY_SW[S.body][S.bodyTone] || BODY_SW[S.body][0];
+  const capC = CAP_COL[S.cap];
+
+  const push = (pts, col, tag) => F.push({ pts, col, tag });
+
+  if (round){
+    const rO = hw, rI = hw - WALL_T;
+    /* Split the wall into 8" courses. Shading per vertical segment made the
+       cylinder read as corrugated metal; the real thing is smooth stucco or
+       horizontal coursed stone, so vary by COURSE and keep segments even. */
+    const courses = Math.max(1, Math.round(wallTop / 8));
+    for (let cI = 0; cI < courses; cI++){
+      const y0 = wallTop * cI / courses, y1 = wallTop * (cI+1) / courses;
+      const lo = ringPts(0,0,rO,segs,y0), up = ringPts(0,0,rO,segs,y1);
+      const tone = S.body === "stone" ? (cI % 2 ? -6 : 4) : (cI % 2 ? -1.5 : 1);
+      for (let i = 0; i < segs; i++){
+        const j = (i+1)%segs;
+        push([lo[i],lo[j],up[j],up[i]], shadeFlat(bodyCol, tone), "body");
+      }
+    }
+    // inner wall (firebox side)
+    const iL = ringPts(0,0,rI,segs,0), iU = ringPts(0,0,rI,segs,wallTop);
+    for (let i = 0; i < segs; i++){
+      const j = (i+1)%segs;
+      push([iU[i],iU[j],iL[j],iL[i]], "#2A2E35", "inner");
+    }
+    // media surface, set down inside — one polygon, not a fan of triangles
+    push(ringPts(0,0,rI-1,segs, wallTop-3), mediaCol(0), "media");
+    // cap ring — outer edge overhangs, inner edge overhangs into the bowl
+    const cO = ringPts(0,0,rO+oh,segs,wallTop), cI = ringPts(0,0,rI-oh*0.6,segs,wallTop);
+    const cOt= ringPts(0,0,rO+oh,segs,capTop),  cIt= ringPts(0,0,rI-oh*0.6,segs,capTop);
+    for (let i = 0; i < segs; i++){
+      const j = (i+1)%segs;
+      push([cOt[i],cOt[j],cIt[j],cIt[i]], capC.top, "cap");          // top
+      push([cO[i],cO[j],cOt[j],cOt[i]],  capC.side, "cap");          // outer edge
+      push([cIt[i],cIt[j],cI[j],cI[i]],  shadeFlat(capC.side,-18), "cap"); // inner edge
+    }
+  } else {
+    const iw = hw - WALL_T, id = hd - WALL_T;
+    const oL = rectPts(0,0,hw,hd,0), oU = rectPts(0,0,hw,hd,wallTop);
+    for (let i = 0; i < 4; i++){
+      const j = (i+1)%4;
+      push([oL[i],oL[j],oU[j],oU[i]], shade(bodyCol, i, 4, S.body), "body");
+    }
+    const iL = rectPts(0,0,iw,id,0), iU = rectPts(0,0,iw,id,wallTop);
+    for (let i = 0; i < 4; i++){
+      const j = (i+1)%4;
+      push([iU[i],iU[j],iL[j],iL[i]], "#2A2E35", "inner");
+    }
+    push(rectPts(0,0,iw-1,id-1,wallTop-3), mediaCol(0), "media");
+    // cap frame
+    const co = hw+oh, cd2 = hd+oh, ci = iw-oh*0.6, cid = id-oh*0.6;
+    const outT = rectPts(0,0,co,cd2,capTop), inT = rectPts(0,0,ci,cid,capTop);
+    for (let i = 0; i < 4; i++){
+      const j = (i+1)%4;
+      push([outT[i],outT[j],inT[j],inT[i]], capC.top, "cap");
+    }
+    const outB = rectPts(0,0,co,cd2,wallTop);
+    for (let i = 0; i < 4; i++){
+      const j = (i+1)%4;
+      push([outB[i],outB[j],outT[j],outT[i]], capC.side, "cap");
+    }
+  }
+
+  // seat wall — a straight run set back from the pit
+  if (S.seat > 0){
+    const len = S.seat * 12, off = hw + 46;
+    const sh = 16, st = sh + CAP_T, half = len/2, t = 6;
+    const bl = [[-half,0,off],[half,0,off],[half,0,off+t],[-half,0,off+t]];
+    const bu = bl.map(p => [p[0],sh,p[2]]);
+    for (let i = 0; i < 4; i++){
+      const j = (i+1)%4;
+      push([bl[i],bl[j],bu[j],bu[i]], shade(bodyCol,i,4,S.body), "seat");
+    }
+    const co2 = [[-half-oh,st,off-oh],[half+oh,st,off-oh],[half+oh,st,off+t+oh],[-half-oh,st,off+t+oh]];
+    push(co2, capC.top, "seat");
+    const cb = co2.map(p => [p[0],sh,p[2]]);
+    for (let i = 0; i < 4; i++){
+      const j = (i+1)%4;
+      push([cb[i],cb[j],co2[j],co2[i]], capC.side, "seat");
+    }
+  }
+  return F;
+}
+function mediaCol(i){
+  const sw = MEDIA_SW[S.media];
+  return sw[S.mediaTone % sw.length] || sw[0];
+}
+function shade(hex, i, n, kind){
+  // subtle per-face variation so stone reads as coursed rather than painted
+  const amt = kind === "stone" ? (((i*37)%11)-5) * 2.2 : (((i*17)%5)-2) * 1.1;
+  return shadeFlat(hex, amt);
+}
+function shadeFlat(hex, amt){
+  const n = parseInt(hex.slice(1),16);
+  /* Round before toString(16). A fractional channel produces "a6.ccccd" — an
+     invalid colour that canvas silently ignores, so the face inherits whatever
+     fillStyle was set last. That reads as random faces taking the wrong colour. */
+  const c = [(n>>16)&255,(n>>8)&255,n&255]
+    .map(v => Math.max(0, Math.min(255, Math.round(v + amt))));
+  return "#" + c.map(v => v.toString(16).padStart(2,"0")).join("");
+}
+
+/* ---------- renderer: perspective + painter's algorithm ---------- */
+const cv = document.getElementById("c"), g = cv.getContext("2d");
+const view = { yaw:-0.62, pitch:0.40, dist:170, tx:0, ty:0 };
+
+function project(p, W, H){
+  const cy = Math.cos(view.yaw), sy = Math.sin(view.yaw);
+  const cp = Math.cos(view.pitch), sp = Math.sin(view.pitch);
+  let x = p[0]*cy - p[2]*sy;
+  let z = p[0]*sy + p[2]*cy;
+  let y = p[1] - 12;
+  const y2 = y*cp - z*sp, z2 = y*sp + z*cp + view.dist;
+  const f = 620 / Math.max(24, z2);
+  return [W/2 + x*f + view.tx, H/2 - y2*f + view.ty, z2];
+}
+function draw(){
+  const dpr = Math.min(2, devicePixelRatio||1);
+  const W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr;
+  g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);
+  document.getElementById("dims").innerHTML = "<b>" + dimText() + "</b>";
+
+  if (S.view !== "3d"){ (S.view === "plan" ? drawPlan : drawElev)(W,H); return; }
+
+  const F = faces();
+  const prepared = F.map(f => {
+    const pr = f.pts.map(p => project(p, W, H));
+    const z = pr.reduce((a,p) => a+p[2], 0) / pr.length;
+    return { pr, z, col:f.col, tag:f.tag, pts:f.pts };
+  }).sort((a,b) => b.z - a.z);
+
+  /* Ground. Drawn as an ellipse rather than a projected quad — a quad that big
+     runs past the camera plane and the perspective divide flips its corners. */
+  const gc = project([0,0,0],W,H);
+  const edge = project([Math.max(S.A,S.B)*1.9,0,0],W,H);
+  const gRx = Math.abs(edge[0]-gc[0]) * 1.6;
+  g.save();
+  const gr = g.createRadialGradient(gc[0],gc[1],0,gc[0],gc[1],gRx);
+  gr.addColorStop(0,"#19212E"); gr.addColorStop(.75,"#101722"); gr.addColorStop(1,"#070A12");
+  g.fillStyle = gr;
+  g.beginPath(); g.ellipse(gc[0], gc[1], gRx, gRx*0.42, 0, 0, 7); g.fill();
+  // contact shadow
+  const hw = S.A/2 + S.oh;
+  const sc = 620 / Math.max(24, gc[2]);
+  g.globalAlpha = .40; g.fillStyle = "#000";
+  g.beginPath(); g.ellipse(gc[0], gc[1]+3*sc, hw*1.25*sc, hw*0.5*sc, 0, 0, 7); g.fill();
+  g.restore();
+
+  prepared.forEach(f => {
+    // backface cull via signed area
+    const a = signedArea(f.pr);
+    if (a <= 0 && f.tag !== "media") return;
+    g.beginPath();
+    g.moveTo(f.pr[0][0], f.pr[0][1]);
+    for (let i = 1; i < f.pr.length; i++) g.lineTo(f.pr[i][0], f.pr[i][1]);
+    g.closePath();
+    g.fillStyle = lit(f);
+    g.fill();
+    if (f.tag === "body" && S.body === "stone"){
+      g.strokeStyle = "rgba(0,0,0,.18)"; g.lineWidth = 1; g.stroke();
+    }
+  });
+
+  if (S.flame) drawFlame(W,H);
+}
+/* ---------- PLAN AND ELEVATION ----------
+   The orbit view reads as a picture but badly as an instruction: a low box seen
+   at an angle hides the inside opening, which is the dimension the block
+   actually gets laid to. These are drawn flat from the same state, in the finish
+   colours, so the drawing and the render never disagree. */
+
+function planD(){ return { w:S.A, d:(S.shape === "rect" ? S.B : S.A) }; }
+var VFONT = "ui-sans-serif,system-ui,-apple-system,sans-serif";
+
+/* Text on a solid chip. Dimension lines run underneath it, and a number sitting
+   directly on a line is the fastest way to misread a drawing. */
+function vTag(x, y, txt, col){
+  g.save();
+  g.font = "600 12px " + VFONT;
+  var w = g.measureText(txt).width;
+  g.fillStyle = "rgba(7,10,18,.92)";
+  g.fillRect(x - w/2 - 5, y - 9, w + 10, 18);
+  g.fillStyle = col || "#E7EEF7";
+  g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText(txt, x, y);
+  g.restore();
+}
+function vDimH(xa, xb, y, txt){
+  g.save();
+  g.strokeStyle = "#5F7391"; g.lineWidth = 1; g.setLineDash([]);
+  g.beginPath();
+  g.moveTo(xa, y); g.lineTo(xb, y);
+  g.moveTo(xa, y-5); g.lineTo(xa, y+5);
+  g.moveTo(xb, y-5); g.lineTo(xb, y+5);
+  g.stroke(); g.restore();
+  vTag((xa+xb)/2, y, txt);
+}
+function vDimV(ya, yb, x, txt){
+  g.save();
+  g.strokeStyle = "#5F7391"; g.lineWidth = 1; g.setLineDash([]);
+  g.beginPath();
+  g.moveTo(x, ya); g.lineTo(x, yb);
+  g.moveTo(x-5, ya); g.lineTo(x+5, ya);
+  g.moveTo(x-5, yb); g.lineTo(x+5, yb);
+  g.stroke(); g.restore();
+  vTag(x, (ya+yb)/2, txt);
+}
+function vNotes(H){
+  var courses = S.wallH/8;
+  var L = [
+    WALL_T + '" CMU, ' + courses + " course" + (courses === 1 ? "" : "s") + " = " + S.wallH + '"',
+    "Cap: " + CAP_T + '" ' + (S.cap === "concrete" ? "poured color concrete" : "stone")
+      + ", " + S.oh + '" overhang',
+    "Finish: " + (S.body === "stone" ? "stone veneer" : "stucco")
+      + " · key valve included",
+    "Burner, pan and igniter " + (S.burner === "owner" ? "by owner" : "by EagleBuilt")
+  ];
+  g.save();
+  g.font = "12px " + VFONT;
+  g.textAlign = "left"; g.textBaseline = "bottom";
+  g.fillStyle = "#8DA0B8";
+  for (var i = 0; i < L.length; i++) g.fillText(L[L.length-1-i], 16, H - 16 - i*17);
+  g.restore();
+}
+
+function drawPlan(W, H){
+  var P = planD(), round = S.shape === "round";
+  var capW = P.w + S.oh*2, capD = P.d + S.oh*2;
+  var padT = 72, padB = 156;
+  var sc = Math.min((W - 220)/capW, (H - padT - padB)/capD);
+  var cx = W/2, cy = padT + (H - padT - padB)/2;
+
+  function path(w, d){
+    g.beginPath();
+    if (round) g.arc(cx, cy, w/2*sc, 0, Math.PI*2);
+    else g.rect(cx - w/2*sc, cy - d/2*sc, w*sc, d*sc);
+  }
+
+  path(capW, capD);
+  g.fillStyle = CAP_COL[S.cap].top; g.fill();
+  g.strokeStyle = "rgba(231,238,247,.28)"; g.lineWidth = 1.5; g.stroke();
+
+  /* Block under the cap, dashed because it is hidden by the overhang. */
+  path(P.w, P.d);
+  g.save(); g.strokeStyle = "rgba(11,17,28,.55)"; g.setLineDash([5,4]);
+  g.lineWidth = 1; g.stroke(); g.restore();
+
+  path(P.w - WALL_T*2, P.d - WALL_T*2);
+  g.fillStyle = "#0B111C"; g.fill();
+  g.strokeStyle = "#2E9BFF"; g.lineWidth = 1.5; g.stroke();
+
+  /* The pan, dashed — it is equipment, and normally the owner buys it. */
+  var iw = P.w - WALL_T*2, id = P.d - WALL_T*2;
+  var pw = Math.max(12, iw*0.62), pd = Math.max(12, id*0.62);
+  g.save();
+  g.strokeStyle = "#5F7391"; g.setLineDash([4,4]); g.lineWidth = 1;
+  g.beginPath();
+  if (round) g.arc(cx, cy, pw/2*sc, 0, Math.PI*2);
+  else g.rect(cx - pw/2*sc, cy - pd/2*sc, pw*sc, pd*sc);
+  g.stroke(); g.restore();
+  vTag(cx, cy, "burner pan", "#8DA0B8");
+
+  var top = cy - capD/2*sc, bot = cy + capD/2*sc;
+  vDimH(cx - P.w/2*sc,  cx + P.w/2*sc,  top - 28, ftin(P.w) + (round ? " dia." : ""));
+  vDimH(cx - iw/2*sc,   cx + iw/2*sc,   bot + 28, ftin(iw) + " opening");
+  vDimH(cx - capW/2*sc, cx + capW/2*sc, bot + 56, ftin(capW) + " over cap");
+  if (!round) vDimV(cy - P.d/2*sc, cy + P.d/2*sc, cx - capW/2*sc - 30, ftin(P.d));
+
+  vNotes(H);
+}
+
+function drawElev(W, H){
+  var P = planD();
+  var capW = P.w + S.oh*2, tot = S.wallH + CAP_T;
+  var sc = Math.min((W - 280)/capW, (H - 200)/tot);
+  var cx = W/2, base = H - 122;
+  function X(v){ return cx + v*sc; }
+  function Y(h){ return base - h*sc; }
+
+  g.save();
+  g.strokeStyle = "#3E5680"; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(24, base); g.lineTo(W-24, base); g.stroke();
+  g.restore();
+
+  g.fillStyle = BODY_SW[S.body][S.bodyTone];
+  g.fillRect(X(-P.w/2), Y(S.wallH), P.w*sc, S.wallH*sc);
+
+  /* Course lines. Stucco buries them, but the wall is laid to them. */
+  g.save();
+  g.strokeStyle = "rgba(11,17,28,.28)"; g.lineWidth = 1;
+  for (var h = 8; h < S.wallH; h += 8){
+    g.beginPath(); g.moveTo(X(-P.w/2), Y(h)); g.lineTo(X(P.w/2), Y(h)); g.stroke();
+  }
+  g.restore();
+
+  g.fillStyle = CAP_COL[S.cap].top;
+  g.fillRect(X(-capW/2), Y(tot), capW*sc, CAP_T*sc);
+  g.save();
+  g.strokeStyle = "rgba(11,17,28,.5)"; g.lineWidth = 1;
+  g.strokeRect(X(-capW/2), Y(tot), capW*sc, CAP_T*sc);
+  g.restore();
+
+  var r = X(capW/2);
+  vDimV(Y(tot), Y(S.wallH), r + 34, CAP_T + '"');
+  vDimV(Y(tot), base,       r + 88, tot + '" finished');
+  vDimV(Y(S.wallH), base,   X(-capW/2) - 34, S.wallH + '"');
+  vDimH(X(-capW/2), X(capW/2), base + 34, ftin(capW) + " over cap");
+
+  vNotes(H);
+}
+
+function signedArea(pr){
+  let s = 0;
+  for (let i = 0; i < pr.length; i++){
+    const j = (i+1)%pr.length;
+    s += pr[i][0]*pr[j][1] - pr[j][0]*pr[i][1];
+  }
+  return s/2;
+}
+function lit(f){
+  // cheap lambert from the face normal
+  const p = f.pts;
+  const u = [p[1][0]-p[0][0], p[1][1]-p[0][1], p[1][2]-p[0][2]];
+  const v = [p[2][0]-p[0][0], p[2][1]-p[0][1], p[2][2]-p[0][2]];
+  const n = [u[1]*v[2]-u[2]*v[1], u[2]*v[0]-u[0]*v[2], u[0]*v[1]-u[1]*v[0]];
+  const L = Math.hypot(n[0],n[1],n[2]) || 1;
+  const d = (n[0]*-0.35 + n[1]*0.86 + n[2]*0.36) / L;
+  const amt = Math.round(-16 + Math.max(0, d) * 34);
+  return shadeFlat(f.col, amt);
+}
+/* Restrained on purpose. This is a quoting drawing, not a render — the flame
+   is there to say "it's lit", and a wall of spikes reads as clip art. */
+function drawFlame(W,H){
+  const rI = (S.shape === "round" ? S.A/2 : Math.min(S.A, S.shape==="rect"?S.B:S.A)/2) - WALL_T;
+  const top = S.wallH - 3;
+  const c = project([0, top, 0], W, H);
+  const scale = 620 / Math.max(24, c[2]);
+  const halfW = rI * 0.86 * scale;
+
+  g.save();
+  g.globalCompositeOperation = "lighter";
+  // warm glow sitting on the media
+  const glow = g.createRadialGradient(c[0], c[1], 0, c[0], c[1], halfW*1.5);
+  glow.addColorStop(0, "rgba(255,150,50,.30)");
+  glow.addColorStop(1, "rgba(255,90,0,0)");
+  g.fillStyle = glow;
+  g.beginPath(); g.ellipse(c[0], c[1], halfW*1.5, halfW*0.7, 0, 0, 7); g.fill();
+
+  const n = 5;
+  for (let i = 0; i < n; i++){
+    const t = (i + 0.5)/n - 0.5;
+    const px = c[0] + t * halfW * 1.7;
+    const drop = Math.abs(t) * 0.5;                    // shorter toward the edges
+    const h = (16 + (i % 2 ? 9 : 3)) * (1 - drop) * scale * 1.6;
+    const w = 5.5 * scale * (1 - drop*0.4);
+    const grd = g.createLinearGradient(px, c[1], px, c[1]-h);
+    grd.addColorStop(0,  "rgba(255,196,90,.60)");
+    grd.addColorStop(.45,"rgba(255,124,26,.34)");
+    grd.addColorStop(1,  "rgba(255,60,0,0)");
+    g.fillStyle = grd;
+    g.beginPath();
+    g.moveTo(px-w, c[1]);
+    g.bezierCurveTo(px-w*.9, c[1]-h*.45, px-w*.25, c[1]-h*.7, px, c[1]-h);
+    g.bezierCurveTo(px+w*.25, c[1]-h*.7, px+w*.9, c[1]-h*.45, px+w, c[1]);
+    g.closePath(); g.fill();
+  }
+  g.restore();
+}
+
+/* ---------- pricing ---------- */
+function perimeterFt(){
+  if (S.shape === "round") return Math.PI * S.A / 12;
+  const w = S.A, d = (S.shape === "rect" ? S.B : S.A);
+  return 2 * (w + d) / 12;
+}
+function faceSqft(){
+  return perimeterFt() * (S.wallH / 12);
+}
+function priceIt(){
+  const per = perimeterFt();
+  const linear = per * PRICE.lf;
+  const base = Math.max(PRICE.min, linear);
+  const atMin = linear < PRICE.min;
+  const stone = S.body === "stone" ? faceSqft() * PRICE.stoneSqft : 0;
+  const seat = S.seat * PRICE.seatLf;
+  const gas = S.gas * PRICE.gasLf;
+  return { per, base, atMin, stone, seat, gas, total: base + stone + seat + gas };
+}
+const money = v => "$" + Math.round(v).toLocaleString();
+const ftin = n => {
+  const f = Math.floor(n/12), i = Math.round(n - f*12);
+  return (f ? f + "'" : "") + (i ? " " + i + '"' : (f ? "" : '0"'));
+};
+function dimText(){
+  if (S.shape === "round") return ftin(S.A) + " round · " + (S.wallH + CAP_T) + '" finished';
+  const d = S.shape === "rect" ? S.B : S.A;
+  return ftin(S.A) + " × " + ftin(d) + " · " + (S.wallH + CAP_T) + '" finished';
+}
+
+/* ---------- UI ---------- */
+const $ = s => document.querySelector(s);
+function renderSwatches(){
+  $("#bodySw").innerHTML = BODY_SW[S.body]
+    .map((c,i) => `<i data-b="${i}" style="background:${c}" class="${i===S.bodyTone?"on":""}"></i>`).join("");
+  $("#mediaSw").innerHTML = MEDIA_SW[S.media]
+    .map((c,i) => `<i data-m="${i}" style="background:${c}" class="${i===S.mediaTone?"on":""}"></i>`).join("");
+}
+function renderQuote(){
+  const q = priceIt();
+  const L = [];
+  L.push(`<div class="ql"><span>Fire pit — ${S.shape}, stucco, ${CAP_T}" concrete cap
+    <i>${q.per.toFixed(1)} lf perimeter${q.atMin ? " · minimum build" : " @ " + money(PRICE.lf) + "/lf"}</i></span>
+    <b>${money(q.base)}</b></div>`);
+  if (q.stone) L.push(`<div class="ql"><span>Stone veneer
+    <i>${faceSqft().toFixed(1)} sq ft @ ${money(PRICE.stoneSqft)}/sq ft</i></span><b>${money(q.stone)}</b></div>`);
+  if (q.seat) L.push(`<div class="ql"><span>Seat wall
+    <i>${S.seat} lf @ ${money(PRICE.seatLf)}/lf</i></span><b>${money(q.seat)}</b></div>`);
+  if (q.gas) L.push(`<div class="ql"><span>Gas line supply
+    <i>${S.gas} lf @ ${money(PRICE.gasLf)}/lf</i></span><b>${money(q.gas)}</b></div>`);
+  L.push(`<div class="ql"><span>Burner, pan &amp; igniter
+    <i>${S.burner === "owner" ? "by owner — EagleBuilt mounts" : "EagleBuilt supplies"}</i></span><b>${S.burner === "owner" ? "—" : "quote add"}</b></div>`);
+  $("#q").innerHTML = L.join("");
+  $("#tot").textContent = money(q.total);
+  $("#qnote").innerHTML = q.atMin
+    ? `Under about 21½ ft of perimeter the build costs the same, so a smaller pit and a
+       ${(PRICE.min/PRICE.lf).toFixed(0)} ft one come to the same number — you may as well have the size.`
+    : `Priced by the running foot above the minimum.`;
+  $("#sizeNote").innerHTML = S.shape === "round"
+    ? `${ftin(S.A)} outside · ${ftin(S.A - WALL_T*2)} inside. 6" CMU, ${S.wallH/8} course${S.wallH===8?"":"s"}.`
+    : `6" CMU, ${S.wallH/8} course${S.wallH===8?"":"s"}, ${CAP_T}" cap.`;
+}
+function sync(){
+  document.querySelectorAll("#shape button").forEach(b => b.classList.toggle("on", b.dataset.s === S.shape));
+  document.querySelectorAll("#body button").forEach(b => b.classList.toggle("on", b.dataset.f === S.body));
+  document.querySelectorAll("#cap button").forEach(b => b.classList.toggle("on", b.dataset.c === S.cap));
+  document.querySelectorAll("#media button").forEach(b => b.classList.toggle("on", b.dataset.m === S.media));
+  document.querySelectorAll("#view button").forEach(b => b.classList.toggle("on", b.dataset.v === S.view));
+  $("#hint").textContent = S.view === "3d" ? "drag to orbit · scroll to zoom"
+    : S.view === "plan" ? "plan — the opening is what the block gets laid to"
+    : "elevation — finished height off grade";
+  document.querySelectorAll("#burner button").forEach(b => b.classList.toggle("on", b.dataset.b === S.burner));
+  $("#burnerNote").textContent = S.burner === "owner"
+    ? "You pick and buy the burner, pan and igniter. EagleBuilt sets and connects them — there is no discount for supplying your own."
+    : "Priced once you choose a burner — size and brand move it too much to guess.";
+  $("#lblA").textContent = S.shape === "round" ? "Diameter" : "Width";
+  $("#fldB").style.display = S.shape === "rect" ? "" : "none";
+  if (document.activeElement !== $("#inA")) $("#inA").value = ftin(S.A);
+  if (document.activeElement !== $("#inB")) $("#inB").value = ftin(S.B);
+  $("#inH").value = S.wallH;
+  $("#hVal").textContent = S.wallH + '"';
+  $("#finH").textContent = (S.wallH + CAP_T) + '"';
+  $("#inOH").value = S.oh;
+  $("#ohVal").textContent = (S.oh === 1.5 ? "1½" : S.oh) + '"';
+  $("#inSW").value = S.seat; $("#swVal").textContent = S.seat + " ft";
+  $("#inGas").value = S.gas; $("#gasVal").textContent = S.gas + " ft";
+  $("#flameBtn").textContent = S.flame ? "Flame on" : "Flame off";
+  renderSwatches(); renderQuote(); draw();
+}
+function parseLen(str){
+  const t = String(str).trim(); if (!t) return null;
+  const fr = t.match(/(\d+)\s*\/\s*(\d+)/);
+  const fv = fr && +fr[2] ? (+fr[1])/(+fr[2]) : 0;
+  const rest = fr ? t.replace(fr[0]," ") : t;
+  const ft = rest.match(/(-?[\d.]+)\s*(?:'|ft\b|feet\b)/i);
+  const inc = rest.match(/(-?[\d.]+)\s*(?:"|in\b|inch)/i);
+  if (ft || inc) return (ft?parseFloat(ft[1])*12:0) + (inc?parseFloat(inc[1]):0) + fv;
+  const n = parseFloat(rest);
+  return isNaN(n) ? (fr?fv:null) : n + fv;
+}
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+$("#shape").onclick = e => { const b = e.target.closest("[data-s]"); if (!b) return;
+  S.shape = b.dataset.s; sync(); };
+$("#body").onclick = e => { const b = e.target.closest("[data-f]"); if (!b) return;
+  S.body = b.dataset.f; S.bodyTone = 0;
+  S.oh = S.body === "stone" ? 3 : 1.5;      // cap must clear the veneer
+  sync(); };
+$("#cap").onclick = e => { const b = e.target.closest("[data-c]"); if (!b) return;
+  S.cap = b.dataset.c; sync(); };
+$("#media").onclick = e => { const b = e.target.closest("[data-m]"); if (!b) return;
+  S.media = b.dataset.m; S.mediaTone = 0; sync(); };
+$("#view").onclick = e => { const b = e.target.closest("[data-v]"); if (!b) return;
+  S.view = b.dataset.v; sync(); draw(); };
+$("#burner").onclick = e => { const b = e.target.closest("[data-b]"); if (!b) return;
+  S.burner = b.dataset.b; sync(); };
+$("#bodySw").onclick = e => { const i = e.target.dataset.b; if (i == null) return;
+  S.bodyTone = +i; sync(); };
+$("#mediaSw").onclick = e => { const i = e.target.dataset.m; if (i == null) return;
+  S.mediaTone = +i; sync(); };
+$("#flameBtn").onclick = () => { S.flame = !S.flame; sync(); };
+$("#inA").onchange = e => { const v = parseLen(e.target.value);
+  if (v != null) S.A = clamp(v, 30, 144); sync(); };
+$("#inB").onchange = e => { const v = parseLen(e.target.value);
+  if (v != null) S.B = clamp(v, 24, 120); sync(); };
+$("#inH").oninput = e => { S.wallH = +e.target.value; sync(); };
+$("#inOH").oninput = e => { S.oh = +e.target.value; sync(); };
+$("#inSW").oninput = e => { S.seat = +e.target.value; sync(); };
+$("#inGas").oninput = e => { S.gas = +e.target.value; sync(); };
+
+$("#btnSpec").onclick = () => {
+  const q = priceIt();
+  const L = [
+    "EAGLEBUILT AI — FIRE PIT",
+    "================================================",
+    dimText(),
+    "Body: 6\" CMU, " + (S.wallH/8) + " course(s) = " + S.wallH + '"',
+    "Cap:  " + CAP_T + '" ' + (S.cap === "concrete" ? "poured color concrete" : "stone")
+      + ", " + S.oh + '" overhang',
+    "Finish: " + (S.body === "stone" ? "stone veneer" : "stucco"),
+    "Media: " + (S.media === "glass" ? "fire glass" : "lava rock"),
+    "Key valve for gas on/off included.",
+    S.burner === "owner"
+      ? "Burner, pan and igniter: by owner. EagleBuilt sets and connects."
+      : "Burner, pan and igniter: by EagleBuilt, priced separately once selected.",
+    "",
+    "Fire pit                    " + money(q.base) + (q.atMin ? "   (minimum build)" : ""),
+    q.stone ? "Stone veneer                " + money(q.stone) : null,
+    q.seat  ? "Seat wall, " + S.seat + " lf          " + money(q.seat) : null,
+    q.gas   ? "Gas line, " + S.gas + " lf           " + money(q.gas) : null,
+    "------------------------------------------------",
+    "TOTAL                       " + money(q.total),
+    "",
+    "Budget proposal, not a quote. Final pricing follows a site visit -",
+    "access, grade and existing utilities all move the number.",
+    "",
+    "CSLB #992251 · info@eaglebuilt.ai · (949) 564-1948"
+  ].filter(Boolean).join("\n");
+  navigator.clipboard.writeText(L).then(
+    () => { $("#btnSpec").textContent = "Copied"; setTimeout(()=>$("#btnSpec").textContent="Copy spec",1400); },
+    () => {}
+  );
+};
+
+/* orbit */
+let drag = null;
+cv.addEventListener("pointerdown", e => { drag = {x:e.clientX, y:e.clientY};
+  cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", e => {
+  if (!drag) return;
+  view.yaw += (e.clientX - drag.x) * 0.008;
+  view.pitch = clamp(view.pitch + (e.clientY - drag.y) * 0.005, 0.08, 1.25);
+  drag = {x:e.clientX, y:e.clientY};
+  draw();
+});
+addEventListener("pointerup", () => drag = null);
+cv.addEventListener("wheel", e => { e.preventDefault();
+  view.dist = clamp(view.dist + e.deltaY*0.25, 90, 460); draw(); }, {passive:false});
+addEventListener("resize", draw);
+
+document.getElementById("stamp").textContent = "preview · 2026-09-03";
+sync();
+</script>
+</body>
+</html>

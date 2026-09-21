@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     Free design consultation (John, 2026-09-15): for people who would rather
+     not design it themselves. The flow is a call back to qualify, then a site
+     visit, a design sketched from the conversation, or designing it together.
+     The form posts to Web3Forms tagged "consultation request", so it lands in
+     the same inbox as designer leads but is told apart from them.
+     ══════════════════════════════════════════════════════════════════════ -->
+
+<title>Free Outdoor Kitchen Design Consultation, Sacramento | EagleBuilt AI</title>
+<meta name="description" content="Rather not design it yourself? Book a free, no-obligation design consultation. We call you back, then set up a site visit or design your outdoor kitchen with you.">
+<link rel="canonical" href="https://eaglebuilt.ai/consultation/">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://eaglebuilt.ai/consultation/">
+<meta property="og:title" content="Free design consultation — EagleBuilt AI">
+<meta property="og:description" content="We call you back, then set up a site visit or design it with you.">
+<meta property="og:image" content="https://eaglebuilt.ai/design/tool-preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free design consultation — EagleBuilt AI">
+<meta name="twitter:description" content="We call you back, then set up a site visit or design it with you.">
+<meta name="twitter:image" content="https://eaglebuilt.ai/design/tool-preview.jpg">
+
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "url":"https://eaglebuilt.ai/consultation/",
+  "name":"Free design consultation",
+  "about":{"@id":"https://eaglebuilt.ai/#business"}
+}
+</script>
+<script src="/assets/track.js"></script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header>
+  <div class="wrap hrow">
+    <a class="brand" href="/">
+      <img src="/assets/eaglebuilt-emblem.png" alt="EagleBuilt AI" width="120" height="34">
+      <b>EAGLEBUILT<i>&nbsp;AI</i></b>
+    </a>
+    <nav>
+      <a href="/cost/" class="hideSm">Cost</a>
+      <a href="/dimensions/" class="hideSm">Dimensions</a>
+      <a href="/projects/" class="hideSm">Projects</a>
+      <details class="menuWrap">
+        <summary>Menu</summary>
+        <div class="menuPanel">
+          <h5>Design tools</h5>
+          <a href="/design/">Outdoor kitchen designer</a>
+          <a href="/design/yard/">Backyard planner</a>
+          <a href="/design/fireplace/">Fireplace designer</a>
+          <a href="/design/firepit/">Fire pit designer</a>
+          <h5>Learn</h5>
+          <a href="/cost/">What it costs</a>
+          <a href="/dimensions/">Dimensions</a>
+          <a href="/guides/permits/">Permits</a>
+          <a href="/guides/cmu-vs-steel-stud/">CMU vs steel stud</a>
+          <h5>Company</h5>
+          <a href="/consultation/">Free design consultation</a>
+          <a href="/projects/">Projects</a>
+          <a href="/partners/">Partners</a>
+          <a href="/contact/">Contact</a>
+        </div>
+      </details>
+      <a href="/design/" class="btn sm">Start designing</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Design consultation</nav>
+</div>
+
+<div class="hero slim">
+  <div class="wrap">
+    <span class="eyebrow">Free &middot; no obligation</span>
+    <h1>Book a free design consultation</h1>
+    <p class="lede">
+      Rather not design it yourself? Tell us a little about the project and we will call you back.
+      From there we can set up a site visit, sketch it out from our conversation, or sit down and
+      design it together.
+    </p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="grid2" style="align-items:start">
+
+      <div>
+        <h2>Tell us about the project</h2>
+        <p style="color:var(--muted)">A few details so the call is about your yard, not generalities.
+          Only your name, phone and ZIP are required.</p>
+
+        <form class="formWrap" id="consultForm" novalidate style="margin-top:18px">
+          <div class="row2">
+            <div class="field">
+              <label for="cName">Name</label>
+              <input type="text" id="cName" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="cZip">ZIP code</label>
+              <input type="text" id="cZip" inputmode="numeric" autocomplete="postal-code">
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="cPhone">Phone</label>
+              <input type="tel" id="cPhone" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="cEmail">Email <span style="color:var(--dim);font-weight:500">(optional)</span></label>
+              <input type="email" id="cEmail" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>What are you thinking about?</label>
+            <div id="cWhat" style="display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:4px">
+              <label style="display:flex;align-items:center;gap:6px;font-weight:500"><input type="checkbox" value="Outdoor kitchen"> Outdoor kitchen</label>
+              <label style="display:flex;align-items:center;gap:6px;font-weight:500"><input type="checkbox" value="Fire pit"> Fire pit</label>
+              <label style="display:flex;align-items:center;gap:6px;font-weight:500"><input type="checkbox" value="Fireplace"> Fireplace</label>
+              <label style="display:flex;align-items:center;gap:6px;font-weight:500"><input type="checkbox" value="Patio and hardscape"> Patio &amp; hardscape</label>
+              <label style="display:flex;align-items:center;gap:6px;font-weight:500"><input type="checkbox" value="Not sure yet"> Not sure yet</label>
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="cTime">Best time to call</label>
+              <select id="cTime">
+                <option>Anytime</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+                <option>Evening</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="cWhen">When are you hoping to build?</label>
+              <select id="cWhen">
+                <option>Just exploring</option>
+                <option>As soon as possible</option>
+                <option>In 1&ndash;3 months</option>
+                <option>In 3&ndash;6 months</option>
+                <option>6 months or more</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cBudget">Rough budget</label>
+            <select id="cBudget">
+              <option>Not sure yet</option>
+              <option>Under $15,000</option>
+              <option>$15,000 &ndash; $30,000</option>
+              <option>$30,000 &ndash; $60,000</option>
+              <option>$60,000 or more</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cMsg">Anything else? <span style="color:var(--dim);font-weight:500">(optional)</span></label>
+            <textarea id="cMsg" rows="4" placeholder="Yard size, access, what you already have, photos you have seen and liked."></textarea>
+          </div>
+
+          <button type="submit" class="btn" id="cBtn">Request my free consultation</button>
+          <p class="err" id="cErr"></p>
+          <p class="fineprint">Free and no obligation. Any pricing we give is a budget proposal, confirmed by a field verification visit.</p>
+        </form>
+      </div>
+
+      <div>
+        <h2>How it works</h2>
+        <div class="card" style="margin-bottom:16px">
+          <h3>1 &middot; We call you back</h3>
+          <p>At the time you pick. A short conversation about the yard, what you want out of it, and
+            roughly what you are hoping to spend.</p>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <h3>2 &middot; We pick the right next step</h3>
+          <p>Sometimes that is a site visit. Sometimes we can sketch it straight from the call. Sometimes it
+            is easiest to sit down and design it together in the tool.</p>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <h3>3 &middot; You get a design and a budget</h3>
+          <p>A drawing and an itemized budget proposal, so you know what you are building and what it costs
+            before anyone breaks ground.</p>
+        </div>
+
+        <div class="note" style="margin-top:20px">
+          <p><b>Would rather call now?</b> <a href="tel:+19495641948">(949) 564-1948</a> &mdash; or
+            <a href="/design/">try the designer yourself</a>, free.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div>
+        <div class="brand" style="margin-bottom:12px">
+          <img src="/assets/eaglebuilt-emblem.png" alt="" width="120" height="34">
+          <b>EAGLEBUILT<i>&nbsp;AI</i></b>
+        </div>
+        <p style="max-width:34ch;margin:0 0 12px">Custom outdoor kitchens — designed in 3D, built in CMU with
+          concrete countertops.</p>
+        <p style="max-width:34ch;margin:0;font-size:14px;line-height:1.7">
+          <b style="color:var(--txt)">EagleBuilt AI</b><br>
+          Granite Bay, CA 95746<br>
+          Serving Sacramento &amp; the foothills<br>
+          <a href="tel:+19495641948">(949) 564-1948</a><br>
+          <a href="mailto:info@eaglebuilt.ai">info@eaglebuilt.ai</a>
+        </p>
+      </div>
+      <div>
+        <h4>Design</h4>
+        <ul>
+          <li><a href="/design/">Outdoor kitchen designer</a></li>
+          <li><a href="/design/yard/">Backyard planner</a></li>
+          <li><a href="/design/fireplace/">Fireplace designer</a></li>
+          <li><a href="/design/firepit/">Fire pit designer</a></li>
+          <li><a href="/dimensions/">Dimensions</a></li>
+          <li><a href="/dimensions/cutouts/blaze/">Grill cutouts</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="/cost/">What it costs</a></li>
+          <li><a href="/guides/permits/">Permits</a></li>
+          <li><a href="/guides/cmu-vs-steel-stud/">CMU vs steel stud</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/consultation/">Free design consultation</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/partners/">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <div style="margin-bottom:6px">CSLB Lic. #992251 &middot; General Contractor &amp; C-29 Masonry</div>
+      © <span id="yr">2026</span> EagleBuilt AI.
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById("yr").textContent = new Date().getFullYear();
+
+/* Posts straight to the inbox through the same Web3Forms key the designer uses,
+   so a consultation request arrives like any other lead — but tagged, so it is
+   told apart from someone who designed an island themselves. The access key is
+   public by design: it can only route mail to the address it was issued for. */
+(function () {
+  var ENDPOINT = "https://api.web3forms.com/submit";
+  var KEY = "3a819006-46a1-4176-ac5e-224d1a489557";
+
+  var form = document.getElementById("consultForm");
+  var err  = document.getElementById("cErr");
+  var btn  = document.getElementById("cBtn");
+  var val  = function (id) { return (document.getElementById(id).value || "").trim(); };
+
+  function fail(msg, id) {
+    err.textContent = msg; err.style.display = "block";
+    var el = document.getElementById(id); if (el) el.focus();
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    err.style.display = "none";
+
+    var name = val("cName"), phone = val("cPhone"), zip = val("cZip"), email = val("cEmail");
+    if (!name) return fail("Please tell us your name.", "cName");
+    /* It is a call back, so the phone is the one thing that cannot be missing.
+       Count digits rather than policing the format people type it in. */
+    if ((phone.match(/\d/g) || []).length < 10) return fail("Please give a phone number we can call you back on.", "cPhone");
+    if (!/^\d{5}$/.test(zip)) return fail("Please enter a 5-digit ZIP code.", "cZip");
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return fail("That email does not look right — or leave it blank.", "cEmail");
+
+    var what = Array.prototype.slice.call(document.querySelectorAll("#cWhat input:checked"))
+      .map(function (c) { return c.value; });
+
+    btn.disabled = true; btn.textContent = "Sending…";
+
+    var payload = {
+      access_key: KEY,
+      from_name:  "EagleBuilt AI — Consultations",
+      subject:    "Design consultation — " + name + " (" + zip + ")",
+      lead_stage: "consultation request",
+      name: name, phone: phone, zip: zip, email: email || "—",
+      interested_in: what.length ? what.join(", ") : "—",
+      best_time_to_call: val("cTime"),
+      timeline: val("cWhen"),
+      budget: val("cBudget"),
+      message: val("cMsg") || "—",
+      page: location.pathname
+    };
+    if (email) payload.replyto = email;
+
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || res.j.success === false) throw new Error("send failed");
+        window.ebTrack && window.ebTrack("consultation", { what: what.join(", "), budget: val("cBudget") });
+        form.innerHTML =
+          '<h3 style="margin:0 0 6px">Thanks, ' + name.replace(/</g, "&lt;") + ' — we will call you back.</h3>' +
+          '<p style="color:var(--muted);margin:0">We will ring ' + phone.replace(/</g, "&lt;") +
+          ' (' + val("cTime").toLowerCase() + '). If you would rather not wait, call ' +
+          '<a href="tel:+19495641948">(949) 564-1948</a>.</p>';
+      })
+      .catch(function () {
+        /* Never leave someone thinking it went through when it did not. Give
+           them the number instead of a silent failure. */
+        btn.disabled = false; btn.textContent = "Request my free consultation";
+        fail("That did not send. Please call us on (949) 564-1948, or try again in a moment.", "cBtn");
+      });
+  });
+})();
+</script>
+</body>
+</html>

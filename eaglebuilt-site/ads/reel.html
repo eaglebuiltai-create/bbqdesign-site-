@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EagleBuilt consultation reel</title>
+<!--
+  Vertical Reel (1080x1920, 30 fps) for the free design consultation, /consultation/.
+  Drawn on a canvas so record-reel.mjs can capture it frame-exact to MP4:
+    node record-reel.mjs
+  Open reel.html directly (served, not file://) to watch it loop.
+  Lives OUTSIDE site/ on purpose so a wrangler deploy can never pick it up.
+-->
+<style>
+html,body{margin:0;background:#000}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh}
+canvas{height:96vh;width:auto;display:block}
+body.rec canvas{height:auto}
+</style>
+</head>
+<body>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+const W = 1080, H = 1920, FPS = 30;
+const C = { bg:"#070A12", blue:"#2E9BFF", blue2:"#7FC4FF", red:"#E8342B",
+            txt:"#FFFFFF", soft:"#C9D8EA", dim:"#8DA0B8", line:"#24344C" };
+const FONT = '"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif';
+
+// Instagram covers the bottom ~300 px with its caption and the right ~140 px
+// with its buttons, so copy stays inside PAD_L .. W-PAD_R and above SAFE_B.
+const PAD_L = 84, PAD_R = 150, SAFE_B = 330;
+
+// ── the script ─────────────────────────────────────────────────────────
+// Each scene: [start, end) in seconds. Copy mirrors /consultation/.
+const SCENES = [
+  { t0: 0,    t1: 3.4,  photo: "outdoor-kitchen-hero",
+    kick: "Outdoor kitchen on the list?",
+    h1: ["Rather not", "design it", {em:"yourself?"}] },
+  { t0: 3.4,  t1: 6.8,  photo: "bar-stacked-stone",
+    kick: "Free · no obligation",
+    h1: ["Book a free", {em:"design"}, {em:"consultation."}] },
+  { t0: 6.8,  t1: 10.0, photo: "traeger-pizza-oven", step: 1,
+    h1: ["We call", {em:"you back."}],
+    sub: "At the time you pick. Your yard, your budget — not generalities." },
+  { t0: 10.0, t1: 13.2, photo: "tool-preview", step: 2, render: true,
+    h1: ["We pick the", {em:"next step."}],
+    sub: "A site visit, a sketch from the call, or we design it with you in 3D." },
+  { t0: 13.2, t1: 16.4, photo: "bar-bbq-large", step: 3,
+    h1: ["You get a design", {em:"and a budget."}],
+    sub: "An itemized budget proposal before anyone breaks ground." },
+  { t0: 16.4, t1: 21.0, end: true }
+];
+const DURATION = 21.0;
+const XFADE = 0.45;
+
+const SRC = {
+  "outdoor-kitchen-hero": "../site/projects/photos/outdoor-kitchen-hero.jpg",
+  "bar-stacked-stone":    "../site/projects/photos/bar-stacked-stone.jpg",
+  "traeger-pizza-oven":   "../site/projects/photos/traeger-pizza-oven.jpg",
+  "bar-bbq-large":        "../site/projects/photos/bar-bbq-large.jpg",
+  "tool-preview":         "../site/design/tool-preview.jpg",
+  "emblem":               "../site/assets/eaglebuilt-emblem.png"
+};
+const IMG = {};
+const ready = Promise.all(Object.entries(SRC).map(([k, s]) => new Promise((ok, no) => {
+  const i = new Image(); i.onload = () => ok(IMG[k] = i); i.onerror = () => no(new Error(s)); i.src = s;
+}))).then(() => document.fonts.ready);
+
+// ── helpers ────────────────────────────────────────────────────────────
+const cv = document.getElementById("c");
+const ctx = cv.getContext("2d");
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = x => 1 - Math.pow(1 - clamp(x), 3);
+const lerp = (a, b, k) => a + (b - a) * k;
+
+function cover(img, x, y, w, h, zoom, panX = 0, panY = 0) {
+  const s = Math.max(w / img.width, h / img.height) * zoom;
+  const dw = img.width * s, dh = img.height * s;
+  ctx.drawImage(img, x + (w - dw) / 2 + panX, y + (h - dh) / 2 + panY, dw, dh);
+}
+function rrect(x, y, w, h, r) {
+  ctx.beginPath(); ctx.roundRect(x, y, w, h, r);
+}
+function font(px, weight = 800) { ctx.font = `${weight} ${px}px ${FONT}`; }
+
+function wrap(text, maxW) {
+  const words = text.split(" "), lines = [];
+  let line = "";
+  for (const w of words) {
+    const test = line ? line + " " + w : w;
+    if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; }
+    else line = test;
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+// Text rises 40 px and fades in, staggered by `delay`, and fades on the way out.
+function reveal(local, dur, delay) {
+  const inK = ease((local - delay) / 0.5);
+  const outK = clamp((dur - local) / 0.3);
+  return { a: inK * outK, dy: (1 - inK) * 40 };
+}
+
+// ── backgrounds ────────────────────────────────────────────────────────
+function drawNavy() {
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  let g = ctx.createRadialGradient(200, 150, 0, 200, 150, 1100);
+  g.addColorStop(0, "rgba(46,155,255,.22)"); g.addColorStop(1, "rgba(46,155,255,0)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  g = ctx.createRadialGradient(980, 700, 0, 980, 700, 900);
+  g.addColorStop(0, "rgba(232,52,43,.12)"); g.addColorStop(1, "rgba(232,52,43,0)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+
+// The photos are 800–900 px tall, so a full-bleed 1920 crop would be soft.
+// Instead: a blurred full-bleed wash behind a sharp photo panel near the top.
+const PANEL = { x: 0, y: 250, w: W, h: 860 };
+
+// A full-frame blur is far too slow to run every frame on the CPU, and a slow
+// frame stretches the recording, so each wash is blurred once and cached.
+const BLUR = {};
+function blurred(key) {
+  if (BLUR[key]) return BLUR[key];
+  const c = document.createElement("canvas");
+  c.width = W; c.height = H;
+  const x = c.getContext("2d");
+  x.filter = "blur(38px) brightness(.45) saturate(1.2)";
+  const img = IMG[key];
+  const s = Math.max((W + 160) / img.width, (H + 160) / img.height) * 1.05;
+  x.drawImage(img, (W - img.width * s) / 2, (H - img.height * s) / 2, img.width * s, img.height * s);
+  return BLUR[key] = c;
+}
+function drawPhotoScene(sc, local, dur) {
+  const img = IMG[sc.photo];
+  const k = local / dur;
+  ctx.drawImage(blurred(sc.photo), 0, 0);
+  // darken toward the copy
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, "rgba(7,10,18,.55)");
+  g.addColorStop(.45, "rgba(7,10,18,.35)");
+  g.addColorStop(.56, "rgba(7,10,18,.9)");
+  g.addColorStop(.6, "rgba(7,10,18,1)");
+  g.addColorStop(1, "rgba(7,10,18,1)");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+  const p = sc.render ? { x: 60, y: 330, w: W - 120, h: (W - 120) * 810 / 1440 } : PANEL;
+  ctx.save();
+  if (sc.render) {
+    ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = 80; ctx.shadowOffsetY = 30;
+    rrect(p.x, p.y, p.w, p.h, 24); ctx.fillStyle = "#0B1220"; ctx.fill();
+    ctx.shadowColor = "transparent";
+    rrect(p.x, p.y, p.w, p.h, 24); ctx.clip();
+    cover(img, p.x, p.y, p.w, p.h, lerp(1.0, 1.08, k), lerp(20, -20, k), 0);
+  } else {
+    ctx.beginPath(); ctx.rect(p.x, p.y, p.w, p.h); ctx.clip();
+    cover(img, p.x, p.y, p.w, p.h, lerp(1.04, 1.16, k), lerp(-24, 24, k), lerp(10, -10, k));
+    // feather the panel's bottom edge into the navy
+    const f = ctx.createLinearGradient(0, p.y + p.h - 260, 0, p.y + p.h);
+    f.addColorStop(0, "rgba(7,10,18,0)"); f.addColorStop(1, "rgba(7,10,18,1)");
+    ctx.fillStyle = f; ctx.fillRect(p.x, p.y + p.h - 260, p.w, 260);
+    const t = ctx.createLinearGradient(0, p.y, 0, p.y + 120);
+    t.addColorStop(0, "rgba(7,10,18,.7)"); t.addColorStop(1, "rgba(7,10,18,0)");
+    ctx.fillStyle = t; ctx.fillRect(p.x, p.y, p.w, 120);
+  }
+  ctx.restore();
+  if (sc.render) {
+    ctx.lineWidth = 2; ctx.strokeStyle = C.line;
+    rrect(p.x, p.y, p.w, p.h, 24); ctx.stroke();
+  }
+}
+
+// ── copy ───────────────────────────────────────────────────────────────
+function drawBrand(alpha) {
+  ctx.save(); ctx.globalAlpha = alpha;
+  const e = IMG.emblem, h = 64, w = e.width * h / e.height, y = 120;
+  ctx.shadowColor = "rgba(46,155,255,.55)"; ctx.shadowBlur = 16;
+  ctx.drawImage(e, PAD_L, y, w, h);
+  ctx.shadowColor = "transparent";
+  font(30); ctx.letterSpacing = "2px"; ctx.textBaseline = "middle";
+  ctx.fillStyle = C.txt; ctx.fillText("EAGLEBUILT", PAD_L + w + 18, y + h / 2 + 1);
+  const bw = ctx.measureText("EAGLEBUILT ").width;
+  ctx.fillStyle = C.red; ctx.fillText("AI", PAD_L + w + 18 + bw, y + h / 2 + 1);
+  ctx.restore();
+}
+
+function drawKick(text, x, y, color = C.blue2) {
+  font(28); ctx.letterSpacing = "4px";
+  const label = text.toUpperCase();
+  const w = ctx.measureText(label).width + 48;
+  rrect(x, y, w, 64, 32);
+  ctx.fillStyle = "rgba(7,10,18,.7)"; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = "rgba(46,155,255,.6)"; ctx.stroke();
+  ctx.fillStyle = color; ctx.textBaseline = "middle";
+  ctx.fillText(label, x + 24, y + 33);
+  ctx.letterSpacing = "0px";
+  return 64;
+}
+
+function drawStep(n, x, y) {
+  // "STEP 1 OF 3" with three progress ticks
+  font(28); ctx.letterSpacing = "4px"; ctx.textBaseline = "middle";
+  ctx.fillStyle = C.blue2; ctx.fillText(`STEP ${n} OF 3`, x, y + 20);
+  const tx = x + ctx.measureText(`STEP ${n} OF 3`).width + 28;
+  ctx.letterSpacing = "0px";
+  for (let i = 1; i <= 3; i++) {
+    rrect(tx + (i - 1) * 62, y + 16, 50, 8, 4);
+    ctx.fillStyle = i <= n ? C.blue : "rgba(141,160,184,.35)"; ctx.fill();
+  }
+  return 40;
+}
+
+function drawH1(lines, x, y, size) {
+  font(size); ctx.letterSpacing = "-3px"; ctx.textBaseline = "alphabetic";
+  ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = 30;
+  const lh = size * 1.04;
+  lines.forEach((l, i) => {
+    const em = typeof l === "object";
+    ctx.fillStyle = em ? C.blue2 : C.txt;
+    ctx.fillText(em ? l.em : l, x, y + size * .9 + i * lh);
+  });
+  ctx.shadowColor = "transparent"; ctx.letterSpacing = "0px";
+  return lines.length * lh;
+}
+
+function drawSub(text, x, y, maxW) {
+  font(42, 500); ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = C.soft;
+  const lines = wrap(text, maxW);
+  lines.forEach((l, i) => ctx.fillText(l, x, y + 42 + i * 58));
+  return lines.length * 58;
+}
+
+function drawChip(text, x, y, size = 40) {
+  font(size); ctx.letterSpacing = "-0.5px";
+  const w = ctx.measureText(text).width + 84, h = size * 2.2;
+  ctx.save();
+  ctx.shadowColor = "rgba(46,155,255,.45)"; ctx.shadowBlur = 40; ctx.shadowOffsetY = 10;
+  const g = ctx.createLinearGradient(0, y, 0, y + h);
+  g.addColorStop(0, "#2E9BFF"); g.addColorStop(1, "#1668C4");
+  rrect(x, y, w, h, 16); ctx.fillStyle = g; ctx.fill();
+  ctx.restore();
+  ctx.fillStyle = "#fff"; ctx.textBaseline = "middle";
+  ctx.fillText(text, x + 42, y + h / 2 + 2);
+  ctx.letterSpacing = "0px";
+  return h;
+}
+
+function drawCopy(sc, local, dur) {
+  const x = PAD_L, maxW = W - PAD_L - PAD_R;
+  // copy sits in the band between the photo and Instagram's caption area
+  let y = sc.render ? 1010 : 1060;
+  const r1 = reveal(local, dur, 0.15), r2 = reveal(local, dur, 0.3), r3 = reveal(local, dur, 0.5);
+
+  ctx.save(); ctx.globalAlpha = r1.a;
+  y += (sc.step ? drawStep(sc.step, x, y + r1.dy) : drawKick(sc.kick, x, y + r1.dy)) + 34;
+  ctx.restore();
+
+  ctx.save(); ctx.globalAlpha = r2.a;
+  const size = sc.h1.length > 2 ? 104 : 108;
+  y += drawH1(sc.h1, x, y + r2.dy, size) + 26;
+  ctx.restore();
+
+  if (sc.sub) {
+    ctx.save(); ctx.globalAlpha = r3.a;
+    drawSub(sc.sub, x, y + r3.dy, maxW);
+    ctx.restore();
+  }
+}
+
+function drawEnd(local) {
+  drawNavy();
+  const x = PAD_L;
+  const r = d => reveal(local, 99, d);
+
+  // emblem, large and centered high
+  let a = r(0.1);
+  ctx.save(); ctx.globalAlpha = a.a;
+  const e = IMG.emblem, eh = 150, ew = e.width * eh / e.height;
+  ctx.shadowColor = "rgba(46,155,255,.6)"; ctx.shadowBlur = 40;
+  ctx.drawImage(e, x, 330 + a.dy, ew, eh);
+  ctx.shadowColor = "transparent";
+  font(58); ctx.letterSpacing = "4px"; ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = C.txt; ctx.fillText("EAGLEBUILT", x, 590 + a.dy);
+  const bw = ctx.measureText("EAGLEBUILT ").width;
+  ctx.fillStyle = C.red; ctx.fillText("AI", x + bw, 590 + a.dy);
+  ctx.restore();
+
+  a = r(0.3);
+  ctx.save(); ctx.globalAlpha = a.a;
+  drawKick("Free · no obligation", x, 720 + a.dy);
+  ctx.restore();
+
+  a = r(0.45);
+  ctx.save(); ctx.globalAlpha = a.a;
+  drawH1(["Free design", {em: "consultation."}], x, 830 + a.dy, 112);
+  ctx.restore();
+
+  a = r(0.6);
+  ctx.save(); ctx.globalAlpha = a.a;
+  drawSub("Tell us about the yard. We call you back.", x, 1090 + a.dy, W - PAD_L - PAD_R);
+  ctx.restore();
+
+  a = r(0.8);
+  ctx.save(); ctx.globalAlpha = a.a;
+  // gentle pulse on the CTA once it has landed
+  const pulse = local > 1.4 ? 1 + 0.025 * Math.sin((local - 1.4) * 4) : 1;
+  ctx.translate(x, 1230 + a.dy); ctx.scale(pulse, pulse);
+  drawChip("eaglebuilt.ai/consultation", 0, 0, 42);
+  ctx.restore();
+
+  a = r(1.0);
+  ctx.save(); ctx.globalAlpha = a.a;
+  font(48, 700); ctx.fillStyle = C.txt; ctx.textBaseline = "alphabetic";
+  ctx.fillText("or call (949) 564-1948", x, 1430 + a.dy);
+  font(30, 600); ctx.fillStyle = C.dim;
+  ctx.fillText("Sacramento & the foothills · 36 years", x, 1510 + a.dy);
+  ctx.fillText("CSLB #992251 · GC & C-29 Masonry", x, 1556 + a.dy);
+  ctx.restore();
+}
+
+// ── frame ──────────────────────────────────────────────────────────────
+function drawScene(sc, t) {
+  const local = t - sc.t0, dur = sc.t1 - sc.t0;
+  if (sc.end) { drawEnd(local); return; }
+  drawPhotoScene(sc, local, dur);
+  drawBrand(1);
+  drawCopy(sc, local, dur);
+}
+
+function renderAt(t) {
+  ctx.globalAlpha = 1; ctx.filter = "none";
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  const i = SCENES.findIndex(s => t >= s.t0 && t < s.t1);
+  const idx = i < 0 ? SCENES.length - 1 : i;
+  const sc = SCENES[idx];
+  drawScene(sc, t);
+  // crossfade the next scene in over the last XFADE seconds of this one
+  const next = SCENES[idx + 1];
+  if (next && t > sc.t1 - XFADE) {
+    ctx.save();
+    ctx.globalAlpha = ease((t - (sc.t1 - XFADE)) / XFADE);
+    drawScene(next, Math.max(t, next.t0));
+    ctx.restore();
+  }
+  // thin progress bar at the very top, like a story
+  ctx.fillStyle = "rgba(255,255,255,.12)"; ctx.fillRect(0, 0, W, 6);
+  ctx.fillStyle = C.blue; ctx.fillRect(0, 0, W * clamp(t / DURATION), 6);
+}
+
+// ── modes ──────────────────────────────────────────────────────────────
+// Frame-stepped capture: content is chosen by frame index, never wall clock,
+// so a slow machine drops nothing from the picture.
+async function record() {
+  document.body.classList.add("rec");
+  const mime = ["video/mp4;codecs=avc1.640028", "video/mp4;codecs=avc1", "video/mp4"]
+    .find(m => MediaRecorder.isTypeSupported(m));
+  if (!mime) throw new Error("This Chrome cannot record MP4");
+  const stream = cv.captureStream(0);
+  const track = stream.getVideoTracks()[0];
+  const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 14_000_000 });
+  const chunks = [];
+  rec.ondataavailable = e => e.data.size && chunks.push(e.data);
+  const done = new Promise(ok => rec.onstop = ok);
+  renderAt(0); track.requestFrame();
+  rec.start(1000);
+  const total = Math.round(DURATION * FPS);
+  SCENES.forEach(s => s.photo && blurred(s.photo));
+  const t0 = performance.now();
+  let late = 0;
+  for (let f = 0; f <= total; f++) {
+    renderAt(f / FPS);
+    track.requestFrame();
+    const wait = t0 + (f + 1) * 1000 / FPS - performance.now();
+    if (wait < 0) late++;
+    await new Promise(ok => setTimeout(ok, Math.max(0, wait)));
+  }
+  const wall = (performance.now() - t0) / 1000;
+  rec.stop(); await done;
+  return { blob: new Blob(chunks, { type: mime.split(";")[0] }), mime, wall, late, total };
+}
+
+async function snapshot(t) {
+  renderAt(t);
+  return new Promise(ok => cv.toBlob(ok, "image/png"));
+}
+
+window.reel = { ready, renderAt, record, snapshot, DURATION };
+
+const q = new URLSearchParams(location.search);
+ready.then(() => {
+  if (q.has("t")) { renderAt(+q.get("t")); return; }
+  if (q.has("rec")) return;               // record-reel.mjs drives it
+  const start = performance.now();
+  (function loop(now) {
+    renderAt(((now - start) / 1000) % DURATION);
+    requestAnimationFrame(loop);
+  })(start);
+});
+</script>
+</body>
+</html>

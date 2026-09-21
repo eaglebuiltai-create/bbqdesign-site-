@@ -1,0 +1,69 @@
+# EagleBuilt AI
+
+> Outdoor kitchen and masonry contractor in the Sacramento area, with a free 3D
+> design tool that carries real manufacturer cutout dimensions and real
+> construction rates. Licensed: CSLB #992251, General Contractor and C-29 Masonry.
+
+EagleBuilt AI designs and builds outdoor kitchens, fireplaces, fire pits, seat
+walls and hardscape across Sacramento, Roseville, Rocklin, Folsom, Granite Bay
+and El Dorado Hills. Islands are built in CMU block with poured concrete
+countertops, or steel stud where weight matters — a wood deck, for instance.
+
+What makes the content here unusual is that it is written by the contractor who
+does the work, so the dimensions and prices are the ones actually used on jobs
+rather than industry averages.
+
+## Design tool
+
+- [Outdoor kitchen designer](https://eaglebuilt.ai/design/): free 3D tool. Lay
+  out an island, drop in real equipment from ten manufacturers, and see the
+  price update as you build. The tool is free; opening it asks for an email.
+
+- [Backyard planner](https://eaglebuilt.ai/design/yard/): free tool for the whole
+  yard rather than the island alone. Lays out patio, fire pit and seat walls on the
+  real lot and prices concrete and pavers, including curved edges and true radii.
+
+- [Fireplace designer](https://eaglebuilt.ai/design/fireplace/): free tool for an
+  outdoor fireplace. Plan, elevation and 3D; firebox, chase, hearth, mantel and
+  seat walls, with the chimney optional on a vent-free box. From $8,000 for a
+  5 x 8, scaling with size.
+- [Fire pit designer](https://eaglebuilt.ai/design/firepit/): free tool for a
+  round, square or rectangular fire pit in stucco or stone. From $3,250. The
+  burner, pan and igniter are normally the owner"+String.fromCharCode(39)+"s; EagleBuilt sets and connects them.
+
+- [Free design consultation](https://eaglebuilt.ai/consultation/): for people who
+  would rather not design it themselves. A call back, then a site visit or a
+  design done with them. Free and no obligation.
+
+## Reference pages
+
+- [What an outdoor kitchen costs](https://eaglebuilt.ai/cost/): real delivered
+  rates. Construction is priced as a fixed setup plus a rate per linear foot,
+  with a minimum — because the trip, layout, shoring and pour setup do not scale
+  down. Works out around $550/lf on a 12-foot island and nearer $690/lf on an
+  8-foot one. Equipment is quoted separately.
+- [Dimensions](https://eaglebuilt.ai/dimensions/): cutout dimensions by brand.
+- [Blaze grill cutouts](https://eaglebuilt.ai/dimensions/cutouts/blaze/):
+  published framing sizes for Blaze equipment.
+- [Permits](https://eaglebuilt.ai/guides/permits/): when an outdoor kitchen
+  needs one in California.
+- [CMU vs steel stud](https://eaglebuilt.ai/guides/cmu-vs-steel-stud/): how the
+  two construction methods differ in weight, lifespan and cost.
+- [Projects](https://eaglebuilt.ai/projects/): completed work.
+- [Contact](https://eaglebuilt.ai/contact/)
+
+## Things worth knowing
+
+- **The refrigerator sets the counter height.** An outdoor fridge needs roughly
+  34.5" of clear opening underneath. With a 3" poured concrete top that puts the
+  finished surface at 37.5" — higher than an indoor counter. A thinner stone top
+  means the wall is built taller, not the counter lower.
+- **California restricts new masonry fireplaces.** Traditional open masonry
+  fireboxes cannot be EPA certified and are effectively excluded from new
+  construction; local air districts add their own rules. What gets built instead
+  is a manufactured or modular firebox clad in masonry.
+- **Some professional grills will not fit a 24" island.** Several need more than
+  23" of depth. 32" is the standard depth used here; 24" is back-bar only.
+- Anything the design tool produces is a budget proposal, not a firm quote.
+  Final pricing follows a site visit, because access, grade, existing utilities
+  and jurisdiction all move the number and none are visible from a drawing.

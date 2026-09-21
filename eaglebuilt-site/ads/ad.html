@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EagleBuilt ad creative</title>
+<!--
+  Social ad creative template. Rendered to PNG by render.sh via headless Chrome:
+    ad.html?c=<concept>&s=<square|portrait|story>
+  Lives OUTSIDE site/ on purpose so a wrangler deploy can never pick it up.
+-->
+<style>
+:root{
+  --bg:#070A12; --blue:#2E9BFF; --blue2:#7FC4FF; --red:#E8342B;
+  --txt:#FFFFFF; --soft:#C9D8EA; --dim:#8DA0B8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000}
+body{
+  font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+.ad{
+  position:relative;overflow:hidden;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+/* ── sizes ─────────────────────────────────────────────────────────── */
+body.square   .ad{width:1080px;height:1080px}
+body.portrait .ad{width:1080px;height:1350px}
+body.story    .ad{width:1080px;height:1920px}
+
+body.square   { --pad:72px; --h1:88px;  --sub:32px; --kick:23px; --cta:30px; --foot:22px; --logo:60px; --safe:0px }
+body.portrait { --pad:76px; --h1:96px;  --sub:34px; --kick:24px; --cta:32px; --foot:23px; --logo:66px; --safe:0px }
+body.story    { --pad:84px; --h1:108px; --sub:38px; --kick:26px; --cta:35px; --foot:25px; --logo:72px; --safe:300px }
+
+/* ── the photo ─────────────────────────────────────────────────────── */
+.bg{position:absolute;inset:0}
+.bg img{width:100%;height:100%;object-fit:cover;display:block}
+.scrim{position:absolute;inset:0;background:
+  linear-gradient(180deg,
+    rgba(7,10,18,.60) 0%,
+    rgba(7,10,18,.18) 22%,
+    rgba(7,10,18,.56) 44%,
+    rgba(7,10,18,.88) 66%,
+    rgba(7,10,18,.985) 86%,
+    #070A12 100%)}
+
+/* ── the 3D-render variant: the tool sits in a panel, copy on solid navy ─ */
+body.render .ad{background:
+  radial-gradient(1100px 800px at 18% 6%,rgba(46,155,255,.20),transparent 62%),
+  radial-gradient(900px 700px at 90% 30%,rgba(232,52,43,.12),transparent 60%),
+  var(--bg)}
+body.render .scrim{display:none}
+body.render .brand{position:static;margin:var(--pad) var(--pad) 0}
+body.render .bg{
+  position:relative;inset:auto;flex:none;
+  margin:calc(var(--pad) * .62) var(--pad) 0;
+  border-radius:22px;overflow:hidden;border:2px solid #24344C;background:#0B1220;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+body.render .bg img{position:static;width:100%;height:100%;object-fit:cover}
+body.render .copy{margin-top:auto}
+body.square.render   .bg{height:380px}
+body.portrait.render .bg{height:520px}
+body.story.render    .bg{height:auto;aspect-ratio:1440/810;margin-top:auto}
+body.render .bg img{object-position:center 45%}
+/* A square leaves no room for a supporting line once the panel is in — and a
+   square ad reads better without one anyway. */
+body.square.render .sub{display:none}
+body.square.render h1{font-size:80px}
+
+/* ── brand lockup ──────────────────────────────────────────────────── */
+.brand{
+  position:absolute;top:var(--pad);left:var(--pad);
+  display:flex;align-items:center;gap:18px;z-index:3;
+}
+body.story .brand{top:calc(var(--pad) + 120px)}
+.brand img{height:var(--logo);width:auto;display:block;
+  filter:drop-shadow(0 2px 16px rgba(46,155,255,.55))}
+.brand b{color:#fff;font-size:calc(var(--logo) * .46);letter-spacing:.06em;font-weight:800}
+.brand b i{font-style:normal;color:var(--red)}
+
+/* ── copy block ────────────────────────────────────────────────────── */
+.copy{position:relative;z-index:3;padding:var(--pad);padding-bottom:calc(var(--pad) + var(--safe))}
+.kick{
+  display:inline-block;font-size:var(--kick);letter-spacing:.15em;text-transform:uppercase;
+  font-weight:800;color:var(--blue2);margin-bottom:26px;
+  background:rgba(7,10,18,.62);border:2px solid rgba(46,155,255,.55);
+  padding:12px 22px;border-radius:100px;
+}
+h1{
+  font-size:var(--h1);line-height:1.02;letter-spacing:-.035em;font-weight:800;
+  color:var(--txt);margin-bottom:26px;text-wrap:balance;
+  text-shadow:0 4px 30px rgba(0,0,0,.6);
+}
+h1 em{font-style:normal;color:var(--blue2)}
+.sub{font-size:var(--sub);line-height:1.36;color:var(--soft);max-width:23ch;margin-bottom:40px;
+  text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.sub b{color:#fff;font-weight:700}
+.row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.chip{
+  display:inline-flex;align-items:center;font-size:var(--cta);font-weight:800;
+  padding:22px 40px;border-radius:14px;color:#fff;letter-spacing:-.01em;
+  background:linear-gradient(180deg,#2E9BFF,#1668C4);
+  box-shadow:0 10px 40px rgba(46,155,255,.42);
+}
+.tel{font-size:var(--cta);font-weight:700;color:#fff;letter-spacing:-.01em}
+.foot{
+  margin-top:34px;font-size:var(--foot);color:var(--dim);letter-spacing:.02em;font-weight:600;
+}
+body.warm{--blue:#F0891F;--blue2:#FFC182}
+body.warm .chip{background:linear-gradient(180deg,#FF9A2E,#D2660A);
+  box-shadow:0 10px 40px rgba(240,137,31,.45)}
+body.warm .kick{border-color:rgba(255,175,105,.6)}
+/* Firelight is the subject, and a full-width scrim puts it out. Protect the
+   text column from the left instead and let the right side stay lit. */
+body.warm .bg img{object-position:30% center}
+body.warm .scrim{background:
+  linear-gradient(90deg,
+    rgba(7,10,18,.88) 0%,
+    rgba(7,10,18,.72) 34%,
+    rgba(7,10,18,.30) 56%,
+    rgba(7,10,18,.10) 72%,
+    transparent 88%),
+  linear-gradient(180deg,
+    rgba(7,10,18,.55) 0%,
+    rgba(7,10,18,.12) 22%,
+    rgba(7,10,18,.10) 50%,
+    rgba(7,10,18,.55) 78%,
+    rgba(7,10,18,.90) 93%,
+    #070A12 100%)}
+</style>
+</head>
+<body>
+<div class="ad">
+  <div class="brand">
+    <img src="../site/assets/eaglebuilt-emblem.png" alt="">
+    <b>EAGLEBUILT<i>&nbsp;AI</i></b>
+  </div>
+  <div class="bg"><img id="ph" alt=""></div>
+  <div class="scrim"></div>
+  <div class="copy">
+    <span class="kick" id="kick"></span>
+    <h1 id="h1"></h1>
+    <p class="sub" id="sub"></p>
+    <div class="row">
+      <span class="chip" id="chip"></span>
+      <span class="tel" id="tel">(949) 564-1948</span>
+    </div>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+
+<script>
+const CONCEPTS = {
+  // A — the tool. Cold traffic, curiosity, lands on the designer.
+  tool: {
+    render: true,
+    photo: "../site/design/tool-preview.jpg",
+    kick: "Free 3D designer",
+    h1: 'Design it in 3D.<br><em>We build it.</em>',
+    sub: "Your grill, your island, real cutout sizes — and the price moving as you build.",
+    chip: "eaglebuilt.ai",
+    foot: "Sacramento &amp; the foothills · CSLB #992251"
+  },
+  // B — the craft. Local trust, shows the real work.
+  craft: {
+    photo: "../site/projects/photos/bar-bbq-large.jpg",
+    kick: "Roseville · Folsom · Granite Bay",
+    h1: 'Real block.<br>Real poured<br><em>concrete.</em>',
+    sub: "Not a kit island. CMU, stone and a countertop poured on site — built to outlast the house.",
+    chip: "See the builds",
+    foot: "36 years · CSLB #992251 · General Contractor &amp; C-29 Masonry"
+  },
+  // C — the cost question. Highest engagement, lands on /cost/.
+  cost: {
+    photo: "../site/projects/photos/bar-stacked-stone.jpg",
+    kick: "Straight answer",
+    h1: 'What does an outdoor kitchen <em>actually cost?</em>',
+    sub: "See the number before you call anyone. Free tool prices your island as you draw it.",
+    chip: "eaglebuilt.ai/cost",
+    foot: "Sacramento &amp; the foothills · CSLB #992251"
+  },
+  firepit: {
+    warm: true,
+    photo: "../site/projects/photos/firepit-seat-wall.jpg",
+    kick: "Fall in the foothills",
+    h1: 'Fire pit<br><em>weather.</em>',
+    sub: "Gas or wood, with a seat wall around it. Design yours free — lit before the holidays.",
+    chip: "eaglebuilt.ai",
+    foot: "Free fire pit designer · CSLB #992251"
+  },
+  fireplace: {
+    warm: true,
+    photo: "../site/projects/photos/masonry-fireplace.jpg",
+    kick: "Outdoor fireplaces",
+    h1: 'The room you<br><em>use in winter.</em>',
+    sub: "Firebox clad in stone, brick or stucco, with seat walls flanking it at hearth height.",
+    chip: "eaglebuilt.ai",
+    foot: "Free fireplace designer · CSLB #992251"
+  }
+};
+
+const q = new URLSearchParams(location.search);
+const c = CONCEPTS[q.get("c") || "tool"];
+const s = q.get("s") || "square";
+document.body.className = s + (c.render ? " render" : "") + (c.warm ? " warm" : "");
+document.getElementById("ph").src = c.photo;
+document.getElementById("kick").innerHTML = c.kick;
+document.getElementById("h1").innerHTML = c.h1;
+document.getElementById("sub").innerHTML = c.sub;
+document.getElementById("chip").textContent = c.chip;
+document.getElementById("foot").innerHTML = c.foot;
+</script>
+</body>
+</html>

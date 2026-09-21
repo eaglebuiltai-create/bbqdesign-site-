@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["-y", "serve", "eaglebuilt-site/site", "-l", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "crm",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "eaglebuilt-site/crm"],
+      "port": 3000
+    }
+  ]
+}

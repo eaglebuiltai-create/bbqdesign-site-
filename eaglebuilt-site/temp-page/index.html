@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EagleBuilt AI — Outdoor Kitchen Designer | Coming Soon</title>
+<meta name="description" content="Design your own outdoor kitchen, free, with no sales call and no contact form. Built by a Sacramento-area contractor with 36 years of outdoor kitchens behind it. Launching soon.">
+<link rel="icon" href="eaglebuilt-emblem.png">
+<meta property="og:title" content="EagleBuilt AI — Outdoor Kitchen Designer">
+<meta property="og:description" content="Design your own outdoor kitchen. Free. No form, no sales call. Coming soon to Sacramento and the foothills.">
+<meta property="og:image" content="eaglebuilt-emblem.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="index,follow">
+<style>
+:root{
+  --bg:#070A12; --bg2:#0B111C; --panel:#0F1826; --line:#1E2C42; --line2:#2A3B57;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  --blue:#2E9BFF; --blue2:#7FC4FF; --red:#E8342B;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--txt);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex; flex-direction:column; min-height:100%;
+}
+/* A wash of the brand blue and red behind the mark, the way the emblem lights. */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(58vw 44vw at 24% 14%, rgba(46,155,255,.16), transparent 62%),
+    radial-gradient(52vw 40vw at 78% 22%, rgba(232,52,43,.13), transparent 62%);
+}
+main{position:relative; z-index:1; flex:1; display:grid; place-items:center; padding:40px 20px 28px}
+.card{width:100%; max-width:760px; text-align:center}
+
+.mark{width:190px; max-width:52vw; margin:0 auto 26px; display:block;
+  filter:drop-shadow(0 14px 40px rgba(46,155,255,.28))}
+
+.eyebrow{
+  display:inline-block; font-size:11px; font-weight:800; letter-spacing:.19em;
+  text-transform:uppercase; color:var(--blue2);
+  border:1px solid var(--line2); border-radius:999px; padding:6px 15px;
+  background:rgba(15,24,38,.72); margin-bottom:22px;
+}
+h1{
+  margin:0 0 16px; line-height:1.1; letter-spacing:-.02em; text-wrap:balance;
+  font-size:clamp(30px,6.2vw,54px); font-weight:800;
+}
+h1 .accent{color:var(--blue2)}
+.lede{
+  margin:0 auto 30px; max-width:52ch; color:var(--muted);
+  font-size:clamp(15px,2.4vw,19px); text-wrap:balance;
+}
+.lede b{color:var(--txt); font-weight:600}
+
+/* The three numbers that separate a real builder from a catalog render. */
+.specs{
+  display:grid; gap:1px; background:var(--line);
+  border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  grid-template-columns:repeat(3,1fr); margin:0 0 30px; text-align:left;
+}
+@media (max-width:560px){ .specs{grid-template-columns:1fr} }
+.spec{background:var(--panel); padding:14px 16px}
+.spec .k{font-size:10px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--dim)}
+.spec .v{font-size:19px; font-weight:700; margin-top:3px; letter-spacing:-.01em}
+.spec .n{font-size:12px; color:var(--muted); margin-top:2px; line-height:1.45}
+
+.area{font-size:14px; color:var(--muted); margin:0 0 26px}
+.area b{color:var(--txt); font-weight:600}
+
+.actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; align-items:center}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  padding:13px 24px; border-radius:10px; font-size:15px; font-weight:700;
+  border:1px solid var(--line2); color:var(--txt); background:var(--panel);
+}
+.btn:hover{border-color:#3A5A85; background:#16253A}
+.btn-primary{
+  background:linear-gradient(180deg,#2E9BFF,#1A72C8); border-color:#2E9BFF; color:#04121F;
+}
+.btn-primary:hover{filter:brightness(1.07); background:linear-gradient(180deg,#2E9BFF,#1A72C8)}
+
+footer{
+  position:relative; z-index:1; text-align:center; padding:22px 20px 30px;
+  font-size:12.5px; color:var(--dim); border-top:1px solid var(--line);
+}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<main>
+  <div class="card">
+    <img class="mark" src="eaglebuilt-emblem.png" alt="EagleBuilt AI">
+
+    <div class="eyebrow">Launching Soon</div>
+
+    <h1>Design your outdoor kitchen.<br><span class="accent">Free.</span></h1>
+
+    <p class="lede">
+      Most contractor sites want your phone number before you know what you want.
+      We built the opposite. Pick your grill, your fridge, your burners — and watch
+      the island build itself around them. <b>No sales call. No contact form.</b>
+    </p>
+
+    <div class="specs">
+      <div class="spec">
+        <div class="k">Island depth</div>
+        <div class="v">32&quot;</div>
+        <div class="n">The working standard. A BBQ will not fit a 24&quot; run.</div>
+      </div>
+      <div class="spec">
+        <div class="k">Counter underside</div>
+        <div class="v">34.5&quot;</div>
+        <div class="n">The fridge sets the height, not the counter.</div>
+      </div>
+      <div class="spec">
+        <div class="k">Poured top</div>
+        <div class="v">3&quot;</div>
+        <div class="n">Colored concrete, monolithic cantilever, no brackets.</div>
+      </div>
+    </div>
+
+    <p class="area">
+      Built by a contractor with <b>36 years</b> and hundreds of islands behind it.<br>
+      Serving <b>Sacramento and the foothills</b> — Roseville, Rocklin, Folsom,
+      Granite Bay, El Dorado Hills, Serrano and Rescue.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="mailto:eaglebuilt@gmail.com?subject=Tell%20me%20when%20the%20designer%20opens">Tell me when it opens</a>
+      <a class="btn" href="mailto:eaglebuilt@gmail.com?subject=Outdoor%20kitchen%20project">Talk about a project</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  &copy; <span id="yr">2026</span> EagleBuilt AI &middot;
+  <a href="mailto:eaglebuilt@gmail.com">eaglebuilt@gmail.com</a>
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

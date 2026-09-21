@@ -1,0 +1,33 @@
+# ---------------------------------------------------------------------------
+# SECRETS — never commit these.
+# Real values live in Cloudflare secrets, Vercel env vars and Neon.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.dev.vars
+.dev.vars
+
+# Cloudflare
+.wrangler/
+
+# Neon link state (project/branch ids, machine-specific)
+.neon
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local databases
+*.db
+*.db-journal
+*.sqlite
+
+# OS / editor noise
+Thumbs.db
+.DS_Store
+*.swp

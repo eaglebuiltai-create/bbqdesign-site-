@@ -1,0 +1,12 @@
+# Worker secrets for `wrangler dev`. Real secrets live in Cloudflare
+# (`npx wrangler secret put`), never in the repo.
+.dev.vars
+
+# Wrangler's local state
+.wrangler/
+
+# The CRM keeps its own .gitignore; these are the ones that would leak.
+crm/.env
+crm/prisma/*.db
+crm/prisma/*.db-journal
+node_modules/

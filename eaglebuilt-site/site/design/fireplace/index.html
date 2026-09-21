@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>EagleBuilt AI — Outdoor Fireplace Designer</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070A12; --panel:#0C111C; --line:#1B2536; --line2:#22304A;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  --blue:#2E9BFF; --blueL:#7FC4FF; --red:#E8342B; --ok:#7FD3AA;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100%}
+
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;
+  border-bottom:1px solid var(--line);background:var(--panel);flex:none}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.3px;font-size:14px}
+.brand i{color:var(--blue);font-style:normal}
+.tag{font-size:11px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:999px;padding:3px 10px}
+header .sp{flex:1}
+
+main{flex:1;display:flex;min-height:0}
+#stage{flex:1;position:relative;min-width:0;background:
+  radial-gradient(120% 90% at 50% 12%,#101a2e 0%,#070A12 70%)}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+
+.overlay{position:absolute;display:flex;gap:6px;flex-wrap:wrap;z-index:5}
+.overlay.tl{top:12px;left:12px} .overlay.br{bottom:12px;right:12px}
+.overlay.tr{top:12px;right:12px}
+.chip{background:rgba(12,17,28,.92);border:1px solid var(--line2);border-radius:9px;
+  padding:6px 10px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.chip b{color:var(--txt);font-weight:700}
+
+aside{width:330px;flex:none;background:var(--panel);border-left:1px solid var(--line);
+  overflow-y:auto;padding:14px}
+@media(max-width:860px){
+  main{flex-direction:column}
+  aside{width:auto;max-height:52%;border-left:none;border-top:1px solid var(--line)}
+}
+.grp{margin-bottom:16px}
+.grp h4{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
+  margin-bottom:8px;font-weight:700}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button, .mini{background:#111a29;border:1px solid var(--line2);color:var(--muted);
+  border-radius:8px;padding:7px 11px;font-size:12.5px;cursor:pointer;font-family:inherit;
+  transition:.12s}
+.presets button:hover,.mini:hover{border-color:#33507c;color:var(--txt)}
+.presets button.on{background:var(--blue);border-color:var(--blue);color:#04101f;font-weight:700}
+.field{margin-bottom:9px}
+.field label{display:block;font-size:11.5px;color:var(--dim);margin-bottom:4px}
+input[type=text],select{width:100%;background:#070c15;border:1px solid var(--line2);
+  color:var(--txt);border-radius:8px;padding:8px 10px;font-size:13.5px;font-family:inherit}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+.ql{display:flex;justify-content:space-between;gap:10px;padding:6px 0;
+  font-size:13px;border-bottom:1px solid var(--line)}
+.ql:last-child{border-bottom:none}
+.ql span{color:var(--muted)} .ql b{color:var(--txt);white-space:nowrap}
+.ql i{display:block;font-style:normal;font-size:11px;color:var(--dim);margin-top:1px}
+.ql.sub{border-top:1px solid var(--line2);margin-top:4px;padding-top:8px}
+.ql.sub b, .ql.sub span{color:var(--txt);font-weight:700}
+.total{background:#0E1725;border:1px solid var(--line2);border-radius:10px;
+  padding:11px 13px;margin-top:10px}
+.total .n{font-size:26px;font-weight:800;color:var(--blueL);letter-spacing:-.5px}
+.total .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px}
+.note{background:#0E1420;border:1px solid var(--line2);border-radius:9px;
+  padding:9px 11px;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:9px}
+.btn{display:inline-block;background:var(--red);color:#fff;border:none;border-radius:9px;
+  padding:10px 16px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--muted)}
+.sw{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.sw i{width:26px;height:26px;border-radius:6px;border:2px solid transparent;cursor:pointer;display:block}
+.sw i.on{border-color:var(--blue)}
+</style>
+<script src="/assets/track.js"></script>
+<script src="/assets/emailcheck.js"></script>
+</head>
+<body>
+<!-- ══════════════════════════════════════════════════════════════════════
+     EMAIL GATE. Self-contained on purpose — its own eb-prefixed styles and
+     its own IIFE, so it cannot collide with anything in the designer below.
+     Shown before first paint, so a returning visitor never sees it flash.
+     ══════════════════════════════════════════════════════════════════════ -->
+<style>
+#ebGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;
+  justify-content:center;padding:20px;background:rgba(4,7,13,.88);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+#ebGate[hidden]{display:none}
+#ebGate .ebCard{width:100%;max-width:400px;background:#0C111C;border:1px solid #22304A;
+  border-radius:14px;padding:22px;color:#E7EEF7;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#ebGate .ebBrand{font-weight:800;letter-spacing:.3px;font-size:13px;margin-bottom:14px}
+#ebGate .ebBrand i{color:#2E9BFF;font-style:normal}
+#ebGate h2{font-size:19px;margin:0 0 6px;letter-spacing:-.2px;font-weight:800}
+#ebGate .ebLede{color:#8DA0B8;font-size:13px;margin:0 0 16px}
+#ebGate label{display:block;font-size:11.5px;color:#5F7391;margin:0 0 4px}
+#ebGate label span{color:#3E4E66}
+#ebGate input{width:100%;background:#070c15;border:1px solid #22304A;color:#E7EEF7;
+  border-radius:8px;padding:10px 11px;font-size:16px;font-family:inherit;margin-bottom:11px}
+#ebGate input:focus{outline:none;border-color:#2E9BFF}
+#ebGate button{width:100%;background:#E8342B;color:#fff;border:none;border-radius:9px;
+  padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+#ebGate button:disabled{opacity:.6;cursor:default}
+#ebGate .ebErr{color:#E8342B;font-size:12px;margin:8px 0 0;display:none}
+#ebGate .ebFine{color:#5F7391;font-size:11px;margin:12px 0 0;line-height:1.5}
+</style>
+
+<div id="ebGate" hidden>
+  <div class="ebCard">
+    <div class="ebBrand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <h2>Start your design</h2>
+    <p class="ebLede">Free to use. Add your email and the designer opens &mdash; we use it to
+      send you the design and its itemized budget when you are done.</p>
+    <form id="ebGateForm" novalidate>
+      <label for="ebEmail">Email</label>
+      <input type="email" id="ebEmail" autocomplete="email" placeholder="you@example.com">
+      <label for="ebZip">ZIP code <span>&mdash; optional</span></label>
+      <input type="text" id="ebZip" inputmode="numeric" autocomplete="postal-code" placeholder="95630">
+      <button type="submit" id="ebGo">Start designing</button>
+      <p class="ebErr" id="ebErr"></p>
+      <p class="ebFine">Everything the designer produces is a budget proposal. Final pricing
+        follows a field verification visit. No lists, no spam.</p>
+      <p class="ebFine" style="margin-top:8px">Rather we designed it?
+        <a href="/consultation/" style="color:#7FC4FF">Book a free consultation</a>.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY  = "eb.designer.lead";
+  var TOOL = ({ "/design/app/":       "Kitchen",
+                "/design/firepit/":   "Fire pit",
+                "/design/fireplace/": "Fireplace",
+                "/design/yard/":      "Backyard" })[location.pathname] || "Designer";
+  var gate = document.getElementById("ebGate");
+
+  /* A browser that blocks storage throws on read. Show the gate in that case —
+     but the write below is also wrapped, so a blocked browser still gets in,
+     it just gets asked again next visit. Never trap anyone outside. */
+  var seen = false;
+  try { seen = !!localStorage.getItem(KEY); } catch (e) {}
+  if (seen) return;
+  gate.hidden = false;
+
+  var form = document.getElementById("ebGateForm");
+  var err  = document.getElementById("ebErr");
+  var btn  = document.getElementById("ebGo");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = (document.getElementById("ebEmail").value || "").trim();
+    var zip   = (document.getElementById("ebZip").value || "").trim();
+
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
+      err.textContent = "Please enter an email we can send the design to.";
+      err.style.display = "block";
+      document.getElementById("ebEmail").focus();
+      return;
+    }
+    if (window.EBEmailCheck && !EBEmailCheck.gate(email, document.getElementById("ebEmail"), err)) return;
+    btn.disabled = true;
+    btn.textContent = "Opening…";
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ email: email, zip: zip, ts: Date.now() }));
+    } catch (e2) {}
+
+    /* Fire and forget. The visitor is let in whatever the network does — a
+       failed POST must never read as a broken tool, and the full lead still
+       goes out when they send the design. */
+    try {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
+          from_name:  "EagleBuilt AI Designer",
+          subject:    TOOL + " designer opened — " + email,
+          lead_stage: "opened the designer",
+          email:      email,
+          zip:        zip || "—",
+          page:       location.pathname
+        })
+      }).catch(function () {});
+    } catch (e3) {}
+
+    /* And into the CRM. Same-origin, so the ingest key stays in the Worker
+       and never reaches the page — see src/worker.js. Fire and forget for the
+       same reason as above: the visitor is never held up by it, and a CRM
+       outage cannot look like a broken tool. */
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:  email,
+          zip:    zip,
+          source: TOOL + " designer"
+        })
+      }).catch(function () {});
+    } catch (e4) {}
+
+    gate.hidden = true;
+    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL });
+  });
+})();
+</script>
+
+<div id="app">
+  <header>
+    <div class="brand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <div class="tag">Fireplace Designer</div>
+    <div class="sp"></div>
+    <div class="tag" id="stamp">preview</div>
+  </header>
+
+  <main>
+    <div id="stage">
+      <canvas id="c"></canvas>
+      <div class="overlay tl">
+        <div class="chip" id="dims"><b>&mdash;</b></div>
+      </div>
+      <div class="overlay tr">
+        <div class="presets" id="view">
+          <button class="mini" data-v="el">Elevation</button>
+          <button class="mini" data-v="plan">Plan</button>
+          <button class="mini" data-v="iso">3D</button>
+        </div>
+      </div>
+      <div class="overlay br">
+        <div class="chip" id="hint">elevation</div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="grp">
+        <h4>Firebox opening</h4>
+        <div class="row2">
+          <div class="field">
+            <label>Width &mdash; <b id="fbWv"></b></label>
+            <input type="range" id="inFbW" min="30" max="60" step="2">
+          </div>
+          <div class="field">
+            <label>Height &mdash; <b id="fbHv"></b></label>
+            <input type="range" id="inFbH" min="24" max="42" step="2">
+          </div>
+        </div>
+        <div class="note" id="fbNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Structure</h4>
+        <div class="presets" id="chimney" style="margin-bottom:9px">
+          <button data-c="1">Chimney</button>
+          <button data-c="0">No chimney</button>
+        </div>
+        <div class="note" id="chimNote"></div>
+        <div class="field" style="margin-top:9px">
+          <label>Overall width &mdash; <b id="bwV"></b></label>
+          <input type="range" id="inBW" min="60" max="144" step="6">
+        </div>
+        <div class="field">
+          <label>Overall height &mdash; <b id="thV"></b></label>
+          <input type="range" id="inTH" min="60" max="180" step="6">
+        </div>
+        <div class="field" id="shoulderFld">
+          <label>Shoulder &mdash; <b id="shV"></b></label>
+          <input type="range" id="inSH" min="60" max="150" step="6">
+        </div>
+        <div class="row2">
+          <div class="field" id="chaseFld">
+            <label>Chase width &mdash; <b id="cwV"></b></label>
+            <input type="range" id="inCW" min="30" max="96" step="6">
+          </div>
+          <div class="field">
+            <label>Depth &mdash; <b id="bdV"></b></label>
+            <input type="range" id="inBD" min="24" max="48" step="2">
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Hearth</h4>
+        <div class="row2">
+          <div class="field">
+            <label>Height &mdash; <b id="hhV"></b></label>
+            <input type="range" id="inHH" min="0" max="24" step="2">
+          </div>
+          <div class="field">
+            <label>Projection &mdash; <b id="hdV"></b></label>
+            <input type="range" id="inHD" min="12" max="36" step="2">
+          </div>
+        </div>
+        <div class="note" id="hNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Mantel</h4>
+        <div class="presets" id="mantel">
+          <button data-m="1">Mantel shelf</button>
+          <button data-m="0">None</button>
+        </div>
+        <div class="field" style="margin-top:8px" id="mantelFld">
+          <label>Height off grade &mdash; <b id="myV"></b></label>
+          <input type="range" id="inMY" min="40" max="90" step="2">
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Finish</h4>
+        <div class="presets" id="finish">
+          <button data-f="stucco">Stucco</button>
+          <button data-f="mfg">Manufactured stone</button>
+          <button data-f="natural">Natural / cut stone</button>
+        </div>
+        <div class="note" id="finNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Seat walls</h4>
+        <div class="row2">
+          <div class="field">
+            <label>Left &mdash; <b id="slV"></b></label>
+            <input type="range" id="inSL" min="0" max="20" step="1">
+          </div>
+          <div class="field">
+            <label>Right &mdash; <b id="srV"></b></label>
+            <input type="range" id="inSR" min="0" max="20" step="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="grp">
+        <h4>Add-ons</h4>
+        <div class="field">
+          <label>Extended hearth &mdash; <b id="heV"></b> @ $150/ft</label>
+          <input type="range" id="inHE" min="0" max="20" step="1">
+        </div>
+        <div class="field">
+          <label>Back wall &mdash; <b id="bwallV"></b> @ $150/ft</label>
+          <input type="range" id="inBWall" min="0" max="24" step="1">
+        </div>
+        <div class="field">
+          <label>Outlets &mdash; <b id="outV"></b> @ $135 each</label>
+          <input type="range" id="inOut" min="0" max="4" step="1">
+        </div>
+        <div class="presets" style="margin-top:8px">
+          <button class="mini" id="woodBtn">Wood storage</button>
+          <button class="mini" id="tvBtn">TV above mantel</button>
+        </div>
+        <div class="note" id="addNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Estimate</h4>
+        <div id="q"></div>
+        <div class="total">
+          <div class="l">Project total</div>
+          <div class="n" id="tot">&mdash;</div>
+        </div>
+        <div class="note" id="qnote"></div>
+        <div class="note">Budget proposal only. Final pricing follows a site visit &mdash; access,
+          grade and existing utilities all move the number.</div>
+        <button class="btn" id="btnSpec" style="margin-top:10px">Copy spec</button>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+/* ==========================================================================
+   EAGLEBUILT AI — OUTDOOR FIREPLACE DESIGNER
+   Standalone preview, unlisted. A separate file from the kitchen and fire pit
+   tools on purpose: nothing in here can break either of those.
+
+   PRICING — John's numbers, confirmed 2026-09-03:
+     base   $8,000    firebox, chase, STUCCO, hearth
+     linear $150/lf   seat wall + extended hearth + back wall
+     wood   $1,000    storage box
+     outlet $135 ea   a TV needs one; TV and bracket are the owner's
+     stone            an ADDER over stucco. Rate not set yet, so it reads
+                      "quote add" rather than a number invented here.
+
+   Two firebox routes, same price: EagleBuilt lays a firebrick box, or installs
+   a zero-clearance unit the customer buys. John, 2026-09-03: "install firebox
+   is as much work as building it with firebrick so no real change." Either way
+   the log set belongs to the owner.
+   ========================================================================== */
+
+const PRICE = { base:8000, lf:150, wood:1000, outlet:135, stoneMfg:35, stoneNat:50 };
+/* What the $8,000 buys, and how it grows. John, 2026-09-04: "use a percentage
+   of growth to fireplace, 20% bigger the price goes up 20%." Size is measured
+   as the three-sided face — front and both returns — because that is the
+   masonry that actually grows. The starting size works out to 80 sq ft.
+   Floored at the base: it is a starting size, so smaller does not go cheaper. */
+const BASE_W = 60, BASE_H = 96, BASE_D = 30;
+const BASE_SF = (BASE_W + BASE_D*2) * BASE_H / 144;
+function faceArea(){ return (S.bodyW + S.bodyD*2) * S.totalH / 144; }
+
+const S = {
+  view:"el",
+  fbW:36, fbH:30,
+  chimney:1, chimH:null, chimMY:null,
+  bodyW:60, bodyD:30, totalH:96, shoulderH:96, chaseW:48,
+  hearthH:16, hearthD:20,
+  mantel:1, mantelY:62,
+  finish:"stucco",
+  seatL:0, seatR:0,
+  hearthExt:0, backWall:0,
+  wood:false, tv:false, outlets:0
+};
+
+const MANTEL_T = 5, MANTEL_P = 4, SEAT_T = 12, SEAT_H = 18, CAP_T = 4, FB_D = 20;
+const COL = {
+  stucco:"#D8D4CC", stone:"#A9A296",
+  cap:"#8E9298", mantel:"#9A9EA4", fire:"#0B0E14",
+  grade:"#3E5680", dim:"#5F7391", txt:"#E7EEF7", muted:"#8DA0B8"
+};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+function money(v){ return "$" + Math.round(v).toLocaleString("en-US"); }
+function fracIn(v){
+  const w = Math.floor(v + 1e-6), fr = v - w;
+  const M = {0:"",1:"⅛",2:"¼",3:"⅜",4:"½",5:"⅝",6:"¾",7:"⅞"};
+  const f = M[Math.round(fr*8)] || "";
+  if (w === 0) return f || "0";
+  return w + (f ? " " + f : "");
+}
+function ftin(i){
+  const f = Math.floor(i/12), n = i - f*12;
+  if (f === 0) return fracIn(n) + '"';
+  return f + "'" + (n > 0.01 ? " " + fracIn(n) + '"' : "");
+}
+
+/* ---------- shape ---------- */
+/* The mass steps back to the chase AT the mantel, which is how John builds it —
+   the mantel caps the body and the chimney carries on above it, narrower. So
+   the shoulder is not an independent number while there is a mantel.
+   mantelY clamps against the overall height, not against shoulder(), or the two
+   would define each other in a circle. */
+/* With a vent-free box there is nothing to vent, so the chimney is optional —
+   it is there for the look, or to carry a TV. Without one the body simply runs
+   full height and gets capped, which is the flat-topped massing John builds. */
+function shoulder(){
+  if (!S.chimney) return S.totalH;
+  return S.mantel ? Math.min(mantelY() + MANTEL_T, S.totalH - 6)
+                  : Math.min(S.shoulderH, S.totalH - 12);
+}
+function fbTop(){ return S.hearthH + S.fbH; }
+function mantelY(){
+  const hi = S.chimney ? S.totalH - 24 : S.totalH - MANTEL_T - 2;
+  return Math.max(fbTop() + 4, Math.min(S.mantelY, hi));
+}
+/* The cap follows whatever it sits on. */
+function capW(){ return (S.chimney ? S.chaseW : S.bodyW) + 6; }
+function capD(){ return (S.chimney ? chaseD() : S.bodyD) + 6; }
+function chaseD(){ return Math.max(18, S.bodyD - 4); }
+function finishName(){
+  return S.finish === "mfg" ? "manufactured stone veneer"
+       : S.finish === "natural" ? "natural / cut stone veneer" : "stucco";
+}
+function stoneRate(){
+  return S.finish === "mfg" ? PRICE.stoneMfg
+       : S.finish === "natural" ? PRICE.stoneNat : 0;
+}
+/* Three sides — front and both returns. The back is stucco, so it never counts,
+   and neither does the firebox opening. */
+function stoneArea(){
+  const sh = shoulder();
+  const bodySf  = (S.bodyW + S.bodyD*2) * sh;
+  const chaseSf = (S.chaseW + chaseD()*2) * Math.max(0, S.totalH - sh);
+  return Math.max(0, (bodySf + chaseSf - S.fbW*S.fbH) / 144);
+}
+function seatIn(side){ return (side === "l" ? S.seatL : S.seatR) * 12; }
+/* Masonry beside the firebox, per side. The wood box has to live in here. */
+function sideRoom(){ return (S.bodyW - S.fbW) / 2; }
+function woodFits(){ return S.wood && sideRoom() >= 26; }
+
+/* ---------- price ---------- */
+function priceIt(){
+  const lf = S.seatL + S.seatR + S.hearthExt + S.backWall;
+  const linear = lf * PRICE.lf;
+  const wood = S.wood ? PRICE.wood : 0;
+  const outs = S.outlets * PRICE.outlet;
+  const sf = stoneArea(), rate = stoneRate(), stone = sf * rate;
+  const grow = faceArea() / BASE_SF;
+  const base = Math.max(PRICE.base, PRICE.base * grow);
+  return { lf, linear, wood, outs, base, grow, sf, rate, stone,
+           total: base + linear + wood + outs + stone };
+}
+
+/* ---------- canvas ---------- */
+const cv = $("#c"), g = cv.getContext("2d");
+const VF = "ui-sans-serif,system-ui,-apple-system,sans-serif";
+
+function vTag(x, y, txt, col){
+  g.save();
+  g.font = "600 12px " + VF;
+  const w = g.measureText(txt).width;
+  g.fillStyle = "rgba(7,10,18,.92)";
+  g.fillRect(x - w/2 - 5, y - 9, w + 10, 18);
+  g.fillStyle = col || COL.txt;
+  g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText(txt, x, y);
+  g.restore();
+}
+function dimH(xa, xb, y, txt){
+  if (Math.abs(xb - xa) < 4) return;
+  g.save();
+  g.strokeStyle = COL.dim; g.lineWidth = 1; g.setLineDash([]);
+  g.beginPath();
+  g.moveTo(xa,y); g.lineTo(xb,y);
+  g.moveTo(xa,y-5); g.lineTo(xa,y+5);
+  g.moveTo(xb,y-5); g.lineTo(xb,y+5);
+  g.stroke(); g.restore();
+  vTag((xa+xb)/2, y, txt);
+}
+function dimV(ya, yb, x, txt){
+  if (Math.abs(yb - ya) < 4) return;
+  g.save();
+  g.strokeStyle = COL.dim; g.lineWidth = 1; g.setLineDash([]);
+  g.beginPath();
+  g.moveTo(x,ya); g.lineTo(x,yb);
+  g.moveTo(x-5,ya); g.lineTo(x+5,ya);
+  g.moveTo(x-5,yb); g.lineTo(x+5,yb);
+  g.stroke(); g.restore();
+  vTag(x, (ya+yb)/2, txt);
+}
+function notes(H, L){
+  g.save();
+  g.font = "12px " + VF;
+  g.textAlign = "left"; g.textBaseline = "bottom";
+  g.fillStyle = COL.muted;
+  for (let i = 0; i < L.length; i++) g.fillText(L[L.length-1-i], 16, H - 16 - i*17);
+  g.restore();
+}
+function noteLines(){
+  const L = [
+    "Firebox " + S.fbW + '" x ' + S.fbH + '" opening · log set by owner',
+    "Finish: " + finishName()
+      + (stoneRate() ? " · " + Math.round(stoneArea()) + " sq ft, back stucco" : ""),
+    "Hearth " + S.hearthH + '" high, ' + S.hearthD + '" deep'
+      + (S.hearthExt ? " · " + S.hearthExt + " ft extended" : "")
+  ];
+  if (S.seatL || S.seatR)
+    L.push("Seat wall " + (S.seatL + S.seatR) + " ft at " + SEAT_H + '" high');
+  if (S.tv) L.push("TV and bracket by owner — EagleBuilt sets the outlet");
+  return L;
+}
+
+/* ---------- ELEVATION ----------
+   The drawing a fireplace is actually built from. Everything that matters is a
+   height off grade, which is exactly what a 3D view hides. */
+function drawEl(W, H){
+  const sh = shoulder(), my = mantelY();
+  const spanW = S.bodyW + seatIn("l") + seatIn("r");
+  const spanH = S.totalH + CAP_T;
+  const sc = Math.min((W - 390)/Math.max(spanW, S.bodyW + 40), (H - 200)/spanH);
+  const cx = W/2, base = H - 118;
+  const X = v => cx + v*sc, Y = h => base - h*sc;
+  const hw = S.bodyW/2, body = S.finish !== "stucco" ? COL.stone : COL.stucco;
+
+  g.save(); g.strokeStyle = COL.grade; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(20, base); g.lineTo(W-20, base); g.stroke(); g.restore();
+
+  g.fillStyle = body;
+  if (S.seatL) g.fillRect(X(-hw - seatIn("l")), Y(SEAT_H), seatIn("l")*sc, SEAT_H*sc);
+  if (S.seatR) g.fillRect(X(hw), Y(SEAT_H), seatIn("r")*sc, SEAT_H*sc);
+  if (S.chimney) g.fillRect(X(-S.chaseW/2), Y(S.totalH), S.chaseW*sc, (S.totalH - sh)*sc);
+  g.fillRect(X(-hw), Y(sh), S.bodyW*sc, sh*sc);
+
+  g.fillStyle = COL.cap;
+  g.fillRect(X(-capW()/2), Y(S.totalH + CAP_T), capW()*sc, CAP_T*sc);
+
+  g.fillStyle = COL.fire;
+  g.fillRect(X(-S.fbW/2), Y(fbTop()), S.fbW*sc, S.fbH*sc);
+  g.save(); g.strokeStyle = "rgba(231,238,247,.20)"; g.lineWidth = 1;
+  g.strokeRect(X(-S.fbW/2), Y(fbTop()), S.fbW*sc, S.fbH*sc); g.restore();
+
+  if (woodFits()){
+    const wW = Math.min(24, sideRoom() - 12), wH = Math.min(20, S.fbH - 6);
+    g.fillStyle = COL.fire;
+    g.fillRect(X(-hw + 8), Y(S.hearthH + wH), wW*sc, wH*sc);
+    vTag(X(-hw + 8 + wW/2), Y(S.hearthH + wH/2), "wood", COL.muted);
+  }
+
+  if (S.hearthH > 0){
+    g.fillStyle = COL.cap;
+    g.fillRect(X(-hw), Y(S.hearthH), S.bodyW*sc, S.hearthH*sc);
+  }
+  if (S.mantel){
+    g.fillStyle = COL.mantel;
+    g.fillRect(X(-hw - MANTEL_P), Y(my + MANTEL_T), (S.bodyW + MANTEL_P*2)*sc, MANTEL_T*sc);
+  }
+
+  /* Dashed, because the TV is the owner's — the same convention the fire pit
+     uses for the burner. */
+  if (S.tv){
+    const tvW = Math.min(52, S.bodyW - 12), tvH = 28;
+    const ty = (S.mantel ? my + MANTEL_T : fbTop()) + 6;
+    g.save(); g.strokeStyle = COL.dim; g.setLineDash([4,4]); g.lineWidth = 1;
+    g.strokeRect(X(-tvW/2), Y(ty + tvH), tvW*sc, tvH*sc); g.restore();
+    vTag(cx, Y(ty + tvH/2), "TV by owner", COL.muted);
+  }
+
+  const rt = X(hw + seatIn("r")), lt = X(-hw - seatIn("l"));
+  /* Clamped so a wide span never pushes a number past the edge of the canvas. */
+  const lHearth = Math.max(lt - 34, 56), lMantel = Math.max(lt - 96, 56 + 58);
+  dimV(Y(S.totalH + CAP_T), base, Math.min(rt + 80, W - 62), ftin(S.totalH + CAP_T) + " overall");
+  dimV(Y(fbTop()), Y(S.hearthH), X(hw) + 32, S.fbH + '"');
+  if (S.hearthH) dimV(Y(S.hearthH), base, lHearth, S.hearthH + '" hearth');
+  if (S.mantel)  dimV(Y(my), base, lMantel, ftin(my) + " mantel");
+  dimH(X(-S.fbW/2), X(S.fbW/2), Y(S.hearthH + S.fbH/2), S.fbW + '" opening');
+  dimH(X(-hw), X(hw), base + 32, ftin(S.bodyW) + " body");
+  if (S.seatL || S.seatR) dimH(lt, rt, base + 60, ftin(spanW) + " overall");
+
+  notes(H, noteLines());
+}
+
+/* ---------- PLAN ---------- */
+function drawPlan(W, H){
+  const spanW = S.bodyW + seatIn("l") + seatIn("r");
+  const spanD = S.bodyD + S.hearthD;
+  const sc = Math.min((W - 260)/Math.max(spanW, S.bodyW + 40), (H - 230)/spanD);
+  const cx = W/2, cy = 86 + (H - 86 - 150)/2;
+  const X = v => cx + v*sc, Z = v => cy - spanD/2*sc + v*sc;
+  const hw = S.bodyW/2, body = S.finish !== "stucco" ? COL.stone : COL.stucco;
+
+  g.fillStyle = body;
+  g.fillRect(X(-hw), Z(0), S.bodyW*sc, S.bodyD*sc);
+  if (S.seatL) g.fillRect(X(-hw - seatIn("l")), Z(0), seatIn("l")*sc, SEAT_T*sc);
+  if (S.seatR) g.fillRect(X(hw), Z(0), seatIn("r")*sc, SEAT_T*sc);
+
+  g.fillStyle = COL.fire;
+  g.fillRect(X(-S.fbW/2), Z(S.bodyD - FB_D), S.fbW*sc, FB_D*sc);
+  g.save(); g.strokeStyle = "#2E9BFF"; g.lineWidth = 1.5;
+  g.strokeRect(X(-S.fbW/2), Z(S.bodyD - FB_D), S.fbW*sc, FB_D*sc); g.restore();
+
+  g.fillStyle = COL.cap;
+  g.fillRect(X(-hw), Z(S.bodyD), S.bodyW*sc, S.hearthD*sc);
+  g.save(); g.strokeStyle = "rgba(11,17,28,.45)"; g.lineWidth = 1;
+  g.strokeRect(X(-hw), Z(S.bodyD), S.bodyW*sc, S.hearthD*sc); g.restore();
+  vTag(cx, Z(S.bodyD + S.hearthD/2), "hearth", COL.muted);
+
+  dimH(X(-hw), X(hw), Z(0) - 28, ftin(S.bodyW) + " body");
+  if (S.seatL || S.seatR)
+    dimH(X(-hw - seatIn("l")), X(hw + seatIn("r")), Z(0) - 56, ftin(spanW) + " overall");
+  dimH(X(-S.fbW/2), X(S.fbW/2), Z(S.bodyD + S.hearthD) + 32, S.fbW + '" opening');
+  dimV(Z(0), Z(S.bodyD), X(hw) + 36, S.bodyD + '" deep');
+  dimV(Z(S.bodyD), Z(S.bodyD + S.hearthD), X(hw) + 36, S.hearthD + '" hearth');
+
+  notes(H, noteLines());
+}
+
+/* ---------- 3D ----------
+   Isometric rather than a perspective camera. There is no orbit to get lost in,
+   parallel edges stay parallel so it still reads as a drawing, and every box
+   sorts by depth without a camera plane for corners to flip past. */
+const ISO_C = Math.cos(Math.PI/6), ISO_S = Math.sin(Math.PI/6);
+function drawIso(W, H){
+  const sh = shoulder(), my = mantelY();
+  const hw = S.bodyW/2, body = S.finish !== "stucco" ? COL.stone : COL.stucco;
+  const spanW = S.bodyW + seatIn("l") + seatIn("r");
+  const spanD = S.bodyD + S.hearthD;
+  const spanH = S.totalH + CAP_T;
+  const sc = Math.min((W - 200)/((spanW + spanD)*ISO_C),
+                      (H - 210)/(spanH + (spanW + spanD)*ISO_S)) * 0.95;
+  const ox = W/2 + spanD/2*ISO_C*sc;
+  const oy = H - 150 - (spanW/2)*ISO_S*sc;
+  const P = (x,y,z) => [ ox + (x - z)*ISO_C*sc, oy - y*sc + (x + z)*ISO_S*sc ];
+
+  function quad(pts, col){
+    g.beginPath();
+    g.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
+    g.closePath();
+    g.fillStyle = col; g.fill();
+    g.strokeStyle = "rgba(7,10,18,.35)"; g.lineWidth = 1; g.stroke();
+  }
+  /* Rounded, because a fractional channel makes an invalid colour string and
+     canvas silently keeps the previous fill. */
+  function tint(hex, k){
+    const n = parseInt(hex.slice(1), 16);
+    return "rgb(" + Math.round(Math.min(255,(n>>16 & 255)*k)) + ","
+                  + Math.round(Math.min(255,(n>>8 & 255)*k)) + ","
+                  + Math.round(Math.min(255,(n & 255)*k)) + ")";
+  }
+  const BOX = [];
+  const box = (x0,x1,y0,y1,z0,z1,col,fb) =>
+    BOX.push({ x0,x1,y0,y1,z0,z1,col, fb, k:(x0+x1)/2 + (z0+z1)/2 });
+
+  if (S.chimney) box(-S.chaseW/2, S.chaseW/2, sh, S.totalH,
+      S.bodyD/2 - chaseD()/2, S.bodyD/2 + chaseD()/2, body);
+  box(-capW()/2, capW()/2, S.totalH, S.totalH + CAP_T,
+      S.bodyD/2 - capD()/2, S.bodyD/2 + capD()/2, COL.cap);
+  box(-hw, hw, 0, sh, 0, S.bodyD, body, true);
+  if (S.mantel) box(-hw - MANTEL_P, hw + MANTEL_P, my, my + MANTEL_T, 0, S.bodyD + MANTEL_P, COL.mantel);
+  if (S.hearthH > 0) box(-hw, hw, 0, S.hearthH, S.bodyD, S.bodyD + S.hearthD, COL.cap);
+  if (S.seatL) box(-hw - seatIn("l"), -hw, 0, SEAT_H, 0, SEAT_T, body);
+  if (S.seatR) box(hw, hw + seatIn("r"), 0, SEAT_H, 0, SEAT_T, body);
+
+  BOX.sort((a,b) => a.k - b.k);
+  BOX.forEach(b => {
+    quad([P(b.x0,b.y0,b.z1),P(b.x1,b.y0,b.z1),P(b.x1,b.y1,b.z1),P(b.x0,b.y1,b.z1)], tint(b.col,.86));
+    quad([P(b.x1,b.y0,b.z0),P(b.x1,b.y0,b.z1),P(b.x1,b.y1,b.z1),P(b.x1,b.y1,b.z0)], tint(b.col,.70));
+    quad([P(b.x0,b.y1,b.z0),P(b.x1,b.y1,b.z0),P(b.x1,b.y1,b.z1),P(b.x0,b.y1,b.z1)], tint(b.col,1));
+    if (b.fb){
+      const fz = S.bodyD + 0.4;
+      quad([P(-S.fbW/2, S.hearthH, fz), P(S.fbW/2, S.hearthH, fz),
+            P(S.fbW/2, fbTop(), fz), P(-S.fbW/2, fbTop(), fz)], COL.fire);
+    }
+  });
+
+  notes(H, noteLines());
+}
+
+/* ---------- draw ---------- */
+function dimText(){
+  return ftin(S.bodyW) + " wide · " + ftin(S.totalH + CAP_T) + " tall · "
+       + S.fbW + '" x ' + S.fbH + '" opening';
+}
+function draw(){
+  const dpr = Math.min(2, devicePixelRatio || 1);
+  const W = cv.clientWidth, H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr;
+  g.setTransform(dpr,0,0,dpr,0,0);
+  g.clearRect(0,0,W,H);
+  $("#dims").innerHTML = "<b>" + dimText() + "</b>";
+  if (S.view === "plan") drawPlan(W,H);
+  else if (S.view === "iso") drawIso(W,H);
+  else drawEl(W,H);
+}
+
+/* ---------- quote ---------- */
+function ql(label, detail, amount){
+  return '<div class="ql"><span>' + label + "<i>" + detail + "</i></span><b>" + amount + "</b></div>";
+}
+function renderQuote(){
+  const q = priceIt(), L = [];
+  L.push(ql("Fireplace", ftin(S.bodyW) + " x " + ftin(S.totalH) + " · "
+    + (q.grow > 1.005 ? Math.round(q.grow*100) + "% of the starting size" : "starting size")
+    + " · firebox, stucco, hearth", money(q.base)));
+  if (S.seatL || S.seatR)
+    L.push(ql("Seat wall", (S.seatL + S.seatR) + " lf @ " + money(PRICE.lf) + "/lf",
+              money((S.seatL + S.seatR)*PRICE.lf)));
+  if (S.hearthExt)
+    L.push(ql("Extended hearth", S.hearthExt + " lf @ " + money(PRICE.lf) + "/lf",
+              money(S.hearthExt*PRICE.lf)));
+  if (S.backWall)
+    L.push(ql("Back wall", S.backWall + " lf @ " + money(PRICE.lf) + "/lf",
+              money(S.backWall*PRICE.lf)));
+  if (S.wood) L.push(ql("Wood storage", "box in the pier", money(PRICE.wood)));
+  if (S.outlets)
+    L.push(ql("Electrical", S.outlets + " @ " + money(PRICE.outlet) + " each", money(q.outs)));
+  /* Stated whether it costs anything or not. Silence about who buys what is
+     where the argument starts on a job. */
+  L.push(ql("Log set", "by owner", "—"));
+  if (S.tv) L.push(ql("TV and bracket", "by owner", "—"));
+  if (q.rate) L.push(ql("Stone veneer",
+    Math.round(q.sf) + " sq ft @ " + money(q.rate) + "/sq ft · three sides",
+    money(q.stone)));
+  $("#q").innerHTML = L.join("");
+  $("#tot").textContent = money(q.total);
+  $("#qnote").textContent = q.grow > 1.005
+    ? "The base grows with the fireplace — " + Math.round(faceArea()) + " sq ft of face against "
+      + BASE_SF + " at the " + ftin(BASE_W) + " x " + ftin(BASE_H) + " starting size, so "
+      + Math.round(q.grow*100) + "% of " + money(PRICE.base) + ". Front and both returns; "
+      + "the back is not counted."
+    : q.rate
+      ? "Stone covers the front and both returns. The back is stucco — it faces a wall or is not seen — so it is not in the " + Math.round(q.sf) + " sq ft."
+      : "Seat wall, extended hearth and back wall all price at " + money(PRICE.lf)
+        + "/ft. They are the same wall to build.";
+}
+
+/* ---------- UI ---------- */
+function sync(){
+  S.mantelY = mantelY();
+  const t = (id, v) => { $(id).textContent = v; };
+  t("#fbWv", S.fbW + '"');      t("#fbHv", S.fbH + '"');
+  t("#bwV", ftin(S.bodyW));     t("#thV", ftin(S.totalH));
+  t("#shV", ftin(shoulder()));  t("#cwV", ftin(S.chaseW));
+  t("#bdV", S.bodyD + '"');     t("#hhV", S.hearthH + '"');
+  t("#hdV", S.hearthD + '"');   t("#myV", ftin(mantelY()));
+  t("#slV", S.seatL + " ft");   t("#srV", S.seatR + " ft");
+  t("#heV", S.hearthExt + " ft"); t("#bwallV", S.backWall + " ft");
+  t("#outV", S.outlets);
+
+  const set = (id, v) => { const e = $(id); if (document.activeElement !== e) e.value = v; };
+  set("#inFbW", S.fbW);   set("#inFbH", S.fbH);
+  set("#inBW", S.bodyW);  set("#inTH", S.totalH);   set("#inSH", S.shoulderH);
+  set("#inCW", S.chaseW); set("#inBD", S.bodyD);
+  set("#inHH", S.hearthH); set("#inHD", S.hearthD); set("#inMY", S.mantelY);
+  set("#inSL", S.seatL);  set("#inSR", S.seatR);
+  set("#inHE", S.hearthExt); set("#inBWall", S.backWall); set("#inOut", S.outlets);
+
+  document.querySelectorAll("#view button").forEach(b =>
+    b.classList.toggle("on", b.dataset.v === S.view));
+  document.querySelectorAll("#finish button").forEach(b =>
+    b.classList.toggle("on", b.dataset.f === S.finish));
+  document.querySelectorAll("#mantel button").forEach(b =>
+    b.classList.toggle("on", +b.dataset.m === (S.mantel ? 1 : 0)));
+  $("#mantelFld").style.display = S.mantel ? "" : "none";
+  /* With a mantel the shoulder follows it, so there is nothing to set. */
+  $("#shoulderFld").style.display = (S.mantel || !S.chimney) ? "none" : "";
+  $("#chaseFld").style.display = S.chimney ? "" : "none";
+  document.querySelectorAll("#chimney button").forEach(b =>
+    b.classList.toggle("on", +b.dataset.c === (S.chimney ? 1 : 0)));
+  $("#chimNote").textContent = S.chimney
+    ? "The chase is for the look, or to carry a TV. A vent-free box does not need it."
+    : "No chase — the body runs full height and is capped. Only works with a vent-free box, which is what we build.";
+  $("#woodBtn").classList.toggle("on", S.wood);
+  $("#tvBtn").classList.toggle("on", S.tv);
+
+  $("#hint").textContent =
+      S.view === "plan" ? "plan — footprint and hearth projection"
+    : S.view === "iso"  ? "3D — isometric, nothing to orbit"
+    : "elevation — what a fireplace is actually built from";
+  $("#fbNote").textContent = "EagleBuilt lays a firebrick box, or installs a zero-clearance "
+    + "unit you pick — same price either way. The log set is yours.";
+  $("#hNote").textContent = S.hearthH === 0
+    ? "Flush hearth. Raised, it doubles as seating."
+    : "The hearth is in the base price. Only an extended hearth adds.";
+  $("#finNote").textContent = stoneRate()
+    ? "Three sides in " + finishName() + " at " + money(stoneRate())
+      + "/sq ft, back in stucco. Manufactured is Eldorado-type; natural and cut veneer run "
+      + money(PRICE.stoneNat) + "."
+    : "Stucco is what the base price carries. Stone is an adder, on three sides.";
+  $("#addNote").textContent = (S.wood && !woodFits())
+    ? "No room for a wood box beside a " + S.fbW + '" opening in a ' + ftin(S.bodyW)
+      + " body. It is still priced — widen the body and it will draw."
+    : S.tv ? "TV and bracket are yours. EagleBuilt runs the outlet and builds the opening."
+           : "A wall-mounted TV needs an outlet behind it.";
+
+  renderQuote();
+  draw();
+}
+
+function bindRange(id, key){
+  $(id).addEventListener("input", e => { S[key] = +e.target.value; sync(); });
+}
+["#inFbW:fbW","#inFbH:fbH","#inBW:bodyW","#inTH:totalH","#inSH:shoulderH",
+ "#inCW:chaseW","#inBD:bodyD","#inHH:hearthH","#inHD:hearthD","#inMY:mantelY",
+ "#inSL:seatL","#inSR:seatR","#inHE:hearthExt","#inBWall:backWall","#inOut:outlets"
+].forEach(p => { const [id, key] = p.split(":"); bindRange(id, key); });
+
+$("#view").onclick = e => { const b = e.target.closest("[data-v]"); if (!b) return;
+  S.view = b.dataset.v; sync(); };
+$("#finish").onclick = e => { const b = e.target.closest("[data-f]"); if (!b) return;
+  S.finish = b.dataset.f; sync(); };
+$("#mantel").onclick = e => { const b = e.target.closest("[data-m]"); if (!b) return;
+  S.mantel = +b.dataset.m; sync(); };
+$("#chimney").onclick = e => {
+  const b = e.target.closest("[data-c]"); if (!b) return;
+  const want = +b.dataset.c;
+  if (want === S.chimney) return;
+  if (!want){
+    /* Losing the chase has to make the fireplace SHORTER. Left alone, the old
+       chase region simply became full-width body and the cap grew with it, so
+       the top got fatter instead of going away — which is the opposite of what
+       "no chimney" means. Measure the body while the chase still exists, then
+       drop the overall height onto it. */
+    const bodyH = shoulder();
+    /* Remembered so putting the chimney back is exact. The mantel goes too:
+       a shorter fireplace clamps it down, and that clamp would otherwise stick
+       and quietly move the mantel every time the toggle is used. */
+    S.chimH = S.totalH; S.chimMY = S.mantelY;
+    S.chimney = 0;
+    S.totalH = Math.max(60, Math.min(180, Math.round(bodyH/6)*6));
+  } else {
+    S.chimney = 1;
+    S.totalH = S.chimH || Math.min(180, S.totalH + 36);
+    if (S.chimMY) S.mantelY = S.chimMY;
+    S.chimH = null; S.chimMY = null;
+  }
+  sync();
+};
+$("#woodBtn").onclick = () => { S.wood = !S.wood; sync(); };
+$("#tvBtn").onclick = () => {
+  S.tv = !S.tv;
+  /* A wall-mounted TV needs power behind it, so the outlet comes with it. */
+  if (S.tv && S.outlets < 1) S.outlets = 1;
+  sync();
+};
+
+$("#btnSpec").onclick = () => {
+  const q = priceIt();
+  const L = [
+    "EAGLEBUILT AI — OUTDOOR FIREPLACE",
+    "================================================",
+    dimText(),
+    "Firebox: " + S.fbW + '" x ' + S.fbH + '" opening, ' + FB_D + '" deep',
+    "  EagleBuilt firebrick box, or a zero-clearance unit you select and",
+    "  we install - same price. Log set by owner.",
+    "Body:    " + ftin(S.bodyW) + " wide x " + S.bodyD + '" deep, shoulder at ' + ftin(shoulder()),
+    S.chimney ? "Chase:   " + ftin(S.chaseW) + " wide to " + ftin(S.totalH) + ", " + CAP_T + '" cap'
+              : "No chimney - body capped flat at " + ftin(S.totalH) + " (vent-free box)",
+    "Hearth:  " + S.hearthH + '" high, ' + S.hearthD + '" deep (included)',
+    S.mantel ? "Mantel:  shelf at " + ftin(mantelY()) : null,
+    "Finish:  " + finishName() + (stoneRate()
+      ? ", three sides, " + Math.round(stoneArea()) + " sq ft, back stucco" : ""),
+    (S.seatL || S.seatR)
+      ? "Seat wall: " + S.seatL + " ft left, " + S.seatR + " ft right, " + SEAT_H + '" high' : null,
+    S.tv ? "TV above mantel - TV and bracket by owner" : null,
+    "",
+    "Fireplace, " + ftin(S.bodyW) + " x " + ftin(S.totalH) + "        " + money(q.base),
+    q.grow > 1.005 ? "  " + Math.round(q.grow*100) + "% of the " + ftin(BASE_W) + " x "
+      + ftin(BASE_H) + " starting size" : null,
+    (S.seatL || S.seatR)
+      ? "Seat wall, " + (S.seatL + S.seatR) + " lf         " + money((S.seatL + S.seatR)*PRICE.lf) : null,
+    S.hearthExt ? "Extended hearth, " + S.hearthExt + " lf    " + money(S.hearthExt*PRICE.lf) : null,
+    S.backWall  ? "Back wall, " + S.backWall + " lf          " + money(S.backWall*PRICE.lf) : null,
+    S.wood      ? "Wood storage                " + money(PRICE.wood) : null,
+    S.outlets   ? "Electrical, " + S.outlets + "               " + money(q.outs) : null,
+    q.rate      ? "Stone veneer, " + Math.round(q.sf) + " sq ft    " + money(q.stone) : null,
+    "------------------------------------------------",
+    "TOTAL                       " + money(q.total),
+    null,
+    "",
+    "Budget proposal, not a quote. Final pricing follows a site visit -",
+    "access, grade and existing utilities all move the number.",
+    "",
+    "CSLB #992251 · info@eaglebuilt.ai · (949) 564-1948"
+  ].filter(x => x !== null).join("\n");
+  navigator.clipboard.writeText(L).then(
+    () => { $("#btnSpec").textContent = "Copied";
+            setTimeout(() => { $("#btnSpec").textContent = "Copy spec"; }, 1400); },
+    () => {}
+  );
+};
+
+addEventListener("resize", draw);
+document.getElementById("stamp").textContent = "preview · 2026-09-03";
+sync();
+</script>
+</body>
+</html>

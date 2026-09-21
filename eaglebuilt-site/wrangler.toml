@@ -1,0 +1,27 @@
+# Deploy config for eaglebuilt.ai
+#
+# CRITICAL: `name` must stay exactly "fragrant-butterfly-5c92". That is the
+# Worker that already exists in Cloudflare and already has eaglebuilt.ai and
+# www.eaglebuilt.ai attached as Custom domains, with SSL issued. Deploying under
+# this name UPDATES that Worker in place and leaves the domains alone.
+# Changing it would create a SECOND Worker with no domain, no SSL, and the live
+# site would carry on serving the old files.
+#
+# Deploy with:   npx wrangler deploy
+# Run from:      C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site
+#
+# The site is static files in ./site. src/worker.js exists only to serve
+# /api/confirm, which emails the customer a copy of their design. Cloudflare
+# serves matching files from ./site BEFORE the script runs, so a fault in the
+# worker cannot take the website down — it can only affect that one endpoint.
+#
+# The Resend API key is NOT here. It lives in Cloudflare's secret store:
+#   npx wrangler secret put RESEND_API_KEY
+
+name = "fragrant-butterfly-5c92"
+main = "src/worker.js"
+compatibility_date = "2026-08-24"
+
+[assets]
+directory = "./site"
+binding = "ASSETS"

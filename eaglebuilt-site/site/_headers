@@ -1,0 +1,22 @@
+# Security headers for every response.
+#
+# CSP note: the whole site is deliberately self-contained — styles and scripts
+# are inline, images are data: URIs — so 'unsafe-inline' is unavoidable and the
+# value here is in what it BLOCKS: no third-party scripts, no framing, and
+# connections limited to the two services this site actually calls.
+#   api.web3forms.com          lead delivery from the designer
+#   static.cloudflareinsights  Cloudflare's own analytics beacon, auto-injected
+#   googletagmanager / google-analytics / doubleclick
+#                              conversion tracking (assets/track.js). Allowed here
+#                              so switching it on is only a matter of pasting IDs,
+#                              but NOTHING loads from these until those IDs are set.
+#   google.com (frame)         the map embed on /contact/
+#   youtube-nocookie (frame)   the planner demo video
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(self)
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://i.ytimg.com https://analytics.google.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net; font-src 'self' data:; connect-src 'self' https://api.web3forms.com https://static.cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net; media-src 'self' data:; frame-src https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://api.web3forms.com
