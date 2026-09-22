@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { StatusBadge } from "@/components/StatusBadge";
 import { LeadEditForm } from "@/components/LeadEditForm";
 import { AddNoteForm } from "@/components/AddNoteForm";
+import { DeleteLeadButton } from "@/components/DeleteLeadButton";
 import type { LeadStatusValue } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -82,6 +83,15 @@ export default async function LeadDetailPage({
             )}
           </ul>
         </section>
+      </div>
+
+      {/* Permanent and unrecoverable, so it sits apart from the edit controls. */}
+      <div className="border-t border-slate-200 pt-5">
+        <DeleteLeadButton
+          leadId={lead.id}
+          label={lead.name || lead.email || "this lead"}
+          noteCount={lead.notes.length}
+        />
       </div>
     </div>
   );
