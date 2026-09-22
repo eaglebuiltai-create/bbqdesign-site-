@@ -24,9 +24,11 @@ works as a fallback.
 
 ## 2026-09-21 · CRM merged in, email gate feeds it (site only — designer build unchanged)
 
-**Deployed 2026-09-21.** The `/api/leads` half is live but inert: with no
-`CRM_INGEST_URL` or `CRM_LEADS_API_KEY` secret set it answers `not configured`
-and makes no outbound call. It starts working the moment those are set.
+**Deployed 2026-09-21, and live end to end.** The CRM runs at
+`https://crm.eaglebuilt.ai` (Vercel, project `eaglebuilt-crm`) against Neon
+Postgres. The Worker secrets are set, and a POST to `eaglebuilt.ai/api/leads`
+with no key — what the browser actually sends — returns `{"ok":true}` and the
+lead lands in the CRM. Designer signups now reach it automatically.
 
 The CRM app (Next.js + Prisma, supplied as `eaglebuilt-crm.tar.gz`) now lives at
 `crm/`. It is **not** part of the deployed Worker: `wrangler.toml` ships only

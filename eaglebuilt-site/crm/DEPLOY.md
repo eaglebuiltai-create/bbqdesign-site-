@@ -206,7 +206,7 @@ Preview builds still run against whatever `DATABASE_URL` you set in Vercel. If
 you want them off live data too, give the Preview environment the `dev` branch
 strings in Vercel's per-environment env var settings.
 
-### 3. Point `crm.eaglebuilt.ai` at it
+### 3. Point `crm.eaglebuilt.ai` at it — ✅ done 2026-09-21
 
 The domain is attached to the Vercel project and ownership is verified. What
 remains is one DNS record in Cloudflare:
@@ -225,7 +225,7 @@ certificate, and the domain never comes up.
 `NEXTAUTH_URL` is already set to `https://crm.eaglebuilt.ai`, so login redirects
 will work as soon as DNS resolves — and would break if the domain changed.
 
-### 4. Give the Worker the two secrets
+### 4. Give the Worker the two secrets — ✅ done 2026-09-21
 
 From `eaglebuilt-site/`:
 
@@ -255,7 +255,11 @@ npx wrangler deploy
 All four tool gates, the `/design/` landing gate and the kitchen designer's
 Quick Build and quote paths are deployed and posting to `/api/leads`.
 
-### 6. Verify on the live site
+### 6. Verify on the live site — ✅ done 2026-09-21
+
+A POST to `https://eaglebuilt.ai/api/leads` with no key — exactly what the
+browser sends — returned `{"ok":true}` and the row appeared in the production
+database. Test rows were deleted afterwards.
 
 Open the designer in a private window, pass the email gate, and confirm the lead
 appears in the CRM inbox within a second or two. If it does not, open devtools →
