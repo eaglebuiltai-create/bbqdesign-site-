@@ -2,7 +2,6 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { listLeads } from "@/lib/leads";
 import { LEAD_STATUSES, STATUS_LABELS, type LeadStatusValue } from "@/lib/constants";
-import { StatusBadge } from "@/components/StatusBadge";
 import { StatusSelect } from "@/components/StatusSelect";
 
 export const dynamic = "force-dynamic";
@@ -105,10 +104,7 @@ export default async function LeadsPage({
                   </td>
                   <td className="px-4 py-3 font-mono text-slate-700">{lead.zip}</td>
                   <td className="px-4 py-3">
-                    <div className="flex flex-col gap-1.5">
-                      <StatusBadge status={lead.status} />
-                      <StatusSelect leadId={lead.id} value={lead.status as LeadStatusValue} />
-                    </div>
+                    <StatusSelect leadId={lead.id} value={lead.status as LeadStatusValue} />
                   </td>
                   <td className="hidden px-4 py-3 text-slate-600 md:table-cell">
                     {lead.nextFollowUp

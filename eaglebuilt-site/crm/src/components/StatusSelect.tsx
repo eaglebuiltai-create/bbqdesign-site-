@@ -2,7 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { LEAD_STATUSES, STATUS_LABELS, type LeadStatusValue } from "@/lib/constants";
+import {
+  LEAD_STATUSES,
+  STATUS_LABELS,
+  STATUS_COLORS,
+  type LeadStatusValue,
+} from "@/lib/constants";
 
 export function StatusSelect({
   leadId,
@@ -39,12 +44,14 @@ export function StatusSelect({
     }
   }
 
+  /* The select carries the status colour itself, so the leads list stays
+     scannable without a separate badge stacked above it doubling row height. */
   return (
     <select
       value={status}
       disabled={pending}
       onChange={(e) => onChange(e.target.value as LeadStatusValue)}
-      className="rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-60"
+      className={`rounded-md border px-2 py-1 text-sm font-medium shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-60 ${STATUS_COLORS[status]}`}
     >
       {LEAD_STATUSES.map((s) => (
         <option key={s} value={s}>
