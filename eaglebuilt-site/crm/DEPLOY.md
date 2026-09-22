@@ -276,13 +276,18 @@ what actually happened:
 
 ---
 
-## Two things to decide later
+## Still open
 
-**The tracker overlaps this.** [EagleBuilt Leads](https://claude.ai/artifact/AKFnYQKfLQLN44RWe2f2bx)
-already holds the real won job and tracks the same pipeline. Its stages differ
-from the CRM's (`visit`/`bid`/`won` vs `quoted`/`sold`/`building`/`done`). Two
-systems is worse than one — either migrate that row in and retire the tracker,
-or keep the tracker and treat the CRM as inbox only.
+**The tracker is retired** (2026-09-22). The $14k first designer-built job was
+moved into the CRM as a `done` lead carrying the linear feet, the $9,787 tool
+quote against the $14,000 close, and the package breakdown, plus notes for the
+outstanding review request and the import itself. It was then deleted from
+[EagleBuilt Leads](https://claude.ai/artifact/AKFnYQKfLQLN44RWe2f2bx), which now
+holds only its three sample rows. The CRM is the single source of truth.
+
+The imported lead has **no email, phone, city or design link** — those were
+blank in the tracker too. Worth filling in if that customer is ever contacted
+again, since the CRM keys leads on email.
 
 **Coverage is uneven across the four tools.** The kitchen designer sends three
 kinds of event — gate signup, Quick Build save (`quick_build`) and the finished
