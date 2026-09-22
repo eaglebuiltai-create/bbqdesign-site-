@@ -24,7 +24,7 @@ works as a fallback.
 
 ## 2026-09-21 · fire pit, fireplace and backyard tools can send a design
 
-**Not yet deployed** — run `npx wrangler deploy`, then delete this line.
+**Deployed 2026-09-21.** Live on all three.
 
 Those three tools priced a design and then had nowhere to put it. There was no
 send path at all — no quote button, no lead form — so a visitor who built
