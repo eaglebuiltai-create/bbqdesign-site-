@@ -37,6 +37,16 @@ export default async function LeadDetailPage({
             {lead.name || lead.email}
           </h1>
           <StatusBadge status={lead.status} />
+          {/* Up here rather than below the fold: the design summary can run long
+              enough to push a footer control off screen entirely. It still asks
+              before deleting, so proximity to the title costs nothing. */}
+          <div className="ml-auto">
+            <DeleteLeadButton
+              leadId={lead.id}
+              label={lead.name || lead.email || "this lead"}
+              noteCount={lead.notes.length}
+            />
+          </div>
         </div>
         <p className="mt-1 text-sm text-slate-500">
           Created {format(lead.createdAt, "MMM d, yyyy h:mm a")} · Updated{" "}
@@ -85,14 +95,6 @@ export default async function LeadDetailPage({
         </section>
       </div>
 
-      {/* Permanent and unrecoverable, so it sits apart from the edit controls. */}
-      <div className="border-t border-slate-200 pt-5">
-        <DeleteLeadButton
-          leadId={lead.id}
-          label={lead.name || lead.email || "this lead"}
-          noteCount={lead.notes.length}
-        />
-      </div>
     </div>
   );
 }
