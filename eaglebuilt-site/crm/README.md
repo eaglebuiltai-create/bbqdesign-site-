@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Field    | Value |
 |----------|-------|
-| Email    | `john@eaglebuilt.ai` |
+| Email    | `info@eaglebuilt.ai` |
 | Password | `change-me-on-deploy` |
 
 Set via `SEED_USER_EMAIL` / `SEED_USER_PASSWORD` / `SEED_USER_NAME` before seeding. Re-run `npm run db:seed` to upsert the owner password.

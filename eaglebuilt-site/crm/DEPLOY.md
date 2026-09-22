@@ -97,7 +97,8 @@ New accounts should use `eaglebuiltai@gmail.com`.
 Project `dry-heart-88431848` ("EagleBuilt AI" org), branch `production`, linked
 via `neon link`. `crm/.env` holds the real connection strings alongside the
 `NEXTAUTH_SECRET`, `LEADS_API_KEY` and seed password. The migration is applied
-and the owner account `john@eaglebuilt.ai` exists. The three sample leads that
+and the owner account `info@eaglebuilt.ai` exists (renamed from the archive's
+`john@eaglebuilt.ai` default on 2026-09-21 — that address was never real). The three sample leads that
 `db:seed` inserts were deleted — a live database should not ship with fixtures.
 
 `neon.ts` declares `auth: true`, which matched what was already provisioned, so
