@@ -48,3 +48,7 @@ prisma/*.db-journal
 *.db
 *.db-journal
 .neon
+
+.vercel
+.env*
+!.env.example

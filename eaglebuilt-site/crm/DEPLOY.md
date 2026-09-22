@@ -122,7 +122,7 @@ in `.env` and leaves your other keys alone. Check which one you are on:
 grep NEON_BRANCH ./crm/.env
 ```
 
-### 2. Deploy to Vercel
+### 2. Deploy to Vercel — ✅ done 2026-09-21
 
 Import the repo and set **Root Directory** to `eaglebuilt-site/crm`.
 
@@ -208,8 +208,22 @@ strings in Vercel's per-environment env var settings.
 
 ### 3. Point `crm.eaglebuilt.ai` at it
 
-A CNAME in Cloudflare DNS, plus the domain added in Vercel. `NEXTAUTH_URL` must
-match this origin exactly or login redirects break.
+The domain is attached to the Vercel project and ownership is verified. What
+remains is one DNS record in Cloudflare:
+
+| Field | Value |
+|---|---|
+| Type | `CNAME` |
+| Name | `crm` |
+| Target | `cd30f4fab0e04f93.vercel-dns-017.com.` |
+| Proxy | **DNS only** — grey cloud |
+
+**The proxy setting is not optional.** Vercel returns `disableProxy: true` for
+this record. Leaving Cloudflare's orange cloud on stops Vercel issuing the TLS
+certificate, and the domain never comes up.
+
+`NEXTAUTH_URL` is already set to `https://crm.eaglebuilt.ai`, so login redirects
+will work as soon as DNS resolves — and would break if the domain changed.
 
 ### 4. Give the Worker the two secrets
 
