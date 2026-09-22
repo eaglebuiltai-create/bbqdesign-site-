@@ -22,6 +22,36 @@ works as a fallback.
 
 ---
 
+## 2026-09-21 · fire pit, fireplace and backyard tools can send a design
+
+**Not yet deployed** — run `npx wrangler deploy`, then delete this line.
+
+Those three tools priced a design and then had nowhere to put it. There was no
+send path at all — no quote button, no lead form — so a visitor who built
+something had to copy the spec to the clipboard and email it themselves. Only
+the kitchen designer could actually deliver a lead.
+
+Each now has a **Get my firm quote** button under the estimate. One tap: the
+email and ZIP were taken at the gate, so nothing is retyped, which on a phone
+is the difference between a lead and a bounce. It sends to Web3Forms (the
+mailbox that already receives every other lead) and to the CRM through the
+Worker, tagged `firepit_quote`, `fireplace_quote` or `yard_quote`.
+
+The spec text each tool already built for "Copy spec" was living inside the
+clipboard handler, so it was extracted into `specText()` and is now used for
+both — the emailed lead carries the same itemized spec the customer can copy.
+
+**Guarded against empty sends.** The backyard planner opens with no design and
+a dash for a total; tapping send there would have produced a lead with nothing
+in it. All three now refuse when the total has no digits in it.
+
+Both posts are fire-and-forget and the button always reports success — a
+budget proposal is not a transaction, and a failed POST must never read as a
+broken tool. Web3Forms remains the copy that matters and is independent of the
+CRM.
+
+---
+
 ## 2026-09-21 · CRM merged in, email gate feeds it (site only — designer build unchanged)
 
 **Deployed 2026-09-21, and live end to end.** The CRM runs at

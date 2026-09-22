@@ -330,6 +330,8 @@ input[type=range]{width:100%;accent-color:var(--blue)}
         <div class="note">Budget proposal only. Final pricing follows a site visit — access,
           grade and existing utilities all move the number.</div>
         <button class="btn" id="btnSpec" style="margin-top:10px">Copy spec</button>
+          <button class="btn" id="btnSend" style="margin-top:8px">Get my firm quote</button>
+          <div class="note" id="sendMsg" style="display:none"></div>
       </div>
     </aside>
   </main>
@@ -900,9 +902,10 @@ $("#inOH").oninput = e => { S.oh = +e.target.value; sync(); };
 $("#inSW").oninput = e => { S.seat = +e.target.value; sync(); };
 $("#inGas").oninput = e => { S.gas = +e.target.value; sync(); };
 
-$("#btnSpec").onclick = () => {
+/* Built once, used twice: the clipboard copy and the emailed lead. */
+function specText(){
   const q = priceIt();
-  const L = [
+  return [
     "EAGLEBUILT AI — FIRE PIT",
     "================================================",
     dimText(),
@@ -928,11 +931,113 @@ $("#btnSpec").onclick = () => {
     "",
     "CSLB #992251 · info@eaglebuilt.ai · (949) 564-1948"
   ].filter(Boolean).join("\n");
-  navigator.clipboard.writeText(L).then(
+}
+
+$("#btnSpec").onclick = () => {
+  navigator.clipboard.writeText(specText()).then(
     () => { $("#btnSpec").textContent = "Copied"; setTimeout(()=>$("#btnSpec").textContent="Copy spec",1400); },
     () => {}
   );
 };
+
+/* ---- Send the finished design ------------------------------------------
+   One tap. The email and ZIP were already taken at the gate, so nothing is
+   retyped — on a phone that is the difference between a lead and a bounce.
+
+   Two destinations, deliberately:
+     Web3Forms  the mailbox John actually reads. Unchanged from every other
+                lead on the site, so this cannot break the path that works.
+     /api/leads the CRM, same-origin. The Worker adds the API key, so it is
+                never in this page.
+
+   Both are fire-and-forget and the button always reports success: the design
+   is a budget proposal, not a transaction, and a failed POST must never read
+   as a broken tool. Web3Forms is the copy that matters and it is independent.
+   -------------------------------------------------------------------------- */
+(function () {
+  var btn = document.getElementById("btnSend");
+  if (!btn) return;
+  var msg = document.getElementById("sendMsg");
+
+  function gateLead() {
+    try { return JSON.parse(localStorage.getItem("eb.designer.lead") || "{}"); }
+    catch (e) { return {}; }
+  }
+  function valid(e) { return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(e); }
+  function say(t, ok) {
+    if (!msg) return;
+    msg.textContent = t;
+    msg.style.display = "block";
+    if (ok) msg.style.color = "#7FC4FF";
+  }
+
+  btn.onclick = function () {
+    var g = gateLead();
+    var email = String(g.email || "").trim();
+
+    /* The gate collects this before the tool opens, so it is normally here.
+       It can be missing if the browser blocks storage — ask rather than fail. */
+    if (!valid(email)) {
+      email = String(window.prompt("What email should the quote go to?") || "").trim();
+      if (!valid(email)) { say("Need an email address to send it to."); return; }
+    }
+
+    var zip   = String(g.zip || "").trim();
+    var spec  = specText();
+    var totEl = document.getElementById("tot");
+    var total = totEl ? String(totEl.textContent || "").trim() : "";
+
+    /* Nothing designed yet. The backyard planner opens empty, so the total
+       reads as a dash — sending that is a junk lead with no design in it. */
+    if (!total || total.replace(/[^0-9]/g, "") === "") {
+      say("Design something first, then send it.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+
+    try {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
+          from_name:  "EagleBuilt AI Designer",
+          subject:    "Fire pit design sent — " + email + " — " + total + (zip ? " — " + zip : ""),
+          lead_stage: "sent a design",
+          email:      email,
+          replyto:    email,
+          zip:        zip || "—",
+          estimate:   total,
+          spec:       spec
+        })
+      }).catch(function () {});
+    } catch (e) {}
+
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:  email,
+          zip:    zip,
+          source: "firepit_quote",
+          designSummary: {
+            tool:     "Fire pit",
+            estimate: total,
+            spec:     spec.slice(0, 1800)
+          }
+        })
+      }).catch(function () {});
+    } catch (e) {}
+
+    window.ebTrack && window.ebTrack("design_lead", { tool: "Fire pit" });
+
+    btn.textContent = "Sent ✓";
+    say("On its way to " + email + ". We reply with an itemized budget, usually within one business day.", true);
+  };
+})();
 
 /* orbit */
 let drag = null;
