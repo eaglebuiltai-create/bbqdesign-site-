@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { StatusBadge } from "@/components/StatusBadge";
 import { LeadEditForm } from "@/components/LeadEditForm";
 import { AddNoteForm } from "@/components/AddNoteForm";
+import { FollowUpEmail } from "@/components/FollowUpEmail";
 import { DeleteLeadButton } from "@/components/DeleteLeadButton";
 import type { LeadStatusValue } from "@/lib/constants";
 
@@ -95,6 +96,15 @@ export default async function LeadDetailPage({
         </section>
       </div>
 
+      <FollowUpEmail
+        leadId={lead.id}
+        lead={{
+          name: lead.name,
+          email: lead.email,
+          zip: lead.zip,
+          designSummary: lead.designSummary,
+        }}
+      />
     </div>
   );
 }
