@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>EagleBuilt AI — BBQ Island Designer</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#070A12; --panel:#0C111C; --line:#1B2536; --line2:#22304A;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  --blue:#2E9BFF; --blueL:#7FC4FF; --red:#E8342B; --ok:#7FD3AA;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100%}
+
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;
+  border-bottom:1px solid var(--line);background:var(--panel);flex:none}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:.3px;font-size:14px}
+.brand i{color:var(--blue);font-style:normal}
+.tag{font-size:11px;color:var(--dim);border:1px solid var(--line2);
+  border-radius:999px;padding:3px 10px}
+header .sp{flex:1}
+
+main{flex:1;display:flex;min-height:0}
+#stage{flex:1;position:relative;min-width:0;background:
+  radial-gradient(120% 90% at 50% 12%,#101a2e 0%,#070A12 70%)}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+
+.overlay{position:absolute;display:flex;gap:6px;flex-wrap:wrap;z-index:5}
+.overlay.tl{top:12px;left:12px} .overlay.br{bottom:12px;right:12px}
+.overlay.tr{top:12px;right:12px}
+.chip{background:rgba(12,17,28,.92);border:1px solid var(--line2);border-radius:9px;
+  padding:6px 10px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.chip b{color:var(--txt);font-weight:700}
+
+aside{width:360px;flex:none;background:var(--panel);border-left:1px solid var(--line);
+  overflow-y:auto;padding:14px}
+@media(max-width:860px){
+  main{flex-direction:column}
+  aside{width:auto;max-height:52%;border-left:none;border-top:1px solid var(--line)}
+}
+.grp{margin-bottom:16px}
+.grp h4{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
+  margin-bottom:8px;font-weight:700}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button, .mini{background:#111a29;border:1px solid var(--line2);color:var(--muted);
+  border-radius:8px;padding:7px 11px;font-size:12.5px;cursor:pointer;font-family:inherit;
+  transition:.12s}
+.presets button:hover,.mini:hover{border-color:#33507c;color:var(--txt)}
+.presets button.on{background:var(--blue);border-color:var(--blue);color:#04101f;font-weight:700}
+.presets button:disabled,.mini:disabled{opacity:.4;cursor:default}
+.field{margin-bottom:9px}
+.field label{display:block;font-size:11.5px;color:var(--dim);margin-bottom:4px}
+input[type=text],select{width:100%;background:#070c15;border:1px solid var(--line2);
+  color:var(--txt);border-radius:8px;padding:8px 10px;font-size:13.5px;font-family:inherit}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+.mod{display:flex;gap:6px;align-items:center;padding:6px 8px;margin-bottom:6px;
+  background:#111a29;border:1px solid var(--line2);border-radius:8px;cursor:pointer}
+.mod.on{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.mod .nm{flex:1;min-width:0}
+.mod .nm b{display:block;font-size:12.5px;font-weight:700;color:var(--txt)}
+.mod .nm span{display:block;font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mod .mini{padding:3px 7px;line-height:1.2}
+
+.ql{display:flex;justify-content:space-between;gap:10px;padding:6px 0;
+  font-size:13px;border-bottom:1px solid var(--line)}
+.ql:last-child{border-bottom:none}
+.ql span{color:var(--muted)} .ql b{color:var(--txt);white-space:nowrap}
+.ql i{display:block;font-style:normal;font-size:11px;color:var(--dim);margin-top:1px}
+.ql.sub{border-top:1px solid var(--line2);margin-top:4px;padding-top:8px}
+.ql.sub b, .ql.sub span{color:var(--txt);font-weight:700}
+.total{background:#0E1725;border:1px solid var(--line2);border-radius:10px;
+  padding:11px 13px;margin-top:10px}
+.total .n{font-size:26px;font-weight:800;color:var(--blueL);letter-spacing:-.5px}
+.total .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.8px}
+.note{background:#0E1420;border:1px solid var(--line2);border-radius:9px;
+  padding:9px 11px;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:9px}
+.btn{display:inline-block;background:var(--red);color:#fff;border:none;border-radius:9px;
+  padding:10px 16px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.btn.ghost{background:transparent;border:1px solid var(--line2);color:var(--muted)}
+.sw{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.sw i{width:26px;height:26px;border-radius:6px;border:2px solid transparent;cursor:pointer;display:block}
+.sw i.on{border-color:var(--blue)}
+</style>
+<script src="/assets/track.js"></script>
+<script src="/assets/emailcheck.js"></script>
+</head>
+<body>
+<!-- ══════════════════════════════════════════════════════════════════════
+     EMAIL GATE. Same shell as the fire pit, fireplace and kitchen tools.
+     Self-contained — its own eb-prefixed styles and its own IIFE — so it
+     cannot collide with the designer below. Shown before first paint.
+     ══════════════════════════════════════════════════════════════════════ -->
+<style>
+#ebGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;
+  justify-content:center;padding:20px;background:rgba(4,7,13,.88);
+  font:15px/1.5 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+#ebGate[hidden]{display:none}
+#ebGate .ebCard{width:100%;max-width:400px;background:#0C111C;border:1px solid #22304A;
+  border-radius:14px;padding:22px;color:#E7EEF7;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#ebGate .ebBrand{font-weight:800;letter-spacing:.3px;font-size:13px;margin-bottom:14px}
+#ebGate .ebBrand i{color:#2E9BFF;font-style:normal}
+#ebGate h2{font-size:19px;margin:0 0 6px;letter-spacing:-.2px;font-weight:800}
+#ebGate .ebLede{color:#8DA0B8;font-size:13px;margin:0 0 16px}
+#ebGate label{display:block;font-size:11.5px;color:#5F7391;margin:0 0 4px}
+#ebGate label span{color:#3E4E66}
+#ebGate input{width:100%;background:#070c15;border:1px solid #22304A;color:#E7EEF7;
+  border-radius:8px;padding:10px 11px;font-size:16px;font-family:inherit;margin-bottom:11px}
+#ebGate input:focus{outline:none;border-color:#2E9BFF}
+#ebGate button{width:100%;background:#E8342B;color:#fff;border:none;border-radius:9px;
+  padding:11px 16px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+#ebGate button:disabled{opacity:.6;cursor:default}
+#ebGate .ebErr{color:#E8342B;font-size:12px;margin:8px 0 0;display:none}
+#ebGate .ebFine{color:#5F7391;font-size:11px;margin:12px 0 0;line-height:1.5}
+</style>
+
+<div id="ebGate" hidden>
+  <div class="ebCard">
+    <div class="ebBrand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <h2>Start your design</h2>
+    <p class="ebLede">Free to use. Add your email and the designer opens &mdash; we use it to
+      send you the design and its itemized budget when you are done.</p>
+    <form id="ebGateForm" novalidate>
+      <label for="ebEmail">Email</label>
+      <input type="email" id="ebEmail" autocomplete="email" placeholder="you@example.com">
+      <label for="ebZip">ZIP code <span>&mdash; optional</span></label>
+      <input type="text" id="ebZip" inputmode="numeric" autocomplete="postal-code" placeholder="95630">
+      <button type="submit" id="ebGo">Start designing</button>
+      <p class="ebErr" id="ebErr"></p>
+      <p class="ebFine">Everything the designer produces is a budget proposal. Final pricing
+        follows a field verification visit. No lists, no spam.</p>
+      <p class="ebFine" style="margin-top:8px">Rather we designed it?
+        <a href="/consultation/" style="color:#7FC4FF">Book a free consultation</a>.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY  = "eb.designer.lead";
+  var TOOL = ({ "/design/app/":         "Kitchen",
+                "/design/firepit/":     "Fire pit",
+                "/design/fireplace/":   "Fireplace",
+                "/design/yard/":        "Backyard",
+                "/design/bbq-island/":  "BBQ island" })[location.pathname] || "BBQ island";
+  var gate = document.getElementById("ebGate");
+
+  /* A browser that blocks storage throws on read. Show the gate in that case —
+     but the write below is also wrapped, so a blocked browser still gets in,
+     it just gets asked again next visit. Never trap anyone outside. */
+  var seen = false;
+  try { seen = !!localStorage.getItem(KEY); } catch (e) {}
+  if (seen) return;
+  gate.hidden = false;
+
+  var form = document.getElementById("ebGateForm");
+  var err  = document.getElementById("ebErr");
+  var btn  = document.getElementById("ebGo");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = (document.getElementById("ebEmail").value || "").trim();
+    var zip   = (document.getElementById("ebZip").value || "").trim();
+
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
+      err.textContent = "Please enter an email we can send the design to.";
+      err.style.display = "block";
+      document.getElementById("ebEmail").focus();
+      return;
+    }
+    if (window.EBEmailCheck && !EBEmailCheck.gate(email, document.getElementById("ebEmail"), err)) return;
+    btn.disabled = true;
+    btn.textContent = "Opening…";
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ email: email, zip: zip, ts: Date.now() }));
+    } catch (e2) {}
+
+    /* Fire and forget. The visitor is let in whatever the network does — a
+       failed POST must never read as a broken tool, and the full lead still
+       goes out when they send the design. */
+    try {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
+          from_name:  "EagleBuilt AI Designer",
+          subject:    TOOL + " designer opened — " + email,
+          lead_stage: "opened the designer",
+          email:      email,
+          zip:        zip || "—",
+          page:       location.pathname
+        })
+      }).catch(function () {});
+    } catch (e3) {}
+
+    /* And into the CRM. Same-origin, so the ingest key stays in the Worker
+       and never reaches the page — see src/worker.js. Fire and forget for the
+       same reason as above: the visitor is never held up by it, and a CRM
+       outage cannot look like a broken tool. */
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:  email,
+          zip:    zip,
+          source: TOOL + " designer"
+        })
+      }).catch(function () {});
+    } catch (e4) {}
+
+    gate.hidden = true;
+    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL });
+  });
+})();
+</script>
+
+<div id="app">
+  <header>
+    <div class="brand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <div class="tag">BBQ Island Designer</div>
+    <div class="sp"></div>
+    <div class="tag" id="stamp">preview</div>
+  </header>
+
+  <main>
+    <div id="stage">
+      <canvas id="c"></canvas>
+      <div class="overlay tl">
+        <div class="chip" id="dims"><b>&mdash;</b></div>
+      </div>
+      <div class="overlay tr">
+        <div class="presets" id="view">
+          <button type="button" class="mini" data-v="iso">3D</button>
+          <button type="button" class="mini" data-v="plan">Plan</button>
+          <button type="button" class="mini" data-v="el">Elevation</button>
+        </div>
+      </div>
+      <div class="overlay br">
+        <div class="chip" id="hint">3D</div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="grp">
+        <h4>Modules</h4>
+        <div id="modList"></div>
+        <div class="presets" id="addMods" style="margin-top:8px">
+          <button type="button" data-add="end">+ End</button>
+          <button type="button" data-add="door">+ Door</button>
+          <button type="button" data-add="drawer">+ Drawers</button>
+          <button type="button" data-add="filler">+ Filler</button>
+          <button type="button" data-add="grill">+ Grill bay</button>
+          <button type="button" data-add="bar">+ Bar</button>
+        </div>
+        <div id="selGrp">
+          <div class="field" style="margin-top:10px">
+            <label>Selected width &mdash; <b id="wV"></b></label>
+            <input type="range" id="inW" min="3" max="72" step="1">
+          </div>
+          <div class="presets" id="fronts">
+            <button type="button" data-front="door">Door</button>
+            <button type="button" data-front="drawers">Drawers</button>
+            <button type="button" data-front="blank">Panel</button>
+          </div>
+        </div>
+        <div class="note" id="modNote"></div>
+      </div>
+
+      <div class="grp" id="grillGrp">
+        <h4>Grill / appliance</h4>
+        <div class="field">
+          <label for="gBrand">Brand</label>
+          <input type="text" id="gBrand" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="gModel">Model</label>
+          <input type="text" id="gModel" autocomplete="off">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Cutout width &mdash; <b id="gWv"></b></label>
+            <input type="range" id="gW" min="20" max="52" step="0.5">
+          </div>
+          <div class="field">
+            <label>Cutout depth &mdash; <b id="gDv"></b></label>
+            <input type="range" id="gD" min="16" max="30" step="0.5">
+          </div>
+        </div>
+        <div class="field">
+          <label>Cutout height &mdash; <b id="gHv"></b></label>
+          <input type="range" id="gH" min="6" max="18" step="0.5">
+        </div>
+        <div class="note" id="grillNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Countertop</h4>
+        <div class="presets" id="counter"></div>
+        <div class="note" id="ctrNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Finish</h4>
+        <div class="presets" id="finish"></div>
+        <div class="sw" id="finSw"></div>
+        <div class="note" id="finNote"></div>
+      </div>
+
+      <div class="grp">
+        <h4>Estimate</h4>
+        <div id="q"></div>
+        <div class="total">
+          <div class="l">Project total</div>
+          <div class="n" id="tot">&mdash;</div>
+        </div>
+        <div class="note" id="qnote"></div>
+        <div class="note">Budget proposal only. Final pricing follows a site visit &mdash; access,
+          grade and existing utilities all move the number.</div>
+        <button class="btn" id="btnSpec" style="margin-top:10px">Copy spec</button>
+        <button class="btn" id="btnSend" style="margin-top:8px">Get my firm quote</button>
+        <div class="note" id="sendMsg" style="display:none"></div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<script>
+/* ==========================================================================
+   EAGLEBUILT AI — BBQ ISLAND DESIGNER
+   Standalone, on purpose. The kitchen tool at /design/app/ plans a whole
+   outdoor kitchen. This one is the straight run: modules in a row, and the
+   length is whatever they add up to. Nothing here is shared with that file.
+
+   CONFIG is the only place prices and the module catalog live. Rates are the
+   island rate card (PRICING.md / the kitchen BUILD block), not invented SKUs:
+     CMU + color concrete counter + stucco   $3,300 setup + $275/lf
+     minimum                                  $6,000
+     raised bar                               $150/lf
+     manufactured stone                       $35/sq ft
+     mount / outlet / gas flex / haul-off     same figures as the kitchen
+   A module line is that bay's share of the $275. The setup and the minimum
+   are applied once. The grill is equipment — price 0 means "by owner".
+   Granite and quartz stay "quote add" until a slab rate exists.
+   ========================================================================== */
+
+const CONFIG = {
+  build: {
+    setup: 3300,
+    perLf: 275,
+    minimum: 6000,
+    barPerLf: 150,
+    mountSmall: 400,
+    mountLarge: 600,
+    mountSplitLf: 12,
+    outlet: 135,
+    outlets: 2,
+    gasFlex: 40,
+    trash: 200
+  },
+  geom: {
+    depth: 32,          // cabinet depth. 24" is back-bar only — a grill will not fit.
+    counterH: 37.5,     // finished height. 3" pour leaves 34.5" under the slab.
+    toe: 4,
+    toeInset: 3,
+    overhang: 1.5,      // stucco
+    overhangStone: 3,   // cap has to clear the veneer
+    doubleAt: 28        // a door this wide becomes a pair
+  },
+  bar: { block: 6, oh: 12, rise: 6 },   // 6" stem + 12" knee overhang, 6" above the working top
+  grill: {
+    brand: "Placeholder",
+    model: "32 in built-in",
+    cutW: 30.5,
+    cutD: 22.5,
+    cutH: 10.5,
+    price: 0,           // 0 = by owner, not in the total. Set a number to carry an allowance.
+    clearance: 3,       // masonry each side of the cutout. The bay widens to keep it.
+    hoodH: 14
+  },
+  /* adder is dollars on top of the per-foot share. 0 until a module actually
+     costs more than its length. */
+  modules: {
+    end:    { n:"End cabinet",  w:24, min:15, max:36, front:"door",    adder:0 },
+    door:   { n:"Door cabinet", w:30, min:15, max:42, front:"door",    adder:0 },
+    drawer: { n:"Drawer stack", w:24, min:15, max:36, front:"drawers", adder:0 },
+    filler: { n:"Filler",       w:6,  min:3,  max:12, front:"blank",   adder:0 },
+    grill:  { n:"Grill bay",    w:42, min:33, max:60, front:"door",    adder:0 },
+    bar:    { n:"Bar seating",  w:36, min:24, max:72, front:"blank",   adder:0, bar:true }
+  },
+  /* Palette matches the kitchen tool. p is $/sq ft over stucco; 0 is included. */
+  finishes: [
+    { k:"stucco", n:"Stucco (included)", p:0,  sw:["#CFC8BC","#9A948A","#E2DDD4","#7E7A73"] },
+    { k:"stack",  n:"Ledgestone veneer", p:35, sw:["#7A756B","#585449","#93897A","#635F58"] },
+    { k:"cult",   n:"Fieldstone veneer", p:35, sw:["#8A7F71","#6B6157","#A2937F","#5E564C"] }
+  ],
+  /* p null = quote add, same as the kitchen. Thickness changes the wall, not
+     the finished height. */
+  counters: [
+    { k:"concrete",  n:"Color concrete (included)", p:0,    th:3,    c:"#8E9298" },
+    { k:"concretew", n:"White concrete (included)", p:0,    th:3,    c:"#D2CFC7" },
+    { k:"granite",   n:"Granite (3cm)",             p:null, th:1.25, c:"#5A5F66" },
+    { k:"quartz",    n:"Quartz (3cm)",              p:null, th:1.25, c:"#D9D6CE" }
+  ]
+};
+
+const S = {
+  view: "iso",
+  mods: [
+    { id:1, k:"end",   w:24, front:"door" },
+    { id:2, k:"grill", w:42, front:"door" },
+    { id:3, k:"door",  w:30, front:"door" }
+  ],
+  nextId: 4,
+  sel: 2,
+  finish: "stucco",
+  finishColor: 0,
+  counter: "concrete",
+  grill: {
+    brand: CONFIG.grill.brand,
+    model: CONFIG.grill.model,
+    cutW: CONFIG.grill.cutW,
+    cutD: CONFIG.grill.cutD,
+    cutH: CONFIG.grill.cutH
+  }
+};
+
+const COL = {
+  ss:"#C9D3D9", reveal:"#14181F", fire:"#10141A",
+  joint:"#0C1016", knob:"#1A1F26", glass:"#1C232C",
+  grade:"#3E5680", dim:"#5F7391", txt:"#E7EEF7", muted:"#8DA0B8"
+};
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+function money(v){ return "$" + Math.round(v).toLocaleString("en-US"); }
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+    return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c];
+  });
+}
+function fracIn(v){
+  const w = Math.floor(v + 1e-6), fr = v - w;
+  const M = {0:"",1:"⅛",2:"¼",3:"⅜",4:"½",5:"⅝",6:"¾",7:"⅞"};
+  const f = M[Math.round(fr * 8)] || "";
+  if (w === 0) return f || "0";
+  return w + (f ? " " + f : "");
+}
+function ftin(i){
+  const n = Math.abs(i);
+  const f = Math.floor(n / 12), r = n - f * 12;
+  const sign = i < 0 ? "-" : "";
+  if (f === 0) return sign + fracIn(r) + '"';
+  return sign + f + "'" + (r > 0.01 ? " " + fracIn(r) + '"' : "");
+}
+function finishSpec(){
+  return CONFIG.finishes.find(f => f.k === S.finish) || CONFIG.finishes[0];
+}
+function counterSpec(){
+  return CONFIG.counters.find(c => c.k === S.counter) || CONFIG.counters[0];
+}
+function bodyColor(){
+  const f = finishSpec();
+  return f.sw[Math.min(S.finishColor, f.sw.length - 1)] || f.sw[0];
+}
+function slabTh(){ return counterSpec().th; }
+function overhang(){
+  return S.finish === "stucco" ? CONFIG.geom.overhang : CONFIG.geom.overhangStone;
+}
+function limits(m){
+  const spec = CONFIG.modules[m.k] || CONFIG.modules.door;
+  let min = spec.min, max = spec.max;
+  if (m.k === "grill") {
+    min = Math.max(min, Math.ceil(S.grill.cutW + CONFIG.grill.clearance * 2));
+    if (min > max) max = min;
+  }
+  return { min:min, max:max, spec:spec };
+}
+function layout(){
+  let x = 0;
+  const mods = S.mods.map(m => {
+    const spec = CONFIG.modules[m.k] || CONFIG.modules.door;
+    const rec = {
+      id:m.id, k:m.k, w:m.w,
+      front: m.k === "filler" ? "blank" : m.front,
+      n:spec.n, bar:!!spec.bar, adder:spec.adder || 0,
+      x0:x, x1:x + m.w
+    };
+    x += m.w;
+    return rec;
+  });
+  return { mods:mods, width:x };
+}
+function faceSqft(L){
+  /* Cabinet skin is the perimeter times the wall, same basis as the kitchen
+     tool — openings are not deducted. A bar adds the face that rises above
+     the working top, plus its two returns. */
+  const wall = CONFIG.geom.counterH - slabTh();
+  let area = 2 * (L.width + CONFIG.geom.depth) * wall;
+  L.mods.forEach(m => {
+    if (!m.bar) return;
+    const d = CONFIG.bar.block + CONFIG.bar.oh;
+    area += m.w * CONFIG.bar.rise + 2 * d * (wall + CONFIG.bar.rise);
+  });
+  return area / 144;
+}
+function frontName(m){
+  if (m.front === "blank") return "panel";
+  if (m.front === "drawers") return "drawers";
+  return m.w >= CONFIG.geom.doubleAt ? "double door" : "door";
+}
+/* Fronts, in inches, for elevation and the 3D. y0/y1 is the opening under
+   the slab, above the toe. */
+function fronts(m){
+  const toe = CONFIG.geom.toe, yTop = CONFIG.geom.counterH - slabTh();
+  const inset = 2.1, gap = 0.45;
+  const out = [];
+  if (m.front === "blank") return out;
+  let y0 = toe + inset, y1 = yTop - inset;
+  if (m.k === "grill") {
+    const panelH = Math.min(8, (y1 - y0) * 0.34);
+    out.push({ x0:m.x0+inset, x1:m.x1-inset, y0:y1-panelH, y1:y1, kind:"panel" });
+    y1 = y1 - panelH - gap;
+  }
+  if (y1 - y0 < 4) return out;
+  if (m.front === "drawers") {
+    const n = m.k === "grill" ? 2 : 3;
+    const h = (y1 - y0 - gap * (n - 1)) / n;
+    for (let i = 0; i < n; i++) {
+      const a = y0 + i * (h + gap);
+      out.push({ x0:m.x0+inset, x1:m.x1-inset, y0:a, y1:a+h, kind:"drawer" });
+    }
+    return out;
+  }
+  if (m.w >= CONFIG.geom.doubleAt) {
+    const mid = (m.x0 + m.x1) / 2;
+    out.push({ x0:m.x0+inset, x1:mid-gap/2, y0:y0, y1:y1, kind:"door" });
+    out.push({ x0:mid+gap/2, x1:m.x1-inset, y0:y0, y1:y1, kind:"door" });
+  } else {
+    out.push({ x0:m.x0+inset, x1:m.x1-inset, y0:y0, y1:y1, kind:"door" });
+  }
+  return out;
+}
+
+/* ---------- price ---------- */
+function priceIt(){
+  const L = layout();
+  if (!L.mods.length) return { empty:true, lines:[], total:0, L:L, lf:0 };
+  const exacts = L.mods.map(m => m.w / 12 * CONFIG.build.perLf + (m.adder || 0));
+  const target = Math.round(exacts.reduce((s, v) => s + v, 0));
+  let acc = 0;
+  const shares = exacts.map((v, i) => {
+    if (i === exacts.length - 1) return target - acc;
+    const d = Math.round(v);
+    acc += d;
+    return d;
+  });
+  const lines = L.mods.map((m, i) => ({
+    label: m.n,
+    detail: ftin(m.w) + " · " + (m.w / 12).toFixed(1) + " lf @ " + money(CONFIG.build.perLf) + "/lf"
+      + (m.adder ? " + " + money(m.adder) : ""),
+    amount: money(shares[i]),
+    value: shares[i]
+  }));
+  lines.push({
+    label: "Setup",
+    detail: "trip, layout, shoring, pour",
+    amount: money(CONFIG.build.setup),
+    value: CONFIG.build.setup
+  });
+  const curve = target + CONFIG.build.setup;
+  const atMin = curve < CONFIG.build.minimum - 0.5;
+  if (atMin) lines.push({
+    label: "Minimum build",
+    detail: "short of " + money(CONFIG.build.minimum) + ", the job prices at the floor",
+    amount: money(CONFIG.build.minimum - curve),
+    value: CONFIG.build.minimum - curve
+  });
+  const barLf = L.mods.filter(m => m.bar).reduce((s, m) => s + m.w, 0) / 12;
+  if (barLf > 0) lines.push({
+    label: "Raised bar",
+    detail: barLf.toFixed(1) + " lf @ " + money(CONFIG.build.barPerLf) + "/lf",
+    amount: money(barLf * CONFIG.build.barPerLf),
+    value: Math.round(barLf * CONFIG.build.barPerLf)
+  });
+  const fin = finishSpec(), sf = faceSqft(L);
+  if (fin.p) lines.push({
+    label: fin.n.replace(/ \(included\)/, ""),
+    detail: Math.round(sf) + " sq ft @ " + money(fin.p) + "/sq ft",
+    amount: money(sf * fin.p),
+    value: Math.round(sf * fin.p)
+  }); else lines.push({
+    label: "Stucco",
+    detail: "in the island rate",
+    amount: "included",
+    value: 0
+  });
+  const ctr = counterSpec();
+  lines.push({
+    label: ctr.n.replace(/ \(included\)/, ""),
+    detail: ctr.p == null
+      ? "slab rate not set — not in the total"
+      : ctr.th + '" top · finished height ' + ftin(CONFIG.geom.counterH),
+    amount: ctr.p == null ? "quote add" : (ctr.p ? money(ctr.p) : "included"),
+    value: 0
+  });
+  const lf = L.width / 12;
+  const hasGrill = L.mods.some(m => m.k === "grill");
+  if (hasGrill) {
+    const mount = lf >= CONFIG.build.mountSplitLf ? CONFIG.build.mountLarge : CONFIG.build.mountSmall;
+    lines.push({
+      label: "Mount equipment",
+      detail: lf >= CONFIG.build.mountSplitLf ? "12 lf and over" : "under 12 lf",
+      amount: money(mount),
+      value: mount
+    });
+    lines.push({
+      label: "Gas flex",
+      detail: "grill connection",
+      amount: money(CONFIG.build.gasFlex),
+      value: CONFIG.build.gasFlex
+    });
+    const gp = CONFIG.grill.price || 0;
+    lines.push({
+      label: "Grill",
+      detail: (S.grill.brand || "Grill") + " " + (S.grill.model || "")
+        + " · " + fracIn(S.grill.cutW) + '" × ' + fracIn(S.grill.cutD) + '" × ' + fracIn(S.grill.cutH) + '" cutout',
+      amount: gp ? money(gp) : "by owner",
+      value: gp
+    });
+  }
+  const outs = CONFIG.build.outlets * CONFIG.build.outlet;
+  lines.push({
+    label: "Outlets",
+    detail: CONFIG.build.outlets + " @ " + money(CONFIG.build.outlet),
+    amount: money(outs),
+    value: outs
+  });
+  lines.push({
+    label: "Debris haul-off",
+    detail: "end of project",
+    amount: money(CONFIG.build.trash),
+    value: CONFIG.build.trash
+  });
+  const total = lines.reduce((s, l) => s + (l.value || 0), 0);
+  return { empty:false, lines:lines, total:total, L:L, lf:lf, atMin:atMin, sf:sf, fin:fin, hasGrill:hasGrill };
+}
+
+/* ---------- canvas ---------- */
+const cv = $("#c"), g = cv.getContext("2d");
+const VF = "ui-sans-serif,system-ui,-apple-system,sans-serif";
+
+function vTag(x, y, txt, col){
+  g.save();
+  g.font = "600 12px " + VF;
+  const w = g.measureText(txt).width;
+  g.fillStyle = "rgba(7,10,18,.92)";
+  g.fillRect(x - w/2 - 5, y - 9, w + 10, 18);
+  g.fillStyle = col || COL.txt;
+  g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText(txt, x, y);
+  g.restore();
+}
+function dimH(xa, xb, y, txt){
+  if (Math.abs(xb - xa) < 4) return;
+  g.save();
+  g.strokeStyle = COL.dim; g.lineWidth = 1;
+  g.beginPath();
+  g.moveTo(xa, y); g.lineTo(xb, y);
+  g.moveTo(xa, y-5); g.lineTo(xa, y+5);
+  g.moveTo(xb, y-5); g.lineTo(xb, y+5);
+  g.stroke(); g.restore();
+  vTag((xa+xb)/2, y, txt);
+}
+function dimV(ya, yb, x, txt){
+  if (Math.abs(yb - ya) < 4) return;
+  g.save();
+  g.strokeStyle = COL.dim; g.lineWidth = 1;
+  g.beginPath();
+  g.moveTo(x, ya); g.lineTo(x, yb);
+  g.moveTo(x-5, ya); g.lineTo(x+5, ya);
+  g.moveTo(x-5, yb); g.lineTo(x+5, yb);
+  g.stroke(); g.restore();
+  vTag(x, (ya+yb)/2, txt);
+}
+function notes(H, L){
+  g.save();
+  g.font = "12px " + VF;
+  g.textAlign = "left"; g.textBaseline = "bottom";
+  g.fillStyle = COL.muted;
+  for (let i = 0; i < L.length; i++) g.fillText(L[L.length-1-i], 16, H - 16 - i*17);
+  g.restore();
+}
+function noteLines(){
+  const L = layout();
+  const ctr = counterSpec();
+  const out = [
+    ftin(L.width) + " of modules · " + CONFIG.geom.depth + '" deep · ' + ftin(CONFIG.geom.counterH) + " counter",
+    "Finish: " + finishSpec().n.replace(/ \(included\)/, "") + " · top: " + ctr.n.replace(/ \(included\)/, "")
+  ];
+  const grill = L.mods.find(m => m.k === "grill");
+  if (grill) out.push("Grill cutout " + fracIn(S.grill.cutW) + '" × ' + fracIn(S.grill.cutD) + '" × ' + fracIn(S.grill.cutH) + '" — placeholder, confirm the manual');
+  if (L.mods.some(m => m.bar)) out.push("Raised bar " + CONFIG.bar.rise + '" over the working top, ' + CONFIG.bar.oh + '" knee');
+  return out;
+}
+function dimText(){
+  const L = layout();
+  return ftin(L.width) + " long · " + CONFIG.geom.depth + '" deep · ' + ftin(CONFIG.geom.counterH) + " counter";
+}
+
+/* ---------- PLAN ---------- */
+function drawPlan(W, H){
+  const L = layout();
+  const oh = overhang();
+  const depth = CONFIG.geom.depth;
+  const barBack = L.mods.some(m => m.bar) ? CONFIG.bar.block + CONFIG.bar.oh : 0;
+  const spanW = L.width + oh * 2;
+  const spanD = depth + oh + barBack;
+  const sc = Math.min((W - 220) / spanW, (H - 210) / spanD);
+  const x0 = (W - L.width * sc) / 2;
+  const y0 = 78 + barBack * sc;
+  const X = x => x0 + x * sc;
+  const Z = z => y0 + z * sc;
+  const body = bodyColor(), top = counterSpec().c;
+
+  L.mods.forEach(m => {
+    if (!m.bar) return;
+    g.fillStyle = top;
+    g.fillRect(X(m.x0), Z(-(CONFIG.bar.block + CONFIG.bar.oh)), m.w * sc, (CONFIG.bar.block + CONFIG.bar.oh) * sc);
+    g.fillStyle = body;
+    g.fillRect(X(m.x0), Z(-CONFIG.bar.block), m.w * sc, CONFIG.bar.block * sc);
+  });
+
+  g.fillStyle = top;
+  g.fillRect(X(-oh), Z(0), (L.width + oh * 2) * sc, (depth + oh) * sc);
+  g.fillStyle = body;
+  g.fillRect(X(0), Z(0), L.width * sc, depth * sc);
+
+  g.save();
+  g.strokeStyle = "rgba(7,10,18,.45)"; g.lineWidth = 1;
+  L.mods.forEach(m => {
+    g.strokeRect(X(m.x0), Z(0), m.w * sc, depth * sc);
+  });
+  g.restore();
+
+  const grill = L.mods.find(m => m.k === "grill");
+  if (grill) {
+    const cutW = Math.min(S.grill.cutW, grill.w - 4);
+    const cutD = Math.min(S.grill.cutD, depth - 4);
+    const gx = grill.x0 + (grill.w - cutW) / 2;
+    const gz = depth - 2.5 - cutD;
+    g.fillStyle = COL.fire;
+    g.fillRect(X(gx), Z(gz), cutW * sc, cutD * sc);
+    g.save(); g.strokeStyle = "#2E9BFF"; g.lineWidth = 1.5;
+    g.strokeRect(X(gx), Z(gz), cutW * sc, cutD * sc); g.restore();
+    if (cutW * sc > 36) vTag(X(gx + cutW / 2), Z(gz + cutD / 2), "grill", COL.muted);
+  }
+
+  L.mods.forEach(m => {
+    if (m.w * sc < 36) return;
+    vTag(X(m.x0 + m.w / 2), Z(depth * 0.72), m.k === "grill" ? "grill bay" : m.n.split(" ")[0].toLowerCase(), COL.muted);
+  });
+
+  dimH(X(0), X(L.width), Z(depth + oh) + 28, ftin(L.width) + " overall");
+  L.mods.forEach(m => {
+    if (m.w * sc >= 28) dimH(X(m.x0), X(m.x1), Z(-barBack) - 26, ftin(m.w));
+  });
+  dimV(Z(0), Z(depth), X(L.width) + 36, depth + '" deep');
+  notes(H, noteLines());
+}
+
+/* ---------- ELEVATION ---------- */
+function drawElev(W, H){
+  const L = layout();
+  const oh = overhang();
+  const th = slabTh();
+  const yTop = CONFIG.geom.counterH - th;
+  const toe = CONFIG.geom.toe;
+  const topH = CONFIG.geom.counterH + (L.mods.some(m => m.bar) ? CONFIG.bar.rise : 0)
+    + (L.mods.some(m => m.k === "grill") ? CONFIG.grill.hoodH : 0);
+  const spanW = L.width + oh * 2;
+  const sc = Math.min((W - 260) / spanW, (H - 200) / topH);
+  const x0 = (W - L.width * sc) / 2;
+  const base = H - 118;
+  const X = x => x0 + x * sc;
+  const Y = h => base - h * sc;
+  const body = bodyColor(), top = counterSpec().c;
+
+  g.save(); g.strokeStyle = COL.grade; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(20, base); g.lineTo(W - 20, base); g.stroke(); g.restore();
+
+  L.mods.forEach(m => {
+    if (!m.bar) return;
+    const barTop = CONFIG.geom.counterH + CONFIG.bar.rise;
+    g.fillStyle = body;
+    g.fillRect(X(m.x0), Y(barTop - 2), m.w * sc, (barTop - 2) * sc);
+    g.fillStyle = top;
+    g.fillRect(X(m.x0 - 1), Y(barTop), (m.w + 2) * sc, 2 * sc);
+  });
+
+  g.fillStyle = body;
+  L.mods.forEach(m => {
+    g.fillRect(X(m.x0), Y(yTop), m.w * sc, (yTop - toe) * sc);
+    g.fillStyle = tintHex(body, 0.82);
+    g.fillRect(X(m.x0 + 0.4), Y(toe), (m.w - 0.8) * sc, toe * sc);
+    g.fillStyle = body;
+  });
+
+  g.save();
+  g.strokeStyle = "rgba(11,17,28,.28)"; g.lineWidth = 1;
+  for (let h = 8; h < yTop; h += 8) {
+    g.beginPath(); g.moveTo(X(0), Y(h)); g.lineTo(X(L.width), Y(h)); g.stroke();
+  }
+  g.restore();
+
+  g.fillStyle = top;
+  g.fillRect(X(-oh), Y(CONFIG.geom.counterH), (L.width + oh * 2) * sc, th * sc);
+  g.save(); g.strokeStyle = "rgba(11,17,28,.45)"; g.lineWidth = 1;
+  g.strokeRect(X(-oh), Y(CONFIG.geom.counterH), (L.width + oh * 2) * sc, th * sc); g.restore();
+
+  L.mods.forEach(m => {
+    g.fillStyle = COL.reveal;
+    if (m.front !== "blank") {
+      g.fillRect(X(m.x0 + 1.2), Y(yTop - 1.1), (m.w - 2.4) * sc, (yTop - toe - 2.2) * sc);
+    }
+    fronts(m).forEach(f => {
+      g.fillStyle = f.kind === "panel" ? tintHex(COL.ss, 0.92) : COL.ss;
+      g.fillRect(X(f.x0), Y(f.y1), (f.x1 - f.x0) * sc, (f.y1 - f.y0) * sc);
+      g.strokeStyle = "rgba(11,17,28,.35)"; g.lineWidth = 1;
+      g.strokeRect(X(f.x0), Y(f.y1), (f.x1 - f.x0) * sc, (f.y1 - f.y0) * sc);
+    });
+    if (m.k === "grill") {
+      const cutW = Math.min(S.grill.cutW, m.w - 4);
+      const gx = m.x0 + (m.w - cutW) / 2;
+      const hoodH = CONFIG.grill.hoodH;
+      g.fillStyle = COL.ss;
+      g.fillRect(X(gx), Y(CONFIG.geom.counterH + hoodH), cutW * sc, hoodH * sc);
+      g.fillStyle = COL.glass;
+      g.fillRect(X(gx + 1.4), Y(CONFIG.geom.counterH + hoodH - 1.6), (cutW - 2.8) * sc, (hoodH - 4.2) * sc);
+    }
+  });
+
+  const rt = X(L.width + oh);
+  dimV(Y(CONFIG.geom.counterH), base, Math.min(rt + 78, W - 56), ftin(CONFIG.geom.counterH));
+  dimH(X(0), X(L.width), base + 28, ftin(L.width) + " overall");
+  L.mods.forEach(m => {
+    if (m.w * sc >= 32) dimH(X(m.x0), X(m.x1), base + 54, ftin(m.w));
+  });
+  notes(H, noteLines());
+}
+
+/* ---------- 3D ----------
+   Isometric, same construction as the fireplace: parallel edges stay parallel,
+   boxes sort by depth, three faces lit. No orbit — it has to read as a drawing
+   a customer can say yes to. */
+const ISO_C = Math.cos(Math.PI / 6), ISO_S = Math.sin(Math.PI / 6);
+function tintHex(col, k){
+  let r, gc, b;
+  if (col.charAt(0) === "#") {
+    const n = parseInt(col.slice(1), 16);
+    r = n >> 16 & 255; gc = n >> 8 & 255; b = n & 255;
+  } else {
+    const m = String(col).match(/(\d+)/g) || [160, 160, 160];
+    r = +m[0]; gc = +m[1]; b = +m[2];
+  }
+  const ch = v => Math.round(Math.min(255, Math.max(0, v * k)));
+  return "rgb(" + ch(r) + "," + ch(gc) + "," + ch(b) + ")";
+}
+function drawIso(W, H){
+  const L = layout();
+  const oh = overhang();
+  const th = slabTh();
+  const depth = CONFIG.geom.depth;
+  const yTop = CONFIG.geom.counterH - th;
+  const toe = CONFIG.geom.toe;
+  const hasBar = L.mods.some(m => m.bar);
+  const hasGrill = L.mods.some(m => m.k === "grill");
+  const barBack = hasBar ? CONFIG.bar.block + CONFIG.bar.oh : 0;
+  const topY = CONFIG.geom.counterH
+    + (hasBar ? CONFIG.bar.rise : 0)
+    + (hasGrill ? CONFIG.grill.hoodH : 0);
+
+  const raw = (x, y, z) => [(x - z) * ISO_C, -y + (x + z) * ISO_S];
+  const corners = [
+    [-oh, 0, -barBack], [L.width + oh, 0, -barBack],
+    [-oh, 0, depth + oh], [L.width + oh, 0, depth + oh],
+    [L.width / 2, topY, depth / 2]
+  ];
+  let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+  corners.forEach(c => {
+    const p = raw(c[0], c[1], c[2]);
+    minX = Math.min(minX, p[0]); maxX = Math.max(maxX, p[0]);
+    minY = Math.min(minY, p[1]); maxY = Math.max(maxY, p[1]);
+  });
+  const sc = Math.min((W - 130) / (maxX - minX), (H - 160) / (maxY - minY));
+  const ox = (W - (minX + maxX) * sc) / 2;
+  const oy = (H - (minY + maxY) * sc) / 2 - 4;
+  const P = (x, y, z) => [ox + (x - z) * ISO_C * sc, oy + (-y + (x + z) * ISO_S) * sc];
+
+  function quad(pts, col, stroke){
+    g.beginPath();
+    g.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) g.lineTo(pts[i][0], pts[i][1]);
+    g.closePath();
+    g.fillStyle = col; g.fill();
+    if (stroke !== false) {
+      g.strokeStyle = "rgba(7,10,18,.38)"; g.lineWidth = 1; g.stroke();
+    }
+  }
+  const items = [];
+  function add(x0, x1, y0, y1, z0, z1, col){
+    if (x1 - x0 < 0.08 || y1 - y0 < 0.08 || z1 - z0 < 0.08) return;
+    items.push({ x0:x0, x1:x1, y0:y0, y1:y1, z0:z0, z1:z1, col:col,
+      k:(x0 + x1) / 2 + (z0 + z1) / 2 });
+  }
+  function paint(b){
+    quad([P(b.x1,b.y0,b.z0), P(b.x1,b.y0,b.z1), P(b.x1,b.y1,b.z1), P(b.x1,b.y1,b.z0)], tintHex(b.col, 0.62));
+    quad([P(b.x0,b.y0,b.z1), P(b.x1,b.y0,b.z1), P(b.x1,b.y1,b.z1), P(b.x0,b.y1,b.z1)], tintHex(b.col, 0.90));
+    quad([P(b.x0,b.y1,b.z0), P(b.x1,b.y1,b.z0), P(b.x1,b.y1,b.z1), P(b.x0,b.y1,b.z1)], tintHex(b.col, 1.10));
+  }
+  function flush(){
+    items.sort((a, b) => a.k - b.k);
+    items.forEach(paint);
+    items.length = 0;
+  }
+
+  const foot = P(L.width / 2, 0, depth / 2);
+  g.save();
+  g.fillStyle = "rgba(0,0,0,.32)";
+  g.beginPath();
+  g.ellipse(foot[0], foot[1] + 10, (L.width + depth) * 0.34 * ISO_C * sc, (L.width + depth) * 0.11 * sc, -0.45, 0, Math.PI * 2);
+  g.fill();
+  g.restore();
+
+  const body = bodyColor(), top = counterSpec().c;
+  L.mods.forEach(m => {
+    add(m.x0, m.x1, 0, toe, CONFIG.geom.toeInset, depth - CONFIG.geom.toeInset, body);
+    add(m.x0, m.x1, toe, yTop, 0, depth, body);
+    if (m.bar) {
+      const barTop = CONFIG.geom.counterH + CONFIG.bar.rise;
+      add(m.x0, m.x1, 0, barTop - 2, -CONFIG.bar.block, 0, body);
+    }
+  });
+  flush();
+
+  add(-oh, L.width + oh, yTop, CONFIG.geom.counterH, 0, depth + oh, top);
+  flush();
+
+  /* Contact shadow under the nose, then the bar caps so they sit on the back
+     of the pour instead of being painted over by it. */
+  quad([
+    P(-oh, yTop - 1.1, depth + 0.15), P(L.width + oh, yTop - 1.1, depth + 0.15),
+    P(L.width + oh, yTop, depth + oh * 0.15), P(-oh, yTop, depth + oh * 0.15)
+  ], "rgba(0,0,0,.22)", false);
+
+  L.mods.forEach((m, i) => {
+    if (!m.bar) return;
+    const barTop = CONFIG.geom.counterH + CONFIG.bar.rise;
+    const left = (i > 0 && L.mods[i - 1].bar) ? 0 : 1.25;
+    const right = (i < L.mods.length - 1 && L.mods[i + 1].bar) ? 0 : 1.25;
+    add(m.x0 - left, m.x1 + right, barTop - 2, barTop, -(CONFIG.bar.block + CONFIG.bar.oh), 1.2, top);
+  });
+  flush();
+
+  L.mods.forEach((m, i) => {
+    if (i < L.mods.length - 1) {
+      add(m.x1 - 0.18, m.x1 + 0.18, toe, yTop, depth - 0.05, depth + 0.25, COL.joint);
+    }
+    if (m.front !== "blank") {
+      add(m.x0 + 1.15, m.x1 - 1.15, toe + 1.15, yTop - 0.7, depth, depth + 0.18, COL.reveal);
+    }
+    fronts(m).forEach(f => {
+      add(f.x0, f.x1, f.y0, f.y1, depth + 0.18, depth + 0.72, COL.ss);
+      if (f.kind === "panel") {
+        const n = 4, span = f.x1 - f.x0;
+        for (let k = 0; k < n; k++) {
+          const cx = f.x0 + span * (k + 1) / (n + 1);
+          add(cx - 0.42, cx + 0.42, f.y0 + 2.6, f.y0 + 3.5, depth + 0.72, depth + 1.05, COL.knob);
+        }
+        return;
+      }
+      const pullW = Math.min(5, (f.x1 - f.x0) * 0.45);
+      let px0, py;
+      if (f.kind === "drawer") {
+        px0 = (f.x0 + f.x1 - pullW) / 2;
+        py = (f.y0 + f.y1) / 2 - 0.35;
+      } else {
+        const mid = (m.x0 + m.x1) / 2;
+        px0 = (f.x0 + f.x1) / 2 < mid ? f.x1 - pullW - 0.8 : f.x0 + 0.8;
+        py = (f.y0 + f.y1) / 2 - 0.35;
+      }
+      add(px0, px0 + pullW, py, py + 0.7, depth + 0.72, depth + 1.05, COL.knob);
+    });
+    if (m.k === "grill") {
+      const cutW = Math.min(S.grill.cutW, m.w - CONFIG.grill.clearance * 2);
+      const cutD = Math.min(S.grill.cutD, depth - 5);
+      const gx = m.x0 + (m.w - cutW) / 2;
+      const zf = depth - 2.4;
+      const zb = zf - cutD;
+      const hoodH = CONFIG.grill.hoodH;
+      add(gx, gx + cutW, CONFIG.geom.counterH, CONFIG.geom.counterH + hoodH, zb, zf, COL.ss);
+      add(gx + 1.3, gx + cutW - 1.3, CONFIG.geom.counterH + 2.4, CONFIG.geom.counterH + hoodH - 1.8, zf - 0.05, zf + 0.28, COL.glass);
+      add(gx + cutW * 0.2, gx + cutW * 0.8, CONFIG.geom.counterH + 1.15, CONFIG.geom.counterH + 1.85, zf, zf + 0.85, COL.knob);
+    }
+  });
+  flush();
+
+  notes(H, noteLines());
+}
+
+/* ---------- draw ---------- */
+function draw(){
+  const dpr = Math.min(2, devicePixelRatio || 1);
+  const W = cv.clientWidth, H = cv.clientHeight;
+  if (W < 2 || H < 2) return;
+  cv.width = W * dpr; cv.height = H * dpr;
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, W, H);
+  const L = layout();
+  $("#dims").innerHTML = "<b>" + (L.mods.length ? dimText() : "Add a module") + "</b>";
+  if (!L.mods.length) {
+    g.fillStyle = COL.muted;
+    g.font = "14px " + VF;
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText("Add a module to start the island.", W / 2, H / 2);
+    return;
+  }
+  if (S.view === "plan") drawPlan(W, H);
+  else if (S.view === "el") drawElev(W, H);
+  else drawIso(W, H);
+}
+
+/* ---------- quote ---------- */
+function renderQuote(){
+  const q = priceIt();
+  if (q.empty) {
+    $("#q").innerHTML = "";
+    $("#tot").textContent = "—";
+    $("#qnote").textContent = "Add a module and the build prices from the CMU rate card.";
+    return;
+  }
+  $("#q").innerHTML = q.lines.map(l =>
+    '<div class="ql"><span>' + esc(l.label) + "<i>" + esc(l.detail) + "</i></span><b>" + esc(l.amount) + "</b></div>"
+  ).join("");
+  $("#tot").textContent = money(q.total);
+  $("#qnote").textContent = q.atMin
+    ? "Under the $6,000 floor the length does not change the build number — the setup does not scale down. Module lines are each bay's share of the $275 per foot; setup and the floor are once."
+    : "Module lines are each bay's share of the $275 per foot. Setup is once. Stone, when it is on, is the perimeter of the cabinet plus the bar face.";
+}
+
+/* ---------- UI ---------- */
+function renderMods(){
+  const L = layout();
+  if (!L.mods.length) {
+    $("#modList").innerHTML = '<div class="note" style="margin-top:0">No modules yet.</div>';
+    return;
+  }
+  $("#modList").innerHTML = L.mods.map((m, i) =>
+    '<div class="mod' + (m.id === S.sel ? " on" : "") + '" data-id="' + m.id + '">'
+    + '<button type="button" class="mini" data-move="-1" data-id="' + m.id + '"' + (i === 0 ? " disabled" : "") + ' aria-label="Move left">‹</button>'
+    + '<button type="button" class="mini" data-move="1" data-id="' + m.id + '"' + (i === L.mods.length - 1 ? " disabled" : "") + ' aria-label="Move right">›</button>'
+    + '<div class="nm"><b>' + esc(m.n) + '</b><span>' + esc(ftin(m.w) + " · " + frontName(m) + (m.k === "grill" ? " · grill" : "") + (m.bar ? " · bar" : "")) + '</span></div>'
+    + '<button type="button" class="mini" data-del="' + m.id + '" aria-label="Remove">×</button>'
+    + '</div>'
+  ).join("");
+}
+function sync(){
+  S.mods.forEach(m => {
+    const lim = limits(m);
+    if (m.w < lim.min) m.w = lim.min;
+    if (m.w > lim.max) m.w = lim.max;
+    if (m.k === "filler") m.front = "blank";
+  });
+  if (S.sel != null && !S.mods.some(m => m.id === S.sel)) S.sel = S.mods.length ? S.mods[0].id : null;
+
+  const L = layout();
+  const sel = L.mods.find(m => m.id === S.sel) || null;
+  renderMods();
+
+  const hasGrill = L.mods.some(m => m.k === "grill");
+  const addG = document.querySelector("[data-add=grill]");
+  if (addG) addG.disabled = hasGrill;
+
+  $("#selGrp").style.display = sel ? "" : "none";
+  if (sel) {
+    const lim = limits(S.mods.find(m => m.id === sel.id));
+    const slider = $("#inW");
+    slider.min = lim.min; slider.max = lim.max;
+    if (document.activeElement !== slider) slider.value = sel.w;
+    $("#wV").textContent = ftin(sel.w);
+    const filler = sel.k === "filler";
+    $("#fronts").style.display = filler ? "none" : "";
+    document.querySelectorAll("#fronts button").forEach(b => {
+      b.classList.toggle("on", b.dataset.front === sel.front);
+    });
+  }
+
+  $("#grillGrp").style.display = hasGrill ? "" : "none";
+  const setT = (id, v) => { const el = $(id); if (el && document.activeElement !== el) el.value = v; };
+  setT("#gBrand", S.grill.brand);
+  setT("#gModel", S.grill.model);
+  setT("#gW", S.grill.cutW);
+  setT("#gD", S.grill.cutD);
+  setT("#gH", S.grill.cutH);
+  $("#gWv").textContent = fracIn(S.grill.cutW) + '"';
+  $("#gDv").textContent = fracIn(S.grill.cutD) + '"';
+  $("#gHv").textContent = fracIn(S.grill.cutH) + '"';
+
+  const depthLeft = CONFIG.geom.depth - S.grill.cutD;
+  $("#grillNote").textContent = hasGrill
+    ? "Placeholder cutout — not a catalog model. The bay stays " + CONFIG.grill.clearance + '" clear on each side. '
+      + (depthLeft < 4
+        ? "That depth leaves " + fracIn(Math.max(0, depthLeft)) + '" in a ' + CONFIG.geom.depth + '" island, which is tight. Confirm the manual before anyone cuts block."'
+        : CONFIG.geom.depth + '" island leaves ' + fracIn(depthLeft) + '" in front of the back wall. The grill itself is not in the build price."')
+    : "";
+
+  $("#modNote").textContent = L.mods.length
+    ? "The run is " + ftin(L.width) + " because that is what these modules add up to. One grill bay."
+    : "Start with an end, a grill bay and a door, or build your own order.";
+
+  document.querySelectorAll("#view button").forEach(b => b.classList.toggle("on", b.dataset.v === S.view));
+  $("#hint").textContent = S.view === "plan" ? "plan — bay widths and the cutout"
+    : S.view === "el" ? "elevation — counter height off grade"
+    : "3D — isometric, nothing to orbit";
+
+  $("#counter").innerHTML = CONFIG.counters.map(c =>
+    '<button type="button" data-c="' + c.k + '"' + (c.k === S.counter ? ' class="on"' : "") + ">"
+    + esc(c.n.replace(/ \(included\)/, "")) + "</button>"
+  ).join("");
+  const ctr = counterSpec();
+  $("#ctrNote").textContent = ctr.p == null
+    ? ctr.n + " is a quote add — no slab rate is set, so it is not in the total. Finished height stays " + ftin(CONFIG.geom.counterH) + "; a thinner top means a taller wall."
+    : "Color concrete is what the $275 per foot carries. Finished height " + ftin(CONFIG.geom.counterH) + ".";
+
+  $("#finish").innerHTML = CONFIG.finishes.map(f =>
+    '<button type="button" data-f="' + f.k + '"' + (f.k === S.finish ? ' class="on"' : "") + ">"
+    + esc(f.n.replace(/ \(included\)/, "")) + "</button>"
+  ).join("");
+  const fin = finishSpec();
+  if (S.finishColor >= fin.sw.length) S.finishColor = 0;
+  $("#finSw").innerHTML = fin.sw.map((c, i) =>
+    '<i data-i="' + i + '" style="background:' + c + '"' + (i === S.finishColor ? ' class="on"' : "") + "></i>"
+  ).join("");
+  $("#finNote").textContent = fin.p
+    ? fin.n + " at " + money(fin.p) + "/sq ft over the stucco rate, on the cabinet perimeter."
+    : "Stucco is what the island rate carries. Stone is an adder.";
+
+  renderQuote();
+  draw();
+}
+
+function addMod(k){
+  const spec = CONFIG.modules[k];
+  if (!spec) return;
+  if (k === "grill" && S.mods.some(m => m.k === "grill")) return;
+  const m = { id:S.nextId++, k:k, w:spec.w, front:spec.front };
+  const i = S.mods.findIndex(x => x.id === S.sel);
+  S.mods.splice(i < 0 ? S.mods.length : i + 1, 0, m);
+  S.sel = m.id;
+  sync();
+}
+function moveMod(id, dir){
+  const i = S.mods.findIndex(m => m.id === id);
+  const j = i + dir;
+  if (i < 0 || j < 0 || j >= S.mods.length) return;
+  const m = S.mods.splice(i, 1)[0];
+  S.mods.splice(j, 0, m);
+  S.sel = id;
+  sync();
+}
+function removeMod(id){
+  const i = S.mods.findIndex(m => m.id === id);
+  if (i < 0) return;
+  S.mods.splice(i, 1);
+  if (S.sel === id) S.sel = (S.mods[i] || S.mods[i - 1] || {}).id || null;
+  sync();
+}
+
+$("#modList").onclick = e => {
+  const del = e.target.closest("[data-del]");
+  if (del) { removeMod(+del.dataset.del); return; }
+  const mv = e.target.closest("[data-move]");
+  if (mv) { moveMod(+mv.dataset.id, +mv.dataset.move); return; }
+  const row = e.target.closest(".mod");
+  if (row) { S.sel = +row.dataset.id; sync(); }
+};
+$("#addMods").onclick = e => {
+  const b = e.target.closest("[data-add]");
+  if (!b || b.disabled) return;
+  addMod(b.dataset.add);
+};
+$("#inW").oninput = e => {
+  const m = S.mods.find(x => x.id === S.sel);
+  if (!m) return;
+  m.w = +e.target.value;
+  sync();
+};
+$("#fronts").onclick = e => {
+  const b = e.target.closest("[data-front]");
+  if (!b) return;
+  const m = S.mods.find(x => x.id === S.sel);
+  if (!m || m.k === "filler") return;
+  m.front = b.dataset.front;
+  sync();
+};
+$("#view").onclick = e => {
+  const b = e.target.closest("[data-v]");
+  if (!b) return;
+  S.view = b.dataset.v;
+  sync();
+};
+$("#counter").onclick = e => {
+  const b = e.target.closest("[data-c]");
+  if (!b) return;
+  S.counter = b.dataset.c;
+  sync();
+};
+$("#finish").onclick = e => {
+  const b = e.target.closest("[data-f]");
+  if (!b) return;
+  S.finish = b.dataset.f;
+  S.finishColor = 0;
+  sync();
+};
+$("#finSw").onclick = e => {
+  if (e.target.dataset.i == null) return;
+  S.finishColor = +e.target.dataset.i;
+  sync();
+};
+$("#gBrand").oninput = e => { S.grill.brand = e.target.value; sync(); };
+$("#gModel").oninput = e => { S.grill.model = e.target.value; sync(); };
+$("#gW").oninput = e => { S.grill.cutW = +e.target.value; sync(); };
+$("#gD").oninput = e => { S.grill.cutD = +e.target.value; sync(); };
+$("#gH").oninput = e => { S.grill.cutH = +e.target.value; sync(); };
+
+function specText(){
+  const q = priceIt();
+  const L = q.L;
+  const lines = [
+    "EAGLEBUILT AI — BBQ ISLAND",
+    "================================================",
+    L.mods.length ? dimText() : "No modules",
+    "Depth: " + CONFIG.geom.depth + '" cabinet · counter ' + ftin(CONFIG.geom.counterH) + " finished",
+    "Frame: CMU, stucco in the base rate. " + finishSpec().n + ".",
+    "Top: " + counterSpec().n + " (" + counterSpec().th + '" )',
+    "",
+    "MODULES"
+  ];
+  L.mods.forEach((m, i) => {
+    lines.push((i + 1) + ". " + m.n + "  " + ftin(m.w) + "  " + frontName(m)
+      + (m.bar ? "  + raised bar" : ""));
+  });
+  const grill = L.mods.find(m => m.k === "grill");
+  if (grill) {
+    lines.push("",
+      "GRILL  " + (S.grill.brand || "—") + " " + (S.grill.model || ""),
+      "  Cutout " + fracIn(S.grill.cutW) + '" W × ' + fracIn(S.grill.cutD) + '" D × ' + fracIn(S.grill.cutH) + '" H',
+      "  Placeholder until a catalog model is selected. Confirm the installation manual.",
+      CONFIG.grill.price ? "  Allowance " + money(CONFIG.grill.price) : "  Grill by owner — not in the build total.");
+  }
+  lines.push("");
+  q.lines.forEach(l => { lines.push(l.label + "  " + l.amount); });
+  lines.push(
+    "------------------------------------------------",
+    "TOTAL  " + (q.empty ? "—" : money(q.total)),
+    "",
+    "Budget proposal, not a quote. Final pricing follows a site visit -",
+    "access, grade and existing utilities all move the number.",
+    "",
+    "CSLB #992251 · info@eaglebuilt.ai · (949) 564-1948"
+  );
+  return lines.filter(x => x !== null).join("\n");
+}
+
+$("#btnSpec").onclick = () => {
+  navigator.clipboard.writeText(specText()).then(
+    () => { $("#btnSpec").textContent = "Copied";
+            setTimeout(() => { $("#btnSpec").textContent = "Copy spec"; }, 1400); },
+    () => {}
+  );
+};
+
+addEventListener("resize", draw);
+document.getElementById("stamp").textContent = "preview · 2026-09-23";
+sync();
+requestAnimationFrame(draw);
+
+/* ---- Send the finished design ------------------------------------------
+   One tap. The email and ZIP were already taken at the gate, so nothing is
+   retyped — on a phone that is the difference between a lead and a bounce.
+
+   Two destinations, deliberately:
+     Web3Forms  the mailbox John actually reads. Unchanged from every other
+                lead on the site, so this cannot break the path that works.
+     /api/leads the CRM, same-origin. The Worker adds the API key, so it is
+                never in this page.
+
+   Both are fire-and-forget and the button always reports success: the design
+   is a budget proposal, not a transaction, and a failed POST must never read
+   as a broken tool. Web3Forms is the copy that matters and it is independent.
+   -------------------------------------------------------------------------- */
+(function () {
+  var btn = document.getElementById("btnSend");
+  if (!btn) return;
+  var msg = document.getElementById("sendMsg");
+
+  function gateLead() {
+    try { return JSON.parse(localStorage.getItem("eb.designer.lead") || "{}"); }
+    catch (e) { return {}; }
+  }
+  function valid(e) { return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(e); }
+  function say(t, ok) {
+    if (!msg) return;
+    msg.textContent = t;
+    msg.style.display = "block";
+    if (ok) msg.style.color = "#7FC4FF";
+  }
+
+  btn.onclick = function () {
+    var gLead = gateLead();
+    var email = String(gLead.email || "").trim();
+
+    /* The gate collects this before the tool opens, so it is normally here.
+       It can be missing if the browser blocks storage — ask rather than fail. */
+    if (!valid(email)) {
+      email = String(window.prompt("What email should the quote go to?") || "").trim();
+      if (!valid(email)) { say("Need an email address to send it to."); return; }
+    }
+
+    var zip   = String(gLead.zip || "").trim();
+    var spec  = specText();
+    var totEl = document.getElementById("tot");
+    var total = totEl ? String(totEl.textContent || "").trim() : "";
+
+    /* Nothing designed yet. Sending that is a junk lead with no design in it. */
+    if (!total || total.replace(/[^0-9]/g, "") === "") {
+      say("Design something first, then send it.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+
+    try {
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
+          from_name:  "EagleBuilt AI Designer",
+          subject:    "BBQ island design sent — " + email + " — " + total + (zip ? " — " + zip : ""),
+          lead_stage: "sent a design",
+          email:      email,
+          replyto:    email,
+          zip:        zip || "—",
+          estimate:   total,
+          spec:       spec
+        })
+      }).catch(function () {});
+    } catch (e) {}
+
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email:  email,
+          zip:    zip,
+          source: "bbq_island_quote",
+          designSummary: {
+            tool:     "BBQ island",
+            estimate: total,
+            spec:     spec.slice(0, 1800)
+          }
+        })
+      }).catch(function () {});
+    } catch (e2) {}
+
+    window.ebTrack && window.ebTrack("design_lead", { tool: "BBQ island" });
+
+    btn.textContent = "Sent ✓";
+    say("On its way to " + email + ". We reply with an itemized budget, usually within one business day.", true);
+  };
+})();
+</script>
+</body>
+</html>
