@@ -2965,7 +2965,10 @@ function openingEl(c, X, Y, u0, y0, y1, sel){
   const gap = Math.max(1.5, (ib - ia) * .012);
   if (c.t === "door1" || c.t === "trash"){
     face(ia, it, ib, ibt);
-    if (c.t === "trash") pullH(ia, ib, ibt - (ibt - it) * .18);
+    /* Measured from the TOP: a trash pull-out is one tall drawer front and
+       you grab it near the top, same as any drawer. This used to measure up
+       from ibt, which put the pull down by the toe kick. */
+    if (c.t === "trash") pullH(ia, ib, it + (ibt - it) * .18);
     else pullV(ib - (ib - ia) * .12, it, ibt);
   } else if (c.t === "door2"){
     const mid = (ia + ib) / 2;
