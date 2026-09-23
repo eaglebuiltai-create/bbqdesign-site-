@@ -7,7 +7,7 @@ hard-reload with Ctrl+Shift+R.
 | | Build |
 |---|---|
 | **Latest built** | 2026-09-22 · 76 |
-| **Live on eaglebuilt.ai** | 2026-09-19 · 75 |
+| **Live on eaglebuilt.ai** | 2026-09-22 · 76 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
