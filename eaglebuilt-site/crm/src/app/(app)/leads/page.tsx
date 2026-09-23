@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { listLeads } from "@/lib/leads";
 import { LEAD_STATUSES, STATUS_LABELS, type LeadStatusValue } from "@/lib/constants";
 import { StatusSelect } from "@/components/StatusSelect";
+import { DeleteLeadRowButton } from "@/components/DeleteLeadRowButton";
 
 export const dynamic = "force-dynamic";
 
@@ -76,12 +77,13 @@ export default async function LeadsPage({
               <th className="hidden px-4 py-3 md:table-cell">Follow-up</th>
               <th className="hidden px-4 py-3 lg:table-cell">Source</th>
               <th className="px-4 py-3">Updated</th>
+              <th className="px-4 py-3"><span className="sr-only">Delete</span></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {leads.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-10 text-center text-slate-500">
+                <td colSpan={7} className="px-4 py-10 text-center text-slate-500">
                   No leads match.{" "}
                   <Link href="/leads/new" className="text-blue-800 underline">
                     Create one
@@ -115,6 +117,9 @@ export default async function LeadsPage({
                   <td className="px-4 py-3 text-slate-500">
                     {format(lead.updatedAt, "MMM d")}
                     <div className="text-xs">{lead._count.notes} notes</div>
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <DeleteLeadRowButton leadId={lead.id} label={lead.name || lead.email || "this lead"} />
                   </td>
                 </tr>
               ))
