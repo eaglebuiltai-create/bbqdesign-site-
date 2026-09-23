@@ -42,6 +42,11 @@ Deliberately **not** in `SHAPES`, so it adds no Quick Start button.
 opened over it a moment later. Designing on a small screen is the problem Quick
 Build solves, and a pre-built island does not solve it.
 
+The raised bar is **off** on the starter, and only on the starter. It is
+standard on an EagleBuilt island and stays on everywhere else, but 6" of block
+plus a 12" overhang reads as a deeper island than the visitor is actually
+getting. Starter opens at 10' 0.5" x 2' 11", project $13,291.
+
 Autosave means the starter only ever shows on a genuinely first visit.
 
 **Fix — the trash pull was drawn upside down.** In the elevation it sat at

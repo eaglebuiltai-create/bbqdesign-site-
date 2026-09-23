@@ -2187,6 +2187,11 @@ function applyShape(key){
     const len = lay(["fill8", "BLZ-TREC-DRW-H", "fill12", "BLZ-4LTE3",
                      "fill12", "BLZ-SSRF20-4.3", "fill8"], 0, 0);
     const ox = q32(len/2); S.mods.forEach(m => m.x -= ox);
+    /* Bar off for the starter only. It is standard on an EagleBuilt island
+       and stays on everywhere else, but the first thing a visitor sees
+       should be the cabinet run at its own depth — the 18\" of block and
+       overhang reads as a deeper island than they are actually getting. */
+    S.bar.on = false;
   } else if (key === "straight"){
     const len = lay(["BLZ-DRW3-R-LT","BLZ-4LTE3","BLZ-SB2-LTEPLUS","BLZ-DDC-R-LTSC","BLZ-SSRF20-4.3"], 0, 0);
     const ox = q32(len/2); S.mods.forEach(m => m.x -= ox);
