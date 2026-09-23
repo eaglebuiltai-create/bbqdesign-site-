@@ -10,3 +10,6 @@ crm/.env
 crm/prisma/*.db
 crm/prisma/*.db-journal
 node_modules/
+
+tools/out/
+

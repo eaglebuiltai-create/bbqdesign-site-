@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-09-22 · 76 |
-| **Live on eaglebuilt.ai** | 2026-09-22 · 76 ✅ |
+| **Latest built** | 2026-09-23 · 81 |
+| **Live on eaglebuilt.ai** | 2026-09-23 · 81 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,140 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## 81 — 2026-09-23 · bucket corners are the BAR's corners, and a choice
+
+Correcting 80 the same afternoon, from John: *"not all corners just outside bar
+corners"*, then *"needs to be an option square or round on outside bar corners"*.
+
+80 rounded every convex corner on the slab. Wrong: the bucket is for the corners
+a guest walks past or sits at. A run against the house keeps square corners, and
+an island with no bar at all has nothing to round.
+
+- `roundLoop` takes an `allow` predicate; `slabLoops` / `slabArea` pass it
+  through (with a cache tag, or the memo would hand back the wrong shape).
+- `takeoff` builds `atBar`: a corner qualifies when the bar cap covers a cell
+  touching it. The cook side never does. Plan, 3D and the square-foot number all
+  use that one predicate, so no view can disagree with another.
+- No bar ⇒ `atBar` is null ⇒ the radius does nothing and the plain raster area
+  is used. Verified: a straight run with no bar reads 29.90 sq ft either way.
+- The slider is now two buttons — **Square** / **Round 5.3"** — because on site
+  it is one or the other, not a dial.
+
+Checked on a U with the bar off on one leg: that leg's corners stay square while
+the other two runs get the bucket.
+
+---
+
+## 80 — 2026-09-23 · the bucket corner
+
+*(Superseded by 81 on the same day — read that first. The rounding described
+here was correct in mechanism but applied to every corner rather than the bar's.)*
+
+**The EagleBuilt signature radius now draws.** John forms every exposed corner
+against a 5-gallon bucket — **5.3"** — so nobody catches a hip on a concrete
+arris. The plan already drew and priced that; the 3D could not, which is why the
+control sat hidden behind `display:none`.
+
+The 3D now builds the slab from the same traced loops the plan uses
+(`slabLoops` → `roundLoop`, convex corners only, so inside corners stay square —
+which is how they get poured). Two new pieces: `pushLoopWalls` extrudes the edge
+bands around a loop, and `earClip` triangulates the top. Both the counter and a
+raised bar cap round; the block below stays square, because it is.
+
+`counterR` now defaults to 5.3 and the slider is visible (0–12", tenths).
+
+**The elevation needed nothing.** The old note said all three views had to round
+before the control could ship, but a plan radius is invisible in a straight-on
+elevation — the silhouette is the slab at its widest. Checked, not assumed.
+
+**Old share codes get the radius.** State is now `v4`. Before v4 the control was
+hidden, so a stored `cr:0` means "never asked", not "chose square" — those load
+at 5.3. From v4 on, 0 is a real choice and is kept. Verified all four paths:
+v3/cr0 → 5.3, v4/cr0 → 0, v4/cr8 → 8, and a full round trip.
+
+Counter square footage drops a hair with the radius on (a 10' straight run goes
+44.4 → 44.2 sq ft) because `slabArea` measures the traced polygon. That is the
+real number — you are not pouring those corners.
+
+One rendering note: traced tops are drawn with no texture jitter. The raster
+path mottles per quad, which on a grid reads as troweled concrete, but on
+ear-clipped wedges the same jitter read as cracked glass.
+
+---
+
+## 79 — 2026-09-23 · the bar turns the corner, and you can see where it starts
+
+Two things John hit on a client's L and U.
+
+**The bar was cut square across the corner.** Same root as 77, the other half of
+it: `barRects()` rejected any corner fill that overlapped the island, and at cap
+padding the island is 1.5" bigger, so the fill that carries the cap round the
+corner was thrown out whole. 77 only guaranteed the wall got *a* cap; the knee
+still stopped at the corner. Now the island test applies to the walls only —
+concrete lapping the island at cap height is not a fault, the counter is already
+there and the raster unions it. An L gains about 4.5 sq ft of cap at the corner,
+a U about 6.6.
+
+**A flush bar was invisible.** 78 made it one slab, which is right, but left
+nothing to separate the guest side from the cook side, so it read as no bar at
+all. The slab top is now laid in two tones — `topCook` and `barZone`, two
+rasters that share a boundary and never overlap, so there is no coplanar seam to
+fight and no sliver. Measured on the render: the guest band comes out 10% darker
+than the cook side.
+
+Things tried first, so nobody repeats them: tinting the band *lighter* (0.11,
+then 0.26) washes out on light concrete and stayed invisible; a drawn joint line
+came out dashed, because `pushQuad` splits biased geometry at 26" and the
+painter sort compares centroids, so a big slab quad beats a small strip whatever
+bias it carries. Partitioning is what works — never layer coplanar faces here.
+
+Checked across straight, L and U with the bar off, flush and raised: no uncapped
+wall, no holes in the slab.
+
+---
+
+## 78 — 2026-09-23 · a flush bar is one slab, not two
+
+The slivers left open in 77. `?debugbar=1` showed the counter slab and the bar
+cap meeting along a 1" staircase, and in every notch of it the cap's dark edge
+band read through the counter as a dark slot. The slab raster itself had no
+holes — it was two coplanar slabs drawn separately, each with its own edge.
+
+Fix: when the bar is flush (rise under 0.25"), the cap is unioned into the
+counter and drawn as one slab, which is also how it is poured — monolithic with
+the counter, rebar bent out of the block. Raised bars keep a separate cap; up
+there the edge is real and the shadow line under it is deliberate.
+
+Counter square footage on a flush bar drops slightly — the old figure counted
+the 1" lap twice. Display only; the quote does not move. `?debugbar=1` no longer
+paints a flush cap separately, because there no longer is one.
+
+---
+
+## 77 — 2026-09-23 · bare block above the counter where the bar turns a corner
+
+Found while John was designing a U for a client: on any island where the bar
+turns a corner, part of the bar's block wall was built with no countertop over
+it — **2.7 sq ft on a U, 1.5 sq ft on an L**, showing in 3D as bare block
+standing proud of the counter at the corner. Straight runs were never affected.
+
+Cause: `barRects()` builds the corner fill twice, once unpadded for the walls
+and once padded for the cap, and tests each against the island at its own
+padding. At the padded size the corner fill overlaps the grown island and gets
+rejected outright, so the wall was kept and the cap over it was not.
+
+Fix: the cap raster is now the union of the padded strips **and** the wall
+footprint, so an uncapped bar wall cannot happen whatever the corner logic
+decides. Verified on the U, L and straight presets, flush and raised — every
+bar wall is capped.
+
+Counter square footage on the takeoff panel rises by that corner area. It is
+display only — the quote is linear-foot based and does not move.
+
+Still open at the time: thin dark slivers along the bar seam in 3D. Fixed in 78.
 
 ---
 
