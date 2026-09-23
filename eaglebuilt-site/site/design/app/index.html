@@ -2179,7 +2179,15 @@ function applyShape(key){
     });
     return p;
   };
-  if (key === "straight"){
+  if (key === "starter"){
+    /* What a desktop visitor opens on. The same straight run as "straight",
+       but with filler panels between the appliances, which is what makes it
+       read as a finished island rather than four boxes pushed together.
+       Deliberately not in SHAPES, so it is not a Quick Start button. */
+    const len = lay(["fill8", "BLZ-TREC-DRW-H", "fill12", "BLZ-4LTE3",
+                     "fill12", "BLZ-SSRF20-4.3", "fill8"], 0, 0);
+    const ox = q32(len/2); S.mods.forEach(m => m.x -= ox);
+  } else if (key === "straight"){
     const len = lay(["BLZ-DRW3-R-LT","BLZ-4LTE3","BLZ-SB2-LTEPLUS","BLZ-DDC-R-LTSC","BLZ-SSRF20-4.3"], 0, 0);
     const ox = q32(len/2); S.mods.forEach(m => m.x -= ox);
   } else if (key === "ell"){
@@ -6882,7 +6890,17 @@ let LOGO_DATA = "";
     if (saved && decodeState(saved.d)){ loaded = true; resumedAt = saved.t || Date.now(); }
   }
   if (loaded){ syncControls(); }
-  else { applyShape("straight"); }
+  else if (window.matchMedia("(max-width:820px)").matches){
+    /* A phone gets Quick Build opened over the top of this a moment later,
+       so what sits underneath only has to be a sane backdrop. */
+    applyShape("straight");
+  } else {
+    /* Desktop opens on a real island rather than four appliances pushed
+       together: filler panels between them are what make it read as
+       something to edit instead of something to assemble. Autosave means
+       this only ever shows on a genuinely first visit. */
+    applyShape("starter");
+  }
 
   /* ?add=<catalogue key> opens the designer with that piece already in an
      island, its brand tab selected. The whole point of a model page is "design

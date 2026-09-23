@@ -22,6 +22,36 @@ works as a fallback.
 
 ---
 
+## 2026-09-22 · desktop opens on a real island, and the trash pull was upside down
+
+**Not yet deployed** — run `npx wrangler deploy`, then delete this line.
+
+**Starter island on desktop.** A fresh visit used to lay the `straight` Quick
+Start run — five appliances pushed together with nothing between them. Desktop
+now opens on a seven-piece island with filler panels between the appliances:
+`fill8 · TREC-DRW-H · fill12 · 4LTE3 · fill12 · SSRF20-4.3 · fill8`, 10' 0.5"
+wide, 0 fit warnings. It reads as something to edit rather than something to
+assemble.
+
+It is a `starter` branch in `applyShape()`, so it reuses the same `lay()` row
+layout as every other preset. Hand-placing the pieces with `addModule(k, 0, 0)`
+stacked them instead of running them, which produced a 2' 11" wide island.
+Deliberately **not** in `SHAPES`, so it adds no Quick Start button.
+
+**Phones are unchanged.** They still get `straight` underneath with Quick Build
+opened over it a moment later. Designing on a small screen is the problem Quick
+Build solves, and a pre-built island does not solve it.
+
+Autosave means the starter only ever shows on a genuinely first visit.
+
+**Fix — the trash pull was drawn upside down.** In the elevation it sat at
+`ibt - (ibt - it) * .18`: 18% up from the *bottom* of the face, which put the
+handle down by the toe kick. A trash pull-out is one tall drawer front and you
+grab it near the top, like every other drawer in the run — those sit at .55 of
+their own face. Now measured from the top.
+
+---
+
 ## 76 — 2026-09-22 · the 3D stopped looking like a schematic
 
 A materials-and-shapes pass over the software renderer. No engine change: still
