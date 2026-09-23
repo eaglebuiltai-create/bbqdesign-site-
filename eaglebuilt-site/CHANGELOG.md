@@ -24,7 +24,7 @@ works as a fallback.
 
 ## 2026-09-22 · desktop opens on a real island, and the trash pull was upside down
 
-**Not yet deployed** — run `npx wrangler deploy`, then delete this line.
+**Deployed 2026-09-22.**
 
 **Starter island on desktop.** A fresh visit used to lay the `straight` Quick
 Start run — five appliances pushed together with nothing between them. Desktop
