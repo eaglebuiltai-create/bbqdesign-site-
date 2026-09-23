@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-09-19 · 75 |
-| **Live on eaglebuilt.ai** | 2026-09-19 · 75 ✅ |
+| **Latest built** | 2026-09-22 · 76 |
+| **Live on eaglebuilt.ai** | 2026-09-19 · 75 |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,51 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## 76 — 2026-09-22 · the 3D stopped looking like a schematic
+
+A materials-and-shapes pass over the software renderer. No engine change: still
+the same `FACES` painter pipeline, still no libraries.
+
+**Materials.** Stainless was one colour and one shading response, which is why
+door fronts read as white plastic. There are now four materials — brushed
+(hoods, flanges), satin (door and drawer fronts), polished (handle tubes) and
+matte — and the satin response deliberately throws almost no specular highlight.
+Fronts dropped from `#E4EAF1` to `#C2CCD8`.
+
+**Door fronts are built, not stacked.** A full-size plate with a grey rectangle
+laid on top of it is two overlapping coplanar quads, and those can always trade
+places in a painter sort — which is what tore the recesses and the fridge glass
+into fragments. `pushBox` can now skip the face pointing a given way, so a front
+is composed of a rim, four bevel bands and a centre that tile it exactly and
+never overlap.
+
+**The grill lid** is a superellipse rather than a half-cylinder, with a rolled
+lip and a dark reveal underneath so it separates from the counter.
+
+**The slab edge** carries a lit top arris and a shadow under the drip even when
+the stamped edge is switched off.
+
+**Lighting and ground.** Contact shadow is two passes for a soft edge, the grid
+fades towards the edge of the pad in four alpha bands, and `lineJoin` is round —
+tube end caps are fans with a repeated point, and mitre joins turned those into
+spikes.
+
+**`texAmt` was dead code** since it was written: computed per finish in
+`buildScene` and never passed anywhere. It now drives the veneer grain, so
+stucco is not as coarse as stacked stone.
+
+**Cost:** about +20% frame time (~28 → ~34 ms for a 12.8 lf island at phone
+size, warmed, median of three runs of 25). Most of it is the finer subdivision
+of cabinet fronts, `lim` 26 → 12, scoped to LAYER 1 — that is what stops the
+masonry behind a bay painting across its doors.
+
+**Still open:** at steep overhead angles, individual veneer stones can still win
+the sort against a cabinet front. Pre-existing and unchanged by this pass — it
+is the painter's algorithm reaching its limit, and the fix is a depth buffer or
+drawing courses as texture rather than as proud geometry.
 
 ---
 
