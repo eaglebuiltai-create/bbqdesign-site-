@@ -1,35 +1,26 @@
 # Johnny Rock
 
-The BBQ island designer. This is the site at **https://johnnyrock.biz/** — the product is the page, not a tool nested under eaglebuilt.ai.
+The BBQ island designer, and the whole site, at **https://johnnyrock.biz/**.
 
-Leads still land in the EagleBuilt CRM. The page posts `/api/leads` (this Worker adds the ingest key) and the same Web3Forms side-channel the other designers use.
+`site/index.html` is the product — one file, same idea as the fireplace and fire pit tools. `site/assets/emailcheck.js` is the email typo check those tools already use. There is no second page.
 
 ## Deploy
 
-Host: **johnnyrock.biz**
-
-Run from this folder:
+Host: **johnnyrock.biz**. From this folder:
 
 ```
 npx wrangler deploy
 ```
 
-`wrangler.toml` names the Worker `johnnyrock` on purpose. Do not point it at the EagleBuilt Worker (`fragrant-butterfly-5c92`); that name is eaglebuilt.ai.
+The Worker is named `johnnyrock`. Do not deploy it as `fragrant-butterfly-5c92` — that name is eaglebuilt.ai.
 
-After the first deploy, attach **johnnyrock.biz** and **www.johnnyrock.biz** as custom domains on this Worker.
+Then attach **johnnyrock.biz** and **www.johnnyrock.biz** to this Worker.
 
-CRM secrets, same values as the EagleBuilt worker:
+The page is static. `src/worker.js` only proxies `POST /api/leads` so the CRM key stays off the page, the same light proxy EagleBuilt uses. Web3Forms is called from the page with the existing access key and does not go through the Worker.
 
 ```
 npx wrangler secret put CRM_INGEST_URL
 npx wrangler secret put CRM_LEADS_API_KEY
 ```
 
-`CRM_INGEST_URL` is the CRM ingest route, for example `https://crm.eaglebuilt.ai/api/leads`. Until both secrets are set, `/api/leads` returns `{ "ok": false, "error": "not configured" }` and the designer still opens — Web3Forms is the mailbox copy and does not depend on the Worker.
-
-## What is deployed
-
-- `site/` — static files. `site/index.html` is the designer, served at `/`.
-- `src/worker.js` — `/api/leads` only. Cloudflare serves a matching file before the script runs, so a Worker fault cannot take the page down.
-
-There is no customer-confirmation mailer here. That endpoint belongs to the EagleBuilt kitchen designer.
+`CRM_INGEST_URL` is the CRM ingest route, for example `https://crm.eaglebuilt.ai/api/leads`. Until both secrets are set, `/api/leads` answers `{ "ok": false, "error": "not configured" }` and the designer still opens.
