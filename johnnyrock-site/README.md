@@ -4,6 +4,8 @@ The BBQ island designer, and the whole site, at **https://johnnyrock.biz/**.
 
 `site/index.html` is the product — one file, same idea as the fireplace and fire pit tools. `site/assets/emailcheck.js` is the email typo check those tools already use. There is no second page.
 
+The `SITE` block at the top of `site/index.html` is the brand, the canonical domain, the Web3Forms key, and the `/api/leads` path. johnnyrock.biz is those defaults. A later white-label is a copy of the file with that block changed — not a second app.
+
 ## Deploy
 
 Host: **johnnyrock.biz**. From this folder:

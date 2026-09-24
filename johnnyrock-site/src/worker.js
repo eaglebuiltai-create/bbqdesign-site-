@@ -18,6 +18,7 @@
  * =============================================================================
  */
 
+/* Keep these in step with SITE.origin in site/index.html (and www). */
 const ALLOWED = ["https://johnnyrock.biz", "https://www.johnnyrock.biz"];
 
 export default {

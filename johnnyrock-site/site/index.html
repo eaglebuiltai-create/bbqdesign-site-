@@ -3,14 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Johnny Rock — BBQ Island Designer</title>
-<meta name="description" content="Design a modular BBQ island. Add a grill bay, cabinets and a bar — the length is whatever the modules add up to, with a live budget.">
-<link rel="canonical" href="https://johnnyrock.biz/">
-<meta name="robots" content="index, follow">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://johnnyrock.biz/">
-<meta property="og:title" content="Johnny Rock — BBQ Island Designer">
-<meta property="og:description" content="Design a modular BBQ island. Grill bay, cabinets and an optional bar. The length follows the modules.">
+<!-- Brand, domain, and lead endpoints. johnnyrock.biz defaults.
+     A later white-label is a copy of this file with this block edited.
+     Not a multi-tenant app. -->
+<script>
+var SITE = {
+  brand: "Johnny Rock",
+  logoLead: "JOHNNY",
+  logoMark: "ROCK",
+  product: "BBQ Island",
+  tool: "BBQ island",
+  description: "Design a modular BBQ island. Add a grill bay, cabinets and a bar — the length is whatever the modules add up to, with a live budget.",
+  origin: "https://johnnyrock.biz",
+  leadsUrl: "/api/leads",
+  crmSourceOpen: "BBQ island designer",
+  crmSourceQuote: "bbq_island_quote",
+  contact: "CSLB #992251 · info@eaglebuilt.ai · (949) 564-1948",
+  web3formsUrl: "https://api.web3forms.com/submit",
+  web3formsKey: "3a819006-46a1-4176-ac5e-224d1a489557"
+};
+function siteEsc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+function siteLogoHtml() {
+  var lead = siteEsc(SITE.logoLead);
+  if (!SITE.logoMark) return lead;
+  return lead + " <i>" + siteEsc(SITE.logoMark) + "</i>";
+}
+(function () {
+  var title = SITE.brand + " — " + SITE.product + " Designer";
+  var url = String(SITE.origin || "").replace(/\/$/, "") + "/";
+  var desc = siteEsc(SITE.description);
+  document.write(
+    "<title>" + siteEsc(title) + "</title>" +
+    '<meta name="description" content="' + desc + '">' +
+    '<link rel="canonical" href="' + siteEsc(url) + '">' +
+    '<meta name="robots" content="index, follow">' +
+    '<meta property="og:type" content="website">' +
+    '<meta property="og:url" content="' + siteEsc(url) + '">' +
+    '<meta property="og:title" content="' + siteEsc(title) + '">' +
+    '<meta property="og:description" content="' + desc + '">'
+  );
+})();
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -128,7 +165,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 <div id="ebGate" hidden>
   <div class="ebCard">
-    <div class="ebBrand">JOHNNY <i>ROCK</i></div>
+    <div class="ebBrand" id="gateBrand"></div>
     <h2>Start your design</h2>
     <p class="ebLede">Free to use. Add your email and the designer opens &mdash; we use it to
       send you the design and its itemized budget when you are done.</p>
@@ -148,8 +185,8 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 <script>
 (function(){
   var KEY  = "eb.designer.lead";
-  var TOOL = "BBQ island";
   var gate = document.getElementById("ebGate");
+  document.getElementById("gateBrand").innerHTML = siteLogoHtml();
 
   /* A browser that blocks storage throws on read. Show the gate in that case —
      but the write below is also wrapped, so a blocked browser still gets in,
@@ -185,13 +222,13 @@ input[type=range]{width:100%;accent-color:var(--blue)}
        failed POST must never read as a broken tool, and the full lead still
        goes out when they send the design. */
     try {
-      fetch("https://api.web3forms.com/submit", {
+      fetch(SITE.web3formsUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
-          from_name:  "Johnny Rock",
-          subject:    TOOL + " designer opened — " + email,
+          access_key: SITE.web3formsKey,
+          from_name:  SITE.brand,
+          subject:    SITE.tool + " designer opened — " + email,
           lead_stage: "opened the designer",
           email:      email,
           zip:        zip || "—",
@@ -205,27 +242,27 @@ input[type=range]{width:100%;accent-color:var(--blue)}
        same reason as above: the visitor is never held up by it, and a CRM
        outage cannot look like a broken tool. */
     try {
-      fetch("/api/leads", {
+      fetch(SITE.leadsUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email:  email,
           zip:    zip,
-          source: TOOL + " designer"
+          source: SITE.crmSourceOpen
         })
       }).catch(function () {});
     } catch (e4) {}
 
     gate.hidden = true;
-    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL });
+    window.ebTrack && window.ebTrack("designer_open", { tool: SITE.tool });
   });
 })();
 </script>
 
 <div id="app">
   <header>
-    <div class="brand">JOHNNY <i>ROCK</i></div>
-    <div class="tag">BBQ Island</div>
+    <div class="brand" id="brand"></div>
+    <div class="tag" id="productTag"></div>
     <div class="sp"></div>
     <div class="tag" id="stamp">preview</div>
   </header>
@@ -334,10 +371,9 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 <script>
 /* ==========================================================================
-   JOHNNY ROCK — BBQ ISLAND DESIGNER
-   The whole site. Served at https://johnnyrock.biz/ . A straight run of
-   modules, and the length is whatever they add up to. Leads still go to the
-   EagleBuilt CRM (/api/leads) and the same Web3Forms inbox.
+   BBQ ISLAND DESIGNER
+   The whole site. Brand, domain, and where leads go live in SITE at the top
+   of the page. A straight run of modules; the length is whatever they add up to.
 
    CONFIG is the only place prices and the module catalog live. Rates are the
    island rate card (PRICING.md / the kitchen BUILD block), not invented SKUs:
@@ -1244,7 +1280,7 @@ function specText(){
   const q = priceIt();
   const L = q.L;
   const lines = [
-    "JOHNNY ROCK — BBQ ISLAND",
+    SITE.brand.toUpperCase() + " — " + SITE.product.toUpperCase(),
     "================================================",
     L.mods.length ? dimText() : "No modules",
     "Depth: " + CONFIG.geom.depth + '" cabinet · counter ' + ftin(CONFIG.geom.counterH) + " finished",
@@ -1274,7 +1310,7 @@ function specText(){
     "Budget proposal, not a quote. Final pricing follows a site visit -",
     "access, grade and existing utilities all move the number.",
     "",
-    "CSLB #992251 · info@eaglebuilt.ai · (949) 564-1948"
+    SITE.contact
   );
   return lines.filter(x => x !== null).join("\n");
 }
@@ -1288,6 +1324,8 @@ $("#btnSpec").onclick = () => {
 };
 
 addEventListener("resize", draw);
+document.getElementById("brand").innerHTML = siteLogoHtml();
+document.getElementById("productTag").textContent = SITE.product;
 document.getElementById("stamp").textContent = "preview · 2026-09-23";
 sync();
 requestAnimationFrame(draw);
@@ -1349,13 +1387,13 @@ requestAnimationFrame(draw);
     btn.textContent = "Sending…";
 
     try {
-      fetch("https://api.web3forms.com/submit", {
+      fetch(SITE.web3formsUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
-          from_name:  "Johnny Rock",
-          subject:    "BBQ island design sent — " + email + " — " + total + (zip ? " — " + zip : ""),
+          access_key: SITE.web3formsKey,
+          from_name:  SITE.brand,
+          subject:    SITE.tool + " design sent — " + email + " — " + total + (zip ? " — " + zip : ""),
           lead_stage: "sent a design",
           email:      email,
           replyto:    email,
@@ -1367,15 +1405,15 @@ requestAnimationFrame(draw);
     } catch (e) {}
 
     try {
-      fetch("/api/leads", {
+      fetch(SITE.leadsUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email:  email,
           zip:    zip,
-          source: "bbq_island_quote",
+          source: SITE.crmSourceQuote,
           designSummary: {
-            tool:     "BBQ island",
+            tool:     SITE.tool,
             estimate: total,
             spec:     spec.slice(0, 1800)
           }
@@ -1383,7 +1421,7 @@ requestAnimationFrame(draw);
       }).catch(function () {});
     } catch (e2) {}
 
-    window.ebTrack && window.ebTrack("design_lead", { tool: "BBQ island" });
+    window.ebTrack && window.ebTrack("design_lead", { tool: SITE.tool });
 
     btn.textContent = "Sent ✓";
     say("On its way to " + email + ". We reply with an itemized budget, usually within one business day.", true);
