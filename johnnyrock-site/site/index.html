@@ -3,9 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>EagleBuilt AI — BBQ Island Designer</title>
-<meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<title>Johnny Rock — BBQ Island Designer</title>
+<meta name="description" content="Design a modular BBQ island. Add a grill bay, cabinets and a bar — the length is whatever the modules add up to, with a live budget.">
+<link rel="canonical" href="https://johnnyrock.biz/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://johnnyrock.biz/">
+<meta property="og:title" content="Johnny Rock — BBQ Island Designer">
+<meta property="og:description" content="Design a modular BBQ island. Grill bay, cabinets and an optional bar. The length follows the modules.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -90,7 +96,6 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 .sw i{width:26px;height:26px;border-radius:6px;border:2px solid transparent;cursor:pointer;display:block}
 .sw i.on{border-color:var(--blue)}
 </style>
-<script src="/assets/track.js"></script>
 <script src="/assets/emailcheck.js"></script>
 </head>
 <body>
@@ -124,7 +129,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 <div id="ebGate" hidden>
   <div class="ebCard">
-    <div class="ebBrand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <div class="ebBrand">JOHNNY <i>ROCK</i></div>
     <h2>Start your design</h2>
     <p class="ebLede">Free to use. Add your email and the designer opens &mdash; we use it to
       send you the design and its itemized budget when you are done.</p>
@@ -137,8 +142,6 @@ input[type=range]{width:100%;accent-color:var(--blue)}
       <p class="ebErr" id="ebErr"></p>
       <p class="ebFine">Everything the designer produces is a budget proposal. Final pricing
         follows a field verification visit. No lists, no spam.</p>
-      <p class="ebFine" style="margin-top:8px">Rather we designed it?
-        <a href="/consultation/" style="color:#7FC4FF">Book a free consultation</a>.</p>
     </form>
   </div>
 </div>
@@ -146,11 +149,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 <script>
 (function(){
   var KEY  = "eb.designer.lead";
-  var TOOL = ({ "/design/app/":         "Kitchen",
-                "/design/firepit/":     "Fire pit",
-                "/design/fireplace/":   "Fireplace",
-                "/design/yard/":        "Backyard",
-                "/design/bbq-island/":  "BBQ island" })[location.pathname] || "BBQ island";
+  var TOOL = "BBQ island";
   var gate = document.getElementById("ebGate");
 
   /* A browser that blocks storage throws on read. Show the gate in that case —
@@ -192,7 +191,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
-          from_name:  "EagleBuilt AI Designer",
+          from_name:  "Johnny Rock",
           subject:    TOOL + " designer opened — " + email,
           lead_stage: "opened the designer",
           email:      email,
@@ -226,8 +225,8 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 <div id="app">
   <header>
-    <div class="brand">EAGLEBUILT<i>&nbsp;AI</i></div>
-    <div class="tag">BBQ Island Designer</div>
+    <div class="brand">JOHNNY <i>ROCK</i></div>
+    <div class="tag">BBQ Island</div>
     <div class="sp"></div>
     <div class="tag" id="stamp">preview</div>
   </header>
@@ -336,10 +335,10 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 
 <script>
 /* ==========================================================================
-   EAGLEBUILT AI — BBQ ISLAND DESIGNER
-   Standalone, on purpose. The kitchen tool at /design/app/ plans a whole
-   outdoor kitchen. This one is the straight run: modules in a row, and the
-   length is whatever they add up to. Nothing here is shared with that file.
+   JOHNNY ROCK — BBQ ISLAND DESIGNER
+   The whole site. Served at https://johnnyrock.biz/ . A straight run of
+   modules, and the length is whatever they add up to. Leads still go to the
+   EagleBuilt CRM (/api/leads) and the same Web3Forms inbox.
 
    CONFIG is the only place prices and the module catalog live. Rates are the
    island rate card (PRICING.md / the kitchen BUILD block), not invented SKUs:
@@ -1246,7 +1245,7 @@ function specText(){
   const q = priceIt();
   const L = q.L;
   const lines = [
-    "EAGLEBUILT AI — BBQ ISLAND",
+    "JOHNNY ROCK — BBQ ISLAND",
     "================================================",
     L.mods.length ? dimText() : "No modules",
     "Depth: " + CONFIG.geom.depth + '" cabinet · counter ' + ftin(CONFIG.geom.counterH) + " finished",
@@ -1356,7 +1355,7 @@ requestAnimationFrame(draw);
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
-          from_name:  "EagleBuilt AI Designer",
+          from_name:  "Johnny Rock",
           subject:    "BBQ island design sent — " + email + " — " + total + (zip ? " — " + zip : ""),
           lead_stage: "sent a design",
           email:      email,

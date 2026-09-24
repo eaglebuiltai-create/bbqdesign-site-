@@ -31,11 +31,6 @@ rather than industry averages.
   round, square or rectangular fire pit in stucco or stone. From $3,250. The
   burner, pan and igniter are normally the owner"+String.fromCharCode(39)+"s; EagleBuilt sets and connects them.
 
-- [BBQ island designer](https://eaglebuilt.ai/design/bbq-island/): free tool for a
-  straight modular island — grill bay, cabinets and an optional bar. The length
-  comes from the modules. Priced from the same CMU rate card as the kitchen.
-  The grill is a placeholder cutout until a catalog model is chosen.
-
 - [Free design consultation](https://eaglebuilt.ai/consultation/): for people who
   would rather not design it themselves. A call back, then a site visit or a
   design done with them. Free and no obligation.
