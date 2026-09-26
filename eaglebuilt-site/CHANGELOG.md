@@ -805,3 +805,18 @@ burner and igniter. The tool had priced that island within 2.1%.
 - **Tabletop pizza oven and countertop wok** on a new `counter` mount: sits on the
   slab, no cutout, full head-room beneath, drawn dashed in elevation because
   there's nothing to frame.
+
+## 2026-09-26 — build 86-88 · phone layout
+
+- **A phone held sideways was being treated as a desktop.** Layout keyed off
+  `max-width:820px` only, but an iPhone in landscape is 844-932px wide (an iPad
+  1024), so both side panels stayed open and EagleOne drew as a full card on top
+  of the island. Phone is now `(max-width:820px), (max-height:520px)` in the CSS
+  and a single `isPhone()` helper in JS, so the two cannot drift.
+- Rotating now re-applies the layout, on the breakpoint crossing only — not on
+  every resize, which on iOS fires whenever the URL bar collapses.
+- EagleOne folds to its tab synchronously instead of inside `requestAnimationFrame`;
+  a backgrounded tab never runs rAF, so the card could paint over the island.
+- The resumed-design notice sat 26px off the bottom, on top of the mobile tab bar.
+- The empty-state card told phone users to "drag a component from the left".
+  There is no left panel on a phone; it now points at the Components tab.
