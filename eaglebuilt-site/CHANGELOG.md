@@ -22,6 +22,32 @@ works as a fallback.
 
 ---
 
+## Site chat — 2026-09-29
+
+A floating chat on the homepage and `/design/`. It posts to `POST /api/chat` on
+the same origin. The Worker calls xAI (`grok-4.7` — `grok-4` is no longer a
+current model id) with `env.XAI_API_KEY`. The key is not in the repo, not in
+`wrangler.toml`, and not in the page.
+
+After this is merged, from `eaglebuilt-site`:
+
+```
+npx wrangler secret put XAI_API_KEY
+npx wrangler deploy
+```
+
+Paste the xAI key when prompted. Worker name stays `fragrant-butterfly-5c92`.
+Until the secret is set, `/api/chat` returns 503 and the widget says chat is
+not turned on. `/api/confirm` is unchanged.
+
+Other pages can opt in with `<script src="/assets/chat.js" defer></script>`.
+It is not on the full-screen designers (kitchen app, fireplace, fire pit, yard)
+because those canvases already own the bottom-right corner.
+
+The bot gives the same number printed on the site: **(949) 564-1948**.
+
+---
+
 ## 81 — 2026-09-23 · bucket corners are the BAR's corners, and a choice
 
 Correcting 80 the same afternoon, from John: *"not all corners just outside bar

@@ -10,15 +10,44 @@
  * public. The CRM's ingest key lives here as a Cloudflare secret instead, and
  * the gate posts same-origin — no key in the page source, and no CORS.
  *
+ * POST /api/chat answers the site widget. The xAI key is a Cloudflare secret
+ * (npx wrangler secret put XAI_API_KEY) and is only used on this server.
+ *
  * SAFETY: static files are served by Cloudflare's asset layer BEFORE this
  * script runs, so a bug in here cannot take the website down. Only paths with
- * no matching file reach this code — in practice just /api/confirm and
- * /api/leads.
+ * no matching file reach this code — in practice /api/confirm, /api/leads,
+ * and /api/chat.
  * =============================================================================
  */
 
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
+
+/* grok-4 is not a current model id (retired; requests were redirected).
+   docs.x.ai lists Grok 4.7 as the chat model. */
+const CHAT_MODEL = "grok-4.7";
+const CHAT_MAX_MESSAGES = 10;
+const CHAT_MAX_CHARS = 2000;
+const CHAT_WINDOW_MS = 10 * 60 * 1000;
+const CHAT_MAX_HITS = 20;
+const chatHits = new Map();
+
+const CHAT_SYSTEM = [
+  "You are the EagleBuilt AI website chat, speaking as Johnny Rock — founder, former Marine, the person who builds the work. Confident, practical, plain-spoken. No corporate fluff and no emoji.",
+  "",
+  "Facts you may state:",
+  "- EagleBuilt AI is based in Granite Bay and serves Sacramento and the foothills. Design/build general contractor and masonry.",
+  "- Free 3D designers live on https://eaglebuilt.ai: outdoor kitchen at /design/, fireplace at /design/fireplace/, fire pit at /design/firepit/, and the yard planner at /design/yard/. They use real grills and real manufacturer cutouts.",
+  "- To start a design, open the matching designer on the site. For a quote or a person: email info@eaglebuilt.ai or call (949) 564-1948.",
+  "- Taglines, when they fit: \"Real Experience. Real Solutions. Real Backyards.\" and \"Built for a Better Tomorrow.\"",
+  "",
+  "Rules:",
+  "- Never invent prices, reviews, star ratings, or timelines. If you are unsure, say so and invite them to start a free design or to email info@eaglebuilt.ai / call (949) 564-1948.",
+  "- Do not promise a start date, a permit result, or that any number is a firm quote.",
+  "- Keep answers to 2–4 sentences unless they ask for more detail.",
+  "- Stay on outdoor kitchens, fireplaces, fire pits, yards, the designers, the service area, and how to start. If they wander off, steer back in a sentence.",
+  "- You are the site assistant. Do not pretend a person has already reviewed their project."
+].join("\n");
 
 export default {
   async fetch(request, env) {
@@ -34,6 +63,12 @@ export default {
       if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request);
       if (request.method !== "POST")    return cors(json({ ok: false, error: "POST only" }, 405), request);
       return cors(await leads(request, env), request);
+    }
+
+    if (url.pathname === "/api/chat") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST")    return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await chat(request, env), request, true);
     }
 
     // Anything else with no matching file. Hand back to assets so 404s still
@@ -191,20 +226,127 @@ async function leads(request, env) {
   }
 }
 
+/**
+ * Site chat. The browser posts { messages } or { message }. The xAI key never
+ * leaves this worker.
+ *
+ *   npx wrangler secret put XAI_API_KEY
+ *
+ * Missing key is a 503, not a silent success — unlike /api/confirm, a chat
+ * that cannot answer should say so.
+ */
+async function chat(request, env) {
+  const KEY = String(env.XAI_API_KEY || "").trim();
+  if (!KEY) {
+    return json({ error: "Chat is not configured. Set the XAI_API_KEY Cloudflare secret, then redeploy." }, 503);
+  }
+  if (chatLimited(request)) {
+    return json({ error: "Too many messages. Try again in a few minutes, or email info@eaglebuilt.ai." }, 429);
+  }
+
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 32_000) return json({ error: "Message is too long." }, 413);
+
+  let d;
+  try { d = await request.json(); } catch { return json({ error: "bad json" }, 400); }
+
+  const messages = normalizeChat(d);
+  if (!messages.some(m => m.role === "user")) return json({ error: "Send a message." }, 400);
+
+  try {
+    const r = await fetch("https://api.x.ai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: CHAT_MODEL,
+        temperature: 0.4,
+        max_tokens: 800,
+        stream: false,
+        messages: [{ role: "system", content: CHAT_SYSTEM }, ...messages]
+      }),
+      signal: AbortSignal.timeout(25000)
+    });
+    if (!r.ok) {
+      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
+    }
+    const data = await r.json();
+    const reply = chatReplyText(data).slice(0, 4000);
+    if (!reply) {
+      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
+    }
+    return json({ reply }, 200);
+  } catch {
+    return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
+  }
+}
+
+function normalizeChat(d) {
+  let raw = [];
+  if (d && Array.isArray(d.messages)) raw = d.messages;
+  else if (d && typeof d.message === "string") raw = [{ role: "user", content: d.message }];
+
+  const out = [];
+  for (const m of raw) {
+    if (!m || typeof m !== "object") continue;
+    const role = m.role === "assistant" ? "assistant" : (m.role === "user" ? "user" : "");
+    if (!role) continue;
+    const content = String(m.content == null ? "" : m.content).replace(/\u0000/g, "").trim().slice(0, CHAT_MAX_CHARS);
+    if (!content) continue;
+    out.push({ role, content });
+  }
+  return out.slice(-CHAT_MAX_MESSAGES);
+}
+
+function chatReplyText(data) {
+  const msg = data && data.choices && data.choices[0] && data.choices[0].message;
+  if (!msg) return "";
+  const c = msg.content;
+  if (typeof c === "string") return c.trim();
+  if (Array.isArray(c)) {
+    return c.map(p => (typeof p === "string" ? p : (p && (p.text || p.content)) || "")).join("").trim();
+  }
+  return "";
+}
+
+/* Best-effort. Worker isolates do not share memory, so this only slows a
+   burst against one instance. Enough to stop a stuck tab, not a botnet. */
+function chatLimited(request) {
+  const ip = request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "unknown";
+  const now = Date.now();
+  let rec = chatHits.get(ip);
+  if (!rec || now - rec.start > CHAT_WINDOW_MS) rec = { start: now, n: 0 };
+  rec.n += 1;
+  chatHits.set(ip, rec);
+  if (chatHits.size > 5000) {
+    const oldest = chatHits.keys().next().value;
+    chatHits.delete(oldest);
+  }
+  return rec.n > CHAT_MAX_HITS;
+}
+
 function clean(v, max) {
   return String(v == null ? "" : v).replace(/[\r\n]+/g, " ").trim().slice(0, max);
 }
 function json(obj, status) {
   return new Response(JSON.stringify(obj), {
-    status, headers: { "Content-Type": "application/json" }
+    status,
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store"
+    }
   });
 }
-function cors(res, request) {
+function cors(res, request, allowLocal) {
   const origin = request.headers.get("Origin") || "";
-  if (ALLOWED.includes(origin)) {
+  const local = allowLocal && /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+  if (ALLOWED.includes(origin) || local) {
     res.headers.set("Access-Control-Allow-Origin", origin);
     res.headers.set("Access-Control-Allow-Headers", "Content-Type");
     res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.headers.set("Vary", "Origin");
   }
   return res;
 }
