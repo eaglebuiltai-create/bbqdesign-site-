@@ -44,8 +44,7 @@ Other pages can opt in with `<script src="/assets/chat.js" defer></script>`.
 It is not on the full-screen designers (kitchen app, fireplace, fire pit, yard)
 because those canvases already own the bottom-right corner.
 
-The bot is told to give **916.751.8607**. The rest of the site still prints
-**(949) 564-1948**. Confirm which number it should say before relying on it.
+The bot gives the same number printed on the site: **(949) 564-1948**.
 
 ---
 

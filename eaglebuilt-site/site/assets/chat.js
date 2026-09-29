@@ -171,8 +171,8 @@
 
     function fallback(status) {
       if (status === 503) return "Chat isn’t turned on yet. Email info@eaglebuilt.ai and we’ll help.";
-      if (status === 429) return "Too many messages just now. Email info@eaglebuilt.ai or call 916.751.8607.";
-      return "That didn’t go through. Email info@eaglebuilt.ai or call 916.751.8607.";
+      if (status === 429) return "Too many messages just now. Email info@eaglebuilt.ai or call (949) 564-1948.";
+      return "That didn’t go through. Email info@eaglebuilt.ai or call (949) 564-1948.";
     }
 
     function load() {
