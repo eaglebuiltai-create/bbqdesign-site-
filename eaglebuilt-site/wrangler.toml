@@ -10,13 +10,15 @@
 # Deploy with:   npx wrangler deploy
 # Run from:      C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site
 #
-# The site is static files in ./site. src/worker.js exists only to serve
-# /api/confirm, which emails the customer a copy of their design. Cloudflare
-# serves matching files from ./site BEFORE the script runs, so a fault in the
-# worker cannot take the website down — it can only affect that one endpoint.
+# The site is static files in ./site. src/worker.js serves /api/confirm (the
+# customer design email), /api/leads (CRM proxy), and /api/chat (site widget).
+# Cloudflare serves matching files from ./site BEFORE the script runs, so a
+# fault in the worker cannot take the website down.
 #
-# The Resend API key is NOT here. It lives in Cloudflare's secret store:
+# API keys are NOT here. They live in Cloudflare's secret store:
 #   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put XAI_API_KEY
+# Do not put either key in this file or in client JavaScript.
 
 name = "fragrant-butterfly-5c92"
 main = "src/worker.js"
