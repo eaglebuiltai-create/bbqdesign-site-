@@ -892,3 +892,23 @@ decoded, and the page pulled zero JPEG bytes.
 
 Encoding was done with sharp installed outside the repo, so the site still has
 no build step and no dependencies.
+
+## 2026-10-03 — 22 projects added to the gallery
+
+The gallery goes from 36 to 58. Sources were PNG screenshots of cleaned-up job
+photos; each is re-encoded to JPEG for the fallback and WebP for the primary,
+matching the rest of the page. 4.05 MB of JPEG serves as 3.36 MB of WebP.
+
+New work spans Granite Bay, Roseville, Fair Oaks, Rescue, Los Lagos and
+Eagle's Nest. Categories now: 35 kitchens, 13 fire, 6 pizza, 4 concrete/stone.
+
+Three of the 25 source files were deliberately left out:
+
+- `fair oaks.png` - a 773px duplicate of `fair oaks` at 1655px. Kept the larger.
+- `stanford ranch 99.png` - the browser right-click menu ("Open image in new
+  tab", "Copy image") is baked into the pixels. Needs re-saving from the source.
+- `scetch .png` - a dimensioned fireplace elevation, not a project photo. It is
+  good material for the fireplace designer or a guide, but it is not a build.
+
+Verified live: 58 articles, the counter reads 58, every image resolves, none
+broken, all 55 picture elements served WebP and the page pulled zero JPEG bytes.
