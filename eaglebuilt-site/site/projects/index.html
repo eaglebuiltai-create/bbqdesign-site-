@@ -41,6 +41,29 @@
 .count{color:var(--dim);font-size:13.5px;margin-top:14px}
 </style>
 <script src="/assets/track.js"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://eaglebuilt.ai/"},
+        {"@type":"ListItem","position":2,"name":"Projects","item":"https://eaglebuilt.ai/projects/"}
+      ]
+    },
+    {
+      "@type":"ImageGallery",
+      "@id":"https://eaglebuilt.ai/projects/#gallery",
+      "url":"https://eaglebuilt.ai/projects/",
+      "name":"Designed in 3D, built in block",
+      "description":"Outdoor kitchens, BBQ islands, bars and fire features built by EagleBuilt AI in the Sacramento area.",
+      "isPartOf":{"@id":"https://eaglebuilt.ai/#website"},
+      "about":{"@id":"https://eaglebuilt.ai/#business"}
+    }
+  ]
+}
+</script>
 </head>
 
 <body>
@@ -306,7 +329,7 @@
     <div class="fcols">
       <div>
         <div class="brand" style="margin-bottom:12px">
-          <img src="/assets/eaglebuilt-emblem.png" alt="" width="120" height="34">
+          <img src="/assets/eaglebuilt-emblem.png" alt="" width="120" height="34" loading="lazy">
           <b>EAGLEBUILT<i>&nbsp;AI</i></b>
         </div>
         <p style="max-width:34ch;margin:0 0 12px">Custom outdoor kitchens — designed in 3D, built in CMU with

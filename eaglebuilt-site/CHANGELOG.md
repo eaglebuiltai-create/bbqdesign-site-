@@ -846,3 +846,30 @@ burner and igniter. The tool had priced that island within 2.1%.
 - The resumed-design notice sat 26px off the bottom, on top of the mobile tab bar.
 - The empty-state card told phone users to "drag a component from the left".
   There is no left panel on a phone; it now points at the Components tab.
+
+## 2026-10-03 — GrandRanker audit items
+
+Audited all 17 pages (the tool saw 10). All 11 indexable pages now have a title
+under 60 rendered chars, a description under 160, and valid JSON-LD.
+
+- **Titles**: 9 were over 60, not 3. Trimmed keeping the keyword and locality at
+  the front and the brand suffix consistent. Two of the nine were only over in
+  the source - `&amp;` is five characters that render as one - so the tool's
+  character count overstates any title containing an entity.
+- **Descriptions**: 7 were over 160, not 1. Trimmed filler only; every price,
+  count and claim kept.
+- **JSON-LD**: 8 pages had none, but 6 of those are `noindex` - all four
+  designer tools, `/start/` and the plan-studio privacy page - so structured
+  data there would never be read. Added BreadcrumbList + WebPage to `/partners/`
+  and BreadcrumbList + ImageGallery to `/projects/`, the only two indexable
+  pages that were missing it.
+- **Images**: the only images without `loading` were the header and footer logo.
+  The header logo is above the fold and a likely LCP element, so it stays eager
+  on purpose; lazy-loading it would slow first paint. The footer copy is now
+  lazy on all 11 pages, and the designer's `logo.png` got the `alt` and
+  dimensions it was missing. All 38 project photos already had lazy loading,
+  dimensions and descriptive alt text.
+
+Not done: the 40 project photos are all JPEG. WebP would cut transfer
+meaningfully but needs encoding plus a `<picture>` fallback per image - a real
+task, not a one-line fix.
