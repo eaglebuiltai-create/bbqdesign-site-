@@ -873,3 +873,22 @@ under 60 rendered chars, a description under 160, and valid JSON-LD.
 Not done: the 40 project photos are all JPEG. WebP would cut transfer
 meaningfully but needs encoding plus a `<picture>` fallback per image - a real
 task, not a one-line fix.
+
+## 2026-10-03 — WebP for the project gallery
+
+33 of the 36 project photos now ship as WebP behind a `<picture>` element with
+the original JPEG as the fallback, so older clients and social scrapers are
+unaffected. Verified live: the browser picked WebP for all 33, every one
+decoded, and the page pulled zero JPEG bytes.
+
+- 4.26 MB of JPEG down to 3.56 MB served, a 16.4% cut.
+- Three photos encoded LARGER as WebP (brick-fireplace, patio-bar-bbq,
+  pizza-oven-kitchen) and are deliberately left as JPEG. Shipping those would
+  have made the page slower while looking like a win.
+- `og:image` and `twitter:image` stay JPEG on purpose; not every social scraper
+  handles WebP.
+- Declared width/height was checked against every file. All 36 match, so no
+  layout shift.
+
+Encoding was done with sharp installed outside the repo, so the site still has
+no build step and no dependencies.
