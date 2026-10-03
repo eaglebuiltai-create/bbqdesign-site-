@@ -48,6 +48,19 @@ aside{width:330px;flex:none;background:var(--panel);border-left:1px solid var(--
 .grp{margin-bottom:16px}
 .grp h4{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
   margin-bottom:8px;font-weight:700}
+/* The parts reference. Collapsed by default so it never pushes the controls
+   down the panel, and it names the same parts the groups below adjust. */
+.anat{margin-bottom:16px}
+.anat summary{font-size:11px;letter-spacing:.9px;text-transform:uppercase;color:var(--dim);
+  font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px}
+.anat summary::-webkit-details-marker{display:none}
+.anat summary::after{content:"";width:6px;height:6px;border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;transform:rotate(45deg);margin-top:-3px;opacity:.7}
+.anat[open] summary::after{transform:rotate(-135deg);margin-top:2px}
+.anat summary:hover{color:var(--txt)}
+.anat a{display:block;margin-top:9px;border:1px solid var(--line2);border-radius:9px;overflow:hidden}
+.anat img{display:block;width:100%;height:auto}
+.anat .cap{font-size:11px;color:var(--dim);line-height:1.5;margin-top:7px}
 .presets{display:flex;gap:6px;flex-wrap:wrap}
 .presets button, .mini{background:#111a29;border:1px solid var(--line2);color:var(--muted);
   border-radius:8px;padding:7px 11px;font-size:12.5px;cursor:pointer;font-family:inherit;
@@ -241,6 +254,18 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     </div>
 
     <aside>
+      <details class="anat">
+        <summary>What the parts are called</summary>
+        <a href="fireplace-anatomy.jpg" target="_blank" rel="noopener">
+          <picture>
+            <source srcset="fireplace-anatomy.webp" type="image/webp">
+            <img src="fireplace-anatomy.jpg" width="1003" height="677" loading="lazy"
+                 alt="Fireplace elevation with dimensions: 10 feet 4 inches wide by 8 feet tall, a 36-inch firebox over an 18-inch hearth, concrete mantle, pizza oven insert, log storage and concrete top.">
+          </picture>
+        </a>
+        <p class="cap">A built example at 10&prime;4&Prime; &times; 8&prime;0&Prime;. The firebox, hearth,
+          mantel and pizza oven are the same parts the controls below set. Tap to enlarge.</p>
+      </details>
       <div class="grp">
         <h4>Firebox opening</h4>
         <div class="row2">

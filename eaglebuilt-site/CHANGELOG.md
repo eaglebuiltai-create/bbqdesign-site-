@@ -912,3 +912,18 @@ Three of the 25 source files were deliberately left out:
 
 Verified live: 58 articles, the counter reads 58, every image resolves, none
 broken, all 55 picture elements served WebP and the page pulled zero JPEG bytes.
+
+## 2026-10-03 — parts reference on the fireplace designer
+
+The dimensioned fireplace elevation (10'4" x 8'0", 36" firebox, 18" hearth,
+concrete mantle, pizza oven insert, log storage) now sits at the top of the
+designer panel under "What the parts are called". It names the same parts the
+controls below set, which is the fastest way to orient someone who has never
+specified a fireplace.
+
+- A `<details>`, collapsed by default, so it never pushes the controls down.
+- WebP with a JPEG fallback, 1363 KB of PNG down to 208 KB.
+- The image links to the full-size JPEG for a closer read.
+
+The drawing came out of the project photo batch but is not a build, so it does
+not belong in the projects gallery. This is where it earns its place.
