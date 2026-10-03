@@ -927,3 +927,16 @@ specified a fireplace.
 
 The drawing came out of the project photo batch but is not a build, so it does
 not belong in the projects gallery. This is where it earns its place.
+
+## 2026-10-03 — Stanford Ranch photo recovered
+
+`stanford ranch 99.png` had a browser right-click menu baked into the pixels,
+so it was held back from the earlier batch. The menu was located by scanning
+for a large block of flat near-white pixels - found at x 610..811, y 282..436 -
+and the image cropped to everything left of it, 610x658. That costs the grill
+and the right-hand tree, but keeps the fireplace, rock waterfall, pool, dining
+set and stamped concrete, and reads better for it since the menu had been
+covering the grill anyway.
+
+Verified: the longest solid near-white run in the cropped file is 17px, against
+a 120px threshold for a UI panel. Gallery now 59 projects.
