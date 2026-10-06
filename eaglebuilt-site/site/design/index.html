@@ -831,7 +831,7 @@ var CONFIG = {
         subject:    "Kitchen designer opened — " + data.email + " (" + data.zip + ")",
         lead_stage: "opened the designer"
       };
-      window.ebTrack && window.ebTrack("designer_open", { tool: "Kitchen" });
+      window.ebTrack && window.ebTrack("designer_open", { tool: "Kitchen", area: (window.ebArea ? window.ebArea(data.zip) : "unknown") });
     }
 
     btn.disabled = true;

@@ -28,6 +28,22 @@
     }
   };
 
+  /* Coarse geography for an opt-in, so a national campaign can be read as
+     "how many of these can we actually build for". Deliberately a three-way
+     bucket and never the raw ZIP: Google policy forbids sending anything that
+     could identify a person, and ZIP alongside an email edges toward that.
+       service    - the Sacramento metro we build in
+       california - elsewhere in CA, a drive or a partner job
+       other      - the rest of the US */
+  window.ebArea = function (zip) {
+    var z = String(zip || "").replace(/[^0-9]/g, "");
+    if (z.length < 3) return "unknown";
+    var p = z.slice(0, 3);
+    if (p === "956" || p === "957" || p === "958") return "service";
+    var n = parseInt(p, 10);
+    return (n >= 900 && n <= 961) ? "california" : "other";
+  };
+
   /* A no-op until there is somewhere to send it, so every call site can fire
      unconditionally without checking whether tracking is switched on. */
   window.ebTrack = function () {};

@@ -984,3 +984,25 @@ the consultation form already used, and falls back to mailto on failure.
 
 `track.js` still has `ads` and every label empty, so nothing is sent to Google
 Ads until the conversion ID and labels are filled in.
+
+## 2026-10-06 — service-area segmentation on the opt-in event
+
+A US-wide campaign pointed at /design/ started spending, and every opt-in
+looked identical in GA4: `designer_open` carried only the tool name. There was
+no way to tell a Granite Bay homeowner from someone in Florida, which is the
+one number a national test needs.
+
+The gate already collects and validates a 5-digit ZIP, so `designer_open` now
+also carries `area`, a three-way bucket from `window.ebArea()`:
+
+  service     956/957/958 - the Sacramento metro we build in
+  california  900-961 otherwise - a drive, or a partner job
+  other       the rest of the US
+
+Deliberately a bucket and never the raw ZIP. Google policy forbids sending
+anything that could identify a person, and a ZIP next to an email edges toward
+that; the bucket answers the business question without the exposure.
+
+Added to all five gates. The fifth, on /design/ itself, is the one the ads
+actually land on and had been missed in the first pass - it keeps its ZIP in
+`data.zip` rather than a local `zip`, so it needed its own patch.

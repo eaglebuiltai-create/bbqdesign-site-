@@ -213,7 +213,7 @@ input[type=text],select{width:100%;background:#070c15;border:1px solid var(--lin
     } catch (e4) {}
 
     gate.hidden = true;
-    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL });
+    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL, area: (window.ebArea ? window.ebArea(zip) : "unknown") });
   });
 })();
 </script>
