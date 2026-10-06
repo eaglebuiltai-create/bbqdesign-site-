@@ -1039,3 +1039,26 @@ at all.
 Verified on the live site by intercepting `dataLayer.push`: all four events fire,
 each resolves to the right `send_to`, and nothing was sent to Google during the
 test.
+
+## 2026-10-06 (later) — tracking re-pointed to the live Ads account
+
+There are two Google Ads accounts under two different Google logins:
+
+  436-786-0627  eaglebuilt@gmail.com    "Campaign #1", no billing, no spend
+  467-487-5109  eaglebuiltai@gmail.com  "Search-2", card on file, $99.83 spent
+                                        in September
+
+The first setup went into 436-786-0627, which turned out to be the abandoned
+one. Everything is now rebuilt in 467-487-5109, the account that actually pays.
+
+  Conversion ID    AW-18410742850
+  Lead             W4LsCKmL35MdEMLI9spE
+  Designer opened  f8gcCKyL35MdEMLI9spE
+
+Both Primary, Count: One, enhanced conversions off. Verified live: all five
+events resolve to the new account, four to Lead and one to Designer opened,
+with no reference to the old account remaining.
+
+Worth knowing for next time: a conversion ID belongs to one account and cannot
+be shared. Confirm which account will be billed *before* building conversion
+actions, because the whole setup has to be redone otherwise.

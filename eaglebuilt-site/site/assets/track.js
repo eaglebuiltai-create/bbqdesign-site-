@@ -18,15 +18,15 @@
 (function () {
   var CFG = {
     ga4: "G-1P2Q3CD8TZ",     // Google Analytics 4 measurement ID (set 2026-09-15)
-    ads: "AW-1037825562",  // Google Ads conversion ID (set 2026-10-06)
+    ads: "AW-18410742850", // Google Ads conversion ID - account 467-487-5109 (set 2026-10-06)
     labels: {              // Google Ads conversion label per action
       /* All four of these point at the one "Lead" action on purpose - see
          the note in CHANGELOG for 2026-10-06. */
-      consultation:  "AB39CMOx2pMdEJrs7-4D",   // Lead
-      contact_lead:  "AB39CMOx2pMdEJrs7-4D",   // Lead
-      design_lead:   "AB39CMOx2pMdEJrs7-4D",   // Lead
-      phone_click:   "AB39CMOx2pMdEJrs7-4D",   // Lead
-      designer_open: "jWxECO7V1JMdEJrs7-4D"    // Designer opened
+      consultation:  "W4LsCKmL35MdEMLI9spE",   // Lead
+      contact_lead:  "W4LsCKmL35MdEMLI9spE",   // Lead
+      design_lead:   "W4LsCKmL35MdEMLI9spE",   // Lead
+      phone_click:   "W4LsCKmL35MdEMLI9spE",   // Lead
+      designer_open: "f8gcCKyL35MdEMLI9spE"    // Designer opened
     }
   };
 
