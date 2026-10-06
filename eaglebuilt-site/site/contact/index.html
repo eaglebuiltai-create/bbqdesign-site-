@@ -290,7 +290,13 @@ document.querySelectorAll("[data-email]").forEach(function (el) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(d)
-      }).then(function () { done(); }, function () { mailto(d); });
+      })
+        .then(function (r) { if (!r.ok) throw new Error("send failed"); return r.json().catch(function () { return {}; }); })
+        .then(function (j) {
+          if (j && j.success === false) throw new Error("send rejected");
+          window.ebTrack && window.ebTrack("contact_lead", { about: d.about || "" });
+          done();
+        }, function () { mailto(d); });
       return;
     }
     mailto(d);

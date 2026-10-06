@@ -964,3 +964,23 @@ both tags were repointed to `ridge-bar-stone-pergola` in the same change. Had
 that been missed, every share of /projects/ would have shown a broken preview.
 
 Gallery is now 56 projects with no job shown twice.
+
+## 2026-10-06 — conversion tracking gaps closed before the ad campaign
+
+Two holes that would have cost real money once ads start:
+
+- **`/start/` carried no tag at all.** It is `noindex, follow` with a "Start
+  designing" button and a tel: link, which is exactly the shape of a paid
+  landing page. Any ad traffic sent there would have recorded no page view, no
+  phone tap and no conversion. It now loads `track.js`.
+- **The contact form fired nothing.** It is a lead like any other, and it is now
+  a `contact_lead` event with its own Google Ads label slot.
+
+The contact form also treated *any* HTTP response as success, so a rejected send
+still showed "message sent". That was already a bug; with conversions attached
+it would also have taught Google Ads to bid toward failed sends. It now checks
+`r.ok` and the Web3Forms `success` flag before reporting, matching the pattern
+the consultation form already used, and falls back to mailto on failure.
+
+`track.js` still has `ads` and every label empty, so nothing is sent to Google
+Ads until the conversion ID and labels are filled in.

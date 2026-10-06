@@ -7,6 +7,7 @@
 
    What gets counted:
      consultation   the free-consultation form was delivered      (/consultation/)
+     contact_lead   the contact form was delivered                (/contact/)
      design_lead    a customer sent a finished design             (kitchen designer)
      designer_open  someone gave their email to open a tool       (all four tools)
      phone_click    someone tapped the phone number               (every page)
@@ -20,6 +21,7 @@
     ads: "",               // Google Ads conversion ID,         e.g. "AW-123456789"
     labels: {              // Google Ads conversion label per action, e.g. "AbC-D_efG-h12_34"
       consultation:  "",
+      contact_lead:  "",
       design_lead:   "",
       designer_open: "",
       phone_click:   ""
