@@ -18,13 +18,15 @@
 (function () {
   var CFG = {
     ga4: "G-1P2Q3CD8TZ",     // Google Analytics 4 measurement ID (set 2026-09-15)
-    ads: "",               // Google Ads conversion ID,         e.g. "AW-123456789"
-    labels: {              // Google Ads conversion label per action, e.g. "AbC-D_efG-h12_34"
-      consultation:  "",
-      contact_lead:  "",
-      design_lead:   "",
-      designer_open: "",
-      phone_click:   ""
+    ads: "AW-1037825562",  // Google Ads conversion ID (set 2026-10-06)
+    labels: {              // Google Ads conversion label per action
+      /* All four of these point at the one "Lead" action on purpose - see
+         the note in CHANGELOG for 2026-10-06. */
+      consultation:  "AB39CMOx2pMdEJrs7-4D",   // Lead
+      contact_lead:  "AB39CMOx2pMdEJrs7-4D",   // Lead
+      design_lead:   "AB39CMOx2pMdEJrs7-4D",   // Lead
+      phone_click:   "AB39CMOx2pMdEJrs7-4D",   // Lead
+      designer_open: "jWxECO7V1JMdEJrs7-4D"    // Designer opened
     }
   };
 

@@ -1006,3 +1006,36 @@ that; the bucket answers the business question without the exposure.
 Added to all five gates. The fifth, on /design/ itself, is the one the ads
 actually land on and had been missed in the first pass - it keeps its ZIP in
 `data.zip` rather than a local `zip`, so it needed its own patch.
+
+## 2026-10-06 — Google Ads conversion tracking is live
+
+Conversion ID `AW-1037825562` and two labels are wired into `track.js`.
+
+**Two conversion actions, not five.** Smart Bidding needs roughly 30 conversions
+in 30 days per action to leave the learning phase. At a contractor's volume,
+splitting leads across four actions starves every one of them. So the four lead
+events - consultation, contact form, design sent and phone tap - all report to a
+single `Lead` action, which gets four times the signal. GA4 still separates them
+by event name, now with the service-area bucket, so no reporting detail is lost.
+
+  Lead             AB39CMOx2pMdEJrs7-4D   consultation, contact_lead,
+                                          design_lead, phone_click
+  Designer opened  jWxECO7V1JMdEJrs7-4D   designer_open
+
+Both Primary, both Count: One.
+
+**The ID originally supplied was wrong.** `AW-17654321098` reads as 1 followed
+by 7654321098 counting down; the real one is `AW-1037825562`, read off the event
+snippet. Worth recording because the failure mode is silent - ads run, budget
+goes out, conversions never record and nothing anywhere reports an error.
+
+**Enhanced conversions was left off, deliberately.** Google pre-ticks it behind
+an "Agree and finish" button, which accepts the data-processing terms and starts
+sending hashed customer emails. It also does nothing without code that passes
+user data to gtag, which `track.js` does not do. For a California business that
+is a CCPA disclosure decision, so it should be switched on deliberately or not
+at all.
+
+Verified on the live site by intercepting `dataLayer.push`: all four events fire,
+each resolves to the right `send_to`, and nothing was sent to Google during the
+test.
