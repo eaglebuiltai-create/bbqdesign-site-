@@ -940,3 +940,27 @@ covering the grill anyway.
 
 Verified: the longest solid near-white run in the cropped file is 17px, against
 a 120px threshold for a UI panel. Gallery now 59 projects.
+
+## 2026-10-06 — duplicate projects removed
+
+Three jobs were appearing twice, once as an old original and once as the
+cleaned-up version added on 3 Oct. Found by perceptual hashing with contrast
+normalised first, which matters: the AI colour grading shifted tone enough that
+a plain dHash scored one real duplicate at distance 18, inside the noise. After
+normalising there is a clean gap - three pairs at 71-83% similar, then nothing
+above 61%, which is just the baseline resemblance between any two outdoor
+kitchen photos. All three were confirmed by eye before deleting.
+
+Removed, in each case the weaker original:
+
+- `outdoor-kitchen-hero` - faded scan of a print with a blue cast. Kept
+  `ridge-bar-stone-pergola`.
+- `stone-bar-roseville` - phone snap on wet concrete. Kept
+  `l-island-charcoal-counter`.
+- `patio-bar-bbq` - dim phone photo. Kept `bamboo-kitchen-stamped-concrete`.
+
+`outdoor-kitchen-hero` was also the og:image and twitter:image for the page, so
+both tags were repointed to `ridge-bar-stone-pergola` in the same change. Had
+that been missed, every share of /projects/ would have shown a broken preview.
+
+Gallery is now 56 projects with no job shown twice.
