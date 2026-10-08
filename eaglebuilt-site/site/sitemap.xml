@@ -7,6 +7,8 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://eaglebuilt.ai/guides/permits/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://eaglebuilt.ai/guides/cmu-vs-steel-stud/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://eaglebuilt.ai/newsletter/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://eaglebuilt.ai/privacy/</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>https://eaglebuilt.ai/projects/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/partners/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/contact/</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
