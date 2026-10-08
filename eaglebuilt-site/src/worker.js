@@ -28,9 +28,18 @@ const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
 const CHAT_MODEL = "grok-4.7";
 const CHAT_MAX_MESSAGES = 10;
 const CHAT_MAX_CHARS = 2000;
-const CHAT_WINDOW_MS = 10 * 60 * 1000;
-const CHAT_MAX_HITS = 20;
-const chatHits = new Map();
+/* Per-IP request ceilings. CORS only governs browsers - a direct POST from
+   curl ignores it - so every endpoint that spends money or writes somewhere
+   needs its own cap. /api/confirm mails through Resend and /api/leads writes
+   to the CRM, so both are capped alongside chat. Buckets are separate on
+   purpose: someone who sends two designs must not lose the chat widget. */
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMITS = {
+  chat:    20,   // widget messages
+  confirm: 6,    // design copies mailed to the customer
+  leads:   12    // gate signups forwarded to the CRM
+};
+const hits = new Map();
 
 const CHAT_SYSTEM = [
   "You are the EagleBuilt AI website chat, speaking as Johnny Rock — founder, former Marine, the person who builds the work. Confident, practical, plain-spoken. No corporate fluff and no emoji.",
@@ -83,6 +92,18 @@ async function confirm(request, env) {
      invalid" at Resend's end — a confusing way to lose an hour. */
   const KEY = String(env.RESEND_API_KEY || "").trim();
   if (!KEY) return json({ ok: false, error: "not configured" }, 200);
+
+  /* The design shot is capped at 3MB of base64 below, so a real body cannot
+     approach 5MB. Reject the oversized ones before parsing them. */
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 5_000_000) return json({ ok: false, error: "too large" }, 413);
+
+  /* 429 rather than the usual soft 200. The lead itself already went out via
+     Web3Forms before this runs, so refusing a customer copy loses nothing -
+     and only an abuser ever gets here. */
+  if (limited(request, "confirm")) {
+    return json({ ok: false, error: "rate limited" }, 429);
+  }
 
   let d;
   try { d = await request.json(); } catch { return json({ ok: false, error: "bad json" }, 200); }
@@ -182,6 +203,15 @@ async function leads(request, env) {
   const KEY      = String(env.CRM_LEADS_API_KEY || "").trim();
   if (!ENDPOINT || !KEY) return json({ ok: false, error: "not configured" }, 200);
 
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 32_000) return json({ ok: false, error: "too large" }, 413);
+
+  /* Keeps junk out of the CRM. This is a background capture, so a throttled
+     caller loses nothing a real visitor would notice. */
+  if (limited(request, "leads")) {
+    return json({ ok: false, error: "rate limited" }, 429);
+  }
+
   let d;
   try { d = await request.json(); } catch { return json({ ok: false, error: "bad json" }, 200); }
 
@@ -240,7 +270,7 @@ async function chat(request, env) {
   if (!KEY) {
     return json({ error: "Chat is not configured. Set the XAI_API_KEY Cloudflare secret, then redeploy." }, 503);
   }
-  if (chatLimited(request)) {
+  if (limited(request, "chat")) {
     return json({ error: "Too many messages. Try again in a few minutes, or email info@eaglebuilt.ai." }, 429);
   }
 
@@ -312,19 +342,25 @@ function chatReplyText(data) {
 }
 
 /* Best-effort. Worker isolates do not share memory, so this only slows a
-   burst against one instance. Enough to stop a stuck tab, not a botnet. */
-function chatLimited(request) {
+   burst against one instance. Enough to stop a stuck tab or a cheap script,
+   not a distributed flood - that wants Cloudflare's own WAF rate limiting in
+   front of the Worker. */
+function limited(request, bucket) {
   const ip = request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "unknown";
   const now = Date.now();
-  let rec = chatHits.get(ip);
-  if (!rec || now - rec.start > CHAT_WINDOW_MS) rec = { start: now, n: 0 };
+  const key = bucket + "|" + ip;
+  let rec = hits.get(key);
+  if (!rec || now - rec.start > RATE_WINDOW_MS) rec = { start: now, n: 0 };
   rec.n += 1;
-  chatHits.set(ip, rec);
-  if (chatHits.size > 5000) {
-    const oldest = chatHits.keys().next().value;
-    chatHits.delete(oldest);
+  hits.set(key, rec);
+  /* Clear whole expired entries before falling back to evicting by insert
+     order, so a trickle of fresh IPs cannot push out a live counter and hand
+     an abuser a clean slate. */
+  if (hits.size > 5000) {
+    for (const [k, v] of hits) if (now - v.start > RATE_WINDOW_MS) hits.delete(k);
+    while (hits.size > 5000) hits.delete(hits.keys().next().value);
   }
-  return rec.n > CHAT_MAX_HITS;
+  return rec.n > (RATE_LIMITS[bucket] || 20);
 }
 
 function clean(v, max) {
