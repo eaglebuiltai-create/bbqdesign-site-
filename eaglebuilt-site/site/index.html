@@ -23,7 +23,11 @@
 
 <link rel="icon" href="/assets/eaglebuilt-emblem.png">
 <link rel="stylesheet" href="/assets/site.css">
-<link rel="preload" as="image" href="/projects/photos/outdoor-kitchen-hero.jpg" fetchpriority="high">
+<!-- Preload the WebP the <picture> below will actually pick, not the JPEG
+     fallback: preloading the JPEG made the browser fetch both. A browser
+     without WebP support skips this on the type mismatch and loads the
+     fallback from the picture element as normal. -->
+<link rel="preload" as="image" href="/projects/photos/outdoor-kitchen-hero.webp" type="image/webp" fetchpriority="high">
 
 <script type="application/ld+json">
 {
@@ -113,8 +117,11 @@
       <p class="heroNote">About five minutes. Works on phone, tablet and desktop.</p>
     </div>
     <div class="shot">
-      <img src="/projects/photos/outdoor-kitchen-hero.jpg" width="1200" height="785" fetchpriority="high"
-           alt="Finished outdoor kitchen island in stone with a poured concrete countertop, integrated sink, refrigeration and drawer storage">
+      <picture>
+        <source srcset="/projects/photos/outdoor-kitchen-hero.webp" type="image/webp">
+        <img src="/projects/photos/outdoor-kitchen-hero.jpg" width="1200" height="785" fetchpriority="high"
+             alt="Finished outdoor kitchen island in stone with a poured concrete countertop, integrated sink, refrigeration and drawer storage">
+      </picture>
     </div>
   </div>
 </div>
