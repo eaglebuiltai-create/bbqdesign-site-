@@ -22,6 +22,22 @@ works as a fallback.
 
 ---
 
+## Home-screen app — 2026-10-11 (live)
+
+The site installs as an app on phones: an EagleBuilt icon on the home screen
+that opens the live site full screen, named "EagleBuilt". `/manifest.webmanifest`
+describes it; the icons are in `site/assets/app/` and are redrawn from the
+emblem by `bash tools/app-icons.sh`. Every page except the Plan & Elevation
+Studio privacy page carries the tags.
+
+`assets/install.js` offers it once on phones after 12 seconds: an Install
+button on Android Chrome, Share → Add to Home Screen instructions on iPhone
+Safari. A dismiss holds for 30 days. It never shows on desktop, inside the
+installed app, or in the designer. There is deliberately no service worker,
+so the installed app always loads the live site and a deploy is never stale.
+
+---
+
 ## Site chat — 2026-09-29
 
 A floating chat on the homepage and `/design/`. It posts to `POST /api/chat` on
