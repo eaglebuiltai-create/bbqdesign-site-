@@ -506,7 +506,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   /* The resumed-design notice is fixed 26px off the bottom, which on a phone
      lands it squarely on the Design / Components / Finishes tab bar — covering
      the controls for the 12 seconds it shows. Lift it clear of them. */
-  .resume{bottom:62px}
+  .resume{bottom:190px}
 
   /* The right panel is six sections — 1108px of settings in a 225px window on a
      phone. Closed, it is six headings you can hit with a thumb; one tap opens
@@ -526,7 +526,66 @@ input[type=range]{width:100%;accent-color:var(--blue)}
      collapsed to 44, which just looks broken. Only forced while closed, so
      opening hands visibility straight back to the script. */
   aside.right .panelbody .grp.closed > *:not(h4){display:none!important}
+
+  /* ---- Phone: the slot strip -------------------------------------------
+     The island as a row of slots under the drawing: tap one to swap, move or
+     remove it; "+ Add" opens the equipment sheet. Dragging pieces on a plan is
+     a desktop job; on a phone you edit the list. */
+  .slotstrip{display:block;order:1;flex:0 0 auto;background:#0A1220;border-top:1px solid var(--line);padding:6px 0 4px}
+  .slotstrip[hidden]{display:none}
+  /* The strip does swap, move and remove, so the piece's other settings (what
+     goes under it, its length, bar, who supplies it) wait behind "More" rather
+     than covering the drawing every time a slot is tapped. */
+  #selBar{display:none!important}
+  body.selmore #selBar{display:flex!important}
 }
+/* Off the phone the script keeps the strip hidden (renderStrip). */
+.slotstrip .sacts{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:0 8px 6px}
+.slotstrip .sacts[hidden]{display:none}
+.slotstrip .sname{flex:1 0 100%;min-width:0;font-size:12.5px;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slotstrip .sname small{color:var(--muted)}
+.slotstrip .sacts button{flex:1 1 0;min-height:38px;min-width:42px;padding:0 10px;border-radius:8px;
+  background:#101827;border:1px solid #2A3B57;color:var(--txt);font-size:13px;font-weight:650}
+.slotstrip .sacts button.swap{background:#22406b;border-color:#3A5A85}
+.slotstrip .sacts button.del{color:#FF8A80}
+.slotstrip .sslots{display:flex;gap:4px;overflow-x:auto;padding:0 8px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.slotstrip .sslots::-webkit-scrollbar{display:none}
+.slotstrip .sslot{flex:0 0 auto;min-height:52px;border-radius:8px;background:#101827;border:1px solid #2A3B57;
+  color:var(--txt);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:4px 6px;line-height:1.2;font-family:inherit}
+.slotstrip .sslot b{font-size:12.5px;font-weight:700;white-space:nowrap}
+.slotstrip .sslot span{color:var(--muted);font-size:11px;white-space:nowrap}
+.slotstrip .sslot.filler{background:#0C1420;border-style:dotted}
+.slotstrip .sslot.on{border-color:#2E9BFF;background:#16304f;box-shadow:0 0 0 1px #2E9BFF inset}
+.slotstrip .sslot.add{border-style:dashed;color:#7FC4FF;min-width:62px}
+.slotstrip .sdiv{flex:0 0 auto;align-self:center;color:var(--dim);font-size:11px;padding:0 4px;white-space:nowrap}
+
+/* ---- The equipment sheet: slides up over the bottom of the screen. */
+.eqsheet{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;justify-content:flex-end;
+  background:rgba(4,7,13,.55)}
+.eqsheet[hidden]{display:none}
+.eqsheet .eqbox{background:#0C111C;border-top:1px solid #2A3B57;border-radius:16px 16px 0 0;max-height:82vh;
+  display:flex;flex-direction:column;box-shadow:0 -16px 40px rgba(0,0,0,.5);
+  padding-bottom:env(safe-area-inset-bottom)}
+.eqsheet .eqhead{display:flex;align-items:center;gap:8px;padding:12px 12px 6px 16px}
+.eqsheet .eqhead h3{flex:1;margin:0;font-size:16px;font-weight:800}
+.eqsheet .eqx{background:none;border:0;color:var(--muted);font-size:28px;line-height:1;padding:4px 8px}
+.eqsheet .eqhead,.eqsheet .eqcats,.eqsheet .eqtiers{flex:none}
+.eqsheet .eqcats,.eqsheet .eqtiers{display:flex;gap:6px;overflow-x:auto;padding:4px 12px 6px;scrollbar-width:none}
+.eqsheet .eqcats::-webkit-scrollbar,.eqsheet .eqtiers::-webkit-scrollbar{display:none}
+.eqsheet .eqcats button,.eqsheet .eqtiers button{flex:0 0 auto;min-height:38px;padding:0 12px;border-radius:19px;
+  background:#101827;border:1px solid #2A3B57;color:var(--muted);font-size:13px;font-weight:650;white-space:nowrap}
+.eqsheet .eqtiers button{min-height:32px;font-size:12px}
+.eqsheet .eqcats button.on,.eqsheet .eqtiers button.on{background:#22406b;border-color:#3A5A85;color:#fff}
+.eqsheet .eqlist{flex:1 1 auto;min-height:0;overflow-y:auto;padding:6px 12px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.eqsheet .eqitem{text-align:left;background:#101827;border:1px solid #22304A;border-radius:12px;padding:10px 11px;
+  color:var(--txt);display:flex;flex-direction:column;gap:3px;min-height:92px;font-family:inherit}
+.eqsheet .eqitem.cur{border-color:#2E9BFF}
+.eqsheet .eqitem .ebr{color:#7FC4FF;font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.eqsheet .eqitem b{font-size:13.5px;line-height:1.25}
+.eqsheet .eqitem .ew{color:var(--muted);font-size:12px}
+.eqsheet .eqitem .ep{margin-top:auto;font-weight:800;font-size:14px}
+.eqsheet .eqempty{grid-column:1/-1;color:var(--muted);font-size:13px;padding:14px 4px}
 </style>
 <script src="/assets/track.js"></script>
 <script src="/assets/emailcheck.js"></script>
@@ -582,6 +641,86 @@ input[type=range]{width:100%;accent-color:var(--blue)}
   </div>
 </div>
 
+<!-- ═════════════════════════════════════════════════════════════════
+     SAMPLE ISLANDS. A first visit opens on three finished islands (straight,
+     L, U) with equipment and filler panels already in place. Picking one asks
+     for the email (the gate above) and then opens it in the designer to make
+     their own. Browsing is free; the email comes once they want one.
+     Each sample is a design link's #d= code. To replace one, design it, use
+     Copy link, paste the part after #d= into EB_SAMPLES below, then redraw
+     its picture: bash tools/sample-shots.sh (from eaglebuilt-site).
+     ═════════════════════════════════════════════════════════════════ -->
+<style>
+#ebSamples{position:fixed;inset:0;z-index:99990;overflow:auto;-webkit-overflow-scrolling:touch;
+  background:rgba(4,7,13,.96);color:#E7EEF7;
+  font:15px/1.45 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  padding:22px 16px max(28px,env(safe-area-inset-bottom))}
+#ebSamples[hidden]{display:none}
+#ebSamples .ebsWrap{max-width:1080px;margin:0 auto}
+#ebSamples .ebsBrand{font-weight:800;letter-spacing:.3px;font-size:13px;margin-bottom:10px}
+#ebSamples .ebsBrand i{color:#2E9BFF;font-style:normal}
+#ebSamples h2{font-size:23px;margin:0 0 6px;font-weight:800;letter-spacing:-.2px}
+#ebSamples .ebsLede{color:#8DA0B8;margin:0 0 18px;font-size:14px;max-width:640px}
+#ebSamples .ebsGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#ebSamples .ebsCard{background:#0C111C;border:1px solid #22304A;border-radius:14px;overflow:hidden;
+  display:flex;flex-direction:column;cursor:pointer;text-align:left;color:inherit;font:inherit;padding:0}
+#ebSamples .ebsCard:hover{border-color:#3A5A85}
+#ebSamples .ebsPic{aspect-ratio:4/3;background:#0B1018 center/cover no-repeat}
+#ebSamples .ebsBody{padding:14px 14px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
+#ebSamples .ebsShape{color:#7FC4FF;font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+#ebSamples .ebsName{font-weight:800;font-size:18px}
+#ebSamples .ebsSize{color:#8DA0B8;font-size:13px;min-height:1.45em}
+#ebSamples .ebsList{color:#C9D5E4;font-size:13px;margin:4px 0 0;padding-left:18px;min-height:3em}
+#ebSamples .ebsFoot{margin-top:auto;padding-top:12px;display:flex;align-items:center;gap:10px}
+#ebSamples .ebsPrice{font-weight:800;font-size:17px;flex:1}
+#ebSamples .ebsPrice small{display:block;color:#5F7391;font-size:11px;font-weight:600}
+#ebSamples .ebsGo{flex:none;background:#E8342B;color:#fff;border-radius:9px;padding:10px 14px;
+  font-size:14px;font-weight:700}
+#ebSamples .ebsAlt{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:22px 0 0}
+#ebSamples .ebsAlt button{background:#101827;border:1px solid #2A3B57;color:#E7EEF7;border-radius:10px;
+  padding:12px 16px;font-weight:600;font-size:14px;font-family:inherit;cursor:pointer;min-height:44px}
+#ebSamples .ebsFine{color:#5F7391;font-size:11.5px;text-align:center;margin:16px auto 0;max-width:560px}
+#ebSamples .ebsX{position:fixed;top:10px;right:12px;background:none;border:0;color:#8DA0B8;
+  font-size:30px;line-height:1;padding:6px 10px;cursor:pointer}
+#ebSamples .ebsX[hidden]{display:none}
+/* Phones: one card at a time, swiped sideways, with the next one peeking in. */
+@media (max-width:820px){
+  #ebSamples .ebsGrid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:84%;
+    overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 6px;scroll-padding:0 16px}
+  #ebSamples .ebsCard{scroll-snap-align:start}
+  #ebSamples h2{font-size:21px}
+}
+</style>
+
+<div id="ebSamples" hidden role="dialog" aria-modal="true" aria-labelledby="ebsTitle">
+  <div class="ebsWrap">
+    <div class="ebsBrand">EAGLEBUILT<i>&nbsp;AI</i></div>
+    <h2 id="ebsTitle">Pick an island to start from</h2>
+    <p class="ebsLede">Each one is laid out the way we build them, with real equipment and filler
+      panels. Pick the closest, then make it yours: swap the grill, change the length, add a sink.</p>
+    <div class="ebsGrid" id="ebsGrid"></div>
+    <div class="ebsAlt">
+      <button type="button" data-ebs="quick">Build one for me in 4 taps</button>
+      <button type="button" data-ebs="blank">Start from scratch</button>
+    </div>
+    <p class="ebsFine">Prices are budget estimates for the equipment shown plus construction. Final
+      pricing follows a field verification visit.</p>
+  </div>
+  <button type="button" class="ebsX" data-ebs="close" aria-label="Close" hidden>&times;</button>
+</div>
+
+<script>
+/* The samples. "d" is a design link's #d= code; "pic" its picture. */
+window.EB_SAMPLES = [
+  { key: "straight", shape: "Straight", name: "The Classic", pic: "samples/straight.png",
+    d: "eyJ2Ijo0LCJtIjpbWyJmaWxsOCIsLTE3NTIsMCwwLDAsIiIsMCwwLDAsMF0sWyJCTFotVFJFQy1EUlctSCIsLTEzMDAsMCwwLDAsIiIsMCwwLDAsMF0sWyJmaWxsMTIiLC03ODQsMCwwLDAsIiIsMCwwLDAsMF0sWyJCTFotNExURTMiLC03MCwwLDAsMCwiQkxaLUREQy1SLUxUU0MiLDAsMCwwLDBdLFsiZmlsbDEyIiw2NDQsMCwwLDAsIiIsMCwwLDAsMF0sWyJCTFotU1NSRjIwLTQuMyIsMTIzMCwwLDAsMCwiIiwwLDAsMCwwXSxbImZpbGw4IiwxNzUyLDAsMCwwLCIiLDAsMCwwLDBdXSwiYyI6ImNvbmNyZXRlIiwibyI6MS41LCJkcCI6MzIsImh0IjozNy41LCJmIjoic3R1Y2NvIiwiY3IiOjUuMywic2UiOjEsImJhciI6MCwib2wiOjIsIm1zIjoiYXV0byIsImZjIjowLCJmciI6ImNtdSIsImEiOlsidHJhc2giXSwib2ciOltdLCJjdSI6W119" },
+  { key: "ell", shape: "L-shape", name: "The Corner", pic: "samples/ell.png",
+    d: "eyJ2Ijo0LCJtIjpbWyJCTFotVFJMUC1EUlctSCIsLTE4MDIsLTEwODQsMCwwLCIiLDAsMCwwLDBdLFsiQkxaLTVMVEUzIiwtODMwLC0xMDg0LDAsMCwiQkxaLUREQy1SLTM5LUxUU0MiLDAsMCwwLDBdLFsiQkxaLVBCTFRFMyIsNzIsLTEwODQsMCwwLCIiLDAsMCwwLDBdLFsiQkxaLUREQy1SLUxUU0MiLDg0NCwtMTA4NCwwLDAsIiIsMCwwLDAsMF0sWyJjb3JuZXIyNCIsMTc0NCwtMTA4NCwwLDAsIiIsMCwwLDAsMF0sWyJCTFotMzBDS1QtU05LIiwxNjE2LC04OCw5MCwwLCJDQ0QtMkRDMzEiLDAsMCwwLDBdLFsiQkxaLUFEMzItUi1TQyIsMTYxNiw4ODgsOTAsMCwiIiwwLDAsMCwwXSxbIkJMWi1TU1JGMjAtNC4zIiwxNjE2LDE3NzQsOTAsMCwiIiwwLDAsMCwwXV0sImMiOiJjb25jcmV0ZSIsIm8iOjEuNSwiZHAiOjMyLCJodCI6MzcuNSwiZiI6InN0dWNjbyIsImNyIjo1LjMsInNlIjoxLCJiYXIiOjAsIm9sIjoyLCJtcyI6ImF1dG8iLCJmYyI6MCwiZnIiOiJjbXUiLCJhIjpbInRyYXNoIl0sIm9nIjpbXSwiY3UiOltdfQ" },
+  { key: "yu", shape: "U-shape", name: "The Big U", pic: "samples/yu.png",
+    d: "eyJ2Ijo0LCJtIjpbWyJCTFotRFJXMi1SLUxUIiwtMTY5NCwtODIxLDAsMCwiIiwwLDAsMCwwXSxbIkJMWi01TFRFMyIsLTc2OCwtODIxLDAsMCwiQkxaLUREQy1SLTM5LUxUU0MiLDAsMCwwLDBdLFsiQkxaLVNCMi1MVEVQTFVTIiw4NiwtODIxLDAsMCwiIiwwLDAsMCwwXSxbIkJMWi1EREMtUi1MVFNDIiw4MTAsLTgyMSwwLDAsIiIsMCwwLDAsMF0sWyJCTFotVFJFQy1EUlctSCIsMTY1MCwtODIxLDAsMCwiIiwwLDAsMCwwXSxbIkJMWi0zMENLVC1TTksiLC0xNDYyLDE3NSwyNzAsMCwiQ0NELTJEQzMxIiwwLDAsMCwwXSxbIkJMWi1BRDMyLVItU0MiLC0xNDYyLDExNTEsMjcwLDAsIiIsMCwwLDAsMF0sWyJCTFotU1NSRjIwLTQuMyIsMTQ2Miw4NSw5MCwwLCIiLDAsMCwwLDBdLFsiQkxaLUFEMzItUi1TQyIsMTQ2Miw5NzEsOTAsMCwiIiwwLDAsMCwwXV0sImMiOiJjb25jcmV0ZSIsIm8iOjEuNSwiZHAiOjMyLCJodCI6MzcuNSwiZiI6InN0dWNjbyIsImNyIjo1LjMsInNlIjoxLCJiYXIiOjAsIm9sIjoyLCJtcyI6ImF1dG8iLCJmYyI6MCwiZnIiOiJjbXUiLCJhIjpbInRyYXNoIl0sIm9nIjpbXSwiY3UiOltdfQ" }
+];
+</script>
+
 <script>
 (function(){
   var KEY  = "eb.designer.lead";
@@ -590,14 +729,41 @@ input[type=range]{width:100%;accent-color:var(--blue)}
                 "/design/fireplace/": "Fireplace",
                 "/design/yard/":      "Backyard" })[location.pathname] || "Designer";
   var gate = document.getElementById("ebGate");
+  var samples = document.getElementById("ebSamples");
+
+  /* ?shot=<sample> is tools/sample-shots.sh drawing a sample's picture. */
+  var shot = /[?&]shot=/.test(location.search);
 
   /* A browser that blocks storage throws on read. Show the gate in that case —
      but the write below is also wrapped, so a blocked browser still gets in,
      it just gets asked again next visit. Never trap anyone outside. */
   var seen = false;
   try { seen = !!localStorage.getItem(KEY); } catch (e) {}
-  if (seen) return;
-  gate.hidden = false;
+
+  /* What to do once the email is in: open the island they picked, Quick Build,
+     or just the designer. Set by whatever opened the gate. */
+  var after = null;
+  var sampleName = "";
+
+  window.EBGate = {
+    seen: function () { return seen; },
+    /* Run done() now if we already have their email, otherwise after the gate. */
+    require: function (opts, done) {
+      if (seen) { done(); return; }
+      after = done;
+      sampleName = (opts && opts.sample) || "";
+      if (opts && opts.title) gate.querySelector("h2").textContent = opts.title;
+      if (opts && opts.lede) gate.querySelector(".ebLede").textContent = opts.lede;
+      gate.hidden = false;
+    }
+  };
+
+  if (shot || seen) return;
+  /* A shared design link goes straight to the gate, as before: they came for
+     that island. Everyone else starts at the samples, and is asked for the
+     email once they pick one. */
+  if (/#d=/.test(location.hash) || !samples) gate.hidden = false;
+  else samples.hidden = false;
 
   var form = document.getElementById("ebGateForm");
   var err  = document.getElementById("ebErr");
@@ -626,6 +792,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     try {
       localStorage.setItem(KEY, JSON.stringify({ email: email, zip: zip, ts: Date.now() }));
     } catch (e2) {}
+    seen = true;
 
     /* Fire and forget. The visitor is let in whatever the network does — a
        failed POST must never read as a broken tool, and the full lead still
@@ -637,8 +804,9 @@ input[type=range]{width:100%;accent-color:var(--blue)}
         body: JSON.stringify({
           access_key: "3a819006-46a1-4176-ac5e-224d1a489557",
           from_name:  "EagleBuilt AI Designer",
-          subject:    TOOL + " designer opened — " + email,
+          subject:    TOOL + " designer opened" + (sampleName ? " (" + sampleName + ")" : "") + " — " + email,
           lead_stage: "opened the designer",
+          sample:     sampleName || "—",
           email:      email,
           zip:        zip || "—",
           page:       location.pathname
@@ -663,7 +831,60 @@ input[type=range]{width:100%;accent-color:var(--blue)}
     } catch (e4) {}
 
     gate.hidden = true;
-    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL, area: (window.ebArea ? window.ebArea(zip) : "unknown") });
+    window.ebTrack && window.ebTrack("designer_open", { tool: TOOL, sample: sampleName || "none", area: (window.ebArea ? window.ebArea(zip) : "unknown") });
+    var go = after; after = null;
+    if (go) go();
+  });
+})();
+
+/* The sample gallery: cards, and what each button does. The designer fills in
+   each card's size, equipment and price once it has loaded (EBDesigner). */
+(function(){
+  var box = document.getElementById("ebSamples");
+  var grid = document.getElementById("ebsGrid");
+  if (!box || !grid || !window.EB_SAMPLES) return;
+  grid.innerHTML = EB_SAMPLES.map(function (s) {
+    return '<button type="button" class="ebsCard" data-sample="' + s.key + '">' +
+      '<div class="ebsPic" style="background-image:url(' + s.pic + ')" role="img" aria-label="' + s.name + ', ' + s.shape + ' island"></div>' +
+      '<div class="ebsBody"><div class="ebsShape">' + s.shape + '</div>' +
+      '<div class="ebsName">' + s.name + '</div>' +
+      '<div class="ebsSize" data-size></div><ul class="ebsList" data-list></ul>' +
+      '<div class="ebsFoot"><div class="ebsPrice" data-price></div><span class="ebsGo">Make it mine</span></div>' +
+      '</div></button>';
+  }).join("");
+
+  /* The designer script further down sets window.EBDesigner when it is ready. */
+  function whenReady(fn) {
+    if (window.EBDesigner) fn(window.EBDesigner);
+    else setTimeout(function () { whenReady(fn); }, 60);
+  }
+  var LEDE = "Add your email and it opens. We use it to send you the design and its itemized budget when you are done.";
+  box.addEventListener("click", function (e) {
+    var card = e.target.closest("[data-sample]");
+    var act = e.target.closest("[data-ebs]");
+    if (card) {
+      var s = EB_SAMPLES.filter(function (x) { return x.key === card.dataset.sample; })[0];
+      window.ebTrack && window.ebTrack("sample_pick", { sample: s.name });
+      box.hidden = true;
+      EBGate.require({ sample: s.name, title: s.name + " is ready", lede: LEDE }, function () {
+        whenReady(function (d) { d.loadSample(s.key); });
+      });
+    } else if (act && act.dataset.ebs === "quick") {
+      box.hidden = true;
+      EBGate.require({ title: "Start your design", lede: LEDE }, function () {
+        whenReady(function (d) { d.quickBuild(); });
+      });
+    } else if (act && act.dataset.ebs === "blank") {
+      box.hidden = true;
+      EBGate.require({ title: "Start your design", lede: LEDE }, function () {
+        whenReady(function (d) { d.blank(); });
+      });
+    } else if (act && act.dataset.ebs === "close") {
+      box.hidden = true;
+    }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !box.hidden && !box.querySelector(".ebsX").hidden) box.hidden = true;
   });
 })();
 </script>
@@ -935,6 +1156,19 @@ input[type=range]{width:100%;accent-color:var(--blue)}
       </div>
     </section>
 
+    <!-- PHONE: the island as a row of slots (see SLOT STRIP in the script) -->
+    <div class="slotstrip" id="slotStrip" hidden>
+      <div class="sacts" id="slotActs" hidden>
+        <div class="sname" id="slotName"></div>
+        <button type="button" class="swap" data-sa="swap">Swap</button>
+        <button type="button" data-sa="left" aria-label="Move left">&#9664;</button>
+        <button type="button" data-sa="right" aria-label="Move right">&#9654;</button>
+        <button type="button" class="del" data-sa="del">Remove</button>
+        <button type="button" data-sa="more" aria-label="More settings for this piece">More</button>
+      </div>
+      <div class="sslots" id="slotRow"></div>
+    </div>
+
     <!-- RIGHT: settings + quote -->
     <aside class="right" id="panelRight">
       <div class="panelhead"><i class="dot"></i>Finishes &amp; Options</div>
@@ -1078,6 +1312,17 @@ input[type=range]{width:100%;accent-color:var(--blue)}
       <button data-p="right">Finishes &amp; Quote</button>
     </div>
   </main>
+</div>
+
+<!-- ============ EQUIPMENT SHEET (phone first, works anywhere) ============ -->
+<div class="eqsheet" id="eqSheet" hidden>
+  <div class="eqbox" role="dialog" aria-modal="true" aria-labelledby="eqTitle">
+    <div class="eqhead"><h3 id="eqTitle">Add to the island</h3>
+      <button type="button" class="eqx" data-eq="close" aria-label="Close">&times;</button></div>
+    <div class="eqcats" id="eqCats"></div>
+    <div class="eqtiers" id="eqTiers"></div>
+    <div class="eqlist" id="eqList"></div>
+  </div>
 </div>
 
 <!-- ============ LEAD MODAL ============ -->
@@ -4618,6 +4863,7 @@ function refresh(){
     ? "Drag to orbit · Scroll to zoom · Shift-drag to pan"
     : V3 === "el" ? "Click a bay, then drag its door up, down or side to side"
     : "Drag pieces to move · Scroll to zoom";
+  renderStrip();
   saveLocal();
 }
 
@@ -5260,6 +5506,7 @@ const EagleOne = (() => {
     const q = priceIt(), w = warnings(), t = q.t;
     const ask = [
       { l:"Build it for me", fn:() => QuickBuild.open() },
+      { l:"Start from a sample", fn:() => openSamples() },
       { l:"What goes under a grill?", fn:() => acts.topic("under") },
       { l:"How big should it be?",    fn:() => acts.topic("size") },
       { l:"Which brand?",             fn:() => acts.topic("brands") }
@@ -6916,6 +7163,225 @@ function mainRow(){
   });
   return best ? best.slice().sort((a,b) => a.x - b.x) : null;
 }
+/* ==========================================================================
+   SLOT STRIP + EQUIPMENT SHEET (phone)
+   The island as rows of slots, one row per run, edited as a list instead of
+   by dragging: swap a piece, move it along, remove it, or add one. Every edit
+   re-lays the run end to end from where it started, so it stays a clean run,
+   and carries the return legs of an L or U along when a run gets longer or
+   shorter.
+   ========================================================================== */
+const SLOT_SHORT = {
+  "Grills":"Grill", "Griddles & Ovens":"Oven", "Side & Power Burners":"Burner", "Sinks & Ice":"Sink",
+  "Countertop Appliances":"On counter", "Door + Drawer Combos":"Combo", "Doors":"Doors",
+  "Drawers":"Drawers", "Refrigeration":"Fridge", "Masonry":"Block", "Filler Panels":"Filler",
+  "Customer Supplied":"Theirs"
+};
+const SHEET_CATS = ["Grills","Side & Power Burners","Griddles & Ovens","Sinks & Ice","Refrigeration",
+  "Doors","Drawers","Door + Drawer Combos","Countertop Appliances","Filler Panels","Masonry"];
+const EQ = { open:false, mode:"add", run:0, after:null, target:null, cat:"Grills", tier:"All" };
+
+function slotLabel(m){
+  const c = modSpec(m);
+  if (/^corner/.test(m.k)) return "Corner";
+  if (c.barDepth) return "Bar";
+  if (m.k === "run48") return "Run";
+  return SLOT_SHORT[c.grp] || c.n;
+}
+function inchLabel(v){ return (Math.round(v * 2) / 2) + '"'; }
+
+function renderStrip(){
+  const el = $("#slotStrip");
+  if (!el) return;
+  el.hidden = !isPhone();
+  if (el.hidden) return;
+  const R = runs();
+  let html = "";
+  R.forEach((run, i) => {
+    if (R.length > 1) html += '<span class="sdiv">' + (i ? "Return" : "Main") + " \u00b7 " + ftin(run.len) + "</span>";
+    run.mods.forEach(m => {
+      const c = modSpec(m), w = modWidth(m);
+      const under = m.u && BYKEY[m.u] ? (SLOT_SHORT[BYKEY[m.u].grp] || "").toLowerCase() : "";
+      html += '<button type="button" class="sslot' + (m.id === S.sel ? " on" : "") + (c.filler ? " filler" : "") +
+        '" data-slot="' + m.id + '" style="width:' + clamp(Math.round(w * 2.1), 54, 132) + 'px">' +
+        "<b>" + slotLabel(m) + "</b><span>" + inchLabel(w) + (under ? " \u00b7 " + under : "") + "</span></button>";
+    });
+    html += '<button type="button" class="sslot add" data-addrun="' + i + '">+ Add</button>';
+  });
+  if (!R.length) html = '<button type="button" class="sslot add" data-addrun="0" style="width:auto;padding:0 18px">+ Add your first piece</button>';
+  $("#slotRow").innerHTML = html;
+
+  const sel = S.mods.find(m => m.id === S.sel);
+  $("#slotActs").hidden = !sel;
+  if (sel){
+    const c = modSpec(sel);
+    $("#slotName").innerHTML = c.n + (c.brandName && c.brand !== "structure" ? " <small>" + c.brandName + "</small>" : "");
+    const run = stripRunOf(sel), i = run ? run.mods.indexOf(sel) : -1;
+    $("#slotActs [data-sa=left]").disabled = i <= 0;
+    $("#slotActs [data-sa=right]").disabled = !run || i >= run.mods.length - 1;
+    const slot = $('#slotRow [data-slot="' + sel.id + '"]');
+    if (slot && slot.scrollIntoView) slot.scrollIntoView({ block:"nearest", inline:"nearest" });
+  }
+}
+
+function stripRunOf(m){ return runs().find(r => r.mods.includes(m)) || null; }
+
+/* Lay a run's pieces end to end from `start`, in the order given. */
+function layRun(list, horiz, start){
+  const ax = horiz ? "x" : "y";
+  let p = start;
+  list.forEach(m => { const l = modWidth(m); m[ax] = p + l / 2; p += l; });
+  return p;
+}
+/* Change a run (reorder, insert, remove, swap) through fn(list), then lay it
+   back out from where it started. Anything running the other way that sits
+   past the run's old far end (the return leg of an L, the far leg of a U)
+   moves by however much the run grew or shrank, so the corner stays closed. */
+function editRun(run, fn){
+  const horiz = run.horiz, ax = horiz ? "x" : "y";
+  const list = run.mods.slice();
+  const start = list.length ? list[0][ax] - modWidth(list[0]) / 2 : 0;
+  const oldEnd = start + run.len;
+  fn(list);
+  const newEnd = list.length ? layRun(list, horiz, start) : start;
+  const d = newEnd - oldEnd;
+  if (Math.abs(d) > 1e-6){
+    S.mods.forEach(o => {
+      if (list.includes(o)) return;
+      const oHoriz = (o.r % 180) === 0;
+      if (oHoriz !== horiz && o[ax] > oldEnd - S.depth - 1) o[ax] += d;
+    });
+  }
+}
+function newMod(k, like){
+  const c = BYKEY[k];
+  const m = { id:S.nextId++, k, x:0, y:0, r:like ? like.r : 0 };
+  if (like){ m.x = like.x; m.y = like.y; if (like.dp) m.dp = like.dp; }
+  if (c.flex) m.cw = c.w;
+  if (isAbove(c)) m.u = defaultUnder(m);
+  return m;
+}
+function stripAdd(runIdx, k, after){
+  if (!S.mods.length){ const m = autoPlace(k); S.sel = m.id; refresh(); return m; }
+  const run = runs()[runIdx] || runs()[0];
+  const m = newMod(k, run.mods[0]);
+  S.mods.push(m);
+  editRun(run, list => {
+    let at = after ? list.indexOf(after) + 1 : list.length;
+    /* A run that ends in a corner piece takes new pieces before the corner. */
+    if (!after && list.length && /^corner/.test(list[list.length - 1].k)) at = list.length - 1;
+    list.splice(at, 0, m);
+  });
+  S.sel = m.id; fit(); refresh();
+  return m;
+}
+function stripSwap(m, k){
+  const run = stripRunOf(m);
+  if (!run) return;
+  editRun(run, () => {
+    const c = BYKEY[k];
+    m.k = k;
+    ["cw","ch","cd","tt","nm","cf","og"].forEach(f => delete m[f]);
+    if (c.flex) m.cw = c.w;
+    if (isAbove(c)) m.u = defaultUnder(m); else delete m.u;
+  });
+  S.sel = m.id; fit(); refresh();
+}
+function stripMove(m, step){
+  const run = stripRunOf(m);
+  if (!run) return;
+  editRun(run, list => {
+    const i = list.indexOf(m), j = i + step;
+    if (j < 0 || j >= list.length) return;
+    list[i] = list[j]; list[j] = m;
+  });
+  refresh();
+}
+function stripRemove(m){
+  const run = stripRunOf(m);
+  if (run) editRun(run, list => { list.splice(list.indexOf(m), 1); });
+  S.mods = S.mods.filter(x => x !== m);
+  S.sel = null; fit(); refresh();
+}
+
+function openSheet(opts){
+  Object.assign(EQ, { open:true, after:null, target:null }, opts);
+  if (EQ.mode === "swap" && EQ.target){
+    const c = modSpec(EQ.target);
+    if (SHEET_CATS.includes(c.grp)) EQ.cat = c.grp;
+  }
+  $("#eqTitle").textContent = EQ.mode === "swap" ? "Swap the " + slotLabel(EQ.target).toLowerCase() : "Add to the island";
+  renderSheet();
+  $("#eqSheet").hidden = false;
+}
+function closeSheet(){ EQ.open = false; $("#eqSheet").hidden = true; }
+function renderSheet(){
+  $("#eqCats").innerHTML = SHEET_CATS.map(g =>
+    '<button type="button" data-cat="' + g + '"' + (g === EQ.cat ? ' class="on"' : "") + ">" + g + "</button>").join("");
+  const masonry = EQ.cat === "Filler Panels" || EQ.cat === "Masonry";
+  $("#eqTiers").innerHTML = masonry ? "" : ["All","Value","Premium","Luxury"].map(t =>
+    '<button type="button" data-tier="' + t + '"' + (t === EQ.tier ? ' class="on"' : "") + ">" +
+    (t === "All" ? "Every brand" : t) + "</button>").join("");
+  const items = ALL_ITEMS
+    .filter(i => i.grp === EQ.cat && !i.own && (masonry || EQ.tier === "All" || i.tier === EQ.tier))
+    .sort((a, b) => (TIER_ORDER[a.tier] - TIER_ORDER[b.tier]) || (a.p - b.p) || a.n.localeCompare(b.n));
+  const cur = EQ.mode === "swap" && EQ.target ? EQ.target.k : "";
+  $("#eqList").innerHTML = items.length ? items.map(i => {
+    const width = i.flex ? "stretches to fit" : inchLabel(i.w) + " of island";
+    const price = i.flex ? (i.pf ? money(i.pf) + "/ft" : "") : (i.p ? money(i.p) : "no charge");
+    return '<button type="button" class="eqitem' + (i.k === cur ? " cur" : "") + '" data-item="' + i.k + '">' +
+      (i.brand !== "structure" ? '<span class="ebr">' + i.brandName + " \u00b7 " + i.tier + "</span>" : "") +
+      "<b>" + i.n + "</b>" + '<span class="ew">' + width + "</span>" +
+      '<span class="ep">' + price + "</span></button>";
+  }).join("") : '<div class="eqempty">Nothing in this group at that level. Try another.</div>';
+  $("#eqList").scrollTop = 0;
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest ? e.target : null;
+  if (!t) return;
+  const slot = t.closest("#slotRow [data-slot]");
+  if (slot){
+    const id = +slot.dataset.slot;
+    S.sel = S.sel === id ? null : id;
+    document.body.classList.remove("selmore");
+    refresh(); return;
+  }
+  const add = t.closest("#slotRow [data-addrun]");
+  if (add){ openSheet({ mode:"add", run:+add.dataset.addrun }); return; }
+  const act = t.closest("#slotActs [data-sa]");
+  if (act){
+    const m = S.mods.find(x => x.id === S.sel);
+    if (!m) return;
+    const a = act.dataset.sa;
+    if (a === "swap") openSheet({ mode:"swap", target:m });
+    else if (a === "left") stripMove(m, -1);
+    else if (a === "right") stripMove(m, 1);
+    else if (a === "del") stripRemove(m);
+    else if (a === "more") document.body.classList.toggle("selmore");
+    return;
+  }
+  if (!t.closest("#eqSheet")) return;
+  if (t === $("#eqSheet") || t.closest("[data-eq=close]")){ closeSheet(); return; }
+  const cat = t.closest("[data-cat]");
+  if (cat){ EQ.cat = cat.dataset.cat; renderSheet(); return; }
+  const tier = t.closest("[data-tier]");
+  if (tier){ EQ.tier = tier.dataset.tier; renderSheet(); return; }
+  const item = t.closest("[data-item]");
+  if (item){
+    const k = item.dataset.item, c = BYKEY[k];
+    closeSheet();
+    if (EQ.mode === "swap" && EQ.target) stripSwap(EQ.target, k);
+    else {
+      const sel = S.mods.find(x => x.id === S.sel);
+      const run = runs()[EQ.run];
+      stripAdd(EQ.run, k, sel && run && run.mods.includes(sel) ? sel : null);
+    }
+    toast((EQ.mode === "swap" ? "Swapped in " : "Added ") + c.n);
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && EQ.open) closeSheet(); });
+
 /* Re-butt a row edge to edge, keeping its left end where it was. */
 /* Re-butt a run edge to edge along its own axis. A return run travels in Y, so
    packing only X collapsed every piece in it onto one spot. */
@@ -7069,7 +7535,16 @@ $("#addons").addEventListener("click", e => {
 });
 $("#mobTabs").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  $$("#mobTabs button").forEach(x => x.classList.toggle("on", x === b));
+  /* Components opens the equipment sheet over the design rather than the old
+     brand-by-brand list: the same sheet as the strip's "+ Add", adding to the
+     run that holds the selected piece (or the main run). */
+  if (b.dataset.p === "left"){
+    const sel = S.mods.find(m => m.id === S.sel);
+    const R = runs(), i = sel ? R.findIndex(r => r.mods.includes(sel)) : 0;
+    openSheet({ mode:"add", run: Math.max(0, i) });
+    return;
+  }
+  $("#mobTabs button").forEach(x => x.classList.toggle("on", x === b));
   const p = b.dataset.p;
   $("#panelLeft").hidden = p !== "left";
   $("#panelRight").hidden = p !== "right";
@@ -7100,7 +7575,7 @@ function initMobile(){
   if (phone) $("#eagle").classList.add("min");
   const how = $("#hintHow");
   if (how) how.textContent = phone
-    ? "Tap Components at the bottom to add a grill, doors or drawers. Pieces snap together automatically."
+    ? "Tap Components at the bottom, or + Add, to add a grill, doors or drawers. Pieces line up automatically."
     : "Drag a component from the left onto the plan — or tap one to drop it in. Pieces snap together automatically.";
 }
 
@@ -7177,7 +7652,11 @@ let LOGO_DATA = "";
   // A shared #d= link always wins; otherwise pick up an autosaved design.
   const h = location.hash.match(/#d=(.+)$/);
   let loaded = false, resumedAt = 0;
-  if (h) loaded = decodeState(h[1]);
+  /* ?shot=<key>: tools/sample-shots.sh drawing that sample's picture. */
+  const shotKey = (location.search.match(/[?&]shot=([a-z]+)/) || [])[1];
+  const shotSample = shotKey && (window.EB_SAMPLES || []).find(x => x.key === shotKey);
+  if (shotSample) loaded = decodeState(shotSample.d);
+  else if (h) loaded = decodeState(h[1]);
   if (!loaded){
     const saved = readLocal();
     if (saved && decodeState(saved.d)){ loaded = true; resumedAt = saved.t || Date.now(); }
@@ -7232,7 +7711,10 @@ let LOGO_DATA = "";
     history.replaceState(null, "", location.pathname + clean);
   }
   requestAnimationFrame(() => {
-    fit(); refresh(); EagleOne.init(); window.EagleReady = 1;
+    fit(); refresh();
+    if (shotSample){ takeSampleShot(); return; }
+    EagleOne.init(); window.EagleReady = 1;
+    fillSamples();
     /* The card is 331px over a 375px canvas — useful beside a drawing on a
        desktop, on top of it on a phone. Starts as the tab; one tap opens it. */
     if (isPhone()) $("#eagle").classList.add("min");
@@ -7240,9 +7722,72 @@ let LOGO_DATA = "";
     /* A phone with nothing of their own yet goes straight to Quick Build. A
        returning design, a shared link or a "design around this grill" link
        means they came for that, so leave it on screen. */
-    if (!loaded && !want && isPhone()) QuickBuild.open();
+    if (!loaded && !want && isPhone() && !samplesShowing()) QuickBuild.open();
     flushLeads();          // deliver anything held from a previous visit
   });
+  /* ---- Sample islands (the gallery is #ebSamples, near the top) ----------
+     Each sample is a design link's code, so it opens exactly as designed. The
+     card's size, equipment and price are worked out here from that design, by
+     the same pricing the designer uses, so a card always agrees with what
+     opens. The current design is put back untouched afterwards. */
+  function sampleFacts(smp){
+    const keep = encodeState();
+    let out = null;
+    try {
+      if (decodeState(smp.d)){
+        const q = priceIt(), t = takeoff();
+        const names = [];
+        S.mods.forEach(m => { const c = modSpec(m); if (!c.flex && c.p > 0) names.push(c.n); });
+        out = { total: q.total, width: t.width, depth: t.depth, names };
+      }
+    } catch (e) {}
+    decodeState(keep);
+    return out;
+  }
+  function fillSamples(){
+    (window.EB_SAMPLES || []).forEach(smp => {
+      const card = document.querySelector('#ebsGrid [data-sample="' + smp.key + '"]');
+      const f = card && sampleFacts(smp);
+      if (!f) return;
+      card.querySelector("[data-size]").textContent = ftin(f.width) + " wide \u00d7 " + ftin(f.depth) + " deep";
+      const shown = f.names.slice(0, 4);
+      card.querySelector("[data-list]").innerHTML = shown.map(n => "<li>" + n + "</li>").join("") +
+        (f.names.length > shown.length ? "<li>and " + (f.names.length - shown.length) + " more</li>" : "");
+      card.querySelector("[data-price]").innerHTML = money(f.total) + "<small>equipment + construction</small>";
+    });
+  }
+  function samplesShowing(){
+    const el = document.getElementById("ebSamples");
+    return !!el && !el.hidden;
+  }
+  function openSamples(){
+    const el = document.getElementById("ebSamples");
+    if (!el) return;
+    fillSamples();
+    el.querySelector(".ebsX").hidden = false;
+    el.hidden = false;
+    el.scrollTop = 0;
+  }
+  function loadSample(key){
+    const smp = (window.EB_SAMPLES || []).find(x => x.key === key);
+    if (!smp || !decodeState(smp.d)) return;
+    QuickBuild.close && QuickBuild.close();
+    S.sel = null;
+    syncControls(); fit(); refresh();
+    toast(smp.name + " is yours. Tap any piece to change it.");
+  }
+  function takeSampleShot(){
+    const url = designShot();
+    document.body.innerHTML = url
+      ? '<img alt="" src="' + url + '" style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#0B1018">'
+      : "no picture";
+  }
+  window.EBDesigner = {
+    loadSample, openSamples,
+    quickBuild: () => QuickBuild.open(),
+    blank: () => { S.mods = []; S.sel = null; fit(); refresh(); }
+  };
+
   window.__EB = { S, priceIt, takeoff, specText, applyShape, setView, refresh,
     encodeState, w2s:W2S, s2w:S2W, set3d:(y,p)=>{ view3d.yaw=y; view3d.pitch=p; }, runs, elHitTest,
     BYKEY, BRANDS, ALL_ITEMS, warnings, underOptions, defaultUnder, modWidth,
