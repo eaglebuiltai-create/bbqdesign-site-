@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-11 · 90 |
-| **Live on eaglebuilt.ai** | 2026-10-11 · 90 ✅ |
+| **Latest built** | 2026-10-11 · 91 |
+| **Live on eaglebuilt.ai** | 2026-10-11 · 91 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,16 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 91 — 2026-10-11 (live): Continue my island
+
+Returning visitors now open on the gallery too, headed "Welcome back", with
+their own island first as "Continue my island" (picture, size, equipment,
+price); Continue closes the gallery. Shared design links and ?add= links
+still open straight to the island. The resumed-design notice is skipped
+while the gallery shows.
 
 ---
 
