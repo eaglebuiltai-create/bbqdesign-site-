@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-09-23 · 81 |
-| **Live on eaglebuilt.ai** | 2026-09-23 · 81 ✅ |
+| **Latest built** | 2026-10-11 · 89 |
+| **Live on eaglebuilt.ai** | 2026-10-11 · 89 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,22 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 89 — 2026-10-11 (live): sample islands and the phone slot strip
+
+A first visit to the designer opens on three of John's islands (straight, L,
+U) with a picture, size, equipment and price; the email is asked once a
+visitor picks one, and that island opens ready to change. A shared design
+link still goes straight to the email. Samples live in `EB_SAMPLES`; to
+replace one, paste the part of its design link after #d= and redraw the
+pictures with `bash tools/sample-shots.sh` (local site on :8080).
+
+On phones the island is a strip of slots under the drawing (swap, move,
+remove, + Add) and an equipment sheet of big cards by category and level;
+the Components tab opens the same sheet. Edits re-lay the run and carry the
+return legs of an L or U. Computers keep the full designer.
 
 ---
 
