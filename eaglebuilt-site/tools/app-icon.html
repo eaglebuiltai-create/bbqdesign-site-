@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!-- Renders the home-screen icons for the installable site. See tools/app-icons.sh.
+     ?w= is the emblem's width as a share of the icon: 0.78 for ordinary icons,
+     0.6 for "maskable" ones, which Android may crop to a circle. -->
+<html><head><meta charset="utf-8"><style>
+  html, body { margin: 0; width: 100vw; height: 100vh; overflow: hidden; }
+  body {
+    background: radial-gradient(circle at 50% 42%, #142238 0%, #0B111C 55%, #070A12 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  img { width: calc(100vw * var(--w)); height: auto; filter: drop-shadow(0 0 calc(2.5vw) rgba(46,155,255,.35)); }
+</style></head><body>
+<img src="../site/assets/eaglebuilt-emblem.png" alt="">
+<script>
+  const w = new URLSearchParams(location.search).get('w') || '0.78';
+  document.documentElement.style.setProperty('--w', w);
+</script>
+</body></html>
