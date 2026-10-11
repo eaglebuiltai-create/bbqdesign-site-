@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-11 · 89 |
-| **Live on eaglebuilt.ai** | 2026-10-11 · 89 ✅ |
+| **Latest built** | 2026-10-11 · 90 |
+| **Live on eaglebuilt.ai** | 2026-10-11 · 90 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,17 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 90 — 2026-10-11 (live): finish on a computer or iPad
+
+On phones, "Finish on your computer or iPad" (under the drawing, when nothing
+is selected) mails the visitor their design link and a picture through
+/api/confirm with `kind: "continue"`, which has its own wording: pick it up
+on a bigger screen, then send it for a quote. John is BCC'd as usual. It also
+posts the design to the CRM with source "sent to computer". The button resets
+once the island changes, so the new version can be sent.
 
 ---
 

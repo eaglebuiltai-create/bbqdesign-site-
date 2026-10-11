@@ -129,7 +129,34 @@ async function confirm(request, env) {
   const m = img.match(/^data:image\/jpeg;base64,([A-Za-z0-9+/=]+)$/);
   if (m && m[1].length < 3_000_000) shot = m[1];
 
-  const text = [
+  /* "continue": a visitor on a phone sending the island to themselves to finish
+     on a computer or iPad. They have not asked for a quote yet, so this one
+     says how to pick it up rather than what happens next with a quote. */
+  const resume = d.kind === "continue";
+  const resumeText = [
+    `Hi there,`,
+    ``,
+    `Here is the outdoor kitchen you started on your phone. Open this link on your`,
+    `computer or iPad and it picks up exactly where you left off, every piece,`,
+    `size and price:`,
+    ``,
+    linkOk ? link : `https://eaglebuilt.ai/design/`,
+    ``,
+    estimate ? `Estimate so far: ${estimate}` : ``,
+    ``,
+    `On a bigger screen you can drag pieces into place, turn it around in 3D, and`,
+    `set the finishes and the raised bar. When it looks right, send it to us from`,
+    `the designer and we will come back with an itemized budget, usually within`,
+    `one business day.`,
+    ``,
+    `John Simpson`,
+    `EagleBuilt AI`,
+    `CSLB #992251 — General Contractor & C-29 Masonry`,
+    `(949) 564-1948`,
+    `info@eaglebuilt.ai`
+  ].join("\n");
+
+  const text = resume ? resumeText : [
     `Hi ${first},`,
     ``,
     `Thanks for designing your outdoor kitchen with us. Here is your design —`,
@@ -167,7 +194,8 @@ async function confirm(request, env) {
            up at a glance, and it shows exactly what the customer received. */
         bcc: ["info@eaglebuilt.ai"],
         reply_to: "info@eaglebuilt.ai",
-        subject: "Your EagleBuilt outdoor kitchen design",
+        subject: resume ? "Your outdoor kitchen, ready to finish on a bigger screen"
+                        : "Your EagleBuilt outdoor kitchen design",
         text,
         ...(shot ? { attachments: [{ filename: "your-design.jpg", content: shot }] } : {})
       })
