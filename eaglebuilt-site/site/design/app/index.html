@@ -1754,6 +1754,14 @@ const BUILD = {
   mountLarge:  600,   // mount equipment, large island
   mountSplitLf: 12,   // 12 lf and over prices as a large mount (John, 2026-08-23)
   trashRun:    200,   // debris haul-off at end of project
+  /* A U or an L is not a straight run of the same length. Every corner is
+     extra layout, extra shoring, a harder monolithic pour and an inside
+     corner that has to be formed and finished - work the per-foot curve
+     above cannot see, because it prices a 27 lf U exactly like a 27 lf
+     straight run. Applied to the whole build subtotal, which is where that
+     work lands. Calibrated against two real U-shape jobs (2026-10-13) that
+     both came out 12-15%% under what the job was worth. */
+  shapeFactor: { straight: 1.00, ell: 1.06, yu: 1.12 },
   defaultOutlets: 2   // starting outlet count; the customer can change it
 };
 
@@ -4616,6 +4624,16 @@ function priceIt(){
     add("Mount equipment — " + (large ? "large" : "small") + " island",
         large ? BUILD.mountLarge : BUILD.mountSmall, null);
     if (S.addons.trash) add("Debris haul-off", BUILD.trashRun, "end of project");
+    /* Shape premium, last so it rides on everything above it. Run count is
+       the honest signal - one run is straight, two make an L, three or more
+       make a U - and it still works for a design built by hand that never
+       went through the shape picker. */
+    const shapeK = R.length >= 3 ? "yu" : R.length === 2 ? "ell" : "straight";
+    const shapeMult = BUILD.shapeFactor[shapeK] || 1;
+    if (shapeMult > 1)
+      add((shapeK === "yu" ? "U-shape" : "L-shape") + " - corners, layout and forming",
+          bSub * (shapeMult - 1),
+          "+" + Math.round((shapeMult - 1) * 100) + "% on the build");
   }
   const bLabor = bSub * CONFIG.installPct;                  // 0 — labor is in the rates
   const bTotal = bSub + bLabor;
@@ -6292,7 +6310,13 @@ function decodeState(str){
     let ht = +o.ht || 37.5;
     if ((+o.v || 2) < 3 && o.ht) ht = ht + 1.5;
     S.height = clamp(ht, 30, 46);
-    S.bar = o.bar ? { on:true, depth:+o.bar[0]||6, rise:+o.bar[1]||6, oh:12 }
+    /* A rise of 0 is a real choice - a flush overhang at counter height, billed
+       at overhangLf and not barLf - so it must not run through `|| 6`. It did,
+       which turned every shared flush-bar design back into a raised bar and
+       added $50/lf on reload. A missing rise (an older share code) still
+       defaults to 6. */
+    S.bar = o.bar ? { on:true, depth:+o.bar[0]||6,
+                      rise: o.bar[1] == null ? 6 : (+o.bar[1] || 0), oh:12 }
                   : { on:false, depth:6, rise:6, oh:12 };
     S.outlets = o.ol == null ? BUILD.defaultOutlets : clamp(+o.ol, 0, 20);
     S.mountSize = /^(auto|small|large)$/.test(o.ms) ? o.ms : "auto";
