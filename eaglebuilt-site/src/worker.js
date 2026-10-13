@@ -23,9 +23,10 @@
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
 
-/* grok-4 is not a current model id (retired; requests were redirected).
-   docs.x.ai lists Grok 4.7 as the chat model. */
-const CHAT_MODEL = "grok-4.7";
+/* grok-4.7 reasons before it answers and was timing out past this Worker's 25s
+   limit (the widget got 502s). The non-reasoning model answers in a few seconds,
+   which is what a chat bubble needs. */
+const CHAT_MODEL = "grok-4.20-0309-non-reasoning";
 const CHAT_MAX_MESSAGES = 10;
 const CHAT_MAX_CHARS = 2000;
 /* Per-IP request ceilings. CORS only governs browsers - a direct POST from
@@ -328,6 +329,9 @@ async function chat(request, env) {
       signal: AbortSignal.timeout(25000)
     });
     if (!r.ok) {
+      let detail = "";
+      try { detail = (await r.text()).replace(/\s+/g, " ").slice(0, 160); } catch {}
+      console.log("chat: xai http " + r.status + " " + detail);
       return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
     }
     const data = await r.json();
