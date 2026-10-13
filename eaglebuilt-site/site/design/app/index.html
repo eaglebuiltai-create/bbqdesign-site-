@@ -3207,6 +3207,16 @@ function drawElevation(run, x0, baseY, s, idx, total, gapPx){
   const H = S.height, TH = slabThk(), OH = S.overhang;
   const X = u => x0 + u * s;                            // along the run
   const Y = v => baseY - v * s;                         // height above grade
+  /* Plan order is not elevation order. An elevation is drawn as if you were
+     standing in front of the run, so a run whose face points up the plan
+     (r 180) or to the right (r 270) reads right-to-left and has to be
+     mirrored. Without this the two legs of a U, which face opposite ways,
+     come out as mirror images of one another and a bay gets framed on the
+     wrong end of the run. Mirrored here rather than in runs(), which also
+     feeds pricing, the slot strip and where a new piece lands. */
+  const faceR = (((run.mods[0] && run.mods[0].r) || 0) % 360 + 360) % 360;
+  const mirrored = run.horiz ? faceR === 180 : faceR === 270;
+  const U = m => mirrored ? run.len - m.__u0 - modWidth(m) : m.__u0;
   const has = run.mods.some(m => modSpec(m).barDepth);
   const topY = has ? H + 6 : H;
 
@@ -3228,7 +3238,7 @@ function drawElevation(run, x0, baseY, s, idx, total, gapPx){
 
   // ---- each bay ----
   run.mods.forEach(m => {
-    const c = modSpec(m), w = modWidth(m), u0 = m.__u0;
+    const c = modSpec(m), w = modWidth(m), u0 = U(m);
     const sel = m.id === S.sel;
     EL_HIT.push({ x0:X(u0), x1:X(u0 + w), y0:Y(H + 12), y1:Y(0), id:m.id });
     // bay division line
@@ -3285,7 +3295,7 @@ function drawElevation(run, x0, baseY, s, idx, total, gapPx){
   const dy = Y(0) + 26;
   run.mods.forEach(m => {
     const c = modSpec(m), w = modWidth(m);
-    const a = X(m.__u0 + (w - (c.flex ? w : c.cw)) / 2);
+    const a = X(U(m) + (w - (c.flex ? w : c.cw)) / 2);
     const b = a + (c.flex ? w : c.cw) * s;
     dimH(a, b, dy, c.flex ? ftin(w) : fracIn(c.cw));
   });
@@ -3321,7 +3331,7 @@ function drawElevation(run, x0, baseY, s, idx, total, gapPx){
     const full = isCustom(m) ? c.n : c.k.replace(/^BLZ-/, "");
     let lbl = full;
     gE.save();
-    gE.translate(X(m.__u0 + w/2), dy + labelDrop);
+    gE.translate(X(U(m) + w/2), dy + labelDrop);
     if (gE.measureText(lbl).width > w * s - 4){
       gE.rotate(-Math.PI/2); gE.textAlign = "right";
       while (lbl.length > 3 && gE.measureText(lbl).width > roomForRotated) lbl = lbl.slice(0, -1);
