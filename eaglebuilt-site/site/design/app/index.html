@@ -4552,10 +4552,13 @@ function priceIt(){
     const c = modSpec(m);
     /* Owner-furnished gear stays in the drawings and still gets framed, gassed
        and set — we just are not selling it, so it never reaches the tally. The
-       door under it is still ours unless that is switched over separately. */
+       door under it follows the same flag: if the unit is theirs, so is its door. */
     if (isOwn(m)) owned.push(c.n);
     else if (!c.flex && c.p > 0) tally[m.k] = (tally[m.k] || 0) + 1;
-    if (m.u) tally[m.u] = (tally[m.u] || 0) + 1;
+    if (m.u){
+      if (isOwn(m)){ const u = underSpec(m); if (u) owned.push(u.n); }
+      else tally[m.u] = (tally[m.u] || 0) + 1;
+    }
   });
   Object.keys(tally).forEach(k => {
     const c = BYKEY[k], amt = c.p * tally[k];
