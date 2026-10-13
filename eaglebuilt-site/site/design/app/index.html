@@ -1083,6 +1083,9 @@ window.EB_SAMPLES = [
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h9a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h1"/><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 12h8M8 16h5"/></svg>
         </button>
         <input type="file" id="eqListInput" accept=".txt,.csv,.md,text/plain,text/csv" hidden>
+        <button class="iconbtn" id="btnHistory" title="Earlier versions of this design" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 4v4h4"/><path d="M12 7.5V12l3 2"/></svg>
+        </button>
         <button class="iconbtn" id="btnFit" title="Fit to view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
       </div>
 
@@ -1397,6 +1400,18 @@ window.EB_SAMPLES = [
   </div>
 </div>
 
+<div class="modal" id="histModal">
+  <div class="sheet" style="position:relative">
+    <button class="iconbtn close" id="btnCloseHist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <header>
+      <h3>Earlier versions</h3>
+      <p>The last few states of this design, kept in this browser only. Opening the
+         designer in another tab writes over the current one &mdash; this is what you
+         come back to.</p>
+    </header>
+    <div class="body"><div id="histList"></div></div>
+  </div>
+</div>
 <div class="modal" id="eqModal">
   <div class="sheet" style="position:relative">
     <button class="iconbtn close" id="btnCloseEq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
@@ -6349,6 +6364,8 @@ function writeLocal(){
     if (d === lastWritten) return;
     localStorage.setItem(SAVE_KEY, JSON.stringify({ t: Date.now(), d }));
     lastWritten = d;
+    pushHist(d);
+    syncHistBtn();
   } catch (err){
     saveOK = false;               // private mode / quota / storage blocked
   }
@@ -6375,6 +6392,58 @@ function readLocal(){
 function clearLocal(){
   clearTimeout(saveTimer); saveTimer = 0; lastWritten = "";
   try { localStorage.removeItem(SAVE_KEY); } catch (err){}
+}
+
+/* ---------- autosave history ----------------------------------------------
+   The autosave above is a single slot, so anything that writes it destroys
+   what was there: open the designer in a second tab and the sample design it
+   boots with lands on top of the island you were drawing. That has already
+   cost a real client design. These are the last few DISTINCT states, kept
+   alongside it so there is something to go back to.
+   Local to this browser like the autosave, and deliberately NOT cleared by
+   Reset - a one-click destructive action with no undo is exactly when you
+   want the net still there. --------------------------------------------- */
+const HIST_KEY = "eaglebuilt.design.history.v1", HIST_MAX = 12;
+
+function readHist(){
+  try {
+    const a = JSON.parse(localStorage.getItem(HIST_KEY) || "[]");
+    return Array.isArray(a) ? a.filter(e => e && typeof e.d === "string" && e.d) : [];
+  } catch (err){ return []; }
+}
+function pushHist(d){
+  if (!saveOK || !d) return;
+  try {
+    const a = readHist(), top = a[0], n = S.mods.length;
+    if (top && top.d === d) return;              // nothing changed
+    /* Dragging a piece writes every 400ms. While the piece count is the same
+       and the work is recent, refine the newest entry in place instead of
+       adding one - otherwise a single drag consumes the whole history. */
+    if (top && top.n === n && Date.now() - top.t < 90000){
+      a[0] = { t: top.t, d, n };
+    } else {
+      a.unshift({ t: Date.now(), d, n });
+    }
+    localStorage.setItem(HIST_KEY, JSON.stringify(a.slice(0, HIST_MAX)));
+  } catch (err){
+    /* Out of quota: drop the oldest half rather than lose the lot, and never
+       let a history failure stop the ordinary autosave. */
+    try { localStorage.setItem(HIST_KEY, JSON.stringify(readHist().slice(0, 4))); } catch (e2){}
+  }
+}
+/* A line the customer can recognise a design by, without applying it. */
+function histLabel(d){
+  try {
+    const o = JSON.parse(decodeURIComponent(escape(atob(d))));
+    const n = (o.m || []).length;
+    const real = (o.m || []).filter(a => !/^fill/.test(a[0])).length;
+    const vert = new Set(), horiz = new Set();
+    (o.m || []).forEach(a => ((a[3] % 180) === 0 ? horiz : vert).add(Math.round(((a[3] % 180) === 0 ? a[2] : a[1]) / 16)));
+    const legs = horiz.size + vert.size;
+    const shape = legs >= 3 ? "U-shape" : legs === 2 ? "L-shape" : "straight run";
+    return shape + " · " + n + " piece" + (n === 1 ? "" : "s") +
+           (real ? " · " + real + " unit" + (real === 1 ? "" : "s") : "");
+  } catch (err){ return "saved design"; }
 }
 /* a backgrounded mobile tab may never get another frame — flush immediately */
 addEventListener("pagehide", writeLocal);
@@ -7160,6 +7229,29 @@ $("#btnCloseModal").onclick = closeModal;
 
 /* ---- the customer's own equipment list ---- */
 const closeEq = () => $("#eqModal").classList.remove("on");
+/* ---- earlier versions of this design ---- */
+function syncHistBtn(){ const b = $("#btnHistory"); if (b) b.hidden = readHist().length === 0; }
+function renderHist(){
+  const a = readHist();
+  $("#histList").innerHTML = a.length
+    ? a.map((e, i) => '<div class="ql"><span><b>' + whenText(e.t) + '</b><br><i class="sku">' +
+        histLabel(e.d) + '</i></span><button class="btn ghost sm" data-hist="' + i +
+        '" style="font-size:12px;padding:6px 11px">Restore</button></div>').join("")
+    : '<div class="ql" style="justify-content:center;padding:14px 0;color:#5F7391">Nothing saved yet</div>';
+}
+$("#btnHistory").onclick = () => { renderHist(); $("#histModal").classList.add("on"); };
+$("#btnCloseHist").onclick = () => $("#histModal").classList.remove("on");
+$("#histList").addEventListener("click", e => {
+  const b = e.target.closest("[data-hist]"); if (!b) return;
+  const entry = readHist()[+b.dataset.hist]; if (!entry) return;
+  /* Bank what is on screen first, so restoring is itself undoable. */
+  if (S.mods.length) pushHist(encodeState());
+  if (decodeState(entry.d)){
+    $("#histModal").classList.remove("on");
+    fit(); refresh();
+    toast("Restored the design from " + whenText(entry.t));
+  } else toast("That version could not be read");
+});
 $("#btnEqList").onclick = () => { $("#eqModal").classList.add("on"); renderEqPreview(); $("#eqText").focus(); };
 $("#btnCloseEq").onclick = closeEq;
 $("#eqModal").addEventListener("click", e => { if (e.target.id === "eqModal") closeEq(); });
@@ -7788,6 +7880,7 @@ let LOGO_DATA = "";
     const saved = readLocal();
     if (saved && decodeState(saved.d)){ loaded = true; resumedAt = saved.t || Date.now(); }
   }
+  syncHistBtn();                      // the recover icon only appears once there is something to recover
   if (loaded){ syncControls(); }
   else if (isPhone()){
     /* A phone gets Quick Build opened over the top of this a moment later,
