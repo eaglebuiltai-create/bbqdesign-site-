@@ -24,6 +24,22 @@ name = "fragrant-butterfly-5c92"
 main = "src/worker.js"
 compatibility_date = "2026-08-24"
 
+# These two Custom domains are already attached to the Worker in Cloudflare.
+# They MUST be declared here as well: from wrangler 4.150 a deploy compares the
+# local config against the remote one and offers to overwrite remote with local
+# — and the default answer is Yes. With routes absent here, accepting that
+# prompt DELETES both domains and the live site goes dark.
+routes = [
+  { pattern = "eaglebuilt.ai",     custom_domain = true },
+  { pattern = "www.eaglebuilt.ai", custom_domain = true }
+]
+
+# Also set in the dashboard; declared here for the same reason as routes above.
+# workers_dev keeps the fragrant-butterfly-5c92.*.workers.dev fallback URL alive,
+# which is how you reach the site if a custom domain ever has trouble.
+workers_dev = true
+preview_urls = true
+
 [assets]
 directory = "./site"
 binding = "ASSETS"
