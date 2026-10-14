@@ -16,7 +16,7 @@ export const SIGNATURE = [
   "John Simpson",
   "EagleBuilt AI",
   "CSLB #992251 — General Contractor & C-29 Masonry",
-  "(949) 564-1948",
+  "(916) 359-9692",
 ].join("\n");
 
 export type FollowUpLead = {
@@ -84,7 +84,7 @@ export function followUps(lead: FollowUpLead): FollowUp[] {
       "",
       "John Simpson",
       "EagleBuilt AI",
-      "(949) 564-1948",
+      "(916) 359-9692",
     ].join("\n"),
   };
 
@@ -100,7 +100,7 @@ export function followUps(lead: FollowUpLead): FollowUp[] {
       "",
       "John Simpson",
       "EagleBuilt AI",
-      "(949) 564-1948",
+      "(916) 359-9692",
     ].join("\n"),
   };
 

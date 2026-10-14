@@ -48,11 +48,11 @@ const CHAT_SYSTEM = [
   "Facts you may state:",
   "- EagleBuilt AI is based in Granite Bay and serves Sacramento and the foothills. Design/build general contractor and masonry.",
   "- Free 3D designers live on https://eaglebuilt.ai: outdoor kitchen at /design/, fireplace at /design/fireplace/, fire pit at /design/firepit/, and the yard planner at /design/yard/. They use real grills and real manufacturer cutouts.",
-  "- To start a design, open the matching designer on the site. For a quote or a person: email info@eaglebuilt.ai or call (949) 564-1948.",
+  "- To start a design, open the matching designer on the site. For a quote or a person: email info@eaglebuilt.ai or call (916) 359-9692.",
   "- Taglines, when they fit: \"Real Experience. Real Solutions. Real Backyards.\" and \"Built for a Better Tomorrow.\"",
   "",
   "Rules:",
-  "- Never invent prices, reviews, star ratings, or timelines. If you are unsure, say so and invite them to start a free design or to email info@eaglebuilt.ai / call (949) 564-1948.",
+  "- Never invent prices, reviews, star ratings, or timelines. If you are unsure, say so and invite them to start a free design or to email info@eaglebuilt.ai / call (916) 359-9692.",
   "- Do not promise a start date, a permit result, or that any number is a firm quote.",
   "- Keep answers to 2–4 sentences unless they ask for more detail.",
   "- Stay on outdoor kitchens, fireplaces, fire pits, yards, the designers, the service area, and how to start. If they wander off, steer back in a sentence.",
@@ -153,7 +153,7 @@ async function confirm(request, env) {
     `John Simpson`,
     `EagleBuilt AI`,
     `CSLB #992251 — General Contractor & C-29 Masonry`,
-    `(949) 564-1948`,
+    `(916) 359-9692`,
     `info@eaglebuilt.ai`
   ].join("\n");
 
@@ -177,7 +177,7 @@ async function confirm(request, env) {
     `John Simpson`,
     `EagleBuilt AI`,
     `CSLB #992251 — General Contractor & C-29 Masonry`,
-    `(949) 564-1948`,
+    `(916) 359-9692`,
     `info@eaglebuilt.ai`
   ].filter(l => l !== null).join("\n");
 
@@ -332,16 +332,16 @@ async function chat(request, env) {
       let detail = "";
       try { detail = (await r.text()).replace(/\s+/g, " ").slice(0, 160); } catch {}
       console.log("chat: xai http " + r.status + " " + detail);
-      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
+      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
     }
     const data = await r.json();
     const reply = chatReplyText(data).slice(0, 4000);
     if (!reply) {
-      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
+      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
     }
     return json({ reply }, 200);
   } catch {
-    return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (949) 564-1948." }, 502);
+    return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
   }
 }
 

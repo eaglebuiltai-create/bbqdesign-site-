@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-11 · 91 |
-| **Live on eaglebuilt.ai** | 2026-10-11 · 91 ✅ |
+| **Latest built** | 2026-10-14 · 92 |
+| **Live on eaglebuilt.ai** | 2026-10-14 · 92 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,40 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## New phone number — 2026-10-14 (live)
+
+Everything now says **(916) 359-9692**. The old (949) 564-1948 is gone from
+the site, the chat widget, the Worker (chat system prompt, canned replies and
+the three "chat is unavailable" errors), the CRM follow-up templates, the ad
+creative sources and the johnnyrock site — 66 replacements across 27 files,
+in three forms: the printed number, `tel:+19163599692`, and the JSON-LD
+`+1-916-359-9692` that Google reads on / and /design/.
+
+A 949 area code on a page selling Sacramento work argued against the headline.
+The 916 is a Google Voice number John has had for years and reads local.
+
+The line in "Site chat — 2026-09-29" below still prints the old number. That
+is history and is left alone.
+
+Still to do by hand, outside this repo: Google Business Profile, the Google
+Ads call asset, and the end card of the commercial — the ad sources here are
+updated, but anything already exported has to be re-rendered.
+
+---
+
+## Build 92 — 2026-10-14 (live): a stranger is not greeted with their price
+
+A first visit was being met with "Welcome back. Pick up where you left off"
+over a "Continue my island" card priced at five figures. The gallery decided
+the island was theirs from `S.mods.length`, and the app always boots a sample,
+so that was true before anyone had touched anything.
+
+It now remembers what it put on screen at boot. The island is theirs if an
+autosave was restored, or if what is on screen is no longer what was booted.
+A shared `#d=` link stays a stranger's design until they change it.
 
 ---
 

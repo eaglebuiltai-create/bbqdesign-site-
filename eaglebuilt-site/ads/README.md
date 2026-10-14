@@ -206,14 +206,14 @@ and `end` PNGs work as a carousel or as Stories on their own.
 | 6.8–10 s | Step 1 · *We call you back.* |
 | 10–13.2 s | Step 2 · *We pick the next step* — site visit, sketch, or design it together in 3D |
 | 13.2–16.4 s | Step 3 · *You get a design and a budget.* |
-| 16.4–21 s | End card — eaglebuilt.ai/consultation, (949) 564-1948, CSLB |
+| 16.4–21 s | End card — eaglebuilt.ai/consultation, (916) 359-9692, CSLB |
 
 > **Caption**
 >
 > Want an outdoor kitchen but don't want to design it yourself? Book a free
 > design consultation. We call you back, figure out the right next step, and
 > you get a design and an itemized budget before anyone breaks ground. Free, no
-> obligation. Link in bio or call (949) 564-1948. 🦅
+> obligation. Link in bio or call (916) 359-9692. 🦅
 >
 > #outdoorkitchen #bbqisland #sacramento #roseville #folsom #granitebay
 > #eldoradohills #backyarddesign #outdoorliving #designconsultation
