@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PAID-TRAFFIC LANDING PAGE (John, 2026-10-14)
+
+     Built for the Google Ads campaign, which previously pointed at /design/
+     — a designer that can only ever report "designer opened", never a lead.
+     This page asks for the lead first and hands the designer over afterwards,
+     so a click has somewhere to convert.
+
+     noindex on purpose. It targets the same local terms as the homepage and
+     is deliberately thin, so letting it into the index would only split them.
+     It is not in sitemap.xml for the same reason. Flip the robots meta and
+     add the URL there if it should ever earn its own traffic.
+
+     CSS is inline rather than /assets/site.css for the reason given at the
+     top of that file: paid traffic should not wait on a second request.
+
+     The hero <video> has NO <source> in the markup. The poster carries the
+     page on its own and script adds the source only on a wide screen with a
+     connection that can take it — a phone on cell data never fetches it, and
+     a missing /assets/hero.mp4 degrades to the poster rather than a gap.
+     ══════════════════════════════════════════════════════════════════════ -->
+
+<title>Outdoor Kitchens in Granite Bay &amp; Sacramento | EagleBuilt AI</title>
+<meta name="description" content="Custom outdoor kitchens built by a licensed Sacramento-area contractor. See yours in 3D with real equipment and a real price. CSLB #992251.">
+<link rel="canonical" href="https://eaglebuilt.ai/outdoor-kitchens-sacramento/">
+<meta name="robots" content="noindex, follow">
+
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<meta name="theme-color" content="#070A12">
+
+<link rel="preload" as="image" href="/projects/photos/covered-kitchen-dusk-bar.webp" type="image/webp" fetchpriority="high">
+<script src="/assets/track.js" defer></script>
+
+<style>
+:root{
+  --bg:#070A12; --bg2:#0B111C; --panel:#0F1826; --line:#1E2C42; --line2:#2A3B57;
+  --txt:#E7EEF7; --muted:#8DA0B8; --dim:#5F7391;
+  /* One token drives every call-to-action, the rule under the headline and
+     the step numbers. Swap these two lines for #FF8A2B / #E06A10 to get the
+     orange treatment from the mockup without touching anything else. */
+  --accent:#2E9BFF; --accent2:#1668C4;
+  --good:#3FD08A; --star:#F5B544;
+  --wrap:1120px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+h1,h2,h3{line-height:1.15;margin:0 0 .5em;text-wrap:balance}
+h2{font-size:clamp(24px,3.4vw,34px);letter-spacing:-.015em;font-weight:750}
+h3{font-size:17px;font-weight:700;margin:0 0 5px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ── header: logo and the phone, nothing else. Every other link on a landing
+      page is a way out of it. ───────────────────────────────────────────── */
+.top{position:relative;z-index:3;border-bottom:1px solid rgba(255,255,255,.07);
+  background:rgba(7,10,18,.72);backdrop-filter:blur(10px)}
+/* padding-block, not the shorthand: these elements also carry .wrap, and a
+   plain `padding` here would wipe out its 20px side gutter and push the
+   header and the form card flush against the edge of a phone screen. */
+.toprow{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+/* flex-shrink:0 on both, because the wordmark is nowrap: let the logo box
+   shrink and the text spills straight out of it and under the phone button
+   instead of wrapping, which is invisible to a width measurement. */
+.logo{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.logo img{height:30px;width:auto}
+.logo b{font-size:15px;letter-spacing:.06em;font-weight:800;color:var(--txt);white-space:nowrap}
+.logo b i{font-style:normal;color:var(--accent)}
+.callbtn{margin-left:auto;flex-shrink:0;display:inline-flex;align-items:center;gap:7px;
+  padding:9px 15px;border-radius:999px;font-weight:700;font-size:15px;white-space:nowrap;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));color:#fff;
+  box-shadow:0 3px 14px rgba(46,155,255,.3)}
+.callbtn:hover{filter:brightness(1.08);text-decoration:none}
+/* Logo + wordmark + gap + button + gutters needs 416px. Under that the
+   wordmark goes and the emblem carries the brand on its own — the phone is
+   what the header is for. */
+@media(max-width:440px){ .logo b{display:none} }
+
+/* ── hero ─────────────────────────────────────────────────────────────── */
+.hero{position:relative;overflow:hidden;background:#0A0E16}
+.heroMedia{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  /* The photo is a bright dusk shot; knocking it back is what keeps the
+     headline readable rather than relying on a text shadow. */
+  filter:brightness(.55) saturate(1.05)}
+.heroVeil{position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(7,10,18,.93) 0%,rgba(7,10,18,.78) 42%,rgba(7,10,18,.5) 100%),
+             linear-gradient(0deg,rgba(7,10,18,.9) 0%,rgba(7,10,18,0) 45%)}
+.heroIn{position:relative;z-index:2;display:grid;gap:30px;align-items:center;
+  grid-template-columns:1fr;padding-top:44px;padding-bottom:50px}
+h1{font-size:clamp(31px,5.4vw,53px);letter-spacing:-.025em;font-weight:800;margin:0 0 14px}
+h1 .hl{color:var(--accent);display:block}
+.sub{font-size:clamp(16px,2vw,19.5px);color:#C4D2E4;margin:0;max-width:30ch}
+
+/* ── form card ────────────────────────────────────────────────────────── */
+.card{background:rgba(15,24,38,.94);border:1px solid var(--line2);border-radius:14px;
+  padding:20px;box-shadow:0 18px 50px rgba(0,0,0,.5)}
+.card h2{font-size:19px;margin:0 0 3px;letter-spacing:-.01em}
+.card .cardsub{color:var(--muted);font-size:14px;margin:0 0 15px}
+.f{margin-bottom:11px}
+.f label{display:block;font-size:13px;font-weight:650;color:var(--muted);margin-bottom:5px}
+.f input{width:100%;padding:12px 13px;border-radius:9px;font-size:16px; /* 16px: anything smaller makes iOS zoom the page on focus */
+  background:#0A121E;border:1px solid var(--line2);color:var(--txt)}
+.f input::placeholder{color:var(--dim)}
+.f input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(46,155,255,.18)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.go{width:100%;padding:15px;border:0;border-radius:10px;cursor:pointer;
+  font-size:16.5px;font-weight:800;color:#fff;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  box-shadow:0 6px 22px rgba(46,155,255,.33);transition:.15s}
+.go:hover{filter:brightness(1.08)}
+.go:disabled{opacity:.6;cursor:default}
+.err{display:none;color:#FF9A93;font-size:14px;margin:0 0 10px}
+.hint{color:var(--muted);font-size:13px;margin:6px 0 0;min-height:1px}
+.trust{margin:14px 0 0;padding-top:13px;border-top:1px solid var(--line);
+  font-size:13.5px;color:var(--muted);line-height:1.75}
+.stars{color:var(--star);letter-spacing:1px}
+.fine{color:var(--dim);font-size:12.5px;margin:9px 0 0;line-height:1.55}
+.thanks h2{font-size:20px;margin:0 0 8px}
+.thanks p{margin:0 0 12px;color:var(--muted)}
+
+/* ── body sections ────────────────────────────────────────────────────── */
+section{padding:52px 0}
+.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lede{color:var(--muted);max-width:62ch;margin:-6px 0 26px}
+.steps{display:grid;gap:14px;grid-template-columns:1fr}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+.step .n{display:inline-flex;align-items:center;justify-content:center;width:27px;height:27px;
+  border-radius:8px;background:rgba(46,155,255,.14);color:var(--accent);
+  font-weight:800;font-size:14px;margin-bottom:10px}
+.step p{margin:0;color:var(--muted);font-size:15px}
+.shots{display:grid;gap:12px;grid-template-columns:1fr}
+.shot{border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
+.shot img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.shot span{display:block;padding:10px 13px;font-size:13.5px;color:var(--muted)}
+.callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;color:var(--muted);font-size:15px;margin:22px 0 0}
+.callout b{color:var(--txt)}
+.endcta{text-align:center}
+.endcta .go{max-width:360px;margin:16px auto 0}
+.tel{display:inline-block;margin-top:14px;font-size:19px;font-weight:750}
+footer{padding:28px 0 34px;border-top:1px solid var(--line);color:var(--dim);font-size:13.5px;line-height:1.8}
+footer a{color:var(--muted)}
+
+/* ── wide ─────────────────────────────────────────────────────────────── */
+@media(min-width:900px){
+  .heroIn{grid-template-columns:1.08fr .92fr;gap:48px;padding-top:70px;padding-bottom:80px}
+  .card{padding:24px}
+  .steps,.shots{grid-template-columns:repeat(3,1fr)}
+  section{padding:64px 0}
+}
+/* A landscape phone is ~900px wide but only ~390px tall, so it matches the
+   wide rule above and then has nowhere to put a two-column hero. Height is
+   the test that catches it. */
+@media(max-height:560px) and (orientation:landscape){
+  .heroIn{padding-top:12px;padding-bottom:18px;gap:18px}
+  h1{font-size:26px;margin-bottom:8px}
+  .sub{font-size:15px}
+  .card{padding:13px}
+  .card h2{font-size:17px}
+  .card .cardsub{font-size:13px;margin-bottom:9px}
+  .f{margin-bottom:6px}
+  .f label{margin-bottom:3px}
+  .f input{padding:8px 11px}
+  .go{padding:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .heroMedia{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap toprow">
+    <span class="logo">
+      <img src="/assets/eaglebuilt-emblem.png" alt="" width="120" height="34">
+      <b>EAGLEBUILT<i>&nbsp;AI</i></b>
+    </span>
+    <a class="callbtn" href="tel:+19163599692">&#9742;&nbsp;(916)&nbsp;359-9692</a>
+  </div>
+</header>
+
+<div class="hero">
+  <!-- No <source> here on purpose — see the note at the top of the file. The
+       poster is the hero until script decides the visitor can afford the video. -->
+  <video class="heroMedia" id="heroVid"
+         poster="/projects/photos/covered-kitchen-dusk-bar.jpg"
+         autoplay muted loop playsinline preload="none"
+         aria-hidden="true" tabindex="-1"></video>
+  <div class="heroVeil"></div>
+
+  <div class="wrap heroIn">
+    <div>
+      <h1>Custom Outdoor Kitchens in <span class="hl">Granite Bay &amp; Sacramento</span></h1>
+      <p class="sub">See yours in 3D, get a real price, built by a licensed local contractor.</p>
+    </div>
+
+    <div class="card" id="cardBox">
+      <form id="leadForm" novalidate>
+        <h2>Start with a free 3D design</h2>
+        <p class="cardsub">Tell us where you are. We call back within one business day.</p>
+
+        <p class="err" id="formErr" role="alert"></p>
+
+        <div class="f">
+          <label for="lName">Name</label>
+          <input id="lName" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+        </div>
+        <div class="f">
+          <label for="lEmail">Email</label>
+          <input id="lEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="two">
+          <div class="f">
+            <label for="lPhone">Phone</label>
+            <input id="lPhone" name="phone" type="tel" placeholder="(916) 555-0123" autocomplete="tel" inputmode="tel" required>
+          </div>
+          <div class="f">
+            <label for="lZip">ZIP</label>
+            <input id="lZip" name="zip" type="text" placeholder="95746" autocomplete="postal-code"
+                   inputmode="numeric" maxlength="5" required>
+          </div>
+        </div>
+        <p class="hint" id="zipHint"></p>
+
+        <button class="go" id="goBtn" type="submit">Get My Free 3D Design + Quote</button>
+
+        <div class="trust">
+          <span class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          Reviewed on Google<br>
+          CA Licensed Contractor &middot; CSLB #992251<br>
+          Former Marine-owned &middot; Granite Bay
+        </div>
+        <p class="fine">We use your number to call you about your project. No list, no resale.
+          <a href="/privacy/">Privacy</a>.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="lede">Three steps, and you see a number before anyone comes out.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="n">1</span>
+        <h3>Tell us about your yard</h3>
+        <p>Name, phone, ZIP. That is it. We call you within one business day.</p>
+      </div>
+      <div class="step">
+        <span class="n">2</span>
+        <h3>See it in 3D with a real price</h3>
+        <p>We lay out your island with the grill you want, real manufacturer cutouts and real
+          equipment pricing — not a range off a calculator.</p>
+      </div>
+      <div class="step">
+        <span class="n">3</span>
+        <h3>We build it</h3>
+        <p>Our licensed crew handles masonry, gas, electrical and permits, start to finish.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <b>About the number you will see.</b> Everything the designer produces is a budget proposal,
+      not a firm quote. Site access, soil, gas and electrical runs all move it. A field walk
+      determines the final price — and we tell you that before you spend a minute on it, not after.
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Built here, not rendered somewhere else</h2>
+    <p class="lede">Every photo below is our own work in the Sacramento area.</p>
+    <div class="shots">
+      <figure class="shot" style="margin:0">
+        <picture>
+          <source srcset="/projects/photos/granite-bay-pizza-oven-island.webp" type="image/webp">
+          <img src="/projects/photos/granite-bay-pizza-oven-island.jpg" width="1190" height="662"
+               loading="lazy" alt="Stone island with a wood-fired oven and built-in grill in Granite Bay.">
+        </picture>
+        <span>Granite Bay — island, wood-fired oven, built-in grill</span>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <picture>
+          <source srcset="/projects/photos/bamboo-kitchen-stamped-concrete.webp" type="image/webp">
+          <img src="/projects/photos/bamboo-kitchen-stamped-concrete.jpg" width="1655" height="950"
+               loading="lazy" alt="Stacked-stone kitchen with a bar run over stamped concrete.">
+        </picture>
+        <span>Stacked stone, bar run, stamped concrete</span>
+      </figure>
+      <figure class="shot" style="margin:0">
+        <picture>
+          <source srcset="/projects/photos/covered-kitchen-dusk-bar.webp" type="image/webp">
+          <img src="/projects/photos/covered-kitchen-dusk-bar.jpg" width="881" height="658"
+               loading="lazy" alt="Covered kitchen and bar at dusk with an undermount sink and dining run.">
+        </picture>
+        <span>Covered kitchen, bar seating, undermount sink</span>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="endcta">
+  <div class="wrap">
+    <h2>Ready to see yours?</h2>
+    <p class="lede" style="margin-left:auto;margin-right:auto">Free 3D design, a real price, and a
+      licensed contractor who lives where you do.</p>
+    <button class="go" type="button" id="toForm">Get My Free 3D Design + Quote</button>
+    <div><a class="tel" href="tel:+19163599692">&#9742;&nbsp;(916) 359-9692</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b style="color:var(--txt)">EagleBuilt AI</b> &middot; Granite Bay, CA 95746<br>
+    Serving Granite Bay, Roseville, Folsom, El Dorado Hills, Sacramento &amp; the foothills<br>
+    CA Licensed General Contractor &amp; C-29 Masonry &middot; CSLB #992251<br>
+    <a href="tel:+19163599692">(916) 359-9692</a> &middot;
+    <a href="mailto:info@eaglebuilt.ai">info@eaglebuilt.ai</a> &middot;
+    <a href="/privacy/">Privacy</a>
+  </div>
+</footer>
+
+<script>
+/* ── hero video ────────────────────────────────────────────────────────────
+   Decides whether this visitor can afford a few megabytes of decoration. A
+   phone on cell data cannot, and neither can anyone who has asked for less
+   motion, so they keep the poster and the page costs them nothing extra. */
+(function () {
+  var v = document.getElementById("heroVid");
+  if (!v) return;
+
+var mq = function (q) { return window.matchMedia && window.matchMedia(q).matches; };
+  var reduced = mq("(prefers-reduced-motion: reduce)");
+  /* Width alone is not the test. A landscape iPhone reports 844-932px and
+     would sail past a width check straight onto cell data, so the short
+     viewport and the touch pointer both have to disqualify it too. */
+  var small = window.innerWidth < 900 || window.innerHeight < 560 || mq("(pointer: coarse)");
+  var c = navigator.connection || {};
+  var slow = c.saveData === true || /^(slow-)?2g$/.test(c.effectiveType || "");
+
+  if (reduced || small || slow) return;
+
+  /* A 404 here must look like "no video", not like a broken page. The poster
+     is already painted and stays put because nothing replaces it. */
+  v.addEventListener("error", function () { v.removeAttribute("autoplay"); }, true);
+
+  var s = document.createElement("source");
+  s.src = "/assets/hero.mp4";
+  s.type = "video/mp4";
+  v.appendChild(s);
+  v.preload = "auto";
+  v.load();
+  /* Autoplay can still be refused (Low Power Mode, a browser policy). Nothing
+     to do about it and nothing to show for it — the poster is the fallback. */
+  var p = v.play();
+  if (p && p.catch) p.catch(function () {});
+})();
+
+/* ── the form ──────────────────────────────────────────────────────────────
+   Two destinations, the same pair every other lead on the site uses:
+     Web3Forms  the inbox, so John sees it on his phone immediately
+     /api/leads the CRM, same-origin so the ingest key stays in the Worker
+
+   The CRM rejects a lead with no valid email, which is why email is a
+   required field here rather than the optional one it is on /consultation/.
+   Without it the lead would reach the inbox and never reach the pipeline. */
+(function () {
+  var W3_ENDPOINT = "https://api.web3forms.com/submit";
+  var W3_KEY = "3a819006-46a1-4176-ac5e-224d1a489557";
+
+  var form = document.getElementById("leadForm");
+  var box  = document.getElementById("cardBox");
+  var err  = document.getElementById("formErr");
+  var btn  = document.getElementById("goBtn");
+  var zip  = document.getElementById("lZip");
+  var hint = document.getElementById("zipHint");
+
+  var val = function (id) { return (document.getElementById(id).value || "").trim(); };
+  var esc = function (s) { return String(s).replace(/[<>&]/g, function (c) {
+    return { "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]; }); };
+
+  function fail(msg, id) {
+    err.textContent = msg; err.style.display = "block";
+    var el = id && document.getElementById(id); if (el) el.focus();
+  }
+
+  /* Said plainly and early, because the alternative is John spending a call
+     to find out. It does not block the send — an out-of-area job can still be
+     worth a conversation, and that is his decision, not the form's. */
+  zip.addEventListener("input", function () {
+    var area = window.ebArea ? window.ebArea(zip.value) : "unknown";
+    hint.textContent = (area === "service" || area === "unknown") ? ""
+      : "We build around Sacramento. Send it anyway and we will tell you straight whether we can reach you.";
+  });
+
+  document.getElementById("toForm").addEventListener("click", function () {
+    box.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(function () { document.getElementById("lName").focus(); }, 400);
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    err.style.display = "none";
+
+    var name = val("lName"), email = val("lEmail"), phone = val("lPhone"), z = val("lZip");
+    if (!name) return fail("Please tell us your name.", "lName");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return fail("That email does not look right.", "lEmail");
+    /* Count digits rather than policing the format people type it in. */
+    if ((phone.match(/\d/g) || []).length < 10) return fail("Please give a number we can call you back on.", "lPhone");
+    if (!/^\d{5}$/.test(z)) return fail("Please enter a 5-digit ZIP code.", "lZip");
+
+    var area = window.ebArea ? window.ebArea(z) : "unknown";
+    btn.disabled = true; btn.textContent = "Sending…";
+
+    /* The CRM copy is fire-and-forget: it must never be the reason someone is
+       told their enquiry failed. The inbox copy below is the one that decides. */
+    try {
+      fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name, email: email, phone: phone, zip: z,
+                               source: "ads landing — outdoor kitchens" })
+      }).catch(function () {});
+    } catch (e1) {}
+
+    fetch(W3_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        access_key: W3_KEY,
+        from_name:  "EagleBuilt AI — Ads landing",
+        subject:    "Ads lead — " + name + " (" + z + ")",
+        lead_stage: "ads landing page",
+        name: name, email: email, phone: phone, zip: z,
+        service_area: area,
+        page: location.pathname,
+        replyto: email
+      })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; })
+        .then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok || res.j.success === false) throw new Error("send failed");
+        /* Only ever on a confirmed delivery, so a failed send can never be
+           counted as a lead. */
+        window.ebTrack && window.ebTrack("landing_lead", { area: area });
+        box.innerHTML =
+          '<div class="thanks">' +
+            '<h2>Thanks, ' + esc(name) + ' — we have it.</h2>' +
+            '<p>We will call ' + esc(phone) + ' within one business day. If you would rather not ' +
+              'wait, call <a href="tel:+19163599692">(916) 359-9692</a>.</p>' +
+            '<p>Want a head start? Lay your island out yourself — it takes about two minutes, ' +
+              'and whatever you build is waiting when we call.</p>' +
+            '<a class="go" href="/design/" style="display:block;text-align:center;text-decoration:none">' +
+              'Open the 3D designer</a>' +
+          '</div>';
+        box.scrollIntoView({ behavior: "smooth", block: "center" });
+      })
+      .catch(function () {
+        /* Never leave someone believing it went through when it did not. */
+        btn.disabled = false; btn.textContent = "Get My Free 3D Design + Quote";
+        fail("That did not send. Please call (916) 359-9692, or try again in a moment.");
+      });
+  });
+})();
+</script>
+</body>
+</html>

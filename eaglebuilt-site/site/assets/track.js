@@ -11,6 +11,7 @@
      design_lead    a customer sent a finished design             (kitchen designer)
      designer_open  someone gave their email to open a tool       (all four tools)
      phone_click    someone tapped the phone number               (every page)
+     landing_lead   the ads landing form was delivered            (/outdoor-kitchens-sacramento/)
 
    Only ever fired on a CONFIRMED success — after the lead has actually been
    delivered — so a failed send can never be counted as a lead.
@@ -20,12 +21,13 @@
     ga4: "G-1P2Q3CD8TZ",     // Google Analytics 4 measurement ID (set 2026-09-15)
     ads: "AW-18410742850", // Google Ads conversion ID - account 467-487-5109 (set 2026-10-06)
     labels: {              // Google Ads conversion label per action
-      /* All four of these point at the one "Lead" action on purpose - see
+      /* All five of these point at the one "Lead" action on purpose - see
          the note in CHANGELOG for 2026-10-06. */
       consultation:  "W4LsCKmL35MdEMLI9spE",   // Lead
       contact_lead:  "W4LsCKmL35MdEMLI9spE",   // Lead
       design_lead:   "W4LsCKmL35MdEMLI9spE",   // Lead
       phone_click:   "W4LsCKmL35MdEMLI9spE",   // Lead
+      landing_lead:  "W4LsCKmL35MdEMLI9spE",   // Lead - ads landing page
       designer_open: "f8gcCKyL35MdEMLI9spE"    // Designer opened
     }
   };
