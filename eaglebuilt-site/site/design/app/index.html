@@ -7871,6 +7871,9 @@ let LOGO_DATA = "";
   // A shared #d= link always wins; otherwise pick up an autosaved design.
   const h = location.hash.match(/#d=(.+)$/);
   let loaded = false, resumedAt = 0;
+  /* What the app itself put on screen before the visitor touched anything, so
+     "their island" can be told apart from "the sample we booted". */
+  let bootState = "";
   /* ?shot=<key>: tools/sample-shots.sh drawing that sample's picture. */
   const shotKey = (location.search.match(/[?&]shot=([a-z]+)/) || [])[1];
   const shotSample = shotKey && (window.EB_SAMPLES || []).find(x => x.key === shotKey);
@@ -7934,6 +7937,7 @@ let LOGO_DATA = "";
     fit(); refresh();
     if (shotSample){ takeSampleShot(); return; }
     EagleOne.init(); window.EagleReady = 1;
+    bootState = S.mods.length ? encodeState() : "";
     fillSamples();
     fillContinue();
     /* The card is 331px over a 375px canvas — useful beside a drawing on a
@@ -7986,7 +7990,14 @@ let LOGO_DATA = "";
     if (!grid) return;
     let card = grid.querySelector("[data-continue]");
     const head = document.getElementById("ebsTitle");
-    if (!S.mods.length){
+    /* "Welcome back" belongs to someone who has actually been here before.
+       A first visit still has modules on screen - the app boots a sample - so
+       S.mods.length was never the right test, and a stranger was being
+       greeted with "Continue my island" above a five-figure price for an
+       island they had never seen. It is theirs if an autosave was restored,
+       or if they have changed what we booted. */
+    const mine = S.mods.length && (resumedAt || encodeState() !== bootState);
+    if (!mine){
       if (card) card.remove();
       head.textContent = "Pick an island to start from";
       return;
