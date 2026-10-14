@@ -93,6 +93,13 @@ h3{font-size:17px;font-weight:700;margin:0 0 5px}
   /* The photo is a bright dusk shot; knocking it back is what keeps the
      headline readable rather than relying on a text shadow. */
   filter:brightness(.55) saturate(1.05)}
+/* The clip carries its own burned-in captions ("Designed in 3D.", "Built by
+   EagleBuilt.") across the top of the frame. They are a second headline
+   competing with the page's own, and at this layout they slide half-hidden
+   behind the form card. The hero clips its overflow, so lifting the video puts
+   that band off-screen. Only applied once a source is actually attached: the
+   poster has no text and keeps its own framing. */
+.heroMedia.hasVid{top:-26%;height:126%}
 .heroVeil{position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(7,10,18,.93) 0%,rgba(7,10,18,.78) 42%,rgba(7,10,18,.5) 100%),
              linear-gradient(0deg,rgba(7,10,18,.9) 0%,rgba(7,10,18,0) 45%)}
@@ -362,6 +369,7 @@ var mq = function (q) { return window.matchMedia && window.matchMedia(q).matches
   s.src = "/assets/hero.mp4";
   s.type = "video/mp4";
   v.appendChild(s);
+  v.classList.add("hasVid");   // lifts the caption band out of the hero
   v.preload = "auto";
   v.load();
   /* Autoplay can still be refused (Low Power Mode, a browser policy). Nothing
