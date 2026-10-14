@@ -7,6 +7,7 @@ import { LeadEditForm } from "@/components/LeadEditForm";
 import { AddNoteForm } from "@/components/AddNoteForm";
 import { FollowUpEmail } from "@/components/FollowUpEmail";
 import { DeleteLeadButton } from "@/components/DeleteLeadButton";
+import { RewardCredits } from "@/components/RewardCredits";
 import type { LeadStatusValue } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -23,6 +24,10 @@ export default async function LeadDetailPage({
         orderBy: { createdAt: "desc" },
         include: { author: { select: { name: true, email: true } } },
       },
+      credits: {
+        orderBy: { createdAt: "desc" },
+        include: { author: { select: { name: true, email: true } } },
+      },
     },
   });
   if (!lead) notFound();
@@ -31,7 +36,7 @@ export default async function LeadDetailPage({
     <div className="space-y-6">
       <div>
         <Link href="/leads" className="text-sm font-medium text-blue-800 hover:underline">
-          ← Back to leads
+          â Back to leads
         </Link>
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <h1 className="text-2xl font-semibold text-slate-900">
@@ -50,7 +55,7 @@ export default async function LeadDetailPage({
           </div>
         </div>
         <p className="mt-1 text-sm text-slate-500">
-          Created {format(lead.createdAt, "MMM d, yyyy h:mm a")} · Updated{" "}
+          Created {format(lead.createdAt, "MMM d, yyyy h:mm a")} Â· Updated{" "}
           {format(lead.updatedAt, "MMM d, yyyy h:mm a")}
         </p>
       </div>
@@ -86,7 +91,7 @@ export default async function LeadDetailPage({
                   <p className="mt-2 text-xs text-slate-500">
                     {format(note.createdAt, "MMM d, yyyy h:mm a")}
                     {note.author
-                      ? ` · ${note.author.name || note.author.email}`
+                      ? ` Â· ${note.author.name || note.author.email}`
                       : ""}
                   </p>
                 </li>
@@ -95,6 +100,26 @@ export default async function LeadDetailPage({
           </ul>
         </section>
       </div>
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="mb-1 flex items-baseline gap-2">
+          <h2 className="font-semibold text-slate-900">Reward credits</h2>
+          <span className="text-xs text-slate-500">internal — never shown in the designer</span>
+        </div>
+        <p className="mb-4 text-sm text-slate-500">
+          A discount they did not take, banked against their next job.
+        </p>
+        <RewardCredits
+          leadId={lead.id}
+          credits={lead.credits.map((c) => ({
+            id: c.id,
+            amount: c.amount,
+            reason: c.reason,
+            createdAt: c.createdAt.toISOString(),
+            author: c.author,
+          }))}
+        />
+      </section>
 
       <FollowUpEmail
         leadId={lead.id}

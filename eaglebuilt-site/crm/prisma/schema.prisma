@@ -26,6 +26,7 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   notes        Note[]
+  credits      Credit[]
 }
 
 model Lead {
@@ -41,6 +42,7 @@ model Lead {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   notes         Note[]
+  credits       Credit[]
 
   @@index([status])
   @@index([nextFollowUp])
@@ -50,6 +52,28 @@ model Lead {
 model Note {
   id        String   @id @default(cuid())
   body      String
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+/// Reward credits — a discount a customer did not take, banked against their
+/// next job. Deliberately a LEDGER and not a balance column: every grant and
+/// every redemption is its own signed row, so the balance is always the sum of
+/// the history and the two can never drift apart. Reversing a mistake means
+/// posting the opposite entry, which keeps the trail intact rather than
+/// quietly rewriting it.
+///
+/// `amount` is whole dollars: positive granted, negative redeemed. Discounts
+/// here are internal — the public designer always shows list price.
+model Credit {
+  id        String   @id @default(cuid())
+  amount    Int
+  reason    String
   leadId    String
   lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   authorId  String?

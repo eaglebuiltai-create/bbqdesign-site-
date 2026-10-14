@@ -26,6 +26,12 @@ export default async function DashboardPage() {
     take: 10,
   });
 
+  /* Net of redemptions, so it reads as what is still owed to customers rather
+     than everything ever granted. A redemption cannot overdraw a lead, so the
+     global sum cannot go negative. */
+  const creditSum = await prisma.credit.aggregate({ _sum: { amount: true } });
+  const creditsOutstanding = creditSum._sum.amount ?? 0;
+
   const recent = await prisma.lead.findMany({
     orderBy: { createdAt: "desc" },
     take: 5,
@@ -48,7 +54,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <StatCard label="Total leads" value={stats.total} />
         <StatCard label="Due today" value={stats.dueToday} accent="amber" />
         <StatCard label="Overdue follow-ups" value={stats.overdue} accent="rose" />
@@ -58,6 +64,11 @@ export default async function DashboardPage() {
             (n, s) => n + (stats.counts[s] || 0),
             0
           )}
+        />
+        <StatCard
+          label="Reward credits owed"
+          value={"$" + creditsOutstanding.toLocaleString()}
+          accent={creditsOutstanding > 0 ? "emerald" : undefined}
         />
       </div>
 
@@ -170,15 +181,17 @@ function StatCard({
   accent,
 }: {
   label: string;
-  value: number;
-  accent?: "amber" | "rose";
+  value: number | string;
+  accent?: "amber" | "rose" | "emerald";
 }) {
   const valueColor =
     accent === "amber"
       ? "text-amber-700"
       : accent === "rose"
         ? "text-rose-700"
-        : "text-slate-900";
+        : accent === "emerald"
+          ? "text-emerald-700"
+          : "text-slate-900";
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="text-sm font-medium text-slate-500">{label}</div>
