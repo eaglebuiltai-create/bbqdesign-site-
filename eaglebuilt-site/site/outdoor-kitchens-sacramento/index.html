@@ -97,9 +97,14 @@ h3{font-size:17px;font-weight:700;margin:0 0 5px}
    EagleBuilt.") across the top of the frame. They are a second headline
    competing with the page's own, and at this layout they slide half-hidden
    behind the form card. The hero clips its overflow, so lifting the video puts
-   that band off-screen. Only applied once a source is actually attached: the
-   poster has no text and keeps its own framing. */
-.heroMedia.hasVid{top:-26%;height:126%}
+   that band off-screen. The band was measured, not guessed: the caption is
+   static white text over moving footage, so the rows holding near-white pixels
+   in every frame of a shot are exactly it — rows 20-37 of 200, or 10%-19% of
+   frame height. Clearing 19% of a box 132% of the hero needs a 32% lift (the
+   band grows as the box does, so the lift has to beat it, not match it).
+   Only applied once a source is attached: the poster has no text, and the
+   portrait cut has none either, so both keep their own framing. */
+.heroMedia.hasVid{top:-32%;height:132%}
 .heroVeil{position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(7,10,18,.93) 0%,rgba(7,10,18,.78) 42%,rgba(7,10,18,.5) 100%),
              linear-gradient(0deg,rgba(7,10,18,.9) 0%,rgba(7,10,18,0) 45%)}
@@ -343,33 +348,41 @@ footer a{color:var(--muted)}
 
 <script>
 /* ── hero video ────────────────────────────────────────────────────────────
-   Decides whether this visitor can afford a few megabytes of decoration. A
-   phone on cell data cannot, and neither can anyone who has asked for less
-   motion, so they keep the poster and the page costs them nothing extra. */
+   Picks the cut that fits the screen, and decides whether this visitor can
+   afford it at all. Anyone who has asked for less motion or less data, or is
+   on a slow link, keeps the poster and the page costs them nothing extra. */
 (function () {
   var v = document.getElementById("heroVid");
   if (!v) return;
 
-var mq = function (q) { return window.matchMedia && window.matchMedia(q).matches; };
-  var reduced = mq("(prefers-reduced-motion: reduce)");
-  /* Width alone is not the test. A landscape iPhone reports 844-932px and
-     would sail past a width check straight onto cell data, so the short
-     viewport and the touch pointer both have to disqualify it too. */
-  var small = window.innerWidth < 900 || window.innerHeight < 560 || mq("(pointer: coarse)");
-  var c = navigator.connection || {};
-  var slow = c.saveData === true || /^(slow-)?2g$/.test(c.effectiveType || "");
+  var mq = function (q) { return window.matchMedia && window.matchMedia(q).matches; };
+  if (mq("(prefers-reduced-motion: reduce)")) return;
 
-  if (reduced || small || slow) return;
+  /* saveData is someone explicitly asking not to spend their data, and a slow
+     link cannot deliver a megabyte before the poster has already done the job.
+     Both keep the poster, which is no loss — it is the same footage. */
+  var c = navigator.connection || {};
+  if (c.saveData === true || /^(slow-)?2g$|^3g$/.test(c.effectiveType || "")) return;
+
+  /* Two cuts, two shapes, chosen by the shape of the viewport rather than by
+     guessing at the device. "Is it a phone" is the wrong question and an
+     unreliable one — a landscape iPhone reports 844-932px wide — and it gets
+     this wrong in the one case that matters: a phone turned sideways would be
+     handed the vertical cut and show a narrow slice out of the middle of it.
+
+     The portrait cut carries no burned-in text, so it needs no lift. The
+     landscape one does — see .heroMedia.hasVid. */
+  var portrait = window.innerHeight >= window.innerWidth;
 
   /* A 404 here must look like "no video", not like a broken page. The poster
      is already painted and stays put because nothing replaces it. */
   v.addEventListener("error", function () { v.removeAttribute("autoplay"); }, true);
 
   var s = document.createElement("source");
-  s.src = "/assets/hero.mp4";
+  s.src = portrait ? "/assets/hero-portrait.mp4" : "/assets/hero.mp4";
   s.type = "video/mp4";
   v.appendChild(s);
-  v.classList.add("hasVid");   // lifts the caption band out of the hero
+  if (!portrait) v.classList.add("hasVid");   // lifts the caption band out of the hero
   v.preload = "auto";
   v.load();
   /* Autoplay can still be refused (Low Power Mode, a browser policy). Nothing
