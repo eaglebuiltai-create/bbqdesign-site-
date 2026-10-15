@@ -70,7 +70,9 @@ a{color:var(--accent);text-decoration:none}
 .avatar{width:124px;height:124px;margin:0 auto 14px;border-radius:50%;
   overflow:hidden;background:var(--panel2);
   border:3px solid var(--bg);box-shadow:0 0 0 2px var(--accent),0 10px 30px rgba(0,0,0,.55)}
-.avatar img{width:100%;height:100%;object-fit:cover;object-position:center 22%}
+/* The headshot ships pre-cropped square at 400px, so cover fits it exactly
+   and there is no offset to tune. */
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center}
 /* The emblem is a wide mark, not a face, so it is letterboxed rather than
    cropped when it stands in for a missing photo. */
 .avatar img.fallback{object-fit:contain;object-position:center;padding:18px;background:var(--panel2)}
@@ -150,8 +152,8 @@ footer a{color:var(--muted)}
 
   <div class="who">
     <div class="avatar">
-      <!-- Drop a headshot at /assets/john.jpg and it appears here. Until then
-           the emblem stands in, so the card never shows a broken image. -->
+      <!-- The emblem fallback stays wired: if john.jpg ever goes missing the
+           card shows the mark rather than a broken image. -->
       <img id="face" src="/assets/john.jpg" alt="John Simpson"
            onerror="this.onerror=null;this.src='/assets/eaglebuilt-emblem.png';this.classList.add('fallback')">
     </div>
