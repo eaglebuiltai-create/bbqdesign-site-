@@ -6,7 +6,7 @@
 # connections limited to the two services this site actually calls.
 #   api.web3forms.com          lead delivery from the designer
 #   static.cloudflareinsights  Cloudflare's own analytics beacon, auto-injected
-#   googletagmanager / google-analytics / doubleclick
+#   googletagmanager / google-analytics / doubleclick / googleadservices
 #                              conversion tracking (assets/track.js). Allowed here
 #                              so switching it on is only a matter of pasting IDs,
 #                              but NOTHING loads from these until those IDs are set.
@@ -19,7 +19,7 @@
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=(self)
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://i.ytimg.com https://analytics.google.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net; font-src 'self' data:; connect-src 'self' https://api.web3forms.com https://static.cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net; media-src 'self' data:; frame-src https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://app.kit.com
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://i.ytimg.com https://analytics.google.com https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net https://www.googleadservices.com; font-src 'self' data:; connect-src 'self' https://api.web3forms.com https://static.cloudflareinsights.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://www.google.com https://*.doubleclick.net https://www.googleadservices.com; media-src 'self' data:; frame-src https://www.youtube-nocookie.com https://www.google.com https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://api.web3forms.com https://app.kit.com
 
 # The home-screen app description. Served as JSON so browsers accept it.
 /manifest.webmanifest
