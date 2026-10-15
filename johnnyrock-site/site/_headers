@@ -1,0 +1,6 @@
+# Cloudflare serves an unknown extension as application/octet-stream, which
+# makes a phone download the card instead of offering to add the contact.
+# text/vcard is what iOS and Android both act on.
+/john-simpson.vcf
+  Content-Type: text/vcard; charset=utf-8
+  Cache-Control: public, max-age=3600

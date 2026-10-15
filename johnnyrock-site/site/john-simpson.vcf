@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Simpson;John;;;
+FN:John "Johnny Rock" Simpson
+ORG:EagleBuilt AI
+TITLE:Founder & General Contractor
+TEL;TYPE=CELL,VOICE:+19163599692
+EMAIL;TYPE=INTERNET,WORK:info@eaglebuilt.ai
+URL:https://eaglebuilt.ai
+ADR;TYPE=WORK:;;8442 Joe Rodgers Rd;Granite Bay;CA;95746;USA
+NOTE:CA Licensed General Contractor & C-29 Masonry, CSLB #992251. Outdoor kitchens, fireplaces and fire pits in Granite Bay, Sacramento and the foothills.
+END:VCARD
