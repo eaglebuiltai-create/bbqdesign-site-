@@ -11,8 +11,33 @@
 # into the EagleBuilt CRM. Cloudflare serves matching files from ./site
 # BEFORE the script runs, so a fault in the worker cannot take the site down.
 #
-# After the first deploy, attach the custom domains johnnyrock.biz and
-# www.johnnyrock.biz to this Worker in the Cloudflare dashboard.
+# CUSTOM DOMAINS — none attached, and they cannot be attached from here yet.
+#
+# johnnyrock.biz and johnnyrock.info sit on GoDaddy nameservers
+# (ns65/ns66.domaincontrol.com), not Cloudflare. A Worker custom domain can
+# only be created for a zone THIS Cloudflare account holds, so uncommenting
+# the routes below today would fail the deploy trying to create one.
+#
+# To switch it on:
+#   1. Add johnnyrock.biz as a site in Cloudflare, then change the
+#      nameservers at GoDaddy to the pair Cloudflare gives you. Wait for the
+#      zone to read Active.
+#   2. Delete the GoDaddy domain forwarding first. A forward and a custom
+#      domain cannot both own the name, and GoDaddy's masked forwarding is
+#      what left johnnyrock.info blank: it frames an http:// URL inside an
+#      https page, which browsers block outright.
+#   3. Uncomment the routes below and deploy.
+#
+# Leave them declared afterwards, for the reason spelled out in the EagleBuilt
+# wrangler.toml: from wrangler 4.150 a deploy compares local config against
+# remote and offers to overwrite remote with local, defaulting to Yes. With
+# domains attached in the dashboard but absent here, accepting that prompt
+# DELETES them and the site goes dark.
+#
+# routes = [
+#   { pattern = "johnnyrock.biz",     custom_domain = true },
+#   { pattern = "www.johnnyrock.biz", custom_domain = true }
+# ]
 #
 # CRM secrets are NOT here. Same values the EagleBuilt worker uses:
 #   npx wrangler secret put CRM_INGEST_URL       e.g. https://crm.eaglebuilt.ai/api/leads
