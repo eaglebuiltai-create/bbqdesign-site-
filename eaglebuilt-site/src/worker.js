@@ -38,7 +38,8 @@ const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMITS = {
   chat:    20,   // widget messages
   confirm: 6,    // design copies mailed to the customer
-  leads:   12    // gate signups forwarded to the CRM
+  leads:   12,   // gate signups forwarded to the CRM
+  designs: 60    // saving and reopening designs, which John does in bursts
 };
 const hits = new Map();
 
@@ -73,6 +74,14 @@ export default {
       if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request);
       if (request.method !== "POST")    return cors(json({ ok: false, error: "POST only" }, 405), request);
       return cors(await leads(request, env), request);
+    }
+
+    /* Saved designs, belonging to the client they were drawn for. Unlike
+       /api/leads this is not open: a lead id plus a write would otherwise let
+       anyone attach anything to a customer record. */
+    if (url.pathname === "/api/designs" || url.pathname.startsWith("/api/designs/")) {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request);
+      return cors(await designs(request, env, url), request);
     }
 
     if (url.pathname === "/api/chat") {
@@ -224,6 +233,63 @@ async function confirm(request, env) {
  * Until they are set this returns "not configured" and does nothing else, so
  * shipping the route ahead of the CRM is harmless.
  */
+/* ── Saved designs ─────────────────────────────────────────────────────────
+   A thin, deliberately boring proxy. It checks the designer key, forwards to
+   the CRM with the ingest key, and passes the answer back.
+
+   The key is NOT the CRM's. DESIGNER_KEY is a separate secret John unlocks
+   once per device, so that if it ever leaks the blast radius is designs on
+   leads somebody already knows the id of — not the CRM itself. The customer
+   list is never reachable through here; the designer is opened FROM a client
+   in the CRM, so it never needs to ask who the clients are.
+
+     npx wrangler secret put DESIGNER_KEY
+*/
+async function designs(request, env, url) {
+  const ENDPOINT = String(env.CRM_INGEST_URL || "").trim();
+  const KEY      = String(env.CRM_LEADS_API_KEY || "").trim();
+  const GATE     = String(env.DESIGNER_KEY || "").trim();
+  if (!ENDPOINT || !KEY) return json({ ok: false, error: "not configured" }, 503);
+  if (!GATE)             return json({ ok: false, error: "designer key not configured" }, 503);
+
+  const given = String(request.headers.get("x-designer-key") || "").trim();
+  /* Length-first, then a plain compare. Timing is not a real threat here, but
+     a wrong-length key should not read past the end of the short one. */
+  if (given.length !== GATE.length || given !== GATE) {
+    return json({ ok: false, error: "bad designer key" }, 401);
+  }
+
+  if (limited(request, "designs")) return json({ ok: false, error: "rate limited" }, 429);
+
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 96_000) return json({ ok: false, error: "too large" }, 413);
+
+  /* CRM_INGEST_URL points at .../api/leads, so swap the tail rather than
+     introducing a second secret that could drift out of step with it. */
+  const base = ENDPOINT.replace(/\/api\/leads\/?$/, "");
+  const target = base + url.pathname + (url.search || "");
+
+  const init = {
+    method: request.method,
+    headers: { "Content-Type": "application/json", "x-api-key": KEY },
+    signal: AbortSignal.timeout(10000)
+  };
+  if (request.method === "POST" || request.method === "PATCH") init.body = await request.text();
+
+  try {
+    const r = await fetch(target, init);
+    const text = await r.text();
+    /* Pass the CRM's own status through: the designer shows "Lead not found"
+       or "too large" verbatim, which is more use than a generic failure. */
+    return new Response(text, {
+      status: r.status,
+      headers: { "Content-Type": "application/json; charset=utf-8" }
+    });
+  } catch (e) {
+    return json({ ok: false, error: "crm unreachable" }, 502);
+  }
+}
+
 async function leads(request, env) {
   /* Trimmed for the same reason as the Resend key — a shell-piped secret can
      carry a trailing newline, which would corrupt the header and read as a

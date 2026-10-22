@@ -8,6 +8,7 @@ import { AddNoteForm } from "@/components/AddNoteForm";
 import { FollowUpEmail } from "@/components/FollowUpEmail";
 import { DeleteLeadButton } from "@/components/DeleteLeadButton";
 import { RewardCredits } from "@/components/RewardCredits";
+import { LeadDesigns } from "@/components/LeadDesigns";
 import type { LeadStatusValue } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +29,7 @@ export default async function LeadDetailPage({
         orderBy: { createdAt: "desc" },
         include: { author: { select: { name: true, email: true } } },
       },
+      designs: { orderBy: { updatedAt: "desc" } },
     },
   });
   if (!lead) notFound();
@@ -117,6 +119,27 @@ export default async function LeadDetailPage({
             reason: c.reason,
             createdAt: c.createdAt.toISOString(),
             author: c.author,
+          }))}
+        />
+      </section>
+
+      <section className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="mb-1 flex items-baseline justify-between gap-3">
+          <h2 className="font-semibold text-slate-900">Designs</h2>
+          <span className="text-xs text-slate-500">opens the designer for this client</span>
+        </div>
+        <p className="mb-4 text-sm text-slate-500">
+          The drawings for this job, kept with the client rather than in one browser.
+        </p>
+        <LeadDesigns
+          leadId={lead.id}
+          leadName={lead.name || lead.email}
+          designs={lead.designs.map((d) => ({
+            id: d.id,
+            name: d.name,
+            summary: d.summary,
+            createdAt: d.createdAt.toISOString(),
+            updatedAt: d.updatedAt.toISOString(),
           }))}
         />
       </section>

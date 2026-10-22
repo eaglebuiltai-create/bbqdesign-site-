@@ -27,22 +27,24 @@ model User {
   updatedAt    DateTime @updatedAt
   notes        Note[]
   credits      Credit[]
+  designs      Design[]
 }
 
 model Lead {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   email         String
   zip           String
   name          String?
   phone         String?
   designSummary String?
-  source        String   @default("designer")
-  status        String   @default("new")
+  source        String    @default("designer")
+  status        String    @default("new")
   nextFollowUp  DateTime?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   notes         Note[]
   credits       Credit[]
+  designs       Design[]
 
   @@index([status])
   @@index([nextFollowUp])
@@ -79,6 +81,25 @@ model Credit {
   authorId  String?
   author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
+
+  @@index([leadId])
+}
+
+/// A saved outdoor-kitchen design, belonging to the client it was drawn for.
+/// `code` is the same payload a share link carries, so a design saved today
+/// reopens in a later build of the designer; `summary` is a readable line so
+/// the CRM can list designs without decoding every one.
+model Design {
+  id        String   @id @default(cuid())
+  name      String
+  code      String /// encoded design state, as in the #d= share link
+  summary   String?
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([leadId])
 }

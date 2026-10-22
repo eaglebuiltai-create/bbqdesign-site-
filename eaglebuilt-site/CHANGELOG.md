@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-22 · 95 |
-| **Live on eaglebuilt.ai** | 2026-10-22 · 95 ✅ |
+| **Latest built** | 2026-10-22 · 96 |
+| **Live on eaglebuilt.ai** | 2026-10-22 · 96 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,32 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 96 — 2026-10-22 (live): designs belong to the client
+
+A design now saves against the customer in the CRM, so it is findable by
+name next to their phone, email and notes, on any device, after any browser
+wipe. The lead page grows a Designs section: “Design for this client” opens
+the designer already knowing whose job it is, and each saved design opens
+straight back into it.
+
+The designer is a public page and the CRM needs a login, so the two are
+bridged by /api/designs in the Worker, gated on a DESIGNER_KEY that is NOT
+the CRM's own key. Set it once with `npx wrangler secret put DESIGNER_KEY`.
+The designer asks for it the first time and keeps it per device; a 401
+clears it, so a wrong key gets retyped rather than retried.
+
+Deliberately, the designer cannot list clients. GET /api/leads stays
+session-only and the Worker exposes no route to it, so a key lifted off a
+public page cannot be turned into a customer list — the designer is told
+who the client is, in the link, and the link is wiped from the address bar
+once it has been read.
+
+Saving under an existing name replaces that design rather than adding
+another, so an afternoon of changes stays one row instead of fifteen
+identically named ones.
 
 ---
 
