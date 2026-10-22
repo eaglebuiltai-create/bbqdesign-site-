@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-14 · 92 |
-| **Live on eaglebuilt.ai** | 2026-10-14 · 92 ✅ |
+| **Latest built** | 2026-10-22 · 93 |
+| **Live on eaglebuilt.ai** | 2026-10-22 · 93 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,26 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 93 — 2026-10-22 (live): a light sheet to build from
+
+The printer icon in the right-hand rail turns the plan and elevation white.
+Dark is right for the designer on a screen next to a client; it is wrong for
+a sheet somebody builds from, which gets printed, pencilled on, and read on
+a phone in direct sun — where thin light text on dark is the worst
+combination there is. Trades also expect black line on white: a dark sheet
+reads as a render rather than a document.
+
+Both views previously held their colours as literals at the point of use —
+48 of them across the plan and elevation. They now go through a palette with
+named roles (paper, line, dim, text, accent, warn, plus the per-module fills
+and the elevation set), with a dark and a print variant. 3D is deliberately
+untouched: it is a render, not a drawing.
+
+The choice is remembered. Somebody working off paper wants it every time;
+somebody showing clients never does.
 
 ---
 
