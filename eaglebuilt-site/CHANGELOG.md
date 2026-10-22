@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-22 · 94 |
-| **Live on eaglebuilt.ai** | 2026-10-22 · 94 ✅ |
+| **Latest built** | 2026-10-22 · 95 |
+| **Live on eaglebuilt.ai** | 2026-10-22 · 95 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,27 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 95 — 2026-10-22 (live): save a design where you can find it
+
+The history icon is now “Designs”, and it saves to the computer. Type a name
+— Cathi — 53rd St Sacramento — and the file lands in Downloads as
+“EagleBuilt - Cathi — 53rd St Sacramento - 2026-10-22.json”, ready to live in
+the job folder with the photos and the contract. Open a design file puts it
+back exactly as it was.
+
+Until now the designer kept one autosave and a rolling twelve, none of them
+named. That is enough to undo a wrong turn and useless for finding a job
+months later, which is how a sold design went missing.
+
+The file carries the same code a share link does, so one saved today reopens
+in a later build, and it is plain JSON with a readable summary — pieces,
+counter size, block run — so you can tell what it is without opening it.
+
+A file that is not one of ours is refused by name, and a design already on
+screen is never half-overwritten by a bad one.
 
 ---
 
