@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-22 · 93 |
-| **Live on eaglebuilt.ai** | 2026-10-22 · 93 ✅ |
+| **Latest built** | 2026-10-22 · 94 |
+| **Live on eaglebuilt.ai** | 2026-10-22 · 94 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,28 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 94 — 2026-10-22 (live): say which rectangle you mean
+
+The plan was showing three different envelopes as though they were one. The
+dimension lines measure the counter edge including the overhang. The title
+block said OVERALL and meant that same rectangle grown by the raised bar. On
+a job with a bar the two disagree by well over a foot, sitting inches apart
+on the same sheet with nothing saying which was which — and a mason setting
+out footings from the wrong one pours the slab long.
+
+The title block now names all three and carries a third row: COUNTER (what
+the dimension lines measure), OVERALL W/ BAR, and BLOCK RUN — the bare
+cabinet envelope, the only one of the three anybody sets block from, and
+previously not on the sheet at all. OVERALL drops the qualifier when there
+is no bar, because then there is nothing to disambiguate.
+
+A note under the drawing says it in a sentence. It takes whatever room the
+title block leaves, shortening and then wrapping to fit, and is dropped
+entirely on a canvas too narrow for either form — a sentence running
+underneath the block is worse than no sentence.
 
 ---
 
