@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-22 · 96 |
-| **Live on eaglebuilt.ai** | 2026-10-22 · 96 ✅ |
+| **Latest built** | 2026-10-22 · 97 |
+| **Live on eaglebuilt.ai** | 2026-10-22 · 97 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,22 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 97 — 2026-10-22 (live): design intent, not shop drawings
+
+The plan note stops reading like a fabrication instruction. It now says the
+layout is design intent and gets set in the field to suit the equipment,
+which is how the jobs actually run — John: a few inches is not an error, the
+run moves on the day to suit what turns up and what the site needs.
+
+The build 94 labelling stays. Which rectangle a number describes is an
+ambiguity, not a tolerance, and the title block naming COUNTER, OVERALL W/
+BAR and BLOCK RUN costs nothing either way.
+
+When the sheet is narrow the caveat is the last line standing, ahead of
+restating what the title block already labels.
 
 ---
 
