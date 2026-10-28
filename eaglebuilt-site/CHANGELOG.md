@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-22 · 97 |
-| **Live on eaglebuilt.ai** | 2026-10-22 · 97 ✅ |
+| **Latest built** | 2026-10-28 · 98 |
+| **Live on eaglebuilt.ai** | 2026-10-28 · 98 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,54 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 98 — 2026-10-28 (live): a pellet smoker and a door on its side
+
+**Yoder Smokers YS640S**, as a new Premium brand, for a job already sold.
+Yoder publishes three built-in mounts and they are not interchangeable, so
+the two that need block work are separate pieces:
+
+| | Cutout | Island it eats |
+|---|---|---|
+| Center mount | 32 7/8" × 21 1/8" | 54.2" |
+| Notch mount | 56 1/2" × 21 1/4" | 58.5" |
+
+Surface mount is deliberately absent — it needs no cutout, so there is
+nothing for the tool to lay out.
+
+Two things about this cooker broke assumptions the catalog had been making
+since it was written:
+
+**A piece can now be wider than its cutout + 2".** `w` had always been
+derived as cutout plus 2" of frame, which is right for a drop-in head. The
+Yoder is 52.2" end to end through a 32 7/8" hole — the hopper hangs outside
+the cutout entirely — so the old rule reserved 35" of island for a cooker
+needing 54". An optional ninth field on a catalog row overrides `w`; the
+center-mount Yoder is the only item in 127 that uses it.
+
+**mount "full", not "top".** A top-mount piece gets a door or drawers tucked
+under it automatically. Not this one: 291 lb, a grease drain plumbed out of
+its belly, and 12" owed to combustibles. `isAbove()` is false for "full", so
+the tool stops offering. Yoder asks the structure to carry **350 lb**, which
+on a CMU bay means a bond beam or a steel angle — not block alone.
+
+`ch` is set to 20" for both. Yoder prints the cutout length and width but not
+the drop below the counter, and 20" is read off the center-mount install
+reference rather than stated as a cavity depth. It is the one figure here not
+taken straight off a dimension sheet. Since nothing mounts under the cooker
+anyway, it only affects how tall the body draws in elevation.
+
+**Blaze single access door, vertical** — `BLZ-SINGLE-2417-R-SC`, 17" × 24 1/4"
+cutout. The same panel as the horizontal that was already here, turned 90
+degrees and sold under its own SKU. The horizontal was also labelled "28\"
+Single Door", which is neither its cutout (24 1/8") nor its overall width
+(26 1/2"); it now reads "24 x 17\" Single Door - horizontal". Cutouts on it
+are unchanged, so saved designs do not move.
+
+"pellet", "smoker" and "yoder" now reach it from the description box, ahead
+of the grill pattern — a smoker is not a grill and would have matched nothing.
 
 ---
 
