@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-28 · 98 |
-| **Live on eaglebuilt.ai** | 2026-10-28 · 98 ✅ |
+| **Latest built** | 2026-10-28 · 99 |
+| **Live on eaglebuilt.ai** | 2026-10-28 · 99 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,43 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 99 — 2026-10-28 (live): the storage line that undercuts the brands
+
+**Diablo Grills**, 44 components, in the Value tier. Cut-outs and prices are
+off their printed sheet dated 2026-08-29 — nothing on diablogrills.com
+publishes either, so there was no way to do this from the web.
+
+The reason this is worth carrying:
+
+| 17 × 24 vertical single door | Cut-out | Price |
+|---|---|---|
+| Blaze `BLZ-SINGLE-2417-R-SC` | 17 × 24¼ | $463 |
+| Diablo `DG-SD17V` | 17¼ × 24¼ | **$280** |
+
+A quarter-inch apart on the opening, 40% apart on price, both 304 stainless.
+Across four or five storage openings that is most of a thousand dollars a job.
+
+Diablo fabricates its own stainless and sells factory-direct, which is where
+the gap comes from — and is also why their catalogue has shapes the brands do
+not: sealed dry-storage pantries, over/under units with a 4" drawer on top,
+and full-height 31½" cabinets that take a whole bay.
+
+Prices are Diablo's **public retail**, the number a homeowner is quoted at the
+showroom. John's trade column stays out of the tool, per the 2026-10-13
+decision.
+
+Their sheet leaves D blank on doors and vents. Carried at 2.5" and 1" to match
+Blaze, because a door is a face rather than a box and neither has ever driven
+how deep a run must be.
+
+**Deliberately not loaded:** the ten Combo Units, where the price column sits
+a row low in the photograph so every price may belong to its neighbour; four
+drawer and trash rows with the same problem; and two sinks printed with no
+cut-out height, which the layout cannot place safely. Seventeen flagged rows
+in all, shaded in the spreadsheet, pending a look at the paper.
 
 ---
 
