@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-10-28 · 99 |
-| **Live on eaglebuilt.ai** | 2026-10-28 · 99 ✅ |
+| **Latest built** | 2026-11-03 · 101 |
+| **Live on eaglebuilt.ai** | 2026-11-03 · 101 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,73 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 101 — 2026-11-03 (live): the combo units, read off the ladder
+
+The ten Diablo combo units, held back at build 99 because the price column
+sits a row low in the photograph of their sheet and every price might have
+belonged to its neighbour.
+
+Resolved without a better photograph, from the numbers themselves. There are
+ten prices for ten rows, so nothing is missing and the only question was the
+offset. Read straight, the block gives two parallel ladders:
+
+| Bay | Plain door | Propane/trash | Uplift |
+|---|---|---|---|
+| 28 1/2" | $690 | $775 | +$85 |
+| 30 1/2" | $700 | $785 | +$85 |
+| 34 1/2" | $800 | $900 | +$100 |
+| 37 1/8" | $870 | $960 | +$90 |
+
+Both columns ascend with width and the propane uplift holds at every size.
+Shifted by one, propane comes out cheaper than plain and a price is left
+orphaned - so the straight reading is the right one.
+
+A third check fell out of loading them: cut-out plus the usual 2" of frame
+lands each unit exactly on its nominal name. The "30in Combo" eats 30.5" of
+run, the "36in" eats 36.5". Dimensions read correctly as well as prices.
+
+Still out, and needing Diablo rather than arithmetic: four drawer and trash
+rows where the dimension count and the price count disagree, and two sinks
+printed with no cut-out height. The 39" combo prints its width as "37 1/5",
+which is not a fraction anyone cuts to; carried as 37 1/8 with a comment.
+
+Diablo now stands at 54 components, the largest brand in the catalog.
+
+---
+
+## Build 100 — 2026-10-29 (live): Ctrl+P gives you the sheet
+
+The print button has made the DRAWING light since build 93. It never made the
+PAGE printable: there was no print stylesheet at all, so Ctrl+P put the dark
+panels, the icon rail, EagleOne and every floating chip onto the paper, and
+cropped the plan to a single viewport.
+
+Now the page prints as the drawing and nothing else. Chrome is hidden, the
+100vh flex layout is undone — without that the sheet is one screen tall and
+the rest is simply cut off — and the canvas leaves its absolute full-bleed
+position for ordinary flow at its own aspect ratio.
+
+That last part is the one worth guarding. Stretched to the proportions of the
+paper the island comes out visibly wrong, and a drawing carrying a scale and a
+title block should not lie about shape. Measured in Chrome at 903 x 1378 on
+the page against a 0.656 bitmap ratio, held at 0.656.
+
+**A canvas is a bitmap, so no stylesheet can lighten it.** A dark drawing
+prints dark whatever the CSS says. So `beforeprint` switches to the print
+palette and repaints before the browser takes its snapshot, and `afterprint`
+puts it back; refresh() draws synchronously and beforeprint runs ahead of
+pagination, so the repaint lands in time. Verified on real pixels: top-left
+goes rgb(11,17,28) to rgb(255,255,255) and back.
+
+The upshot is that the print toggle is now a preview rather than a
+prerequisite. Ctrl+P gives a white sheet either way.
+
+Also: `body.printSheet #cel` had never matched anything, because the canvas is
+`cEl` and CSS ids are case-sensitive. Cosmetic, since drawEl() fills its own
+background across the whole canvas, but it was meant to match and now does.
 
 ---
 
