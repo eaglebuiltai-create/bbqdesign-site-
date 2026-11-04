@@ -6,8 +6,8 @@ hard-reload with Ctrl+Shift+R.
 
 | | Build |
 |---|---|
-| **Latest built** | 2026-11-03 · 101 |
-| **Live on eaglebuilt.ai** | 2026-11-03 · 101 ✅ |
+| **Latest built** | 2026-11-04 · 102 |
+| **Live on eaglebuilt.ai** | 2026-11-04 · 102 ✅ |
 
 Deploy — from `C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site`:
 
@@ -19,6 +19,52 @@ About 8 seconds. `wrangler.toml` pins the Worker name `fragrant-butterfly-5c92`,
 which is what keeps `eaglebuilt.ai` and `www.eaglebuilt.ai` attached — never
 change it. Dashboard drag-and-drop of `Downloads\eaglebuilt-site-live` still
 works as a fallback.
+
+---
+
+## Build 102 — 2026-11-04 (live): the plan prints to scale
+
+The title block has said **NTS** since it was built. A plan checker scales
+off the sheet, so NTS is a drawing they cannot use — which came up the
+moment a real permit needed one.
+
+`view2d.s` is pixels per world inch and the canvas is `CW` css pixels wide,
+so printed `W` inches wide the ratio is `CW / (view2d.s * W)`. Turned round:
+to land on a chosen ratio `D` the canvas must print at exactly
+`CW / (view2d.s * D)` inches. So `beforeprint` picks the largest standard
+architectural scale whose sheet still fits the paper, then sets the printed
+size to match it rather than filling the page.
+
+**The canvas takes the paper's proportions while printing.** Without that the
+scale is decided by whatever shape his window happens to be: a wide window
+leaves a hundred inches of empty world either side of the island, and that
+slack costs a full scale step. Cathi's island went from printing 3.42" wide
+to 5.13" on the same sheet — 1/4" up to 3/8" scale — purely from removing it.
+DPR goes to 3 for the print draw so the dimension text stays sharp once it is
+squeezed onto six inches of paper.
+
+| Island | Scale picked | Prints |
+|---|---|---|
+| 6 ft straight | 3/4" = 1'-0" | 3.75" wide |
+| 10 ft straight | 1/2" = 1'-0" | 5.00" wide |
+| Cathi, 13'8" U | 3/8" = 1'-0" | 5.13" wide |
+| 20 ft U | 1/4" = 1'-0" | 5.00" wide |
+
+**A graphic scale bar** is drawn bottom-left, in world units, captioned
+*“Measure this bar to confirm the sheet printed at 100%”*. It is the honest
+authority: a browser set to “fit to page”, or a photocopier, breaks the
+ratio in the title block but cannot break the bar. If nothing fits, the
+block still says NTS rather than claiming a scale it is not drawn at.
+
+Printing also fits the island first, so the sheet shows all of it whatever he
+had zoomed to — a plan cropped at the paper edge is worse than a smaller one.
+His view and palette both go back on `afterprint`.
+
+One hazard caught on the way: `PRINT_SCALE` and `PRINT_CANVAS` were declared
+below `sizeCanvas` and `drawTitleBlock`, which read them. Function
+declarations hoist and `let` does not — it stays in the temporal dead zone
+until its line runs, so a draw before that point would throw and take the
+designer down with it. Declared above first use instead.
 
 ---
 
