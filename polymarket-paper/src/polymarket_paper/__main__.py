@@ -1,23 +1,30 @@
-"""Command line for the read-only scanner.
+"""Command line for the paper scanner and the paper ledger.
 
-Example:
+Examples:
     python -m polymarket_paper scan --limit 10 --book-reads 3
+    python -m polymarket_paper ledger init
+    python -m polymarket_paper ledger propose --market-id 123 --outcome yes \\
+        --notional 10 --price 0.42 --liquidity 5000
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from decimal import Decimal, InvalidOperation
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 from polymarket import PolymarketError, PublicClient
 
 from polymarket_paper.config import ScanConfig
-from polymarket_paper.logging_json import dumps_jsonl, write_jsonl
+from polymarket_paper.ledger import LedgerError, PaperBook, load_book, render_book, render_decision
+from polymarket_paper.logging_json import append_jsonl, dumps_jsonl, write_jsonl
 from polymarket_paper.mode import ResearchModeError, assert_research_mode
 from polymarket_paper.models import MarketSnapshot, ScanResult
+from polymarket_paper.risk import RiskLimits
 from polymarket_paper.scanner import scan_markets
 
 PACIFIC = ZoneInfo("America/Los_Angeles")
@@ -35,8 +42,8 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="polymarket-paper",
         description=(
-            "Read-only Polymarket scanner. Paper and shadow logs only. "
-            "Does not place orders or sign transactions."
+            "Polymarket paper research tools. Scans public markets and records "
+            "hypothetical fills locally. Does not place orders or sign transactions."
         ),
     )
     sub = parser.add_subparsers(dest="command", required=True)
@@ -70,7 +77,88 @@ def _build_parser() -> argparse.ArgumentParser:
         default="",
         help="Also append JSONL to this file path",
     )
+    ledger = sub.add_parser("ledger", help="Record hypothetical fills in a local paper book")
+    ledger_sub = ledger.add_subparsers(dest="ledger_command", required=True)
+    _add_ledger_init(ledger_sub)
+    _add_ledger_show(ledger_sub)
+    _add_ledger_propose(ledger_sub)
+    _add_ledger_close(ledger_sub)
+    _add_ledger_mark(ledger_sub)
     return parser
+
+
+def _add_ledger_path(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--ledger",
+        default="logs/paper-ledger.json",
+        help="Paper book path (default logs/paper-ledger.json)",
+    )
+
+
+def _add_limit_flags(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--bankroll", type=_decimal_arg, help="Starting paper bankroll, used when creating a book")
+    parser.add_argument("--max-fraction", type=_decimal_arg, help="Per-market cap as a fraction, from 0.01 to 0.02")
+    parser.add_argument("--max-positions", type=int, help="Open-holding cap, from 5 to 10")
+    parser.add_argument("--daily-loss", type=_decimal_arg, help="Daily loss breaker as a fraction, from 0.01 to 0.10")
+    parser.add_argument("--min-edge", type=_decimal_arg, help="Minimum probability gap when an edge is supplied")
+
+
+def _add_mode(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--mode", choices=["paper", "shadow"], default="paper")
+    parser.add_argument("--json", action="store_true", help="Print the decision or book as JSON")
+    parser.add_argument("--log", default="", help="JSONL audit path (default: beside the book)")
+
+
+def _add_ledger_init(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = sub.add_parser("init", help="Create an empty paper book")
+    _add_ledger_path(parser)
+    _add_limit_flags(parser)
+    parser.add_argument(
+        "--min-liquidity",
+        type=_decimal_arg,
+        help="Liquidity floor stored with the book",
+    )
+
+
+def _add_ledger_show(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = sub.add_parser("show", help="Print cash, holdings, and recent fills")
+    _add_ledger_path(parser)
+    parser.add_argument("--json", action="store_true")
+
+
+def _add_ledger_propose(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = sub.add_parser("propose", help="Hypothetical buy, recorded only if risk checks pass")
+    _add_ledger_path(parser)
+    _add_mode(parser)
+    _add_limit_flags(parser)
+    parser.add_argument("--market-id", required=True)
+    parser.add_argument("--outcome", required=True, choices=["yes", "no"])
+    parser.add_argument("--notional", required=True, type=_decimal_arg, help="USDC to spend")
+    parser.add_argument("--price", required=True, type=_decimal_arg, help="Price in (0, 1)")
+    parser.add_argument("--liquidity", required=True, type=_decimal_arg, help="Market liquidity in USDC")
+    parser.add_argument("--edge", type=_decimal_arg, help="Optional fair-value gap, signed")
+    parser.add_argument("--require-edge", action="store_true")
+    parser.add_argument("--question", default="")
+    parser.add_argument("--min-liquidity", type=_decimal_arg, help="Liquidity floor stored with a new book")
+
+
+def _add_ledger_close(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = sub.add_parser("close", help="Hypothetical sell of an open holding")
+    _add_ledger_path(parser)
+    _add_mode(parser)
+    parser.add_argument("--market-id", required=True)
+    parser.add_argument("--outcome", required=True, choices=["yes", "no"])
+    parser.add_argument("--price", required=True, type=_decimal_arg, help="Price in [0, 1]")
+    parser.add_argument("--shares", type=_decimal_arg, help="Shares to sell (default: all)")
+
+
+def _add_ledger_mark(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = sub.add_parser("mark", help="Update the mark used by the daily-loss breaker")
+    _add_ledger_path(parser)
+    _add_mode(parser)
+    parser.add_argument("--market-id", required=True)
+    parser.add_argument("--outcome", required=True, choices=["yes", "no"])
+    parser.add_argument("--price", required=True, type=_decimal_arg, help="Mark in [0, 1]")
 
 
 def _guard_environment() -> None:
@@ -175,6 +263,155 @@ def run_scan(args: argparse.Namespace) -> int:
     return 0
 
 
+def _limit_overrides(args: argparse.Namespace) -> dict[str, Decimal | int]:
+    mapping: dict[str, Decimal | int] = {}
+    if getattr(args, "bankroll", None) is not None:
+        mapping["bankroll_usdc"] = args.bankroll
+    if getattr(args, "max_fraction", None) is not None:
+        mapping["max_fraction_per_market"] = args.max_fraction
+    if getattr(args, "max_positions", None) is not None:
+        mapping["max_open_positions"] = args.max_positions
+    if getattr(args, "daily_loss", None) is not None:
+        mapping["daily_loss_fraction"] = args.daily_loss
+    if getattr(args, "min_liquidity", None) is not None:
+        mapping["min_liquidity_usdc"] = args.min_liquidity
+    if getattr(args, "min_edge", None) is not None:
+        mapping["min_edge"] = args.min_edge
+    return mapping
+
+
+def _limits_for_new_book(args: argparse.Namespace) -> RiskLimits:
+    return RiskLimits(**_limit_overrides(args))
+
+
+def _reject_limit_changes(book: PaperBook, args: argparse.Namespace) -> None:
+    overrides = _limit_overrides(args)
+    for name, value in overrides.items():
+        if getattr(book.limits, name) != value:
+            raise LedgerError(
+                "This book already has risk limits. "
+                "Start another book with a different --ledger path."
+            )
+
+
+def _decision_log_path(args: argparse.Namespace) -> Path:
+    if args.log:
+        return Path(args.log)
+    return Path(args.ledger).with_suffix(".jsonl")
+
+
+def _emit_decision(args: argparse.Namespace, result: object) -> None:
+    payload = result.to_json()  # type: ignore[attr-defined]
+    if args.json:
+        sys.stdout.write(json.dumps(payload, separators=(",", ":"), sort_keys=True) + "\n")
+    else:
+        print(render_decision(result))  # type: ignore[arg-type]
+    append_jsonl(_decision_log_path(args), payload)
+
+
+def _load_for_command(args: argparse.Namespace) -> tuple[PaperBook, Path, bool]:
+    """Return the book, its path, and whether this command may save it."""
+
+    path = Path(args.ledger)
+    mode = assert_research_mode(getattr(args, "mode", "paper"))
+    if path.exists():
+        book = load_book(path)
+        _reject_limit_changes(book, args)
+    else:
+        book = PaperBook.new(_limits_for_new_book(args))
+    return book, path, mode == "paper"
+
+
+def run_ledger_init(args: argparse.Namespace) -> int:
+    path = Path(args.ledger)
+    if path.exists():
+        raise LedgerError(f"paper book already exists at {path}")
+    book = PaperBook.new(_limits_for_new_book(args))
+    book.save(path)
+    if getattr(args, "json", False):
+        sys.stdout.write(json.dumps(book.to_json(), indent=2, sort_keys=True) + "\n")
+    else:
+        print(render_book(book, path=path))
+    return 0
+
+
+def run_ledger_show(args: argparse.Namespace) -> int:
+    path = Path(args.ledger)
+    book = load_book(path)
+    if args.json:
+        sys.stdout.write(json.dumps(book.to_json(), indent=2, sort_keys=True) + "\n")
+    else:
+        print(render_book(book, path=path))
+    return 0
+
+
+def run_ledger_propose(args: argparse.Namespace) -> int:
+    mode = assert_research_mode(args.mode)
+    book, path, save = _load_for_command(args)
+    result = book.propose_buy(
+        mode=mode,
+        market_id=args.market_id,
+        outcome=args.outcome,
+        notional_usdc=args.notional,
+        price=args.price,
+        liquidity_usdc=args.liquidity,
+        edge=args.edge,
+        question=args.question or None,
+        require_edge=args.require_edge,
+    )
+    if save:
+        book.save(path)
+    _emit_decision(args, result)
+    return 0
+
+
+def run_ledger_close(args: argparse.Namespace) -> int:
+    mode = assert_research_mode(args.mode)
+    path = Path(args.ledger)
+    book = load_book(path)
+    result = book.close_position(
+        mode=mode,
+        market_id=args.market_id,
+        outcome=args.outcome,
+        price=args.price,
+        shares=args.shares,
+    )
+    if mode == "paper":
+        book.save(path)
+    _emit_decision(args, result)
+    return 0
+
+
+def run_ledger_mark(args: argparse.Namespace) -> int:
+    mode = assert_research_mode(args.mode)
+    path = Path(args.ledger)
+    book = load_book(path)
+    result = book.mark(
+        mode=mode,
+        market_id=args.market_id,
+        outcome=args.outcome,
+        price=args.price,
+    )
+    if mode == "paper":
+        book.save(path)
+    _emit_decision(args, result)
+    return 0
+
+
+def run_ledger(args: argparse.Namespace) -> int:
+    commands = {
+        "init": run_ledger_init,
+        "show": run_ledger_show,
+        "propose": run_ledger_propose,
+        "close": run_ledger_close,
+        "mark": run_ledger_mark,
+    }
+    handler = commands.get(args.ledger_command)
+    if handler is None:
+        raise LedgerError(f"unknown ledger command {args.ledger_command}")
+    return handler(args)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = _build_parser()
     args = parser.parse_args(argv)
@@ -182,7 +419,15 @@ def main(argv: list[str] | None = None) -> int:
         _guard_environment()
         if args.command == "scan":
             return run_scan(args)
+        if args.command == "ledger":
+            return run_ledger(args)
     except ResearchModeError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    except LedgerError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
+    except ValueError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     parser.error(f"unknown command {args.command}")

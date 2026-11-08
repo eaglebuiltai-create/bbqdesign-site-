@@ -62,6 +62,10 @@ def test_evaluate_blocks_size_count_loss_liquidity_and_edge() -> None:
 
     crowded = evaluate(base, RiskState(open_positions=8), limits)
     assert crowded.reasons == ("open_position_cap",)
+    added = evaluate(base, RiskState(open_positions=8), limits, opening_new=False)
+    assert added.allowed is True
+    over_cap = evaluate(base, RiskState(open_positions=9), limits, opening_new=False)
+    assert over_cap.reasons == ("open_position_cap",)
 
     stopped = evaluate(base, RiskState(daily_pnl_usdc=Decimal("-50")), limits)
     assert stopped.reasons == ("daily_loss_breaker",)

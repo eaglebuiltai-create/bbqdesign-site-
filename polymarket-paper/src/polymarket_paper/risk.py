@@ -1,8 +1,7 @@
-"""Hard risk checks for a future paper fill.
+"""Hard risk checks for a paper fill.
 
 ``evaluate`` is a pure function. It does not read the network and it does not
-submit orders. A later paper ledger must call it before recording a fill.
-This slice has no ledger and no order path.
+submit orders. The paper ledger calls it before recording a buy.
 """
 
 from __future__ import annotations
@@ -93,17 +92,25 @@ def evaluate(
     limits: RiskLimits,
     *,
     require_edge: bool = False,
+    opening_new: bool = True,
 ) -> Decision:
     """Return whether a paper proposal passes the hard rules.
 
     ``require_edge`` stays false until a fair-value model exists. Missing an
     estimate is then a refusal, not a silent pass.
+
+    ``opening_new`` is false when the proposal only adds to a holding that is
+    already open. The position cap stops a new holding and still applies to a
+    book that is already over the cap. An add remains subject to the per-market
+    notional cap.
     """
 
     reasons: list[str] = []
     if proposal.notional_usdc > limits.max_notional_usdc:
         reasons.append("notional_over_market_cap")
-    if state.open_positions >= limits.max_open_positions:
+    if opening_new and state.open_positions >= limits.max_open_positions:
+        reasons.append("open_position_cap")
+    elif not opening_new and state.open_positions > limits.max_open_positions:
         reasons.append("open_position_cap")
     daily_loss = -min(state.daily_pnl_usdc, Decimal("0"))
     if daily_loss >= limits.daily_loss_usdc:

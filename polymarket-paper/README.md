@@ -1,6 +1,6 @@
-# Polymarket paper scanner
+# Polymarket paper research
 
-Read-only research tools for Polymarket. This package lists active markets and can read a few public order books. It does not place orders, sign transactions, or read a private key.
+Research tools for Polymarket. This package lists active markets, reads a few public order books, and keeps a local paper book of hypothetical fills. It does not place orders, sign transactions, or read a private key.
 
 Verified against `polymarket-client` 0.17.0, the current official Python SDK. The older `py-clob-client` package is the legacy CLOB client; new work should use `polymarket-client`. See [Python SDK](https://docs.polymarket.com/getting-started/python) and [Migrate from legacy SDKs](https://docs.polymarket.com/migrate/clob-sdk-to-unified-sdk).
 
@@ -30,13 +30,15 @@ PublicClient.get_order_book         CLOB   https://clob.polymarket.com
 JSONL log + text table
 ```
 
+A separate local book records a hypothetical buy only after the risk checks pass. Shadow runs those checks and leaves the book unchanged.
+
 Gamma is the market catalog. The CLOB is the order book. The Data API is how a later slice would read positions for a public wallet (`PublicClient.list_positions`, `GET /v2/positions` on `https://data-api.polymarket.com`). This scanner does not call it. [Discover markets](https://docs.polymarket.com/market-data/discover-markets), [prices and order books](https://docs.polymarket.com/market-data/prices-order-books), [market details](https://docs.polymarket.com/market-data/market-details), [Data API](https://docs.polymarket.com/api-reference/data-api/overview).
 
 YES asset selection follows the official SDK rule: a CTF (v1) market uses `outcomes.yes.token_id`; a v2 market uses `outcomes.yes.position_id`. If both pairs are present, the token pair wins. Book bids are sorted ascending and asks descending, so the best price is the last level on each side.
 
 Gamma's `liquidity` sort is Polymarket's own figure. It can put long-shot markets first when a lot of size is posted far from the touch. `bid_notional_usdc` and `ask_notional_usdc` sum the whole side (`price × size` on every level). The touch is `best_bid_size` and `best_ask_size`. A book with only one side has no midpoint; the table prints `one-sided`.
 
-`paper` and `shadow` both run this same read. The log records which mode you asked for. Shadow does not simulate fills yet. There is no third mode.
+`paper` and `shadow` both run this same read. The log records which mode you asked for. There is no third mode.
 
 ## Layout
 
@@ -45,10 +47,10 @@ Gamma's `liquidity` sort is Polymarket's own figure. It can put long-shot market
 | `mode.py` | Refuses anything except paper and shadow, including `POLYMARKET_MODE=live` | Stays a hard stop |
 | `scanner.py` | Gamma list + a few CLOB books | Unchanged reads |
 | `books.py` | Best bid, best ask, midpoint, side notionals | Unchanged |
-| `risk.py` | Pure checks. No network, no orders | Called before any paper fill is recorded |
-| `logging_json.py` | One JSON object per line | Same log for later decisions |
+| `risk.py` | Pure checks. No network, no orders | Still the gate in front of every buy |
+| `ledger.py` | Local paper book. A buy is written only after `evaluate` passes | Unchanged role |
+| `logging_json.py` | One JSON object per line for scans and ledger decisions | Same log |
 | fair value | Not built. No edge is invented from price alone | Estimate P(YES), flag a gap of at least X |
-| paper ledger | Not built | Record hypothetical fills that passed `risk.evaluate` |
 | positions | Not built | Public Data API read for a wallet you name |
 | live gateway | Not present | Requires a separate yes for that exact action |
 
@@ -63,6 +65,34 @@ Gamma's `liquidity` sort is Polymarket's own figure. It can put long-shot market
 - Edge: when an estimate exists, the absolute gap must be at least X. Default X is 0.03 (3 cents on a 0–1 price). Until a fair-value model exists, `require_edge=True` refuses a proposal that has no estimate.
 
 The scanner applies Y as a Gamma filter and stamps `liquidity_ok` on each row. It does not call `evaluate`, because a scan is not a proposal.
+
+## Paper ledger
+
+The book is a JSON file on this machine. It is not a Polymarket account, and the command does not call Gamma, the CLOB, or the Data API. Copy liquidity from a scan into `--liquidity`.
+
+A buy is written only when every check is clear:
+
+- `risk.evaluate` passes, including the per-market cap, the open-holding cap, the daily-loss breaker, the liquidity floor, and the edge rule when an edge is present.
+- The price is above 0 and below 1.
+- The book still has the cash.
+
+`shadow` runs the same checks, prints the decision, and does not change cash or holdings. A refusal in `paper` mode also leaves holdings unchanged. Both write an audit line beside the book.
+
+Selling and marking are local accounting. A sell reduces exposure, so a tripped breaker does not block it. Otherwise a paper loss could not be closed. Marks use prices from 0 to 1 so a resolved contract can be marked at 0 or 1. Only today's realized PnL and today's mark change count toward the breaker. The day boundary is Pacific time.
+
+```bash
+python -m polymarket_paper ledger init
+python -m polymarket_paper ledger propose \
+  --market-id 559677 --outcome yes \
+  --notional 10 --price 0.42 --liquidity 5000
+python -m polymarket_paper ledger mark --market-id 559677 --outcome yes --price 0.45
+python -m polymarket_paper ledger close --market-id 559677 --outcome yes --price 0.45
+python -m polymarket_paper ledger show
+```
+
+The default book is `logs/paper-ledger.json`, with decisions in `logs/paper-ledger.jsonl`. Both are gitignored. `--mode shadow` on `propose` does not create or change the book. Limit flags (`--bankroll`, `--max-fraction`, `--max-positions`, `--daily-loss`, `--min-liquidity`, `--min-edge`) apply only when a book is created. An existing book keeps the limits it was created with.
+
+A buy that fails the checks still exits 0. The line `decision=refused` and the `reasons=` field say why. `decision=recorded` means the holding was written. `decision=allowed_not_recorded` means shadow would have written it.
 
 ## Run
 
@@ -96,9 +126,8 @@ Unit tests use fake markets. They do not hit the network. A source check fails i
 
 ## Not in this slice
 
-- No fair-value model and no edge flags. A midpoint is the market price, not an estimate of fair probability.
-- No paper fills and no shadow simulation.
+- No fair-value model. Pass `--edge` only when you already have an estimate. `--require-edge` refuses a buy that has none.
 - No wallet, no Data API position read, no CLOB credentials.
 - No `SecureClient`, no private key, no order payload, no signature.
 
-Say which of these you want next. Live order code stays unwritten until you approve that exact action.
+Live order code stays unwritten until you approve that exact action.

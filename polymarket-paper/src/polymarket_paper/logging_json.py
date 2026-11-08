@@ -25,6 +25,12 @@ def dumps_jsonl(result: ScanResult) -> str:
     return "".join(json.dumps(record, separators=(",", ":"), sort_keys=True) + "\n" for record in iter_records(result))
 
 
+def append_jsonl(path: Path, record: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(record, separators=(",", ":"), sort_keys=True) + "\n")
+
+
 def write_jsonl(result: ScanResult, target: TextIO | Path) -> None:
     payload = dumps_jsonl(result)
     if isinstance(target, Path):
