@@ -1,7 +1,7 @@
-"""Research-mode gate.
+"""Mode gate for scans and the paper book.
 
-Paper and shadow are the only modes this package will run. Live trading is
-refused here, before any client is constructed.
+Paper and shadow are the only modes for those commands. A live limit order
+uses the separate live-order command and its own confirmation checks.
 """
 
 from __future__ import annotations
@@ -19,8 +19,7 @@ def assert_research_mode(mode: str) -> str:
     normalized = mode.strip().lower()
     if normalized not in RESEARCH_MODES:
         raise ResearchModeError(
-            "This package runs in paper or shadow mode only. "
-            "Live orders and transaction signing are not implemented. "
-            "Approve that exact action before any live-trading code is added."
+            "Scans and the paper book run in paper or shadow mode only. "
+            "A live limit order uses the live-order command."
         )
     return normalized

@@ -122,12 +122,34 @@ cd polymarket-paper
 python -m pytest
 ```
 
-Unit tests use fake markets. They do not hit the network. A source check fails if trading-client or key material shows up under `src/`.
+Unit tests use fake markets and a fake order sender. They do not hit the network. The authenticated client is named only in `live.py`. No key value is stored in the source.
+
+## One confirmed live order
+
+`live-order` posts a single limit order through `SecureClient.place_limit_order` ([create order](https://docs.polymarket.com/trading/orders/create)). It stays closed unless all of these match that order:
+
+- `POLYMARKET_MODE=live`
+- `POLYMARKET_LIVE_ORDER=yes`
+- `--confirm` is the exact phrase the command prints when the phrase is missing
+- the same risk checks used by the paper book, including the 20 USDC per-market cap
+- `POLYMARKET_PRIVATE_KEY` is set in the environment
+
+The key is not a command argument and is not written to the log. The default order is post-only, so it rests on the book. `--cross` allows it to take liquidity. A scan or a paper-ledger command still refuses to run when `POLYMARKET_MODE=live`.
+
+Run the command once without `--confirm` to see the phrase. That does not submit.
+
+```bash
+POLYMARKET_MODE=live POLYMARKET_LIVE_ORDER=yes \
+  python -m polymarket_paper live-order \
+  --market-id 559677 --asset-id ASSET --side BUY \
+  --price 0.42 --size 10 --liquidity 5000 \
+  --confirm "submit BUY 10 shares of ASSET at 0.42 for market 559677 post_only=true"
+```
+
+Put the signing key in `POLYMARKET_PRIVATE_KEY` yourself. This tree does not contain one, and this session does not submit an order.
 
 ## Not in this slice
 
 - No fair-value model. Pass `--edge` only when you already have an estimate. `--require-edge` refuses a buy that has none.
-- No wallet, no Data API position read, no CLOB credentials.
-- No `SecureClient`, no private key, no order payload, no signature.
-
-Live order code stays unwritten until you approve that exact action.
+- No wallet position sync from the Data API.
+- No market orders, no cancel command, and no loop that submits more than one order.

@@ -21,6 +21,14 @@ from polymarket import PolymarketError, PublicClient
 
 from polymarket_paper.config import ScanConfig
 from polymarket_paper.ledger import LedgerError, PaperBook, load_book, render_book, render_decision
+from polymarket_paper.live import (
+    LiveLimitOrder,
+    LiveOrderError,
+    default_secure_client,
+    redact,
+    signing_key_from_environ,
+    submit_live_limit_order,
+)
 from polymarket_paper.logging_json import append_jsonl, dumps_jsonl, write_jsonl
 from polymarket_paper.mode import ResearchModeError, assert_research_mode
 from polymarket_paper.models import MarketSnapshot, ScanResult
@@ -42,8 +50,8 @@ def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="polymarket-paper",
         description=(
-            "Polymarket paper research tools. Scans public markets and records "
-            "hypothetical fills locally. Does not place orders or sign transactions."
+            "Polymarket research tools. Scans public markets, records hypothetical "
+            "fills, and can submit one confirmed limit order."
         ),
     )
     sub = parser.add_subparsers(dest="command", required=True)
@@ -84,7 +92,34 @@ def _build_parser() -> argparse.ArgumentParser:
     _add_ledger_propose(ledger_sub)
     _add_ledger_close(ledger_sub)
     _add_ledger_mark(ledger_sub)
+    _add_live_order(sub)
     return parser
+
+
+def _add_live_order(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = sub.add_parser(
+        "live-order",
+        help="Submit one limit order after an exact confirmation",
+    )
+    parser.add_argument("--market-id", required=True)
+    parser.add_argument("--asset-id", required=True, help="YES or NO CLOB asset id")
+    parser.add_argument("--side", required=True, choices=["BUY", "SELL"])
+    parser.add_argument("--price", required=True, type=_decimal_arg)
+    parser.add_argument("--size", required=True, type=_decimal_arg, help="Share count")
+    parser.add_argument("--liquidity", required=True, type=_decimal_arg)
+    parser.add_argument("--edge", type=_decimal_arg)
+    parser.add_argument("--require-edge", action="store_true")
+    parser.add_argument(
+        "--cross",
+        action="store_true",
+        help="Allow the order to take liquidity. The default rests post-only.",
+    )
+    parser.add_argument("--open-positions", type=int, default=0)
+    parser.add_argument("--daily-pnl", type=_decimal_arg, default=Decimal("0"))
+    parser.add_argument("--ledger", default="", help="Use this paper book's limits and risk state")
+    parser.add_argument("--confirm", default="", help="Exact confirmation phrase for this order")
+    parser.add_argument("--json", action="store_true")
+    parser.add_argument("--log", default="")
 
 
 def _add_ledger_path(parser: argparse.ArgumentParser) -> None:
@@ -161,10 +196,16 @@ def _add_ledger_mark(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -
     parser.add_argument("--price", required=True, type=_decimal_arg, help="Mark in [0, 1]")
 
 
-def _guard_environment() -> None:
+def _guard_environment(command: str) -> None:
     env_mode = os.environ.get("POLYMARKET_MODE")
-    if env_mode is not None:
-        assert_research_mode(env_mode)
+    if env_mode is None:
+        return
+    normalized = env_mode.strip().lower()
+    if normalized in {"paper", "shadow"}:
+        return
+    if normalized == "live" and command == "live-order":
+        return
+    assert_research_mode(env_mode)
 
 
 def _price(value: Decimal | None) -> str:
@@ -412,23 +453,86 @@ def run_ledger(args: argparse.Namespace) -> int:
     return handler(args)
 
 
+def _live_order_from_args(args: argparse.Namespace) -> LiveLimitOrder:
+    limits = None
+    open_positions = args.open_positions
+    daily_pnl = args.daily_pnl
+    if args.ledger:
+        book = load_book(Path(args.ledger))
+        limits = book.limits
+        open_positions = book.open_position_count()
+        daily_pnl = book.daily_pnl_usdc()
+    return LiveLimitOrder(
+        market_id=args.market_id,
+        asset_id=args.asset_id,
+        side=args.side,
+        price=args.price,
+        size=args.size,
+        liquidity_usdc=args.liquidity,
+        post_only=not args.cross,
+        edge=args.edge,
+        require_edge=args.require_edge,
+        open_positions=open_positions,
+        daily_pnl_usdc=daily_pnl,
+        limits=limits,
+    )
+
+
+def run_live_order(args: argparse.Namespace) -> int:
+    order = _live_order_from_args(args)
+    secret = signing_key_from_environ()
+    try:
+        result = submit_live_limit_order(
+            order,
+            confirm=args.confirm,
+            mode=os.environ.get("POLYMARKET_MODE"),
+            live_switch=os.environ.get("POLYMARKET_LIVE_ORDER"),
+            signing_key=secret,
+            client_factory=default_secure_client,
+        )
+    except LiveOrderError as exc:
+        print(f"error: {redact(str(exc), secret)}", file=sys.stderr)
+        return 2
+    except Exception as exc:
+        print(f"error: {redact(str(exc), secret)}", file=sys.stderr)
+        return 1
+    payload = result.to_json()
+    if args.json:
+        sys.stdout.write(json.dumps(payload, separators=(",", ":"), sort_keys=True) + "\n")
+    elif result.ok:
+        print(
+            f"submitted order={result.order_id} status={result.status} "
+            f"side={result.side} size={result.size} price={result.price}"
+        )
+    else:
+        print(f"rejected code={result.code} message={result.message}", file=sys.stderr)
+    if args.log:
+        append_jsonl(Path(args.log), payload)
+    return 0 if result.ok else 1
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = _build_parser()
     args = parser.parse_args(argv)
     try:
-        _guard_environment()
+        _guard_environment(args.command)
         if args.command == "scan":
             return run_scan(args)
         if args.command == "ledger":
             return run_ledger(args)
+        if args.command == "live-order":
+            return run_live_order(args)
     except ResearchModeError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
     except LedgerError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
+    except LiveOrderError as exc:
+        print(f"error: {redact(str(exc), signing_key_from_environ())}", file=sys.stderr)
+        return 2
     except ValueError as exc:
-        print(f"error: {exc}", file=sys.stderr)
+        print(f"error: {redact(str(exc), signing_key_from_environ())}", file=sys.stderr)
         return 2
     parser.error(f"unknown command {args.command}")
     return 2

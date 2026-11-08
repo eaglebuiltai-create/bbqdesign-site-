@@ -143,7 +143,11 @@ def test_package_source_has_no_trading_surface() -> None:
         "sign_typed",
         "eth_account",
     )
+    live_only = {"SecureClient", "private_key", "POLYMARKET_PRIVATE_KEY"}
     for path in root.rglob("*.py"):
         text = path.read_text(encoding="utf-8")
+        assert "0x" + "a" * 64 not in text
         for token in banned:
+            if token in live_only and path.name == "live.py":
+                continue
             assert token not in text, f"{path} contains {token}"
