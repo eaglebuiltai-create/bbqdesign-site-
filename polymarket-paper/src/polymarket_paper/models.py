@@ -83,6 +83,12 @@ class MarketSnapshot:
     liquidity_ok: bool
     book: BookTop | None = None
     book_error: str | None = None
+    fair_yes: Decimal | None = None
+    quoted_yes: Decimal | None = None
+    quote_source: str | None = None
+    edge: Decimal | None = None
+    flag: str | None = None
+    flag_reasons: tuple[str, ...] = ()
 
     @property
     def url(self) -> str | None:
@@ -114,6 +120,12 @@ class MarketSnapshot:
             "liquidity_ok": self.liquidity_ok,
             "book": None if self.book is None else self.book.to_json(),
             "book_error": self.book_error,
+            "fair_yes": decimal_string(self.fair_yes),
+            "quoted_yes": decimal_string(self.quoted_yes),
+            "quote_source": self.quote_source,
+            "edge": decimal_string(self.edge),
+            "flag": self.flag,
+            "flag_reasons": list(self.flag_reasons),
         }
 
 
@@ -139,5 +151,6 @@ class ScanResult:
             "returned": len(self.markets),
             "book_reads": self.book_reads,
             "rate_limited": self.rate_limited,
+            "flagged": sum(1 for market in self.markets if market.flag),
             "markets": [market.to_json() for market in self.markets],
         }

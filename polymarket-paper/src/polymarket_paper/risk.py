@@ -96,8 +96,9 @@ def evaluate(
 ) -> Decision:
     """Return whether a paper proposal passes the hard rules.
 
-    ``require_edge`` stays false until a fair-value model exists. Missing an
-    estimate is then a refusal, not a silent pass.
+    ``require_edge`` makes a missing estimate a refusal. The scanner sets it
+    when it flags a paper row. A proposal that omits an estimate can still
+    pass when ``require_edge`` is false.
 
     ``opening_new`` is false when the proposal only adds to a holding that is
     already open. The position cap stops a new holding and still applies to a

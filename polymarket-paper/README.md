@@ -50,9 +50,9 @@ Gamma's `liquidity` sort is Polymarket's own figure. It can put long-shot market
 | `risk.py` | Pure checks. No network, no orders | Still the gate in front of every buy |
 | `ledger.py` | Local paper book. A buy is written only after `evaluate` passes | Unchanged role |
 | `logging_json.py` | One JSON object per line for scans and ledger decisions | Same log |
-| fair value | Not built. No edge is invented from price alone | Estimate P(YES), flag a gap of at least X |
+| `fair.py` / `edges.py` | Favorite-longshot baseline. Flags a paper row, sends nothing | A forecast that uses more than the quoted price |
 | positions | Not built | Public Data API read for a wallet you name |
-| live gateway | Not present | Requires a separate yes for that exact action |
+| `live.py` | One confirmed post-only limit order | Cancels and market orders still need a yes |
 
 ## Risk rules already encoded
 
@@ -62,9 +62,9 @@ Gamma's `liquidity` sort is Polymarket's own figure. It can put long-shot market
 - Open positions: 5 to 10. Default 8.
 - Daily loss breaker: 1% to 10% of bankroll. Default 5% (50 USDC on the default bankroll). The request names the breaker without a figure; 5% is the stand-in until you pick another number inside that band.
 - Liquidity: no proposal under Y. Default Y is 1,000 USDC, same as the scanner floor.
-- Edge: when an estimate exists, the absolute gap must be at least X. Default X is 0.03 (3 cents on a 0–1 price). Until a fair-value model exists, `require_edge=True` refuses a proposal that has no estimate.
+- Edge: a flag requires an absolute gap of at least X. Default X is 0.03 (3 cents on a 0–1 price).
 
-The scanner applies Y as a Gamma filter and stamps `liquidity_ok` on each row. It does not call `evaluate`, because a scan is not a proposal.
+The scanner applies Y as a Gamma filter and stamps `liquidity_ok` on each row. After the read, it scores each two-sided quote and flags a paper side only when the gap, the liquidity, and the position and loss checks all pass.
 
 ## Paper ledger
 
@@ -115,6 +115,24 @@ Will something happen?                                            0.4000/0.4200 
 
 `clob mid` is blank when that row was past the book-read budget. `gate` is `thin` when Gamma liquidity is below Y.
 
+## Fair value
+
+The estimate is a favorite-longshot adjustment of the quoted YES price. It does not read news or call a model. A quote of 0.50 stays 0.50. A quote near 0.20 is pulled down by about 4 cents, and a quote near 0.80 is pulled up by about 4 cents. The formula is `p^1.2 / (p^1.2 + (1-p)^1.2)`.
+
+A row is flagged only when all of these hold:
+
+- Both a bid and an ask exist. The CLOB midpoint is used when the book was read. Otherwise the Gamma bid and ask are used.
+- The spread is 5 cents or less.
+- The absolute gap is at least 3 cents, or `--min-edge` if you set it.
+- Liquidity and the open-position and daily-loss checks pass. `--ledger` uses that paper book's holdings and pnl. Without it, the score assumes a fresh book.
+
+`buy YES` means the baseline says YES is cheap relative to the quote. `buy NO` means YES is rich. The flag is a paper mark on the scan. It does not write the ledger and it does not send an order.
+
+```text
+flags=1  model=favorite-longshot
+buy NO   edge=-0.041  fair=0.1593  quote=0.2000  Will it rain?
+```
+
 ## Tests
 
 ```bash
@@ -150,6 +168,6 @@ Put the signing key in `POLYMARKET_PRIVATE_KEY` yourself. This tree does not con
 
 ## Not in this slice
 
-- No fair-value model. Pass `--edge` only when you already have an estimate. `--require-edge` refuses a buy that has none.
-- No wallet position sync from the Data API.
+- The fair-value flag is a price calibration, not an outside forecast.
+- No wallet position sync from the Data API. Pass `--ledger` to score flags against the paper book.
 - No market orders, no cancel command, and no loop that submits more than one order.

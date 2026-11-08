@@ -13,6 +13,7 @@ import argparse
 import json
 import os
 import sys
+from dataclasses import replace
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -20,6 +21,7 @@ from zoneinfo import ZoneInfo
 from polymarket import PolymarketError, PublicClient
 
 from polymarket_paper.config import ScanConfig
+from polymarket_paper.edges import annotate_edges
 from polymarket_paper.ledger import LedgerError, PaperBook, load_book, render_book, render_decision
 from polymarket_paper.live import (
     LiveLimitOrder,
@@ -32,7 +34,7 @@ from polymarket_paper.live import (
 from polymarket_paper.logging_json import append_jsonl, dumps_jsonl, write_jsonl
 from polymarket_paper.mode import ResearchModeError, assert_research_mode
 from polymarket_paper.models import MarketSnapshot, ScanResult
-from polymarket_paper.risk import RiskLimits
+from polymarket_paper.risk import RiskLimits, RiskState
 from polymarket_paper.scanner import scan_markets
 
 PACIFIC = ZoneInfo("America/Los_Angeles")
@@ -84,6 +86,16 @@ def _build_parser() -> argparse.ArgumentParser:
         "--log",
         default="",
         help="Also append JSONL to this file path",
+    )
+    scan.add_argument(
+        "--ledger",
+        default="",
+        help="Score flags against this paper book's open holdings and daily pnl",
+    )
+    scan.add_argument(
+        "--min-edge",
+        type=_decimal_arg,
+        help="Minimum gap before a row can flag (default 0.03, or the book's value)",
     )
     ledger = sub.add_parser("ledger", help="Record hypothetical fills in a local paper book")
     ledger_sub = ledger.add_subparsers(dest="ledger_command", required=True)
@@ -265,7 +277,40 @@ def render_table(result: ScanResult) -> str:
     if result.rate_limited:
         lines.append("")
         lines.append("CLOB rate limit reached. Remaining books were not read.")
+    lines.append("")
+    lines.append(render_flags(result))
     return "\n".join(lines)
+
+
+def render_flags(result: ScanResult) -> str:
+    flagged = [market for market in result.markets if market.flag]
+    lines = [f"flags={len(flagged)}  model=favorite-longshot"]
+    if not flagged:
+        lines.append("no flagged markets")
+        return "\n".join(lines)
+    for market in flagged:
+        edge = market.edge or Decimal("0")
+        side = "buy YES" if market.flag == "buy_yes" else "buy NO"
+        lines.append(
+            f"{side:<7}  edge={edge:+.3f}  fair={_price(market.fair_yes)}  "
+            f"quote={_price(market.quoted_yes)}  {_clip(market.question, 48)}"
+        )
+    return "\n".join(lines)
+
+
+def _flag_context(args: argparse.Namespace) -> tuple[RiskLimits, RiskState]:
+    limits = RiskLimits()
+    state = RiskState()
+    if args.ledger:
+        book = load_book(Path(args.ledger))
+        limits = book.limits
+        state = RiskState(
+            open_positions=book.open_position_count(),
+            daily_pnl_usdc=book.daily_pnl_usdc(),
+        )
+    if args.min_edge is not None:
+        limits = replace(limits, min_edge=args.min_edge)
+    return limits, state
 
 
 def run_scan(args: argparse.Namespace) -> int:
@@ -292,6 +337,8 @@ def run_scan(args: argparse.Namespace) -> int:
     except PolymarketError as exc:
         print(f"error: Polymarket read failed: {exc}", file=sys.stderr)
         return 1
+    limits, state = _flag_context(args)
+    result = annotate_edges(result, limits=limits, state=state)
 
     if args.json:
         sys.stdout.write(dumps_jsonl(result))
