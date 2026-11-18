@@ -16,9 +16,13 @@
  * HOST: www.eaglebuilt.ai 301s to the apex. Static _redirects cannot do a
  * domain redirect, so wrangler sets assets.run_worker_first and this script
  * sees every request. The host check is the first line of fetch(). Anything
- * that is not www falls through to the API routes below or to env.ASSETS,
- * which is what serves the files. API paths, the chat, and the ads tags are
- * unchanged.
+ * that is not www falls through to the path checks, the API routes below, or
+ * env.ASSETS, which is what serves the files. API paths, the chat, and the
+ * ads tags are unchanged.
+ *
+ * PATH: /blog and /blog/ 301 to https://blog.eaglebuilt.ai/ (WordPress on the
+ * blog subdomain). Exact paths only, and only after the www check, so a
+ * www request still lands on the apex first.
  * =============================================================================
  */
 
@@ -79,6 +83,21 @@ export default {
         status,
         headers: {
           Location: dest.toString(),
+          "Cache-Control": "public, max-age=86400"
+        }
+      });
+    }
+
+    /* The blog lives on its own subdomain. Same early return as the host
+       redirect above: 301 for navigations, 308 when a body must be replayed.
+       Only these two paths, so /api/chat, city pages, and the sitemap fall
+       through exactly as before. */
+    if (url.pathname === "/blog" || url.pathname === "/blog/") {
+      const status = request.method === "GET" || request.method === "HEAD" ? 301 : 308;
+      return new Response(null, {
+        status,
+        headers: {
+          Location: "https://blog.eaglebuilt.ai/",
           "Cache-Control": "public, max-age=86400"
         }
       });
