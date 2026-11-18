@@ -21,9 +21,11 @@
      top of that file: paid traffic should not wait on a second request.
 
      The hero <video> has NO <source> in the markup. The poster carries the
-     page on its own and script adds the source only on a wide screen with a
-     connection that can take it — a phone on cell data never fetches it, and
-     a missing /assets/hero.mp4 degrades to the poster rather than a gap.
+     page on its own. Script adds a source only for a large screen that is not
+     on a cellular or slow connection. A phone never fetches hero.mp4 or
+     hero-portrait.mp4 — the short side of the screen is the test, because a
+     landscape phone is wide and effectiveType "4g" is what a mobile lab
+     reports. A missing video file degrades to the poster rather than a gap.
      ══════════════════════════════════════════════════════════════════════ -->
 
 <title>Outdoor Kitchens in Granite Bay &amp; Sacramento | EagleBuilt AI</title>
@@ -34,7 +36,7 @@
 <link rel="icon" href="/assets/eaglebuilt-emblem.png">
 <meta name="theme-color" content="#070A12">
 
-<link rel="preload" as="image" href="/projects/photos/covered-kitchen-dusk-bar.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="/projects/photos/covered-kitchen-dusk-bar-m.webp" type="image/webp" fetchpriority="high">
 <script src="/assets/track.js" defer></script>
 
 <style>
@@ -214,7 +216,7 @@ footer a{color:var(--muted)}
   <!-- No <source> here on purpose — see the note at the top of the file. The
        poster is the hero until script decides the visitor can afford the video. -->
   <video class="heroMedia" id="heroVid"
-         poster="/projects/photos/covered-kitchen-dusk-bar.jpg"
+         poster="/projects/photos/covered-kitchen-dusk-bar-m.webp"
          autoplay muted loop playsinline preload="none"
          aria-hidden="true" tabindex="-1"></video>
   <div class="heroVeil"></div>
@@ -311,24 +313,24 @@ footer a{color:var(--muted)}
     <div class="shots">
       <figure class="shot" style="margin:0">
         <picture>
-          <source srcset="/projects/photos/granite-bay-pizza-oven-island.webp" type="image/webp">
-          <img src="/projects/photos/granite-bay-pizza-oven-island.jpg" width="1190" height="662"
+          <source srcset="/projects/photos/granite-bay-pizza-oven-island-m.webp" type="image/webp">
+          <img src="/projects/photos/granite-bay-pizza-oven-island-m.jpg" width="720" height="401"
                loading="lazy" alt="Stone island with a wood-fired oven and built-in grill in Granite Bay.">
         </picture>
         <span>Granite Bay — island, wood-fired oven, built-in grill</span>
       </figure>
       <figure class="shot" style="margin:0">
         <picture>
-          <source srcset="/projects/photos/bamboo-kitchen-stamped-concrete.webp" type="image/webp">
-          <img src="/projects/photos/bamboo-kitchen-stamped-concrete.jpg" width="1655" height="950"
+          <source srcset="/projects/photos/bamboo-kitchen-stamped-concrete-m.webp" type="image/webp">
+          <img src="/projects/photos/bamboo-kitchen-stamped-concrete-m.jpg" width="720" height="413"
                loading="lazy" alt="Stacked-stone kitchen with a bar run over stamped concrete.">
         </picture>
         <span>Stacked stone, bar run, stamped concrete</span>
       </figure>
       <figure class="shot" style="margin:0">
         <picture>
-          <source srcset="/projects/photos/covered-kitchen-dusk-bar.webp" type="image/webp">
-          <img src="/projects/photos/covered-kitchen-dusk-bar.jpg" width="881" height="658"
+          <source srcset="/projects/photos/covered-kitchen-dusk-bar-m.webp" type="image/webp">
+          <img src="/projects/photos/covered-kitchen-dusk-bar-m.jpg" width="720" height="538"
                loading="lazy" alt="Covered kitchen and bar at dusk with an undermount sink and dining run.">
         </picture>
         <span>Covered kitchen, bar seating, undermount sink</span>
@@ -370,11 +372,17 @@ footer a{color:var(--muted)}
   var mq = function (q) { return window.matchMedia && window.matchMedia(q).matches; };
   if (mq("(prefers-reduced-motion: reduce)")) return;
 
-  /* saveData is someone explicitly asking not to spend their data, and a slow
-     link cannot deliver a megabyte before the poster has already done the job.
-     Both keep the poster, which is no loss — it is the same footage. */
+  /* Phones never get the clip. saveData / 2g / 3g was not enough: a phone on
+     4G, and a mobile lab run that reports effectiveType "4g", still pulled
+     hero-portrait.mp4 (about a megabyte) on top of the poster. The short side
+     of the screen is a phone in either orientation. Cellular covers a tablet
+     on cell data. The poster is the same footage. */
   var c = navigator.connection || {};
-  if (c.saveData === true || /^(slow-)?2g$|^3g$/.test(c.effectiveType || "")) return;
+  var shortSide = Math.min(window.innerWidth || 0, window.innerHeight || 0);
+  var phone = shortSide > 0 && shortSide < 520;
+  var cellular = c.type === "cellular";
+  var slow = c.saveData === true || /^(slow-)?2g$|^3g$/.test(c.effectiveType || "");
+  if (phone || cellular || slow) return;
 
   /* Two cuts, two shapes, chosen by the shape of the viewport rather than by
      guessing at the device. "Is it a phone" is the wrong question and an

@@ -13,10 +13,12 @@
  * POST /api/chat answers the site widget. The xAI key is a Cloudflare secret
  * (npx wrangler secret put XAI_API_KEY) and is only used on this server.
  *
- * SAFETY: static files are served by Cloudflare's asset layer BEFORE this
- * script runs, so a bug in here cannot take the website down. Only paths with
- * no matching file reach this code — in practice /api/confirm, /api/leads,
- * and /api/chat.
+ * HOST: www.eaglebuilt.ai 301s to the apex. Static _redirects cannot do a
+ * domain redirect, so wrangler sets assets.run_worker_first and this script
+ * sees every request. The host check is the first line of fetch(). Anything
+ * that is not www falls through to the API routes below or to env.ASSETS,
+ * which is what serves the files. API paths, the chat, and the ads tags are
+ * unchanged.
  * =============================================================================
  */
 
@@ -63,6 +65,24 @@ const CHAT_SYSTEM = [
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    /* Apex is the canonical host. request.url carries it in production.
+       The Host header is checked too so a local dev server, which often
+       builds request.url from 127.0.0.1, still redirects. 301 for
+       navigations, 308 for anything with a body so a POST to www is
+       replayed rather than dropped. */
+    const hostHeader = (request.headers.get("Host") || "").split(":")[0].toLowerCase();
+    if (url.hostname === "www.eaglebuilt.ai" || hostHeader === "www.eaglebuilt.ai") {
+      const dest = new URL(url.pathname + url.search, "https://eaglebuilt.ai");
+      const status = request.method === "GET" || request.method === "HEAD" ? 301 : 308;
+      return new Response(null, {
+        status,
+        headers: {
+          Location: dest.toString(),
+          "Cache-Control": "public, max-age=86400"
+        }
+      });
+    }
 
     if (url.pathname === "/api/confirm") {
       if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request);
