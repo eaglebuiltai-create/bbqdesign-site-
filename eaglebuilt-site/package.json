@@ -1,0 +1,8 @@
+{
+  "name": "eaglebuilt-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 src/lead.test.mjs"
+  }
+}

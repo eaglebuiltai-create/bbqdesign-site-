@@ -13,6 +13,11 @@
  * POST /api/chat answers the site widget. The xAI key is a Cloudflare secret
  * (npx wrangler secret put XAI_API_KEY) and is only used on this server.
  *
+ * POST /api/chat-lead saves a quote / consultation / callback from that chat.
+ * The widget does not post it directly: the model calls submit_lead only after
+ * the visitor confirms, and this worker runs the same accept path. Delivery
+ * is Slack, email to info@eaglebuilt.ai, and a KV copy, each independent.
+ *
  * HOST: www.eaglebuilt.ai 301s to the apex. Static _redirects cannot do a
  * domain redirect, so wrangler sets assets.run_worker_first and this script
  * sees every request. The host check is the first line of fetch(). Anything
@@ -25,6 +30,10 @@
  * www request still lands on the apex first.
  * =============================================================================
  */
+
+import { acceptLead, clientIp, looksConfirmed, validateLead } from "./chat-lead.js";
+import { CHAT_SYSTEM, CHAT_TOOLS } from "./chat-prompt.js";
+import { FAILED_REPLY, SAVED_REPLY, visitorReply } from "./chat-honesty.js";
 
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
@@ -48,23 +57,6 @@ const RATE_LIMITS = {
   designs: 60    // saving and reopening designs, which John does in bursts
 };
 const hits = new Map();
-
-const CHAT_SYSTEM = [
-  "You are the EagleBuilt AI website chat, speaking as Johnny Rock — founder, former Marine, the person who builds the work. Confident, practical, plain-spoken. No corporate fluff and no emoji.",
-  "",
-  "Facts you may state:",
-  "- EagleBuilt AI is based in Granite Bay and serves Sacramento and the foothills. Design/build general contractor and masonry.",
-  "- Free 3D designers live on https://eaglebuilt.ai: outdoor kitchen at /design/, fireplace at /design/fireplace/, fire pit at /design/firepit/, and the yard planner at /design/yard/. They use real grills and real manufacturer cutouts.",
-  "- To start a design, open the matching designer on the site. For a quote or a person: email info@eaglebuilt.ai or call (916) 359-9692.",
-  "- Taglines, when they fit: \"Real Experience. Real Solutions. Real Backyards.\" and \"Built for a Better Tomorrow.\"",
-  "",
-  "Rules:",
-  "- Never invent prices, reviews, star ratings, or timelines. If you are unsure, say so and invite them to start a free design or to email info@eaglebuilt.ai / call (916) 359-9692.",
-  "- Do not promise a start date, a permit result, or that any number is a firm quote.",
-  "- Keep answers to 2–4 sentences unless they ask for more detail.",
-  "- Stay on outdoor kitchens, fireplaces, fire pits, yards, the designers, the service area, and how to start. If they wander off, steer back in a sentence.",
-  "- You are the site assistant. Do not pretend a person has already reviewed their project."
-].join("\n");
 
 export default {
   async fetch(request, env) {
@@ -127,6 +119,15 @@ export default {
       if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
       if (request.method !== "POST")    return cors(json({ error: "POST only" }, 405), request, true);
       return cors(await chat(request, env), request, true);
+    }
+
+    /* Same accept path as the chat tool. The widget does not call this; it
+       exists so a lead can be submitted and tested without the model, and so
+       the spam checks have one endpoint. */
+    if (url.pathname === "/api/chat-lead") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST")    return cors(json({ ok: false, error: "POST only" }, 405), request, true);
+      return cors(await chatLeadRequest(request, env), request, true);
     }
 
     // Anything else with no matching file. Hand back to assets so 404s still
@@ -399,6 +400,30 @@ async function leads(request, env) {
  * Missing key is a 503, not a silent success — unlike /api/confirm, a chat
  * that cannot answer should say so.
  */
+async function chatLeadRequest(request, env) {
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 16_000) return json({ ok: false, error: "too large" }, 413);
+  let d;
+  try { d = await request.json(); } catch { return json({ ok: false, error: "bad json" }, 400); }
+  const result = await acceptLead(env, d, {
+    ip: clientIp(request),
+    honeypot: d && d.hp,
+    openedAt: d && d.t,
+    page: d && d.page
+  });
+  return json(publicLead(result), result.status);
+}
+
+function publicLead(result) {
+  if (result.status === 400) {
+    return { ok: false, field: result.field || "", message: result.message || "Check the details and try again." };
+  }
+  if (result.status === 429) {
+    return { ok: false, message: result.message || "Too many submissions. Call (916) 359-9692." };
+  }
+  return { ok: true, leadSubmitted: !!result.leadSubmitted, duplicate: !!result.duplicate };
+}
+
 async function chat(request, env) {
   const KEY = String(env.XAI_API_KEY || "").trim();
   if (!KEY) {
@@ -417,37 +442,251 @@ async function chat(request, env) {
   const messages = normalizeChat(d);
   if (!messages.some(m => m.role === "user")) return json({ error: "Send a message." }, 400);
 
+  const meta = {
+    ip: clientIp(request),
+    honeypot: d && d.hp,
+    openedAt: d && d.t,
+    page: d && d.page
+  };
+  const convo = [{ role: "system", content: CHAT_SYSTEM }, ...messages];
+  let leadSubmitted = false;
+  let duplicate = false;
+  let toolsOn = true;
+
   try {
-    const r = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: CHAT_MODEL,
-        temperature: 0.4,
-        max_tokens: 800,
-        stream: false,
-        messages: [{ role: "system", content: CHAT_SYSTEM }, ...messages]
-      }),
-      signal: AbortSignal.timeout(25000)
+    let first = await completeChat(KEY, convo, toolsOn);
+    if (!first.ok && first.status === 400 && toolsOn) {
+      console.log("chat: tools rejected, retrying without tools");
+      toolsOn = false;
+      first = await completeChat(KEY, convo, false);
+    }
+    if (!first.ok) return chatDown();
+
+    const calls = toolCalls(first.message);
+    const text = visible(chatMessageText(first.message));
+    if (!calls.length) {
+      if (!text) return chatDown();
+      return json({ reply: visitorReply(text, {}), leadSubmitted: false }, 200);
+    }
+
+    const outcomes = [];
+    for (const call of calls) {
+      outcomes.push(await runLeadTool(call, messages, env, meta));
+    }
+    for (const outcome of outcomes) {
+      if (outcome.leadSubmitted) leadSubmitted = true;
+      if (outcome.duplicate) duplicate = true;
+    }
+    const saved = leadSubmitted || duplicate;
+    const failed = !saved && outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped");
+    /* A saved or failed submit is answered here, not by another model call.
+       The model has already claimed to have emailed designs it never created. */
+    if (saved) return json({ reply: SAVED_REPLY, leadSubmitted, duplicate }, 200);
+    if (failed) return json({ reply: FAILED_REPLY, leadSubmitted: false, duplicate: false }, 200);
+
+    convo.push({
+      role: "assistant",
+      content: text || "",
+      tool_calls: calls.map(c => c.raw)
     });
-    if (!r.ok) {
-      let detail = "";
-      try { detail = (await r.text()).replace(/\s+/g, " ").slice(0, 160); } catch {}
-      console.log("chat: xai http " + r.status + " " + detail);
-      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
+    for (const outcome of outcomes) {
+      convo.push({ role: "tool", tool_call_id: outcome.id, content: outcome.toolContent });
     }
-    const data = await r.json();
-    const reply = chatReplyText(data).slice(0, 4000);
-    if (!reply) {
-      return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
+
+    const second = await completeChat(KEY, convo, toolsOn);
+    if (second.ok) {
+      const again = toolCalls(second.message);
+      const reply = visible(chatMessageText(second.message));
+      if (again.length && !reply) {
+        for (const call of again) {
+          const outcome = await runLeadTool(call, messages, env, meta);
+          if (outcome.leadSubmitted) leadSubmitted = true;
+          if (outcome.duplicate) duplicate = true;
+          outcomes.push(outcome);
+        }
+        const savedAgain = leadSubmitted || duplicate;
+        const failedAgain = !savedAgain && outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped");
+        if (savedAgain) return json({ reply: SAVED_REPLY, leadSubmitted, duplicate }, 200);
+        if (failedAgain) return json({ reply: FAILED_REPLY, leadSubmitted: false }, 200);
+      } else if (reply) {
+        return json({
+          reply: visitorReply(reply, { saved: leadSubmitted || duplicate, failed: false }),
+          leadSubmitted,
+          duplicate
+        }, 200);
+      }
+    } else {
+      console.log("chat: follow-up failed " + second.status);
     }
-    return json({ reply }, 200);
+
+    return json({
+      reply: visitorReply(fallbackAfterTool(outcomes), {
+        saved: leadSubmitted || duplicate,
+        failed: outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped")
+      }),
+      leadSubmitted,
+      duplicate
+    }, 200);
   } catch {
-    return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
+    return chatDown();
   }
+}
+
+function chatDown() {
+  return json({ error: "Chat is unavailable right now. Email info@eaglebuilt.ai or call (916) 359-9692." }, 502);
+}
+
+async function completeChat(key, messages, tools) {
+  const body = {
+    model: CHAT_MODEL,
+    temperature: 0.4,
+    max_tokens: 800,
+    stream: false,
+    messages
+  };
+  if (tools) body.tools = CHAT_TOOLS;
+  const r = await fetch("https://api.x.ai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${key}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(15000)
+  });
+  if (!r.ok) {
+    let detail = "";
+    try { detail = (await r.text()).replace(/\s+/g, " ").slice(0, 160); } catch {}
+    console.log("chat: xai http " + r.status + " " + detail);
+    return { ok: false, status: r.status };
+  }
+  const data = await r.json();
+  const message = data && data.choices && data.choices[0] && data.choices[0].message;
+  if (!message) return { ok: false, status: 502 };
+  return { ok: true, status: 200, message };
+}
+
+function toolCalls(message) {
+  const list = message && Array.isArray(message.tool_calls) ? message.tool_calls : [];
+  const out = [];
+  for (const call of list) {
+    const name = call && call.function && call.function.name;
+    if (name !== "submit_lead") continue;
+    let args = {};
+    try {
+      const raw = call.function.arguments;
+      args = typeof raw === "string" ? JSON.parse(raw) : (raw || {});
+    } catch { args = {}; }
+    if (!args || typeof args !== "object") args = {};
+    out.push({ id: String(call.id || "call"), args, raw: call });
+  }
+  return out;
+}
+
+async function runLeadTool(call, messages, env, meta) {
+  if (!looksConfirmed(messages)) {
+    const parsed = validateLead(call.args);
+    return {
+      id: call.id,
+      leadSubmitted: false,
+      duplicate: false,
+      field: parsed.ok ? "" : parsed.field,
+      reason: "unconfirmed",
+      parsed,
+      toolContent: JSON.stringify({
+        ok: false,
+        message: "The visitor has not confirmed yet. Repeat the name, phone, email if any, city, and project, and ask if they are correct. Do not call submit_lead in that message."
+      })
+    };
+  }
+  const result = await acceptLead(env, call.args, meta);
+  if (result.status === 400) {
+    return {
+      id: call.id,
+      leadSubmitted: false,
+      duplicate: false,
+      field: result.field,
+      reason: "invalid",
+      toolContent: JSON.stringify({
+        ok: false,
+        field: result.field,
+        message: result.message + " Ask for it in a normal sentence."
+      })
+    };
+  }
+  if (result.status === 429) {
+    return {
+      id: call.id,
+      leadSubmitted: false,
+      duplicate: false,
+      reason: "limited",
+      toolContent: JSON.stringify({
+        ok: false,
+        saved: false,
+        message: "Not saved. Tell them it did not go through and give (916) 359-9692. Do not say anything was sent."
+      })
+    };
+  }
+  if (result.dropped || (!result.leadSubmitted && !result.duplicate)) {
+    return {
+      id: call.id,
+      leadSubmitted: false,
+      duplicate: false,
+      reason: result.dropped ? "dropped" : "failed",
+      toolContent: JSON.stringify({
+        ok: false,
+        saved: false,
+        message: "Not saved. Tell them it did not go through and give (916) 359-9692. Do not say anything was sent."
+      })
+    };
+  }
+  return {
+    id: call.id,
+    leadSubmitted: !!result.leadSubmitted,
+    duplicate: !!result.duplicate,
+    reason: result.duplicate ? "duplicate" : "saved",
+    toolContent: JSON.stringify({
+      ok: true,
+      saved: true,
+      message: "Saved. Tell them the request went to the EagleBuilt team, who will follow up. Do not give a time. Do not say a design was emailed or that a person is working on it. Offer https://eaglebuilt.ai/design/."
+    })
+  };
+}
+
+function fallbackAfterTool(outcomes) {
+  const unconfirmed = outcomes.find(o => o.reason === "unconfirmed" && o.parsed && o.parsed.ok);
+  if (unconfirmed) {
+    const lead = unconfirmed.parsed.lead;
+    const email = lead.email ? ", " + lead.email : "";
+    return "I have " + lead.name + ", " + lead.phone + email + ", " + lead.city + ", " + lead.project + ". Is that correct?";
+  }
+  if (outcomes.some(o => o.leadSubmitted || o.duplicate)) {
+    return SAVED_REPLY;
+  }
+  if (outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped")) {
+    return FAILED_REPLY;
+  }
+  const bad = outcomes.find(o => o.field);
+  if (bad && bad.field === "phone") return "What phone number should John call?";
+  if (bad && bad.field === "name") return "What name should John ask for?";
+  if (bad && bad.field === "city") return "Which city is the project in?";
+  if (bad && bad.field === "project") return "What are you hoping to build — an outdoor kitchen, a BBQ island, a patio cover?";
+  if (bad && bad.field === "email") return "That email doesn't look right. Want to correct it, or skip it?";
+  return "You can also call (916) 359-9692 or email info@eaglebuilt.ai.";
+}
+
+function visible(text) {
+  return String(text || "").replace(/\s+$/g, "").slice(0, 4000);
+}
+
+function chatMessageText(message) {
+  if (!message) return "";
+  const c = message.content;
+  if (typeof c === "string") return c.trim();
+  if (Array.isArray(c)) {
+    return c.map(p => (typeof p === "string" ? p : (p && (p.text || p.content)) || "")).join("").trim();
+  }
+  return "";
 }
 
 function normalizeChat(d) {
@@ -465,17 +704,6 @@ function normalizeChat(d) {
     out.push({ role, content });
   }
   return out.slice(-CHAT_MAX_MESSAGES);
-}
-
-function chatReplyText(data) {
-  const msg = data && data.choices && data.choices[0] && data.choices[0].message;
-  if (!msg) return "";
-  const c = msg.content;
-  if (typeof c === "string") return c.trim();
-  if (Array.isArray(c)) {
-    return c.map(p => (typeof p === "string" ? p : (p && (p.text || p.content)) || "")).join("").trim();
-  }
-  return "";
 }
 
 /* Best-effort. Worker isolates do not share memory, so this only slows a

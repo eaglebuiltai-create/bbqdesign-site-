@@ -12,6 +12,7 @@
      designer_open  someone gave their email to open a tool       (all four tools)
      phone_click    someone tapped the phone number               (every page)
      landing_lead   the ads landing form was delivered            (/outdoor-kitchens-sacramento/)
+     chat_lead      the site chat submitted a lead                (chat widget)
 
    Only ever fired on a CONFIRMED success — after the lead has actually been
    delivered — so a failed send can never be counted as a lead.
@@ -28,6 +29,7 @@
       design_lead:   "W4LsCKmL35MdEMLI9spE",   // Lead
       phone_click:   "W4LsCKmL35MdEMLI9spE",   // Lead
       landing_lead:  "W4LsCKmL35MdEMLI9spE",   // Lead - ads landing page
+      chat_lead:     "W4LsCKmL35MdEMLI9spE",   // Lead - site chat
       designer_open: "f8gcCKyL35MdEMLI9spE"    // Designer opened
     }
   };
