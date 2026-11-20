@@ -11,14 +11,21 @@
 # Run from:      C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site
 #
 # The site is static files in ./site. src/worker.js serves /api/confirm (the
-# customer design email), /api/leads (CRM proxy), and /api/chat (site widget).
-# Cloudflare serves matching files from ./site BEFORE the script runs, so a
-# fault in the worker cannot take the website down.
+# customer design email), /api/leads (CRM proxy), /api/chat (site widget),
+# and /api/chat-lead (a confirmed chat lead). run_worker_first is on so the
+# www redirect runs first; every other request is an API route or env.ASSETS.
 #
 # API keys are NOT here. They live in Cloudflare's secret store:
 #   npx wrangler secret put RESEND_API_KEY
 #   npx wrangler secret put XAI_API_KEY
-# Do not put either key in this file or in client JavaScript.
+#   npx wrangler secret put LEAD_SLACK_WEBHOOK_URL
+# Do not put a key or a webhook URL in this file or in client JavaScript.
+#
+# CHAT_LEADS is the durable copy of each chat lead. Create it once, paste the
+# id below, then deploy. Until that id is real, `npx wrangler deploy` will
+# refuse to publish — the code itself treats a missing binding as "log and
+# continue", but a placeholder id must not be deployed.
+#   npx wrangler kv namespace create CHAT_LEADS
 
 name = "fragrant-butterfly-5c92"
 main = "src/worker.js"
@@ -49,3 +56,16 @@ preview_urls = true
 directory = "./site"
 binding = "ASSETS"
 run_worker_first = true
+
+# Durable copy of chat leads. Replace the id before deploying.
+#   npx wrangler kv namespace create CHAT_LEADS
+[[kv_namespaces]]
+binding = "CHAT_LEADS"
+id = "00000000000000000000000000000000"
+
+# Email a chat lead to info@eaglebuilt.ai. The recipient has to be a verified
+# Email Routing destination (or the domain onboarded for Email Sending) or
+# send() fails at runtime. Slack and KV still run. See the pull request.
+[[send_email]]
+name = "EMAIL"
+destination_address = "info@eaglebuilt.ai"

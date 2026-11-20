@@ -1,0 +1,456 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { describe, test } from "node:test";
+import { looksConfirmed, validateLead } from "./chat-lead.js";
+import { CHAT_SYSTEM } from "./chat-prompt.js";
+import worker from "./worker.js";
+
+let phones = 2000;
+function phone() {
+  phones += 1;
+  return "(916) 555-" + String(phones).padStart(4, "0");
+}
+
+function memoryKv() {
+  const store = new Map();
+  return {
+    store,
+    async get(key) { return store.has(key) ? store.get(key) : null; },
+    async put(key, value) { store.set(key, String(value)); }
+  };
+}
+
+function savedLeads(kv) {
+  return [...kv.store.entries()]
+    .filter(([key]) => key.startsWith("lead:"))
+    .map(([, value]) => JSON.parse(value));
+}
+
+function leadBody(over = {}) {
+  return {
+    name: "Jane Doe",
+    phone: phone(),
+    email: "jane@example.com",
+    city: "Folsom",
+    project: "Outdoor kitchen",
+    page: "/",
+    t: Date.now() - 20000,
+    hp: "",
+    ...over
+  };
+}
+
+async function post(path, body, env, ip) {
+  const res = await worker.fetch(new Request("https://eaglebuilt.ai" + path, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: "https://eaglebuilt.ai",
+      "CF-Connecting-IP": ip || "198.51.100.10"
+    },
+    body: JSON.stringify(body)
+  }), env || {});
+  const data = await res.json();
+  return { status: res.status, data };
+}
+
+describe("chat leads", { concurrency: 1 }, () => {
+
+test("prompt gives the current phone, the design site, and the blog", () => {
+  assert.match(CHAT_SYSTEM, /\(916\) 359-9692/);
+  assert.match(CHAT_SYSTEM, /https:\/\/bbqdesign\.ai/);
+  assert.match(CHAT_SYSTEM, /https:\/\/blog\.eaglebuilt\.ai/);
+  assert.match(CHAT_SYSTEM, /submit_lead/);
+  assert.match(CHAT_SYSTEM, /confirm/i);
+  assert.doesNotMatch(CHAT_SYSTEM, /949|751|564-1948|\$\d/);
+  assert.match(CHAT_SYSTEM, /Never invent prices, reviews/);
+});
+
+test("analytics ids stay on the shared tracker", () => {
+  const src = readFileSync(new URL("../site/assets/track.js", import.meta.url), "utf8");
+  assert.match(src, /G-1P2Q3CD8TZ/);
+  assert.match(src, /AW-18410742850/);
+  assert.match(src, /chat_lead:\s+"W4LsCKmL35MdEMLI9spE"/);
+});
+
+test("confirmation is a short agreement, not the details themselves", () => {
+  assert.equal(looksConfirmed([{ role: "user", content: "Yes, that's right." }]), true);
+  assert.equal(looksConfirmed([{ role: "user", content: "Jane Doe, 916-555-0100, Folsom, outdoor kitchen" }]), false);
+  assert.equal(looksConfirmed([{ role: "user", content: "Yes, except the city is Roseville" }]), false);
+  const parsed = validateLead({ name: "Jane\nDoe", phone: "(916) 555-0199", email: "no", city: "Folsom", project: "BBQ island" });
+  assert.equal(parsed.ok, true);
+  assert.equal(parsed.lead.name, "Jane Doe");
+  assert.equal(parsed.lead.email, "");
+  assert.equal(validateLead({ name: "Jane", phone: "555", city: "Folsom", project: "Patio cover" }).field, "phone");
+});
+
+test("lead endpoint stores, slacks, and emails, and one failure does not stop the other", async () => {
+  const kv = memoryKv();
+  const mailed = [];
+  const slacked = [];
+  const env = {
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T00/B00/secret",
+    EMAIL: { async send(msg) { mailed.push(msg); return { messageId: "m1" }; } }
+  };
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    slacked.push(String(url));
+    return new Response("nope", { status: 500 });
+  };
+  try {
+    const body = leadBody({ phone: "(916) 555-0181", email: "" });
+    const { status, data } = await post("/api/chat-lead", body, env, "198.51.100.21");
+    assert.equal(status, 200);
+    assert.equal(data.ok, true);
+    assert.equal(data.leadSubmitted, true);
+    assert.equal(data.duplicate, false);
+    assert.equal(slacked.length, 1);
+    assert.equal(mailed.length, 1);
+    assert.equal(mailed[0].to, "info@eaglebuilt.ai");
+    assert.equal(mailed[0].from.email, "info@eaglebuilt.ai");
+    assert.equal(mailed[0].replyTo, undefined);
+    assert.match(mailed[0].text, /Jane Doe/);
+    assert.match(mailed[0].text, /Outdoor kitchen/);
+    assert.doesNotMatch(mailed[0].subject, /[\r\n]/);
+    const saved = savedLeads(kv);
+    assert.equal(saved.length, 1);
+    assert.equal(saved[0].delivery.slack, "failed");
+    assert.equal(saved[0].delivery.email, "sent");
+    assert.equal(saved[0].delivery.kv, "saved");
+    assert.equal(saved[0].email, null);
+    assert.equal(saved[0].delivery.crm, "skipped");
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("email failure still sends Slack", async () => {
+  const kv = memoryKv();
+  let slackBody = "";
+  const env = {
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T00/B00/secret",
+    EMAIL: { async send() { throw new Error("destination not verified"); } }
+  };
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    assert.match(String(url), /^https:\/\/hooks\.slack\.com\/services\//);
+    slackBody = init.body;
+    return new Response("ok", { status: 200 });
+  };
+  try {
+    const { status, data } = await post("/api/chat-lead", leadBody({
+      name: "<!channel> Ann",
+      phone: "(916) 555-0182",
+      city: "Roseville",
+      project: "Patio cover"
+    }), env, "198.51.100.22");
+    assert.equal(status, 200);
+    assert.equal(data.leadSubmitted, true);
+    assert.match(slackBody, /&lt;!channel&gt; Ann/);
+    assert.doesNotMatch(slackBody, /<!channel>/);
+    const saved = savedLeads(kv)[0];
+    assert.equal(saved.delivery.email, "failed");
+    assert.equal(saved.delivery.slack, "sent");
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("missing secret and binding still thanks the visitor and logs the lead", async () => {
+  const lines = [];
+  const origLog = console.log;
+  console.log = (...args) => lines.push(args.join(" "));
+  try {
+    const { status, data } = await post("/api/chat-lead", leadBody({
+      phone: "(916) 555-0183"
+    }), {}, "198.51.100.23");
+    assert.equal(status, 200);
+    assert.equal(data.ok, true);
+    assert.equal(data.leadSubmitted, false);
+    assert.equal("error" in data, false);
+    assert.ok(lines.some(line => line.includes("no channel stored this lead")));
+    assert.ok(lines.some(line => line.includes("LEAD_SLACK_WEBHOOK_URL is not set")));
+    assert.ok(lines.some(line => line.includes("EMAIL binding is not set")));
+  } finally {
+    console.log = origLog;
+  }
+});
+
+test("honeypot and a too-fast submit are dropped", async () => {
+  const kv = memoryKv();
+  let called = 0;
+  const orig = globalThis.fetch;
+  globalThis.fetch = async () => { called += 1; return new Response("ok"); };
+  const env = {
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x",
+    EMAIL: { async send() { called += 1; } }
+  };
+  try {
+    const honey = await post("/api/chat-lead", leadBody({ hp: "acme bots", phone: "(916) 555-0184" }), env, "198.51.100.24");
+    assert.equal(honey.status, 200);
+    assert.equal(honey.data.ok, true);
+    assert.equal(honey.data.leadSubmitted, false);
+    const fast = await post("/api/chat-lead", leadBody({ t: Date.now(), phone: "(916) 555-0185" }), env, "198.51.100.25");
+    assert.equal(fast.data.leadSubmitted, false);
+    assert.equal(savedLeads(kv).length, 0);
+    assert.equal(called, 0);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("bad details are rejected and the rate limit trips", async () => {
+  const env = { CHAT_LEADS: memoryKv() };
+  const bad = await post("/api/chat-lead", leadBody({ phone: "123", email: "not-an-email" }), env, "198.51.100.26");
+  assert.equal(bad.status, 400);
+  assert.equal(bad.data.field, "phone");
+  for (let i = 0; i < 6; i++) {
+    const res = await post("/api/chat-lead", { name: "x" }, env, "198.51.100.27");
+    assert.equal(res.status, 400);
+  }
+  const limited = await post("/api/chat-lead", leadBody(), env, "198.51.100.27");
+  assert.equal(limited.status, 429);
+  assert.match(limited.data.message, /\(916\) 359-9692/);
+});
+
+test("CRM failure does not block Slack or email, and no email skips CRM", async () => {
+  const kv = memoryKv();
+  const crm = [];
+  const env = {
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x",
+    CRM_INGEST_URL: "https://crm.eaglebuilt.ai/api/leads",
+    CRM_LEADS_API_KEY: "test-key",
+    LEAD_EMAIL_TO: "info@eaglebuilt.ai",
+    EMAIL: { async send() { return { messageId: "m" }; } }
+  };
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    const u = String(url);
+    if (u.includes("crm.eaglebuilt.ai")) {
+      crm.push({ key: init.headers["x-api-key"], body: JSON.parse(init.body) });
+      return new Response("no", { status: 503 });
+    }
+    return new Response("ok", { status: 200 });
+  };
+  try {
+    const withEmail = await post("/api/chat-lead", leadBody({
+      phone: "(916) 555-0186",
+      email: "jane@example.com"
+    }), env, "198.51.100.28");
+    assert.equal(withEmail.data.leadSubmitted, true);
+    assert.equal(crm.length, 1);
+    assert.equal(crm[0].key, "test-key");
+    assert.equal(crm[0].body.source, "chat");
+    assert.equal(crm[0].body.email, "jane@example.com");
+    const saved = savedLeads(kv).at(-1);
+    assert.equal(saved.delivery.crm, "failed");
+    assert.equal(saved.delivery.slack, "sent");
+    assert.equal(saved.delivery.email, "sent");
+
+    crm.length = 0;
+    const noEmail = await post("/api/chat-lead", leadBody({
+      phone: "(916) 555-0187",
+      email: "skip"
+    }), env, "198.51.100.29");
+    assert.equal(noEmail.data.leadSubmitted, true);
+    assert.equal(crm.length, 0);
+    assert.equal(savedLeads(kv).at(-1).delivery.crm, "skipped");
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("a non-Slack webhook is not called", async () => {
+  let called = 0;
+  const orig = globalThis.fetch;
+  globalThis.fetch = async () => { called += 1; return new Response("ok"); };
+  try {
+    const { data } = await post("/api/chat-lead", leadBody({ phone: "(916) 555-0188" }), {
+      CHAT_LEADS: memoryKv(),
+      LEAD_SLACK_WEBHOOK_URL: "https://example.com/steal",
+      EMAIL: { async send() { return { messageId: "m" }; } }
+    }, "198.51.100.30");
+    assert.equal(data.leadSubmitted, true);
+    assert.equal(called, 0);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("chat submits a lead only after the visitor confirms", async () => {
+  const kv = memoryKv();
+  const slacked = [];
+  const mailed = [];
+  const xai = [];
+  const env = {
+    XAI_API_KEY: "test-key",
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x",
+    EMAIL: { async send(msg) { mailed.push(msg); return { messageId: "m" }; } }
+  };
+  const lead = {
+    name: "Jane Doe",
+    phone: "(916) 555-0148",
+    email: "jane@example.com",
+    city: "Folsom",
+    project: "Outdoor kitchen"
+  };
+  const toolMessage = {
+    role: "assistant",
+    content: "",
+    tool_calls: [{
+      id: "call_1",
+      type: "function",
+      function: { name: "submit_lead", arguments: JSON.stringify(lead) }
+    }]
+  };
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    const u = String(url);
+    if (u.includes("api.x.ai")) {
+      const body = JSON.parse(init.body);
+      xai.push(body);
+      const last = body.messages[body.messages.length - 1];
+      let content = "";
+      if (last.role === "tool" && String(last.content).includes("has not confirmed")) {
+        content = "I have Jane Doe, (916) 555-0148, jane@example.com, Folsom, outdoor kitchen. Is that correct?";
+      } else if (last.role === "tool") {
+        content = "Thanks, Jane. John has this and will be in touch.";
+      }
+      const step = content ? { role: "assistant", content } : toolMessage;
+      return Response.json({ choices: [{ message: step }] });
+    }
+    slacked.push(JSON.parse(init.body).text);
+    return new Response("ok", { status: 200 });
+  };
+  try {
+    const early = await post("/api/chat", {
+      t: Date.now() - 30000,
+      page: "/",
+      messages: [
+        { role: "user", content: "I want a quote for an outdoor kitchen." },
+        { role: "assistant", content: "What is your name, phone, and city? Email is optional." },
+        { role: "user", content: "Jane Doe, (916) 555-0148, jane@example.com, Folsom, outdoor kitchen." }
+      ]
+    }, env, "198.51.100.40");
+    assert.equal(early.status, 200);
+    assert.equal(early.data.leadSubmitted, false);
+    assert.match(early.data.reply, /Is that correct/);
+    assert.equal(savedLeads(kv).length, 0);
+    assert.equal(slacked.length, 0);
+
+    xai.length = 0;
+    const done = await post("/api/chat", {
+      t: Date.now() - 30000,
+      page: "/design/",
+      messages: [
+        { role: "user", content: "I want a quote for an outdoor kitchen." },
+        { role: "assistant", content: "I have Jane Doe, (916) 555-0148, jane@example.com, Folsom, outdoor kitchen. Is that correct?" },
+        { role: "user", content: "Yes, that's right." }
+      ]
+    }, env, "198.51.100.41");
+    assert.equal(done.status, 200);
+    assert.equal(done.data.leadSubmitted, true);
+    assert.match(done.data.reply, /John has this/);
+    assert.equal(mailed.length, 1);
+    assert.match(mailed[0].text, /jane@example.com/);
+    assert.match(mailed[0].text, /\/design\//);
+    assert.match(slacked[0], /Folsom/);
+    const saved = savedLeads(kv)[0];
+    assert.equal(saved.city, "Folsom");
+    assert.equal(saved.page, "/design/");
+    assert.equal(saved.delivery.slack, "sent");
+    assert.equal(saved.delivery.email, "sent");
+    const followUp = xai.at(-1);
+    assert.ok(followUp.messages.some(m => m.role === "tool" && m.content.includes('"ok":true')));
+    assert.equal(followUp.messages[0].content.includes("https://bbqdesign.ai"), true);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("a design question does not submit a lead", async () => {
+  let slack = 0;
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("api.x.ai")) {
+      return Response.json({
+        choices: [{ message: { role: "assistant", content: "You can play with a layout at https://bbqdesign.ai." } }]
+      });
+    }
+    slack += 1;
+    return new Response("ok");
+  };
+  try {
+    const { status, data } = await post("/api/chat", {
+      messages: [{ role: "user", content: "Can I play with a design?" }]
+    }, { XAI_API_KEY: "test-key", CHAT_LEADS: memoryKv(), LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x" }, "198.51.100.42");
+    assert.equal(status, 200);
+    assert.equal(data.leadSubmitted, false);
+    assert.match(data.reply, /bbqdesign\.ai/);
+    assert.equal(slack, 0);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("chat still answers when the model rejects tools", async () => {
+  let n = 0;
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    n += 1;
+    const body = JSON.parse(init.body);
+    if (n === 1) {
+      assert.ok(body.tools);
+      return new Response("tools unsupported", { status: 400 });
+    }
+    assert.equal(body.tools, undefined);
+    return Response.json({ choices: [{ message: { role: "assistant", content: "Call (916) 359-9692 and we can talk it through." } }] });
+  };
+  try {
+    const { status, data } = await post("/api/chat", {
+      messages: [{ role: "user", content: "Are you around?" }]
+    }, { XAI_API_KEY: "test-key" }, "198.51.100.43");
+    assert.equal(status, 200);
+    assert.match(data.reply, /\(916\) 359-9692/);
+    assert.equal(data.leadSubmitted, false);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("chat without the xAI secret says so", async () => {
+  const { status, data } = await post("/api/chat", { message: "Hello" }, {}, "198.51.100.44");
+  assert.equal(status, 503);
+  assert.match(data.error, /XAI_API_KEY/);
+});
+
+test("a second identical lead is not sent twice", async () => {
+  const kv = memoryKv();
+  let slack = 0;
+  const orig = globalThis.fetch;
+  globalThis.fetch = async () => { slack += 1; return new Response("ok", { status: 200 }); };
+  const env = {
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x",
+    EMAIL: { async send() { return { messageId: "m" }; } }
+  };
+  const body = leadBody({ phone: "(916) 555-0190", email: "" });
+  try {
+    const first = await post("/api/chat-lead", body, env, "198.51.100.45");
+    const second = await post("/api/chat-lead", body, env, "198.51.100.45");
+    assert.equal(first.data.leadSubmitted, true);
+    assert.equal(second.data.duplicate, true);
+    assert.equal(second.data.leadSubmitted, false);
+    assert.equal(slack, 1);
+    assert.equal(savedLeads(kv).length, 1);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+});

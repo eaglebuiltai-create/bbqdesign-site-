@@ -38,6 +38,7 @@
       ".eb-msg-err{align-self:flex-start;background:rgba(231,200,154,.08);border:1px solid rgba(231,200,154,.35);",
       "color:#E7C89A;font-size:13.5px}",
       ".eb-msg-wait{align-self:flex-start;color:#8DA0B8;border:1px solid #1E2C42;background:#0B111C}",
+      "#eb-chat-hp{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}",
       "#eb-chat-form{display:flex;gap:8px;padding:10px;border-top:1px solid #1E2C42;background:#0B111C}",
       "#eb-chat-input{flex:1;min-width:0;padding:10px 12px;border-radius:9px;border:1px solid #2A3B57;",
       "background:#0A121E;color:#E7EEF7;font:inherit;font-size:15px;outline:none}",
@@ -66,6 +67,7 @@
         '<button type="button" id="eb-chat-x" aria-label="Close chat">×</button></div>' +
         '<div id="eb-chat-log" role="log" aria-live="polite"></div>' +
         '<form id="eb-chat-form">' +
+          '<input id="eb-chat-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" data-lpignore="true">' +
           '<input id="eb-chat-input" type="text" maxlength="2000" autocomplete="off" ' +
             'placeholder="Ask about a kitchen, fireplace, or fire pit" aria-label="Message">' +
           '<button type="submit" id="eb-chat-send">Send</button>' +
@@ -87,6 +89,7 @@
     var openBtn = document.getElementById("eb-chat-open");
     var history = load();
     var pending = false;
+    var openedAt = Date.now();
 
     addBubble("bot", WELCOME);
     history.forEach(function (m) { addBubble(m.role === "user" ? "user" : "bot", m.content); });
@@ -125,10 +128,14 @@
       send.disabled = true;
       input.disabled = true;
       var wait = addBubble("wait", "…");
+      var hp = document.getElementById("eb-chat-hp");
       var payload = {
         messages: history.slice(-10).map(function (m) {
           return { role: m.role, content: String(m.content).slice(0, 2000) };
-        })
+        }),
+        hp: hp ? hp.value : "",
+        t: openedAt,
+        page: location.pathname
       };
       fetch("/api/chat", {
         method: "POST",
@@ -146,6 +153,9 @@
           history = history.slice(-10);
           save(history);
           addBubble("bot", reply);
+          if (res.data.leadSubmitted) {
+            try { window.ebTrack && window.ebTrack("chat_lead", { page: location.pathname }); } catch (err) {}
+          }
         } else {
           addBubble("err", fallback(res.status));
         }
