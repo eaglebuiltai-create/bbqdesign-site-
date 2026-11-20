@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, test } from "node:test";
 import { looksConfirmed, validateLead } from "./chat-lead.js";
 import { CHAT_SYSTEM } from "./chat-prompt.js";
+import { claimsUnperformedWork, DESIGNER_URL, FAILED_REPLY, SAVED_REPLY } from "./chat-honesty.js";
 import worker from "./worker.js";
 
 let phones = 2000;
@@ -58,8 +59,9 @@ describe("chat leads", { concurrency: 1 }, () => {
 
 test("prompt gives the current phone, the design site, and the blog", () => {
   assert.match(CHAT_SYSTEM, /\(916\) 359-9692/);
-  assert.match(CHAT_SYSTEM, /https:\/\/bbqdesign\.ai/);
+  assert.match(CHAT_SYSTEM, /https:\/\/eaglebuilt\.ai\/design\//);
   assert.match(CHAT_SYSTEM, /https:\/\/blog\.eaglebuilt\.ai/);
+  assert.match(CHAT_SYSTEM, /Never say you sent, emailed/);
   assert.match(CHAT_SYSTEM, /submit_lead/);
   assert.match(CHAT_SYSTEM, /confirm/i);
   assert.doesNotMatch(CHAT_SYSTEM, /949|751|564-1948|\$\d/);
@@ -355,7 +357,8 @@ test("chat submits a lead only after the visitor confirms", async () => {
     }, env, "198.51.100.41");
     assert.equal(done.status, 200);
     assert.equal(done.data.leadSubmitted, true);
-    assert.match(done.data.reply, /John has this/);
+    assert.equal(done.data.reply, SAVED_REPLY);
+    assert.equal(claimsUnperformedWork(done.data.reply), false);
     assert.equal(mailed.length, 1);
     assert.match(mailed[0].text, /jane@example.com/);
     assert.match(mailed[0].text, /\/design\//);
@@ -366,8 +369,8 @@ test("chat submits a lead only after the visitor confirms", async () => {
     assert.equal(saved.delivery.slack, "sent");
     assert.equal(saved.delivery.email, "sent");
     const followUp = xai.at(-1);
-    assert.ok(followUp.messages.some(m => m.role === "tool" && m.content.includes('"ok":true')));
-    assert.equal(followUp.messages[0].content.includes("https://bbqdesign.ai"), true);
+    assert.equal(followUp.messages[0].content.includes(DESIGNER_URL), true);
+    assert.equal(followUp.messages.some(m => m.role === "tool"), false);
   } finally {
     globalThis.fetch = orig;
   }
@@ -448,6 +451,123 @@ test("a second identical lead is not sent twice", async () => {
     assert.equal(second.data.leadSubmitted, false);
     assert.equal(slack, 1);
     assert.equal(savedLeads(kv).length, 1);
+  } finally {
+    globalThis.fetch = orig;
+  }
+});
+
+test("a request for an emailed design is not described as sent unless the lead was saved", async () => {
+  const lies = [
+    "I'll have one of our designers put together that basic L-shaped island and email it today.",
+    "I just sent the basic L-shaped island design. Check your inbox in the next few minutes.",
+    "Done. The basic L-shaped island has been sent exactly as-is.",
+    "Our designer is putting it together now and it should hit your inbox within the next couple of hours."
+  ];
+  for (const lie of lies) assert.equal(claimsUnperformedWork(lie), true);
+  assert.equal(claimsUnperformedWork(SAVED_REPLY), false);
+  assert.equal(claimsUnperformedWork(FAILED_REPLY), false);
+
+  const asked = "Can you email me a basic L-shaped island design?";
+  const orig = globalThis.fetch;
+  let lieIndex = 0;
+  globalThis.fetch = async (url) => {
+    if (!String(url).includes("api.x.ai")) throw new Error("lead path should not notify");
+    const content = lies[lieIndex++] || lies[0];
+    return Response.json({ choices: [{ message: { role: "assistant", content } }] });
+  };
+  try {
+    for (let i = 0; i < lies.length; i++) {
+      const { status, data } = await post("/api/chat", {
+        messages: [{ role: "user", content: asked }]
+      }, { XAI_API_KEY: "test-key" }, "198.51.100." + (60 + i));
+      assert.equal(status, 200);
+      assert.equal(data.leadSubmitted, false);
+      assert.equal(claimsUnperformedWork(data.reply), false);
+      assert.doesNotMatch(data.reply, /just sent|has been sent|inbox|putting it together|email it today|as-is|couple of hours|few minutes|our designer/i);
+      assert.match(data.reply, /name, phone, email, and city/);
+      assert.match(data.reply, /eaglebuilt\.ai\/design\//);
+    }
+  } finally {
+    globalThis.fetch = orig;
+  }
+
+  const kv = memoryKv();
+  const lead = {
+    name: "Jane Doe",
+    phone: "(916) 555-0161",
+    email: "jane@example.com",
+    city: "Folsom",
+    project: "basic L-shaped island, email the design"
+  };
+  const lyingTool = {
+    role: "assistant",
+    content: "I just sent the basic L-shaped island design. Check your inbox in the next few minutes.",
+    tool_calls: [{
+      id: "call_lie",
+      type: "function",
+      function: { name: "submit_lead", arguments: JSON.stringify(lead) }
+    }]
+  };
+  const missedLead = {
+    name: "Ken Moss",
+    phone: "(916) 555-0162",
+    email: "ken@example.com",
+    city: "Roseville",
+    project: "basic L-shaped island, email the design"
+  };
+  const missedTool = {
+    role: "assistant",
+    content: "Done. The basic L-shaped island has been sent exactly as-is.",
+    tool_calls: [{
+      id: "call_miss",
+      type: "function",
+      function: { name: "submit_lead", arguments: JSON.stringify(missedLead) }
+    }]
+  };
+  let turn = 0;
+  globalThis.fetch = async (url) => {
+    if (String(url).includes("api.x.ai")) {
+      turn += 1;
+      return Response.json({ choices: [{ message: turn === 1 ? lyingTool : missedTool }] });
+    }
+    return new Response("no", { status: 500 });
+  };
+  const env = {
+    XAI_API_KEY: "test-key",
+    CHAT_LEADS: kv,
+    LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x",
+    EMAIL: { async send() { return { messageId: "m" }; } }
+  };
+  const history = [
+    { role: "user", content: asked },
+    { role: "assistant", content: "I have Jane Doe, (916) 555-0161, jane@example.com, Folsom, basic L-shaped island. Is that correct?" },
+    { role: "user", content: "Yes, that's right." }
+  ];
+  try {
+    const saved = await post("/api/chat", { t: Date.now() - 30000, messages: history }, env, "198.51.100.70");
+    assert.equal(saved.data.leadSubmitted, true);
+    assert.equal(saved.data.reply, SAVED_REPLY);
+    assert.equal(claimsUnperformedWork(saved.data.reply), false);
+    assert.match(saved.data.reply, /EagleBuilt team/);
+    assert.match(saved.data.reply, /eaglebuilt\.ai\/design\//);
+    assert.doesNotMatch(saved.data.reply, /inbox|minutes|sent the/i);
+    assert.equal(savedLeads(kv)[0].project, lead.project);
+
+    const missed = await post("/api/chat", {
+      t: Date.now() - 30000,
+      messages: [
+        { role: "user", content: asked },
+        { role: "assistant", content: "I have Ken Moss, (916) 555-0162, ken@example.com, Roseville, basic L-shaped island. Is that correct?" },
+        { role: "user", content: "Yes." }
+      ]
+    }, {
+      XAI_API_KEY: "test-key",
+      LEAD_SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T/B/x"
+    }, "198.51.100.71");
+    assert.equal(missed.data.leadSubmitted, false);
+    assert.equal(missed.data.reply, FAILED_REPLY);
+    assert.match(missed.data.reply, /\(916\) 359-9692/);
+    assert.equal(claimsUnperformedWork(missed.data.reply), false);
   } finally {
     globalThis.fetch = orig;
   }

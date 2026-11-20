@@ -33,6 +33,7 @@
 
 import { acceptLead, clientIp, looksConfirmed, validateLead } from "./chat-lead.js";
 import { CHAT_SYSTEM, CHAT_TOOLS } from "./chat-prompt.js";
+import { FAILED_REPLY, SAVED_REPLY, visitorReply } from "./chat-honesty.js";
 
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
@@ -465,7 +466,7 @@ async function chat(request, env) {
     const text = visible(chatMessageText(first.message));
     if (!calls.length) {
       if (!text) return chatDown();
-      return json({ reply: text, leadSubmitted: false }, 200);
+      return json({ reply: visitorReply(text, {}), leadSubmitted: false }, 200);
     }
 
     const outcomes = [];
@@ -476,6 +477,13 @@ async function chat(request, env) {
       if (outcome.leadSubmitted) leadSubmitted = true;
       if (outcome.duplicate) duplicate = true;
     }
+    const saved = leadSubmitted || duplicate;
+    const failed = !saved && outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped");
+    /* A saved or failed submit is answered here, not by another model call.
+       The model has already claimed to have emailed designs it never created. */
+    if (saved) return json({ reply: SAVED_REPLY, leadSubmitted, duplicate }, 200);
+    if (failed) return json({ reply: FAILED_REPLY, leadSubmitted: false, duplicate: false }, 200);
+
     convo.push({
       role: "assistant",
       content: text || "",
@@ -496,15 +504,26 @@ async function chat(request, env) {
           if (outcome.duplicate) duplicate = true;
           outcomes.push(outcome);
         }
+        const savedAgain = leadSubmitted || duplicate;
+        const failedAgain = !savedAgain && outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped");
+        if (savedAgain) return json({ reply: SAVED_REPLY, leadSubmitted, duplicate }, 200);
+        if (failedAgain) return json({ reply: FAILED_REPLY, leadSubmitted: false }, 200);
       } else if (reply) {
-        return json({ reply, leadSubmitted, duplicate }, 200);
+        return json({
+          reply: visitorReply(reply, { saved: leadSubmitted || duplicate, failed: false }),
+          leadSubmitted,
+          duplicate
+        }, 200);
       }
     } else {
       console.log("chat: follow-up failed " + second.status);
     }
 
     return json({
-      reply: fallbackAfterTool(outcomes),
+      reply: visitorReply(fallbackAfterTool(outcomes), {
+        saved: leadSubmitted || duplicate,
+        failed: outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped")
+      }),
       leadSubmitted,
       duplicate
     }, 200);
@@ -603,7 +622,21 @@ async function runLeadTool(call, messages, env, meta) {
       reason: "limited",
       toolContent: JSON.stringify({
         ok: false,
-        message: "Ask them to call (916) 359-9692. Do not mention a technical problem."
+        saved: false,
+        message: "Not saved. Tell them it did not go through and give (916) 359-9692. Do not say anything was sent."
+      })
+    };
+  }
+  if (result.dropped || (!result.leadSubmitted && !result.duplicate)) {
+    return {
+      id: call.id,
+      leadSubmitted: false,
+      duplicate: false,
+      reason: result.dropped ? "dropped" : "failed",
+      toolContent: JSON.stringify({
+        ok: false,
+        saved: false,
+        message: "Not saved. Tell them it did not go through and give (916) 359-9692. Do not say anything was sent."
       })
     };
   }
@@ -612,7 +645,11 @@ async function runLeadTool(call, messages, env, meta) {
     leadSubmitted: !!result.leadSubmitted,
     duplicate: !!result.duplicate,
     reason: result.duplicate ? "duplicate" : "saved",
-    toolContent: JSON.stringify(result.duplicate ? { ok: true, alreadySaved: true } : { ok: true })
+    toolContent: JSON.stringify({
+      ok: true,
+      saved: true,
+      message: "Saved. Tell them the request went to the EagleBuilt team, who will follow up. Do not give a time. Do not say a design was emailed or that a person is working on it. Offer https://eaglebuilt.ai/design/."
+    })
   };
 }
 
@@ -623,8 +660,11 @@ function fallbackAfterTool(outcomes) {
     const email = lead.email ? ", " + lead.email : "";
     return "I have " + lead.name + ", " + lead.phone + email + ", " + lead.city + ", " + lead.project + ". Is that correct?";
   }
-  if (outcomes.some(o => o.leadSubmitted || o.duplicate || o.reason === "saved")) {
-    return "Thanks. John has this and will be in touch. You can also call (916) 359-9692.";
+  if (outcomes.some(o => o.leadSubmitted || o.duplicate)) {
+    return SAVED_REPLY;
+  }
+  if (outcomes.some(o => o.reason === "failed" || o.reason === "limited" || o.reason === "dropped")) {
+    return FAILED_REPLY;
   }
   const bad = outcomes.find(o => o.field);
   if (bad && bad.field === "phone") return "What phone number should John call?";
