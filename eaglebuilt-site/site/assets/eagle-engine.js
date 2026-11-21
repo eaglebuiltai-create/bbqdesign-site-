@@ -242,8 +242,8 @@ function prepareGearText(text) {
     .replace(/\bnext to the grill\b/g, " __next__ ")
     .replace(/\bbeside the grill\b/g, " __next__ ")
     .replace(/\bby the grill\b/g, " __next__ ")
-    .replace(/\b(?:under|below|beneath) the (?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
-    .replace(/\bunder it\b/g, " __under__ ")
+    .replace(/\b(?:under|underneath|below|beneath) the (?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
+    .replace(/\b(?:under|underneath) it\b/g, " __under__ ")
     .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
     .replace(/\bunder the bar\b/g, " __bar__ ")
     .replace(/\bon the bar(?: side)?\b/g, " __bar__ ")
@@ -494,8 +494,9 @@ function refine(t, current) {
     grill.lengthIn += delta;
     return { spec, brief: true, notes: [delta > 0 ? "Made the grill leg longer." : "Made the grill leg shorter."] };
   }
-  const placed = /\b(left|right side|on the right|on the left|under the bar|under the grill|under it|next to|end of)\b/.test(t);
-  const add = t.match(/\badd (?:a |an )?(sink|fridge|refrigerator|side burner|single side burner|grill|power burner|griddle|trash|cooler)\b/);
+  const placed = /\b(left|right side|on the right|on the left|under the bar|under(?:neath)? the grill|under(?:neath)? it|below the grill|beneath the grill|next to|end of)\b/.test(t);
+  const reposition = /\b(move|relocate|swap|put|place)\b/.test(t);
+  const add = !reposition && t.match(/\badd (?:a |an )?(sink|fridge|refrigerator|side burner|single side burner|grill|power burner|griddle|trash|cooler)\b/);
   if (add && !placed && findItems(t).length < 2) {
     const id = findItems(add[1])[0] || (add[1] === "cooler" || add[1] === "refrigerator" ? "fridge" : "");
     if (!id) return { clarify: "I can add a sink, fridge, side burner, grill, griddle, or trash drawer. That one isn't in the catalog." };
@@ -763,6 +764,9 @@ function addEquipment(t, current) {
       underNotes.push(under.note);
       if (!had) added.push(hit);
       continue;
+    }
+    if (/\b(move|relocate|put|place)\b/.test(t) && had && !hit.where) {
+      return { clarify: "Where should " + CATALOG[hit.id].spoken.replace(/^a /, "the ") + " go? Under the grill, on the left, or on the right." };
     }
     placeOnLeg(dest, hit.id, hit.where);
     if (!had) {

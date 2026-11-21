@@ -305,7 +305,11 @@ describe("design eagle layout", () => {
       barOn: true,
       legs: [{ role: "main", lengthIn: 120, items: ["grill", "fridge", "combo"], stools: 0, pinEnd: false }]
     };
-    const moved = drawn("move the combo under the grill", opened);
+    const moved = drawn("I'd like to move the combo unit underneath the grill", opened);
+    assert.doesNotMatch(moved.reply, /already on the island/);
+    const also = drawn("move the combo under the grill", opened);
+    assert.deepEqual(also.spec.legs[0].items, ["grill", "fridge"]);
+    assert.equal(also.spec.legs[0].bases.grill, "combo");
     assert.equal(moved.spec.barOn, true);
     assert.equal(moved.spec.legs[0].lengthIn, 120);
     assert.deepEqual(moved.spec.legs[0].items, ["grill", "fridge"]);
