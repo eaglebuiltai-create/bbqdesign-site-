@@ -13,6 +13,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="importmap">
+{
+  "imports": {
+    "three": "/design/app/vendor/three/build/three.module.js",
+    "three/addons/": "/design/app/vendor/three/examples/jsm/"
+  }
+}
+</script>
 <script src="/assets/install.js" defer></script>
 <style>
 /* ============================================================
@@ -167,9 +175,11 @@ aside.right{width:308px;flex:0 0 308px;border-left:1px solid var(--line)}
 /* ---------- Stage ---------- */
 .stage{flex:1;position:relative;min-width:0;background:var(--bg2);overflow:hidden}
 .stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
-#c3d,#cEl{display:none}
+#c3d,#c3gl,#cEl{display:none}
 body[data-view="3d"] #c2d,body[data-view="el"] #c2d{display:none}
 body[data-view="3d"] #c3d{display:block}
+body[data-view="3d"][data-gl="1"] #c3d{display:none}
+body[data-view="3d"][data-gl="1"] #c3gl{display:block}
 body[data-view="el"] #cEl{display:block}
 
 .overlay{position:absolute;z-index:10;pointer-events:none}
@@ -1126,6 +1136,7 @@ window.EB_SAMPLES = [
     <section class="stage" id="stage">
       <canvas id="c2d"></canvas>
       <canvas id="c3d"></canvas>
+      <canvas id="c3gl"></canvas>
       <canvas id="cEl"></canvas>
 
       <div class="hint" id="hint">
@@ -5300,11 +5311,90 @@ function syncControls(){
   $$("#addons .toggle").forEach(el => el.classList.toggle("on", !!S.addons[el.dataset.a]));
 }
 
+/* ?gl=1 swaps the software rasterizer for the WebGL view. Off unless asked. */
+const USE_GL = /(?:^|[?&])gl=1(?:&|$)/.test(location.search);
+let glApi = null, glFailed = false, glGen = 0, glLoading = null;
+function glPhone(){
+  return matchMedia("(max-width: 860px)").matches || /iPhone|iPad|Android/i.test(navigator.userAgent);
+}
+function glSnapshot(){
+  const t = takeoff();
+  const b = bounds(0);
+  return {
+    finish: S.finish,
+    counter: S.counter,
+    height: S.height,
+    slab: slabThk(),
+    barOn: !!S.bar.on,
+    barRise: S.bar.rise || 0,
+    base: decompose(t.base),
+    barWalls: decompose(t.bar),
+    top: decompose(t.top),
+    barTop: decompose(t.barTop),
+    bays: S.mods.map(m => {
+      const c = modSpec(m), sz = modSize(m);
+      const f = FRONT[m.r] || FRONT[0];
+      return {
+        x: m.x, z: m.y, w: sz.w, d: sz.d,
+        fx: f[0], fz: f[1],
+        t: c.t || "blank",
+        filler: !!c.filler,
+        sits: !!c.sits,
+        mount: c.mount || "base",
+        ch: c.ch || 10,
+        under: !!m.u
+      };
+    }),
+    cx: b ? (b.x0 + b.x1) / 2 : 0,
+    cz: b ? (b.y0 + b.y1) / 2 : 0,
+    span: b ? Math.max(b.x1 - b.x0, b.y1 - b.y0, 80) : 120
+  };
+}
+function glFail(why){
+  glFailed = true;
+  document.body.dataset.gl = "0";
+  console.log("design-eagle 3d: " + why);
+  if (glApi) { try { glApi.stop(); } catch (err) {} }
+  if (document.body.dataset.view === "3d") render3d();
+}
+function ensureGL(){
+  if (!USE_GL || glFailed) return Promise.resolve(null);
+  if (glApi) return Promise.resolve(glApi);
+  if (glLoading) return glLoading;
+  glLoading = import("/design/app/view3d.js").then(mod => mod.createView($("#c3gl"), {
+    phone: glPhone(),
+    onFail: glFail
+  })).then(api => { glApi = api; return api; }).catch(err => {
+    glFail(err && err.message ? err.message : "webgl");
+    return null;
+  });
+  return glLoading;
+}
+function showGL(gen){
+  ensureGL().then(api => {
+    if (gen !== glGen || document.body.dataset.view !== "3d") return;
+    if (!api) { render3d(); return; }
+    try {
+      document.body.dataset.gl = "1";
+      api.sync(glSnapshot());
+      api.start();
+    } catch (err) {
+      glFail(err && err.message ? err.message : "webgl");
+    }
+  });
+}
+document.addEventListener("visibilitychange", () => {
+  if (glApi) glApi.setPaused(document.hidden);
+});
+
 function refresh(){
   const has = S.mods.length > 0;
   $("#hint").style.display = has ? "none" : "block";
   const V3 = document.body.dataset.view;
-  if (V3 === "3d") render3d(); else if (V3 === "el") drawEl(); else draw2d();
+  if (V3 === "3d" && USE_GL && !glFailed) showGL(++glGen);
+  else if (V3 === "3d") render3d();
+  else if (V3 === "el") drawEl(); else draw2d();
+  if (V3 !== "3d" && glApi) glApi.stop();
   renderQuote();
   syncControls();
   const t = takeoff();
@@ -5422,6 +5512,7 @@ let drag = null;
 stage.addEventListener("pointerdown", e => {
   // overlay chips/buttons live inside the stage — don't treat them as canvas clicks
   if (e.target.closest(".overlay") || e.target.closest(".eagle")) return;
+  if (document.body.dataset.view === "3d" && document.body.dataset.gl === "1") return;
   stage.setPointerCapture(e.pointerId);
   const r = stage.getBoundingClientRect();
   const px = e.clientX - r.left, py = e.clientY - r.top;
@@ -5616,6 +5707,7 @@ stage.addEventListener("wheel", e => {
     return;
   }
   if (document.body.dataset.view === "3d"){
+    if (document.body.dataset.gl === "1") return;
     view3d.dist = clamp(view3d.dist * (1 + Math.sign(e.deltaY)*0.11), 45, 1400);
     render3d();
   } else {
@@ -6896,6 +6988,14 @@ function copyText(txt, okMsg){
     ta.remove();
   }
 }
+function active3dCanvas(){
+  if (document.body.dataset.gl === "1" && glApi){
+    glApi.renderNow();
+    return $("#c3gl");
+  }
+  render3d();
+  return $("#c3d");
+}
 function downloadCanvas(cv, name){
   const a = document.createElement("a");
   a.download = name; a.href = cv.toDataURL("image/png");
@@ -6908,9 +7008,9 @@ function exportAll(){
   drawEl();
   setTimeout(() => {
     downloadCanvas(cEl, "eaglebuilt-elevation.png");
-    render3d();
+    if (!(document.body.dataset.gl === "1" && glApi)) render3d();
     setTimeout(() => {
-      downloadCanvas(c3d, "eaglebuilt-3d-view.png");
+      downloadCanvas(active3dCanvas(), "eaglebuilt-3d-view.png");
       S.sel = keep; refresh();
       toast("Downloaded plan, elevation and 3D view");
     }, 260);
@@ -7178,7 +7278,7 @@ function designShot(){
     if (!S.mods.length) return null;
     const was = document.body.dataset.view;
     if (was !== "3d") setView("3d");
-    const src = $("#c3d");
+    const src = active3dCanvas();
     if (!src || !src.width) { if (was !== "3d") setView(was); return null; }
     /* Fit inside 1000x750 rather than fixing the width — the canvas takes the
        shape of the browser window, so a phone would otherwise produce a very
@@ -7414,9 +7514,15 @@ function mailto(p){
    ========================================================================== */
 $("#viewTabs").addEventListener("click", e => { const b = e.target.closest("button"); if (b) setView(b.dataset.v); });
 $("#btnZoomIn").onclick  = () => { if (document.body.dataset.view==="el"){ viewEl.z = clamp(viewEl.z*1.2,.35,8); drawEl(); return; }
-  if (document.body.dataset.view==="3d"){ view3d.dist = clamp(view3d.dist*.86,45,1400); render3d(); } else { view2d.s = clamp(view2d.s*1.2,.5,14); draw2d(); } };
+  if (document.body.dataset.view==="3d"){
+    if (document.body.dataset.gl === "1" && glApi) glApi.dolly(0.86);
+    else { view3d.dist = clamp(view3d.dist*.86,45,1400); render3d(); }
+  } else { view2d.s = clamp(view2d.s*1.2,.5,14); draw2d(); } };
 $("#btnZoomOut").onclick = () => { if (document.body.dataset.view==="el"){ viewEl.z = clamp(viewEl.z/1.2,.35,8); drawEl(); return; }
-  if (document.body.dataset.view==="3d"){ view3d.dist = clamp(view3d.dist*1.16,45,1400); render3d(); } else { view2d.s = clamp(view2d.s/1.2,.5,14); draw2d(); } };
+  if (document.body.dataset.view==="3d"){
+    if (document.body.dataset.gl === "1" && glApi) glApi.dolly(1.16);
+    else { view3d.dist = clamp(view3d.dist*1.16,45,1400); render3d(); }
+  } else { view2d.s = clamp(view2d.s/1.2,.5,14); draw2d(); } };
 $("#btnFit").onclick     = () => { view3d.tx = view3d.tz = 0; fitEl(); fit(); refresh(); };
 /* Print view. Remembered, because somebody who works off paper wants it every
    time, and somebody showing clients never wants it. */

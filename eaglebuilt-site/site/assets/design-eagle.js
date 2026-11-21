@@ -103,7 +103,8 @@ function showDesign(code) {
   book.hidden = false;
   const saveBtn = document.getElementById("openSave");
   if (saveBtn) saveBtn.hidden = false;
-  const src = CONFIG.designer.appPath + "?" + CONFIG.designer.eagleParam + "#d=" + code;
+  const gl = /(?:^|[?&])gl=1(?:&|$)/.test(location.search) ? "&gl=1" : "";
+  const src = CONFIG.designer.appPath + "?" + CONFIG.designer.eagleParam + gl + "#d=" + code;
   if (!state.frameReady) frame.src = src;
   else frame.contentWindow.postMessage({ source: "design-eagle", type: "load", code }, location.origin);
   try { sessionStorage.setItem("de:" + code, JSON.stringify(state.spec)); } catch (e) {}
