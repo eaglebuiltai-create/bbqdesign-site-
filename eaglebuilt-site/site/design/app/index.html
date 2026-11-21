@@ -675,6 +675,12 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 #ebGate .ebErr{color:#E8342B;font-size:12px;margin:8px 0 0;display:none}
 #ebGate .ebFine{color:#5F7391;font-size:11px;margin:12px 0 0;line-height:1.5}
 body[data-eagle="1"] .eagle{display:none !important}
+body[data-eagle="1"] .slotstrip .sfinish{display:none !important}
+@media (max-width:820px), (max-height:520px){
+  body[data-eagle="1"] .hbtns{display:none}
+  body[data-eagle="1"] header{padding:6px 8px}
+  body[data-eagle="1"] .stage{min-height:0;flex:1 1 auto}
+}
 </style>
 
 <div id="ebGate" hidden>
@@ -8621,13 +8627,19 @@ let LOGO_DATA = "";
       if (type === "shot") { try { image = designShot(); } catch (err) {} }
       window.parent.postMessage({ source: "eagle-app", type, total, image }, location.origin);
     };
+    const frameFit = () => {
+      fit();
+      if (document.body.dataset.view === "3d") {
+        view3d.dist = clamp(view3d.dist * 0.82, 80, 900);
+        refresh();
+      }
+    };
     const applyCode = (code) => {
       if (!code || !decodeState(code)) return false;
       S.sel = null;
       syncControls();
-      fit();
       setView("3d");
-      refresh();
+      frameFit();
       return true;
     };
     window.addEventListener("message", (e) => {
@@ -8637,6 +8649,10 @@ let LOGO_DATA = "";
       if (data.type === "load" && applyCode(data.code)) publish("loaded");
       if (data.type === "shot") publish("shot");
     });
+    window.addEventListener("resize", () => setTimeout(frameFit, 80));
+    setView("3d");
+    frameFit();
+    setTimeout(frameFit, 280);
     publish("ready");
   }
 

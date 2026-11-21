@@ -103,6 +103,7 @@ body[data-embed="1"] .shell { height: 100dvh; }
 }
 .composer, .save {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 10px;
   border-top: 1px solid var(--line);
@@ -168,6 +169,14 @@ body[data-embed="1"] .shell { height: 100dvh; }
   color: #fff;
   background: linear-gradient(180deg, var(--accent), var(--accent2));
 }
+.live {
+  flex: 1 0 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.composer input { flex: 1 1 140px; }
+.mic { min-width: 108px; }
 .hp {
   position: absolute;
   width: 1px;
@@ -179,9 +188,9 @@ body[data-embed="1"] .shell { height: 100dvh; }
   border: 0;
 }
 @media (max-width: 860px) {
-  .shell { grid-template-columns: 1fr; height: auto; }
-  .stage { height: 58dvh; }
-  body.chat-open .stage { height: 32dvh; }
+  .shell { display: block; height: calc(100dvh - 46px); }
+  .stage { height: calc(100dvh - 46px - 72px); }
+  body.chat-open .stage { height: 42dvh; }
   .chat {
     position: fixed;
     left: 0;

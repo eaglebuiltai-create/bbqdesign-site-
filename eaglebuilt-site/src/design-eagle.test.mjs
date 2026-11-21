@@ -10,8 +10,10 @@ import {
   decodeDesign,
   interpret,
   saveReply,
+  summaryReply,
   validateContact
 } from "../site/assets/eagle-engine.js";
+import { guardSpoken, mintVoiceToken, newVoiceSession, readVoiceToken, spendVoiceSession, wantsSave } from "../site/assets/eagle-voice.js";
 
 const PHRASES = [
   ["L-shape, 10 ft grill leg with side burner and fridge, 5 ft bar with 3 stools", {
@@ -149,6 +151,9 @@ describe("design eagle layout", () => {
     let result = drawn("L-shape, 10 ft grill leg with side burner and fridge, 5 ft bar with 3 stools");
     result = drawn("make the bar longer", result.spec);
     assert.equal(result.spec.legs[1].lengthIn, 84);
+    assert.equal(result.kind, "refine");
+    assert.match(result.reply, /^Done, the bar is now 7 ft, room for 3 stools\./);
+    assert.doesNotMatch(result.reply, /Here's an L-shape/);
     assert.equal(result.spec.legs[0].items.includes("grill"), true);
     result = drawn("add a sink", result.spec);
     assert.equal(result.spec.legs[1].items.includes("sink"), true);
@@ -408,5 +413,90 @@ describe("design eagle save", () => {
     const saved = JSON.parse([...kv.store.entries()].find(([key]) => key.startsWith("lead:"))[1]);
     assert.equal(saved.source, "design-eagle");
     assert.match(saved.link, /design-eagle/);
+  });
+});
+
+describe("design eagle voice", () => {
+  test("name, email, and phone stay on the form", () => {
+    assert.equal(wantsSave("email me this design"), true);
+    assert.equal(wantsSave("I'm done"), true);
+    assert.equal(wantsSave("make the bar longer"), false);
+    assert.equal(wantsSave("add a fridge"), false);
+  });
+
+  test("a spoken line cannot claim a send, and a session cannot be stretched", async () => {
+    const secret = "eleven-test-key";
+    assert.match(guardSpoken("I just emailed you the design"), /359-9692/);
+    assert.equal(claimsSent(guardSpoken("I just emailed you the design")), false);
+    assert.equal(guardSpoken("Done, the bar is now 7 ft."), "Done, the bar is now 7 ft.");
+    const session = newVoiceSession("203.0.113.80");
+    const token = await mintVoiceToken(secret, session);
+    const read = await readVoiceToken(secret, token);
+    assert.equal(read.ip, "203.0.113.80");
+    assert.equal(await readVoiceToken(secret, token + "x"), null);
+    assert.equal(spendVoiceSession(read, CONFIG.voiceLimits.maxChars + 1), null);
+    const spent = spendVoiceSession(read, 20);
+    assert.equal(spent.left, session.left - 20);
+  });
+
+  test("speak uses the Adam voice on the server and refuses an unconfirmed send", async () => {
+    const env = { ELEVENLABS_API_KEY: "xi-test-key" };
+    let posted = null;
+    const orig = globalThis.fetch;
+    globalThis.fetch = async (url, init) => {
+      posted = { url: String(url), init };
+      return new Response(new Uint8Array([1, 2, 3, 4]), { status: 200, headers: { "Content-Type": "audio/mpeg" } });
+    };
+    try {
+      const session = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.81");
+      assert.equal(session.data.speak, true);
+      assert.equal(session.data.voice, "Adam");
+      assert.equal("token" in session.data, true);
+      assert.equal(JSON.stringify(session.data).includes("xi-test-key"), false);
+      const saidRes = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://eaglebuilt.ai",
+          "CF-Connecting-IP": "203.0.113.81"
+        },
+        body: JSON.stringify({ token: session.data.token, text: "I just emailed you the design." })
+      }), env);
+      assert.equal(saidRes.status, 200);
+      assert.match(saidRes.headers.get("Content-Type"), /audio\/mpeg/);
+      const bytes = new Uint8Array(await saidRes.arrayBuffer());
+      assert.deepEqual(Array.from(bytes), [1, 2, 3, 4]);
+      const body = JSON.parse(posted.init.body);
+      assert.equal(claimsSent(body.text), false);
+      assert.match(body.text, /359-9692/);
+      assert.equal(posted.init.headers["xi-api-key"], "xi-test-key");
+      assert.match(posted.url, /pNInz6obpgDQGcFmaJgB/);
+      assert.equal(body.model_id, "eleven_flash_v2_5");
+    } finally {
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("a missing ElevenLabs key leaves typing in place and does not pretend to speak", async () => {
+    let called = 0;
+    const orig = globalThis.fetch;
+    globalThis.fetch = async () => { called += 1; return new Response("no"); };
+    try {
+      const session = await post("/api/design-eagle/voice/session", {}, {}, "203.0.113.82");
+      assert.equal(session.data.speak, false);
+      const said = await post("/api/design-eagle/voice/speak", { text: "Done." }, {}, "203.0.113.82");
+      assert.equal(said.status, 503);
+      assert.equal(said.data.speak, false);
+      assert.equal(called, 0);
+    } finally {
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("the first draw still gives the full layout", () => {
+    const first = interpret("L-shape, 10 ft grill leg with side burner and fridge, 5 ft bar with 3 stools", null);
+    assert.match(first.reply, /Here's an L-shape/);
+    assert.match(summaryReply(first.spec), /Here's an L-shape/);
+    assert.match(summaryReply(first.spec), /10 ft/);
   });
 });

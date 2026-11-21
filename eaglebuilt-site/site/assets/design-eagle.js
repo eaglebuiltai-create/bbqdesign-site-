@@ -3,7 +3,8 @@
  * Typed turns and a future voice transcript both call applyTurn(), which
  * runs the same layout engine. The 3D view is the existing designer.
  */
-import { CONFIG, interpret, validateContact, claimsSent } from "./eagle-engine.js";
+import { CONFIG, interpret, summaryReply, validateContact, claimsSent } from "./eagle-engine.js";
+import { HANDOFF, wantsSave } from "./eagle-voice.js";
 
 const state = {
   spec: null,
@@ -12,13 +13,27 @@ const state = {
   openedAt: Date.now(),
   frameReady: false,
   price: null,
-  shotWait: null
+  voiceToken: "",
+  voiceOn: false,
+  pendingRefine: null,
+  heard: ""
 };
 
 const log = document.getElementById("log");
 const frame = document.getElementById("designer");
 const empty = document.getElementById("empty");
 const book = document.getElementById("book");
+const live = document.getElementById("live");
+const audio = new Audio();
+
+function money(total) {
+  return "$" + Math.round(total).toLocaleString("en-US");
+}
+
+function stopTalking() {
+  audio.pause();
+  try { audio.removeAttribute("src"); } catch (e) {}
+}
 
 function paintBrand() {
   const c = CONFIG.colors;
@@ -53,14 +68,23 @@ function addMsg(role, text) {
 function showPrice(total) {
   if (!total) return;
   state.price = total;
-  let el = document.getElementById("livePrice");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "livePrice";
-    el.className = "price";
-    log.appendChild(el);
+  const label = "Designer price: " + money(total) + ". Budget proposal from the catalog and the build rates, not a quote.";
+  if (state.pendingRefine) {
+    const el = state.pendingRefine;
+    const base = el.dataset.base.endsWith(".") ? el.dataset.base : el.dataset.base + ".";
+    const line = base + " New design price " + money(total) + ".";
+    el.textContent = line;
+    state.pendingRefine = null;
+    speak(line);
   }
-  el.textContent = "Designer price: $" + Math.round(total).toLocaleString("en-US") + ". Budget proposal from the catalog and the build rates, not a quote.";
+  let price = document.getElementById("livePrice");
+  if (!price) {
+    price = document.createElement("div");
+    price.id = "livePrice";
+    price.className = "price";
+    log.appendChild(price);
+  }
+  price.textContent = label;
   log.scrollTop = log.scrollHeight;
 }
 
@@ -111,6 +135,10 @@ async function applyTurn(text, source) {
   const clean = String(text || "").trim();
   if (!clean) return;
   addMsg("user", clean);
+  if (state.spec && wantsSave(clean)) {
+    openSaveForm();
+    return;
+  }
   let result = interpret(clean, state.spec);
   if (!result.handled) {
     try {
@@ -134,7 +162,32 @@ async function applyTurn(text, source) {
     state.link = result.link || "";
     showDesign(result.code);
   }
-  addMsg("bot", reply);
+  const el = addMsg("bot", reply);
+  if (result.kind === "refine") {
+    el.dataset.base = reply.replace(/\.$/, "");
+    state.pendingRefine = el;
+    setTimeout(() => {
+      if (state.pendingRefine === el) {
+        state.pendingRefine = null;
+        speak(el.textContent);
+      }
+    }, 1800);
+  } else if (source === "voice" || state.voiceOn) {
+    speak(reply);
+  }
+}
+
+function openSaveForm() {
+  if (!state.spec) {
+    addMsg("bot", "Describe an island first, then you can save it.");
+    return;
+  }
+  addMsg("bot", summaryReply(state.spec));
+  addMsg("bot", HANDOFF);
+  speak(HANDOFF);
+  document.getElementById("composer").hidden = true;
+  document.getElementById("save").hidden = false;
+  document.getElementById("name").focus();
 }
 
 async function onSave(event) {
@@ -179,6 +232,8 @@ async function onSave(event) {
   button.textContent = "Email me this design";
   const reply = data && data.reply ? data.reply : "That didn't go through. Call " + CONFIG.phoneDisplay + ".";
   addMsg("bot", claimsSent(reply) && !(data && data.emailConfirmed) ? "That didn't go through. Call " + CONFIG.phoneDisplay + "." : reply);
+  if (data && data.emailConfirmed) speak(reply, data.voiceGrant);
+  else speak(claimsSent(reply) ? "" : reply);
   document.getElementById("save").hidden = true;
   document.getElementById("composer").hidden = false;
   book.hidden = false;
@@ -199,12 +254,7 @@ saveBtn.id = "openSave";
 saveBtn.textContent = "Save";
 saveBtn.hidden = true;
 document.querySelector(".composer").appendChild(saveBtn);
-saveBtn.addEventListener("click", () => {
-  if (!state.spec) { addMsg("bot", "Describe an island first, then you can save it."); return; }
-  document.getElementById("composer").hidden = true;
-  document.getElementById("save").hidden = false;
-  document.getElementById("name").focus();
-});
+saveBtn.addEventListener("click", () => openSaveForm());
 
 openChat();
 addMsg("bot", "Describe the island you want. For example: L-shape, 10 ft grill leg with a side burner and a fridge, 5 ft bar with 3 stools.");
@@ -238,3 +288,124 @@ window.DesignEagle = {
   getState: () => ({ spec: state.spec, code: state.code, link: state.link }),
   config: CONFIG
 };
+
+async function ensureVoice() {
+  if (state.voiceToken || state.voiceChecked) return;
+  state.voiceChecked = true;
+  try {
+    const res = await fetch("/api/design-eagle/voice/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{}"
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    state.voiceOn = !!data.speak;
+    state.voiceToken = data.token || "";
+    if (!data.speak) live.textContent = "Voice playback isn't set up. You can keep typing, and hold to talk if the mic is allowed.";
+  } catch (e) {}
+}
+
+async function speak(text, grant) {
+  if (!state.voiceOn || !state.voiceToken || !text) return;
+  stopTalking();
+  try {
+    const res = await fetch("/api/design-eagle/voice/speak", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: state.voiceToken, text, grant: grant || "" })
+    });
+    const next = res.headers.get("X-Voice-Token");
+    if (next) state.voiceToken = next;
+    if (!res.ok) {
+      if (res.status === 429 || res.status === 401) {
+        state.voiceOn = false;
+        live.hidden = false;
+        live.textContent = "Voice time is up for this visit. You can keep typing.";
+      }
+      return;
+    }
+    const blob = await res.blob();
+    audio.src = URL.createObjectURL(blob);
+    audio.play().catch(() => {});
+  } catch (e) {}
+}
+
+function wireMic() {
+  const mic = document.getElementById("mic");
+  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let rec = null;
+  let media = null;
+  let chunks = [];
+
+  async function start(e) {
+    e.preventDefault();
+    stopTalking();
+    await ensureVoice();
+    live.hidden = false;
+    live.textContent = "Listening…";
+    mic.textContent = "Listening…";
+    if (Rec) {
+      rec = new Rec();
+      rec.lang = "en-US";
+      rec.interimResults = true;
+      rec.continuous = true;
+      rec.onresult = (ev) => {
+        let said = "";
+        for (let i = 0; i < ev.results.length; i++) said += ev.results[i][0].transcript;
+        live.textContent = said;
+        state.heard = said;
+      };
+      rec.onend = () => {
+        const said = state.heard;
+        state.heard = "";
+        rec = null;
+        live.hidden = !said;
+        if (said) applyTurn(said, "voice");
+      };
+      rec.onerror = () => { live.textContent = "The mic didn't start. You can type instead."; };
+      try { rec.start(); } catch (err) { live.textContent = "The mic didn't start. You can type instead."; }
+      return;
+    }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      chunks = [];
+      media = new MediaRecorder(stream);
+      media.ondataavailable = (ev) => { if (ev.data && ev.data.size) chunks.push(ev.data); };
+      media.onstop = async () => {
+        stream.getTracks().forEach(t => t.stop());
+        const blob = new Blob(chunks, { type: media.mimeType || "audio/webm" });
+        const body = new FormData();
+        body.set("audio", blob, "speech.webm");
+        live.textContent = "Hearing that…";
+        try {
+          const res = await fetch("/api/design-eagle/voice/transcribe", { method: "POST", body });
+          const data = await res.json();
+          if (data.text) applyTurn(data.text, "voice");
+          else live.textContent = data.error || "I didn't catch that. You can type it.";
+        } catch (err) {
+          live.textContent = "I didn't catch that. You can type it.";
+        }
+      };
+      media.start();
+    } catch (err) {
+      live.textContent = "The mic didn't start. You can type instead.";
+    }
+  }
+
+  function stop() {
+    mic.textContent = "Hold to talk";
+    if (rec) {
+      try { rec.stop(); } catch (e) {}
+    } else if (media && media.state === "recording") {
+      media.stop();
+    }
+  }
+
+  mic.addEventListener("pointerdown", start);
+  mic.addEventListener("pointerup", stop);
+  mic.addEventListener("pointercancel", stop);
+  mic.addEventListener("pointerleave", (e) => { if (e.buttons) stop(); });
+}
+
+wireMic();

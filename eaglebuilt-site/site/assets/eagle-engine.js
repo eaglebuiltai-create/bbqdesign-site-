@@ -57,6 +57,20 @@ export const CONFIG = {
     pagePath: "/design-eagle/",
     shareOrigin: "https://eaglebuilt.ai",
     eagleParam: "eagle=1"
+  },
+  /* ElevenLabs premade Adam. Swap voiceId here for a cloned EB voice.
+     The API key never lives in this object. */
+  voice: {
+    provider: "elevenlabs",
+    name: "Adam",
+    voiceId: "pNInz6obpgDQGcFmaJgB",
+    modelId: "eleven_flash_v2_5",
+    sttModelId: "scribe_v1"
+  },
+  voiceLimits: {
+    sessionMs: 8 * 60 * 1000,
+    sessionChars: 3500,
+    maxChars: 900
   }
 };
 
@@ -73,6 +87,11 @@ export function publicConfig() {
     designer: {
       appPath: CONFIG.designer.appPath,
       pagePath: CONFIG.designer.pagePath
+    },
+    voice: {
+      provider: CONFIG.voice.provider,
+      name: CONFIG.voice.name,
+      voiceId: CONFIG.voice.voiceId
     }
   };
 }
@@ -387,16 +406,16 @@ function refine(t, current) {
   const spec = cloneSpec(current);
   if (/\b(stone veneer|ledgestone|stacked stone)\b/.test(t) || /\bswap to stone\b|\bswitch to stone\b/.test(t)) {
     spec.finish = "stack";
-    return { spec, notes: ["Switched the finish to ledgestone veneer. The design prices veneer from its finish list."] };
+    return { spec, brief: true, notes: ["Switched the finish to ledgestone veneer."] };
   }
   if (/\bstucco\b/.test(t) && /\b(swap|switch|make|change|use)\b/.test(t)) {
     spec.finish = "stucco";
-    return { spec, notes: ["Switched the finish back to stucco, which is included in the island build."] };
+    return { spec, brief: true, notes: ["Switched the finish back to stucco."] };
   }
   const fin = finishOf(t);
   if (fin && /\b(swap|switch|make|change|use|finish)\b/.test(t)) {
     spec.finish = fin;
-    return { spec, notes: ["Finish is now " + FINISHES[fin] + "."] };
+    return { spec, brief: true, notes: ["Finish is now " + FINISHES[fin] + "."] };
   }
   if (/\bbar\b/.test(t) && /\b(longer|shorter)\b/.test(t)) {
     const delta = /\bshorter\b/.test(t) ? -24 : 24;
@@ -405,14 +424,14 @@ function refine(t, current) {
       return { clarify: "Which leg should I change? This one doesn't have a separate bar leg yet." };
     }
     bar.lengthIn += delta;
-    return { spec, notes: [delta > 0 ? "Made the bar 2 ft longer." : "Made the bar 2 ft shorter."] };
+    return { spec, brief: true, notes: [delta > 0 ? "Made the bar longer." : "Made the bar shorter."] };
   }
   if (/\bgrill\b/.test(t) && /\b(longer|shorter)\b/.test(t)) {
     const delta = /\bshorter\b/.test(t) ? -24 : 24;
     const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
     if (!grill) return { clarify: "I don't see a grill leg to resize." };
     grill.lengthIn += delta;
-    return { spec, notes: [delta > 0 ? "Made the grill leg 2 ft longer." : "Made the grill leg 2 ft shorter."] };
+    return { spec, brief: true, notes: [delta > 0 ? "Made the grill leg longer." : "Made the grill leg shorter."] };
   }
   const add = t.match(/\badd (?:a |an )?(sink|fridge|refrigerator|side burner|single side burner|grill|power burner|griddle|trash|cooler)\b/);
   if (add) {
@@ -421,9 +440,9 @@ function refine(t, current) {
     const dest = spec.legs.find(l => l.role === "bar" && !l.items.includes(id))
       || spec.legs.find(l => !l.items.includes(id))
       || spec.legs[0];
-    if (dest.items.includes(id)) return { spec: current, notes: ["That's already on the " + dest.role + " leg."] };
+    if (dest.items.includes(id)) return { spec: current, brief: true, notes: ["That's already on the " + dest.role + " leg."] };
     dest.items.push(id);
-    return { spec, notes: ["Added " + CATALOG[id].spoken + " on the " + dest.role + " leg."] };
+    return { spec, brief: true, notes: ["Added " + CATALOG[id].spoken + "."] };
   }
   const remove = t.match(/\bremove (?:the |a )?(sink|fridge|refrigerator|side burner|grill|power burner|griddle|trash|cooler)\b/);
   if (remove) {
@@ -433,8 +452,8 @@ function refine(t, current) {
     spec.legs.forEach(l => {
       if (l.items.includes(id)) { l.items = l.items.filter(x => x !== id); hit = true; }
     });
-    if (!hit) return { spec: current, notes: ["That piece isn't on the design."] };
-    return { spec, notes: ["Removed " + CATALOG[id].spoken + "."] };
+    if (!hit) return { spec: current, brief: true, notes: ["That piece isn't on the design."] };
+    return { spec, brief: true, notes: ["Removed " + CATALOG[id].spoken + "."] };
   }
   if (/^(make|add|remove|swap|change|switch)\b/.test(t) || /\b(longer|shorter)\b/.test(t)) {
     return { clarify: "I can make the bar or the grill leg longer or shorter, add or remove a sink, fridge, side burner, or grill, or swap the finish to stone veneer or stucco." };
@@ -634,6 +653,30 @@ function describe(spec, notes) {
   return text.replace(/\s+/g, " ").trim();
 }
 
+function changeReply(spec, notes) {
+  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Switched |Finish |That's |That piece)/.test(n));
+  const bar = spec.legs.find(l => l.role === "bar");
+  const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
+  let text = "Done";
+  const first = changes[0] || "";
+  if (/^Made the bar/.test(first) && bar) {
+    text = "Done, the bar is now " + feet(bar.lengthIn);
+    if (bar.stools) text += ", room for " + bar.stools + (bar.stools === 1 ? " stool" : " stools");
+  } else if (/^Made the grill/.test(first) && grill) {
+    text = "Done, the grill leg is now " + feet(grill.lengthIn);
+  } else if (first) {
+    text = "Done. " + first.replace(/\.$/, "");
+  }
+  const limit = (notes || []).find(n => /longer than asked|shorter than a leg|longer than a single/.test(n));
+  if (limit) text += ". " + limit.replace(/\.$/, "");
+  return text + ".";
+}
+
+export function summaryReply(spec) {
+  if (!spec) return "";
+  return describe(spec, []);
+}
+
 export function compileSpec(input, extraNotes) {
   const checked = validateSpec(input);
   if (!checked.ok) return { ok: false, reply: checked.message, spec: null, code: "", link: "", warnings: [] };
@@ -674,6 +717,7 @@ function finishResult(parsed, current) {
     const kept = current ? compileSpec(current) : null;
     return {
       handled: parsed.handled !== false,
+      kind: "clarify",
       reply: [parsed.clarify].concat(parsed.notes || []).join(" "),
       spec: current || null,
       code: kept ? kept.code : "",
@@ -682,9 +726,11 @@ function finishResult(parsed, current) {
     };
   }
   const built = compileSpec(parsed.spec, parsed.notes || []);
+  const reply = parsed.brief && built.ok ? changeReply(built.spec, parsed.notes || []) : built.reply;
   return {
     handled: true,
-    reply: built.reply,
+    kind: parsed.brief ? "refine" : "draw",
+    reply,
     spec: built.spec,
     code: built.code,
     link: built.link,

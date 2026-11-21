@@ -46,6 +46,13 @@ import {
   validateContact,
   claimsSent
 } from "../site/assets/eagle-engine.js";
+import {
+  guardSpoken,
+  mintVoiceToken,
+  newVoiceSession,
+  readVoiceToken,
+  spendVoiceSession
+} from "../site/assets/eagle-voice.js";
 
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
@@ -68,7 +75,9 @@ const RATE_LIMITS = {
   leads:   12,   // gate signups forwarded to the CRM
   designs: 60,   // saving and reopening designs, which John does in bursts
   eagle:   30,   // Design Eagle layout turns
-  eagleSave: 8   // Design Eagle save: visitor email plus the lead
+  eagleSave: 8,  // Design Eagle save: visitor email plus the lead
+  eagleSpeak: 24, // spoken replies
+  eagleHear: 12   // server transcription when the browser has no speech API
 };
 const hits = new Map();
 
@@ -160,6 +169,21 @@ export default {
       if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
       if (request.method !== "POST") return cors(json({ ok: false, error: "POST only" }, 405), request, true);
       return cors(await designEagleSave(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/voice/session") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await voiceSession(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/voice/speak") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await voiceSpeak(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/voice/transcribe") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await voiceTranscribe(request, env), request, true);
     }
 
     // Anything else with no matching file. Hand back to assets so 404s still
@@ -478,6 +502,7 @@ async function designEagleTurn(request, env) {
   }
   return json({
     reply,
+    kind: result.kind || "draw",
     spec: result.spec || null,
     code: result.code || "",
     link: result.link || "",
@@ -599,19 +624,27 @@ async function designEagleSave(request, env) {
   const emailConfirmed = !!mailed.confirmed;
   const leadSubmitted = !!(stored && stored.leadSubmitted);
   const teamHasIt = leadSubmitted || !!(stored && stored.duplicate);
+  const reply = saveReply({
+    emailConfirmed,
+    leadSubmitted: teamHasIt,
+    email: person.email,
+    link: built.link,
+    imageAttached: !!(emailConfirmed && image)
+  });
+  const voiceKey = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  const voiceGrant = voiceKey && emailConfirmed ? await mintVoiceToken(voiceKey, {
+    exp: Date.now() + 2 * 60 * 1000,
+    left: reply.length,
+    say: reply
+  }) : "";
   return json({
     ok: true,
     emailConfirmed,
     leadSubmitted,
     duplicate: !!(stored && stored.duplicate),
     link: built.link,
-    reply: saveReply({
-      emailConfirmed,
-      leadSubmitted: teamHasIt,
-      email: person.email,
-      link: built.link,
-      imageAttached: !!(emailConfirmed && image)
-    })
+    reply,
+    voiceGrant
   }, 200);
 }
 
@@ -670,6 +703,109 @@ async function sendVisitorDesign(env, payload) {
   } catch (e) {
     console.log("design-eagle: resend threw");
     return { confirmed: false };
+  }
+}
+
+async function voiceSession(request, env) {
+  const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  if (!key) return json({ speak: false, voice: EAGLE.voice.name }, 200);
+  if (limited(request, "eagleSpeak")) {
+    return json({ speak: false, capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
+  }
+  const token = await mintVoiceToken(key, newVoiceSession(clientIp(request)));
+  return json({ speak: true, token, voice: EAGLE.voice.name }, 200);
+}
+
+async function voiceSpeak(request, env) {
+  const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  if (!key) return json({ speak: false, error: "Voice isn't configured. You can keep typing." }, 503);
+  if (limited(request, "eagleSpeak")) {
+    return json({ capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
+  }
+  let d;
+  try { d = await request.json(); } catch { return json({ error: "bad json" }, 400); }
+  const session = await readVoiceToken(key, d && d.token);
+  const ip = clientIp(request);
+  if (!session || session.say || session.ip !== ip) {
+    return json({ capped: true, error: "Voice session expired. You can keep typing." }, 401);
+  }
+  const grant = d.grant ? await readVoiceToken(key, d.grant) : null;
+  const raw = String(d.text || "");
+  const allowedSent = !!(grant && grant.say && grant.say === raw.trim());
+  const text = guardSpoken(raw, allowedSent);
+  if (!text) return json({ error: "Nothing to say." }, 400);
+  const next = spendVoiceSession(session, text.length);
+  if (!next) return json({ capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
+  let audio;
+  try {
+    const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + encodeURIComponent(EAGLE.voice.voiceId), {
+      method: "POST",
+      headers: {
+        "xi-api-key": key,
+        "Content-Type": "application/json",
+        "Accept": "audio/mpeg"
+      },
+      body: JSON.stringify({ text, model_id: EAGLE.voice.modelId }),
+      signal: AbortSignal.timeout(15000)
+    });
+    if (!r.ok) {
+      console.log("design-eagle: elevenlabs tts " + r.status);
+      return json({ speak: false, error: "Voice playback didn't start. You can keep typing." }, 502);
+    }
+    audio = await r.arrayBuffer();
+  } catch {
+    return json({ speak: false, error: "Voice playback didn't start. You can keep typing." }, 502);
+  }
+  const token = await mintVoiceToken(key, next);
+  const res = new Response(audio, {
+    status: 200,
+    headers: {
+      "Content-Type": "audio/mpeg",
+      "Cache-Control": "no-store",
+      "X-Voice-Token": token,
+      "Access-Control-Expose-Headers": "X-Voice-Token"
+    }
+  });
+  return res;
+}
+
+async function voiceTranscribe(request, env) {
+  const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  if (!key) return json({ text: "", error: "Voice isn't configured. You can keep typing." }, 503);
+  if (limited(request, "eagleHear")) {
+    return json({ text: "", error: "Too many recordings. You can keep typing." }, 429);
+  }
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 2_000_000) return json({ text: "", error: "Recording is too long." }, 413);
+  let file;
+  const type = request.headers.get("Content-Type") || "";
+  try {
+    if (type.includes("multipart/form-data")) {
+      const form = await request.formData();
+      file = form.get("audio");
+    } else {
+      const buf = await request.arrayBuffer();
+      file = new Blob([buf], { type: type || "audio/webm" });
+    }
+  } catch {
+    return json({ text: "", error: "bad audio" }, 400);
+  }
+  if (!file) return json({ text: "", error: "bad audio" }, 400);
+  try {
+    const body = new FormData();
+    body.set("model_id", EAGLE.voice.sttModelId);
+    body.set("file", file, "speech.webm");
+    const r = await fetch("https://api.elevenlabs.io/v1/speech-to-text", {
+      method: "POST",
+      headers: { "xi-api-key": key },
+      body,
+      signal: AbortSignal.timeout(20000)
+    });
+    if (!r.ok) return json({ text: "", error: "I didn't catch that. You can type it." }, 502);
+    const data = await r.json();
+    return json({ text: String(data.text || "").trim().slice(0, 2000) }, 200);
+  } catch {
+    return json({ text: "", error: "I didn't catch that. You can type it." }, 502);
   }
 }
 
