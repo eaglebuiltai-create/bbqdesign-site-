@@ -384,6 +384,64 @@ add("add 2 stools and a sink on the left", island({ items: ["grill"], barOn: fal
 add("is a television in the catalog", run(), { items: ["grill", "fridge", "combo"], reply: /TV isn't in the catalog/i });
 add("how long is the bar", ell(), { shape: "ell", reply: /bar|5 ft|kept/i });
 
+add("make me a 10 ft barbecue island with a blaze 32 inch Grill two drawers underneath the grill and a refrigerator", null, {
+  items: ["grill", "fridge"], bases: { grill: "drawer" }, under: "BLZ-DRW2-R-LT", lengthIn: 120,
+  reply: /under the grill/i, notReply: /Where should/
+});
+add("put the drawer underneath the barbecue grill", island({ items: ["grill", "drawer", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], bases: { grill: "drawer" }, under: "BLZ-DRW2-R-LT",
+  reply: /under the grill/i, notReply: /Where should the 32 inch/
+});
+add("the two drawer unit should be underneath the grill", island({ items: ["grill", "drawer", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], bases: { grill: "drawer" }, under: "BLZ-DRW2-R-LT",
+  reply: /under the grill/i, notReply: /Where should/
+});
+add("now move both items to the left", island({ items: ["grill", "fridge"], bases: { grill: "drawer" }, barOn: false }), {
+  items: ["grill", "fridge"], bases: { grill: "drawer" }, reply: /left end/i, notReply: /What should I add/
+});
+add("now move both items to the right", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], reply: /right end/i, notReply: /What should I add/
+});
+add("let's put a filler panel on the end where the refrigerator is at", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], lengthIn: 126, reply: /filler panel/i, notReply: /Where should the 20 inch fridge/
+});
+add("add a filler at the end", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], lengthIn: 126, reply: /filler panel/i, notReply: /Where should/
+});
+add("put a 3 inch filler next to the fridge on the end", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], lengthIn: 124, reply: /4 inch/i, notReply: /Where should the 20 inch fridge/
+});
+add("add a filler panel on the end by the fridge", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 126, reply: /no equipment price/i, notReply: /Where should/
+});
+add("put a filler on the left end", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 126, reply: /left end/i
+});
+add("put a filler on the right end", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 126, reply: /end/i
+});
+add("add a 6 inch filler between the grill and the drawer", island({ items: ["grill", "fridge"], bases: { grill: "drawer" }, barOn: false }), {
+  items: ["grill", "fridge"], bases: { grill: "drawer" }, lengthIn: 126, reply: /filler panel/i
+});
+add("add another filler next to the fridge", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 126, reply: /filler panel/i
+});
+add("put a three inch filler panel on the end", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 124, reply: /4 inch/i
+});
+add("fillers on both ends", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 132, reply: /both ends/i
+});
+add("remove the filler by the fridge", island({ items: ["grill", "fridge"], barOn: false, lengthIn: 126 }), {
+  items: ["grill", "fridge"], lengthIn: 120, reply: /Removed the filler/i
+});
+add("put a fill her panel on the end by the fridge", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 126, reply: /filler panel/i, notReply: /Where should/
+});
+add("add a filler pannel on the right end", island({ items: ["grill", "fridge"], barOn: false }), {
+  lengthIn: 126, reply: /filler panel/i
+});
+
 describe("customer phrase suite", () => {
   test("at least 120 customer lines", () => {
     assert.ok(CASES.length >= 120, "suite has " + CASES.length + " lines");

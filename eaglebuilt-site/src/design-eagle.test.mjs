@@ -1486,6 +1486,93 @@ describe("moving one piece to another leg", () => {
   });
 });
 
+describe("john's straight run", () => {
+  const OPENING = "make me a 10 ft barbecue island with a blaze 32 inch Grill two drawers underneath the grill and a refrigerator";
+
+  test("the first sentence puts the double drawer in the grill base", () => {
+    const built = drawn(OPENING);
+    assert.deepEqual(built.spec.legs[0].items, ["grill", "fridge"]);
+    assert.equal(built.spec.legs[0].bases.grill, "drawer");
+    assert.equal(built.spec.legs[0].lengthIn, 120);
+    const grill = decodeDesign(built.code).m.find(row => row[0] === "BLZ-4LTE3");
+    assert.equal(grill[5], "BLZ-DRW2-R-LT");
+    assert.match(built.reply, /under the grill/i);
+    assert.doesNotMatch(built.reply, /Where should/);
+    assertCleanReply(built.reply);
+  });
+
+  test("put the drawer underneath the barbecue grill moves the drawer, not the grill", () => {
+    const open = drawn("straight 10 ft island with a grill, two drawers, and a refrigerator");
+    assert.ok(open.spec.legs[0].items.includes("drawer"), open.reply);
+    const moved = drawn("put the drawer underneath the barbecue grill", open.spec);
+    assert.equal(moved.spec.legs[0].bases.grill, "drawer");
+    assert.equal(moved.spec.legs[0].items.includes("drawer"), false);
+    assert.ok(moved.spec.legs[0].items.includes("grill"));
+    assert.doesNotMatch(moved.reply, /Where should the 32 inch/);
+    assert.match(moved.reply, /under the grill/i);
+    const again = drawn("the two drawer unit should be underneath the grill", {
+      ...open.spec,
+      legs: [{ ...open.spec.legs[0], items: ["grill", "drawer", "fridge"], bases: {} }]
+    });
+    assert.equal(again.spec.legs[0].bases.grill, "drawer");
+  });
+
+  test("move both items to the left keeps their order and the filler gap", () => {
+    const built = drawn(OPENING);
+    const left = drawn("now move both items to the left", built.spec);
+    const keys = decodeDesign(left.code).m.map(row => row[0]);
+    assert.equal(keys[0], "BLZ-4LTE3", left.reply + " " + keys.join(","));
+    assert.ok(String(keys[keys.length - 1]).startsWith("fill"), keys.join(","));
+    assert.deepEqual(gapsBetweenGear(left.code).map(gap => gap.fills), [["fill6"]]);
+    assert.equal(left.spec.legs[0].bases.grill, "drawer");
+    assert.equal(left.spec.legs[0].lengthIn, 120);
+    assert.match(left.reply, /left end/);
+    assert.doesNotMatch(left.reply, /What should I add/);
+    const right = drawn("now move both items to the right", left.spec);
+    const rightKeys = decodeDesign(right.code).m.map(row => row[0]);
+    assert.ok(String(rightKeys[0]).startsWith("fill"), rightKeys.join(","));
+    assert.equal(rightKeys[rightKeys.length - 1], "BLZ-SSRF20-4.3");
+    assert.match(right.reply, /right end/);
+  });
+
+  test("a filler panel on the fridge end lengthens the run and is not a fridge move", () => {
+    const built = drawn(OPENING);
+    const lines = [
+      ["let's put a filler panel on the end where the refrigerator is at", 126, /filler panel/],
+      ["add a filler panel on the end by the fridge", 126, /no equipment price/],
+      ["put a filler on the left end", 126, /left end/],
+      ["put a filler on the right end", 126, /filler panel/],
+      ["add a filler at the end", 126, /filler panel/],
+      ["add another filler next to the fridge", 126, /filler panel/],
+      ["put a three inch filler panel on the end", 124, /4 inch/],
+      ["put a 3 inch filler next to the fridge on the end", 124, /4 inch/],
+      ["fillers on both ends", 132, /both ends/],
+      ["add a fill her panel on the end by the fridge", 126, /filler panel/],
+      ["add a filler pannel on the right end", 126, /filler panel/]
+    ];
+    for (const [line, lengthIn, reply] of lines) {
+      const added = drawn(line, built.spec);
+      assert.equal(added.spec.legs[0].lengthIn, lengthIn, line + " " + added.reply);
+      assert.deepEqual(added.spec.legs[0].items, ["grill", "fridge"], line);
+      assert.match(added.reply, reply, line + " " + added.reply);
+      assert.doesNotMatch(added.reply, /Where should/, line + " " + added.reply);
+      assert.doesNotMatch(added.reply, /\$\d/, line);
+      const keys = decodeDesign(added.code).m.map(row => row[0]);
+      assert.ok(keys.some(key => String(key).startsWith("fill")), line + " " + keys.join(","));
+    }
+    const between = drawn("add a 6 inch filler between the grill and the drawer", built.spec);
+    assert.equal(between.spec.legs[0].lengthIn, 126, between.reply);
+    assert.equal(between.spec.legs[0].bases.grill, "drawer");
+    const keys = decodeDesign(between.code).m.map(row => row[0]);
+    const grillAt = keys.indexOf("BLZ-4LTE3");
+    assert.ok(String(keys[grillAt + 1]).startsWith("fill"), keys.join(","));
+    const removed = drawn("remove the filler by the fridge", between.spec);
+    assert.equal(removed.spec.legs[0].lengthIn, 120, removed.reply);
+    assert.match(removed.reply, /Removed the filler/);
+    assert.deepEqual(removed.spec.legs[0].items, ["grill", "fridge"]);
+  });
+});
+
 describe("hold to talk", () => {
   test("short holds and junk transcripts are not a design turn", () => {
     assert.equal(holdLongEnough(299), false);

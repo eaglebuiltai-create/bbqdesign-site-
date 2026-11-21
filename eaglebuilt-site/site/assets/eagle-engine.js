@@ -290,7 +290,7 @@ function prepareGearText(text) {
     .replace(/\bby the grill\b/g, " __next__ ")
     .replace(/\bbetween the grill and the (?:fridge|refrigerator)\b/g, " __between__ ")
     .replace(/\bin the middle\b|\bin the center\b/g, " __between__ ")
-    .replace(/\b(?:under|underneath|below|beneath) the (?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
+    .replace(/\b(?:under|underneath|below|beneath) the (?:(?:barbecue|barbeque|bbq|blaze)\s+)?(?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
     .replace(/\b(?:under|underneath|below|beneath) it\b/g, " __under__ ")
     .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
     .replace(/\bunder the bar\b/g, " __bar__ ")
@@ -456,6 +456,22 @@ function withDefaultGrill(items, text) {
   return next;
 }
 
+/* "two drawers underneath the grill" is the grill base, not a cabinet beside it. */
+function splitUnder(text, items) {
+  const list = items.slice();
+  const bases = {};
+  for (const hit of mentionHits(text)) {
+    if (hit.where !== "under" || !isBaseCabinet(hit.id) || !list.includes(hit.id)) continue;
+    const host = hit.host && list.includes(hit.host)
+      ? hit.host
+      : (list.includes("grill-40") && !list.includes("grill") ? "grill-40" : "grill");
+    if (!list.includes(host)) continue;
+    bases[host] = hit.id;
+  }
+  const skip = new Set(Object.values(bases));
+  return { items: list.filter(id => !skip.has(id)), bases };
+}
+
 function splitSegments(t) {
   const re = /\b(?:then on the next part(?: of the island)?|then the next side(?: of the island)?|on the next part(?: of the island)?|the next part(?: of the island)?|the next side(?: of the island)?|next part(?: of the island)?|next side(?: of the island)?|then on the other side|the third side|(?:then |on |at )?the corner|left leg|right leg)\b/g;
   const chunks = [];
@@ -567,7 +583,8 @@ function parseNew(t) {
 
   if (shape === "straight") {
     const placed = orderBySide(withDefaultGrill(itemsFor(0), (parts[0].before || "") + " " + parts[0].text), t);
-    spec.legs.push(leg("main", Math.round(parts[0].ft * 12), placed.items, findStools(t), placed.pinEnd));
+    const under = splitUnder(t, placed.items);
+    spec.legs.push(leg("main", Math.round(parts[0].ft * 12), under.items, findStools(t), placed.pinEnd, under.bases));
   } else if (shape === "ell") {
     const grillIndex = parts.findIndex(p => p.role === "grill");
     const g = grillIndex >= 0 ? grillIndex : 0;
@@ -586,10 +603,12 @@ function parseNew(t) {
     const placedGrill = orderBySide(grillItems, t);
     grillItems.length = 0;
     for (const id of placedGrill.items) grillItems.push(id);
+    const grillUnder = splitUnder(parts[g].text + " " + t, grillItems);
+    const barUnder = splitUnder(parts[b].text, barItems);
     const grillStools = findStools(parts[g].text);
     const barStools = findStools(parts[b].text) || (findStools(t) - grillStools);
-    spec.legs.push(leg("grill", Math.round(parts[g].ft * 12), grillItems, grillStools));
-    spec.legs.push(leg("bar", Math.round(parts[b].ft * 12), barItems, Math.max(0, barStools)));
+    spec.legs.push(leg("grill", Math.round(parts[g].ft * 12), grillUnder.items, grillStools, placedGrill.pinEnd, grillUnder.bases));
+    spec.legs.push(leg("bar", Math.round(parts[b].ft * 12), barUnder.items, Math.max(0, barStools), false, barUnder.bases));
   } else {
     const mainIndex = parts.findIndex(p => p.role === "grill" || p.role === "");
     const m = mainIndex >= 0 ? mainIndex : 0;
@@ -605,9 +624,14 @@ function parseNew(t) {
       for (const id of findItems(each.text)) if (!mainItems.includes(id)) mainItems.push(id);
     }
     const sharedSide = bySplit || (left === right && left !== each);
-    spec.legs.push(leg("grill", Math.round(parts[m].ft * 12), mainItems, 0));
-    spec.legs.push(leg("left", Math.round(left.ft * 12), sharedSide || left === each ? [] : findItems(left.text), 0));
-    spec.legs.push(leg("right", Math.round(right.ft * 12), sharedSide || right === each ? [] : findItems(right.text), 0));
+    const mainUnder = splitUnder(parts[m].text + " " + t, mainItems);
+    const leftItems = sharedSide || left === each ? [] : findItems(left.text);
+    const rightItems = sharedSide || right === each ? [] : findItems(right.text);
+    const leftUnder = splitUnder(left.text, leftItems);
+    const rightUnder = splitUnder(right.text, rightItems);
+    spec.legs.push(leg("grill", Math.round(parts[m].ft * 12), mainUnder.items, 0, false, mainUnder.bases));
+    spec.legs.push(leg("left", Math.round(left.ft * 12), leftUnder.items, 0, false, leftUnder.bases));
+    spec.legs.push(leg("right", Math.round(right.ft * 12), rightUnder.items, 0, false, rightUnder.bases));
   }
 
   spec.barOn = spec.legs.some(l => l.stools > 0) || /\braised bar\b|\bbar\b|\bstools?\b/.test(t);
@@ -883,6 +907,97 @@ function moveAcross(t, current) {
   return { spec, brief: true, notes: ["Moved " + theName(id) + " to " + legName(dest) + "."] };
 }
 
+function shiftRun(t, current) {
+  if (!current || !current.legs || !current.legs.length) return null;
+  if (!/\b(?:move|shift)\b/.test(t)) return null;
+  if (!/\b(?:both items|both pieces|both of them|both|them|everything|all of it|all of them)\b/.test(t)) return null;
+  const left = /\b(?:to the left|left end|on the left)\b/.test(t) && !/\bright\b/.test(t);
+  const right = /\b(?:to the right|right end|on the right)\b/.test(t) && !/\bleft\b/.test(t);
+  if (!left && !right) return null;
+  const spec = cloneSpec(current);
+  spec.holdLengths = true;
+  const legN = spec.legs.find(l => (l.items || []).length) || spec.legs[0];
+  legN.align = left ? "left" : "right";
+  legN.pinEnd = !left;
+  return { spec, brief: true, notes: ["Moved the equipment to the " + (left ? "left" : "right") + " end."] };
+}
+
+const INCH_WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
+
+function fillerText(t) {
+  return String(t || "")
+    .replace(/\bfill her\b/g, "filler")
+    .replace(/\bpannels\b/g, "panels")
+    .replace(/\bpannel\b/g, "panel")
+    .replace(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+inch/g, (all, word) => INCH_WORDS[word] + " inch");
+}
+
+function fridgeEnd(legN) {
+  const items = legN.items || [];
+  const i = items.findIndex(id => id === "fridge" || id === "fridge-24");
+  if (i < 0) return "end";
+  if (i === 0) return "start";
+  return "end";
+}
+
+/* A spoken filler is an extra panel. It lengthens the run and has no equipment price. */
+function placeFiller(t0, current) {
+  if (!current || !current.legs || !current.legs.length) return null;
+  const t = fillerText(t0);
+  if (!/\bfiller/.test(t)) return null;
+  const removing = /\b(?:remove|delete)\b/.test(t);
+  const adding = /\b(?:add|put|place)\b/.test(t) || /\bboth ends\b/.test(t);
+  if (!removing && !adding) return null;
+  if (removing && /\bfiller panels\b|\bfillers\b/.test(t) && !/\b(?:by|next to|end|left|right|fridge|refrigerator)\b/.test(t)) return null;
+  const spec = cloneSpec(current);
+  const legN = spec.legs.find(l => (l.items || []).some(id => id === "fridge" || id === "fridge-24"))
+    || spec.legs.find(l => (l.items || []).length)
+    || spec.legs[0];
+  legN.panels = legN.panels || [];
+  const sized = t.match(/\b(\d+(?:\.\d+)?)\s+inch/);
+  const want = sized ? Number(sized[1]) : 6;
+  const w = nearestFiller(want);
+  let at = "end";
+  let after = "";
+  if (/\bboth ends\b/.test(t)) at = "both";
+  else if (/\bleft end\b/.test(t)) at = "start";
+  else if (/\bright end\b/.test(t)) at = "end";
+  else if (/\bbetween\b/.test(t)) {
+    at = "after";
+    const ids = findItems(t0).map(id => resolvePresent(id, current));
+    const order = legN.items || [];
+    const placed = ids.filter(id => order.includes(id));
+    if (placed.length >= 2) {
+      const ia = order.indexOf(placed[0]);
+      const ib = order.indexOf(placed[1]);
+      after = order[Math.min(ia, ib)];
+    } else after = placed[0] || order[0] || "";
+  } else if (/\b(?:fridge|refrigerator)\b/.test(t) || /\bend\b/.test(t)) {
+    at = fridgeEnd(legN);
+  }
+  if (removing) {
+    const idx = legN.panels.findIndex(panel => panel.at === (at === "both" ? "end" : at));
+    let cut = w;
+    if (idx >= 0) {
+      cut = legN.panels[idx].w;
+      legN.panels.splice(idx, 1);
+    }
+    legN.lengthIn = Math.max(48, legN.lengthIn - cut);
+    return { spec, brief: true, notes: ["Removed the filler panel. The run is now " + feet(legN.lengthIn) + ". Filler panels have no equipment price."] };
+  }
+  const spots = at === "both" ? ["start", "end"] : [at];
+  for (const spot of spots) legN.panels.push({ w, at: spot, after });
+  legN.lengthIn += w * spots.length;
+  let note = "Added a " + w + " inch filler panel";
+  if (at === "both") note = "Added a " + w + " inch filler panel on both ends";
+  else if (at === "start") note += " on the left end";
+  else if (at === "after") note += " between those pieces";
+  else note += " on the end";
+  if (w !== want) note += ". " + want + " inches isn't a panel we build, so " + w + " is the closest";
+  note += ". Filler panels have no equipment price. The run is now " + feet(legN.lengthIn);
+  return { spec, brief: true, notes: [note + "."] };
+}
+
 function refine(t, current) {
   if (!current) return null;
   const spec = cloneSpec(current);
@@ -890,6 +1005,10 @@ function refine(t, current) {
   if (movedGroup) return movedGroup;
   const across = moveAcross(t, current);
   if (across) return across;
+  const shifted = shiftRun(t, current);
+  if (shifted) return shifted;
+  const panel = placeFiller(t, current);
+  if (panel) return panel;
   const slid = slidePiece(t, current);
   if (slid) return slid;
   const gap = readGap(t);
@@ -1278,6 +1397,7 @@ function placeOnLeg(leg, id, where, fresh, keepFridgeEnd) {
 }
 
 function mentionHits(text) {
+  const src = prepareGearText(text);
   const hits = [];
   for (const hit of findItemHits(text)) {
     const prevSame = [...hits].reverse().find(h => h.id === hit.id);
@@ -1298,13 +1418,13 @@ function mentionHits(text) {
     }
     let where = hit.where;
     let host = where === "under" ? (([...hits].reverse().find(h => !isBaseCabinet(h.id)) || {}).id || "") : "";
-    const before = text.slice(Math.max(0, hit.index - 48), hit.index);
-    const after = text.slice(hit.end, hit.end + 48);
+    const before = src.slice(Math.max(0, hit.index - 48), hit.index);
+    const after = src.slice(hit.end, hit.end + 48);
     const near = before + " " + after;
     const namedUnder = near.match(/\b(?:under|underneath|below|beneath) the (side burner|sink|grill)\b/);
-    if (isBaseCabinet(id) && /\b(?:under|underneath|below|beneath) the grill\b/.test(before)) {
+    if (isBaseCabinet(id) && (/\b(?:under|underneath|below|beneath) the grill\b/.test(before) || /__under__(?:\s+(?:a|an))?\s*$/.test(before))) {
       where = "under";
-      host = "grill";
+      host = host || "grill";
     } else if (isBaseCabinet(id) && namedUnder) {
       where = "under";
       host = namedUnder[1] === "sink" ? "sink" : namedUnder[1] === "side burner" ? "side-burner" : "grill";
@@ -1313,7 +1433,7 @@ function mentionHits(text) {
       host = ([...hits].reverse().find(h => !isBaseCabinet(h.id)) || {}).id || "";
     }
     if (id === "pizza" && /\bon top\b/.test(text.slice(hit.index, hit.end + 24))) id = "ctpizza";
-    const hostOnly = !isBaseCabinet(id) && /\b(?:under|underneath|below|beneath) the\s*$/.test(before);
+    const hostOnly = !isBaseCabinet(id) && /\b(?:under|underneath|below|beneath|where|by|next to|beside) the\s*$/.test(before);
     hits.push({ ...hit, id, where, sizeNote, host, hostOnly });
   }
   return hits;
@@ -1331,6 +1451,7 @@ function addEquipment(t, current) {
   const have = {};
   for (const legN of (current && current.legs) || []) {
     for (const id of legN.items || []) have[id] = (have[id] || 0) + 1;
+    for (const id of Object.values(legN.bases || {})) have[id] = (have[id] || 0) + 1;
   }
   const listing = /\b(add|want|need|got|another|also)\b/.test(t) && !/\b(move|relocate|swap)\b/.test(t);
   const seen = {};
@@ -1406,7 +1527,7 @@ function addEquipment(t, current) {
       underNotes.push(under.note);
       continue;
     }
-    if (/\b(move|relocate|put|place)\b/.test(t) && had && !hit.where && !listing) {
+    if (/\b(move|relocate|put|place)\b/.test(t) && had && !hit.where && !listing && !hit.hostOnly) {
       return { clarify: "Where should " + CATALOG[hit.id].spoken.replace(/^a /, "the ") + " go? Under the grill, on the left, or on the right." };
     }
     const keepFridgeEnd = ((current.legs.find(l => l === dest || l.role === dest.role) || {}).items || []).slice(-1)[0] === "fridge"
@@ -1506,8 +1627,9 @@ function takeFillers(want) {
   return { sizes, used: sizes.reduce((sum, size) => sum + size, 0) };
 }
 
-function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerInset) {
+function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerInset, align, panels) {
   const requested = gapIn == null ? 6 : gapIn;
+  const extras = Array.isArray(panels) ? panels : [];
   const pieces = [];
   for (const id of items) {
     const item = CATALOG[id];
@@ -1519,7 +1641,8 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
     const w = gapWidth(pieces[i].id, pieces[i + 1].id, requested, grillGap);
     if (w > 0) between.push({ k: "fill" + w, w });
   }
-  const base = pieces.reduce((sum, item) => sum + item.w, 0) + between.reduce((sum, gap) => sum + gap.w, 0);
+  const extraW = extras.reduce((sum, panel) => sum + panel.w, 0);
+  const base = pieces.reduce((sum, item) => sum + item.w, 0) + between.reduce((sum, gap) => sum + gap.w, 0) + extraW;
   let target = targetIn;
   const notes = [];
   if (base > target + 0.01) {
@@ -1542,23 +1665,34 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
     const corner = takeFillers(Math.min(spare, cornerInset));
     const end = takeFillers(spare - corner.used);
     buckets = [corner.sizes, end.sizes];
+  } else if (align === "left") {
+    buckets = [[], takeFillers(spare).sizes];
+  } else if (pinEnd || align === "right") {
+    buckets = [takeFillers(spare).sizes, []];
   } else {
-    const endCount = pieces.length && pinEnd ? 1 : Math.max(1, pieces.length ? 2 : 1);
+    const endCount = pieces.length ? 2 : 1;
     buckets = Array.from({ length: endCount }, () => []);
     fillers.forEach((size, i) => buckets[i % endCount].push(size));
   }
   const pushEnd = (bucket) => { for (const size of bucket || []) seq.push({ k: "fill" + size, w: size, u: "" }); };
+  const pushPanel = (panel) => seq.push({ k: "fill" + panel.w, w: panel.w, u: "" });
   const seq = [];
   if (!pieces.length) {
+    extras.filter(panel => panel.at === "start").forEach(pushPanel);
     pushEnd(buckets[0]);
+    extras.filter(panel => panel.at !== "start").forEach(pushPanel);
+    if (align === "left") pushEnd(buckets[1]);
     if (!seq.length) seq.push({ k: "fill24", w: 24, u: "" });
   } else {
     pushEnd(buckets[0]);
+    extras.filter(panel => panel.at === "start").forEach(pushPanel);
     for (let i = 0; i < pieces.length; i++) {
       if (i > 0 && between[i - 1]) seq.push({ k: between[i - 1].k, w: between[i - 1].w, u: "" });
       seq.push({ k: pieces[i].k, w: pieces[i].w, u: pieces[i].u || "" });
+      extras.filter(panel => panel.at === "after" && panel.after === pieces[i].id).forEach(pushPanel);
     }
-    if (!pinEnd) pushEnd(buckets[1]);
+    extras.filter(panel => panel.at === "end").forEach(pushPanel);
+    if (align === "left" || !pinEnd) pushEnd(buckets[1]);
   }
   const span = seq.reduce((sum, part) => sum + part.w, 0);
   return { seq, span, notes, between: between.map(gap => gap.w) };
@@ -1703,8 +1837,16 @@ export function validateSpec(input) {
     readBases(raw && raw.bases)
   ));
   legs.forEach((out, i) => {
-    out.fixed = !!(rawLegs[i] && rawLegs[i].fixed);
-    if (rawLegs[i] && rawLegs[i].slide) out.slide = Math.round(Number(rawLegs[i].slide) || 0);
+    const raw = rawLegs[i] || {};
+    out.fixed = !!raw.fixed;
+    if (raw.slide) out.slide = Math.round(Number(raw.slide) || 0);
+    if (raw.align === "left" || raw.align === "right") out.align = raw.align;
+    const panels = Array.isArray(raw.panels) ? raw.panels : [];
+    out.panels = panels.slice(0, 8).map(panel => ({
+      w: nearestFiller(Number(panel && panel.w) || 6),
+      at: panel && (panel.at === "start" || panel.at === "after") ? panel.at : "end",
+      after: panel && CATALOG[panel.after] ? panel.after : ""
+    })).filter(panel => panel.w > 0);
   });
   return {
     ok: true,
@@ -1866,7 +2008,7 @@ export function compileSpec(input, extraNotes) {
   }
   const packed = spec.legs.map(l => {
     const inset = counterLanding(l);
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap, inset);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap, inset, l.align || "", l.panels || []);
     if (inset >= 24 && (l.items || []).includes("ctpizza") && !notes.some(n => /corner before the pizza/.test(n))) {
       notes.push("I left " + feet(inset) + " of counter at the corner before the pizza oven.");
     }
