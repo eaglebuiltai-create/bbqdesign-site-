@@ -4,6 +4,7 @@ import { describe, test } from "node:test";
 import { commitLead } from "./chat-lead.js";
 import worker, { EagleRateLimit } from "./worker.js";
 import {
+  CATALOG,
   CONFIG,
   applyModelSpec,
   claimsSent,
@@ -1154,6 +1155,17 @@ describe("side words on one build", () => {
   });
 });
 
+function fillerBefore(code, rot, key) {
+  const rows = decodeDesign(code).m.filter(row => row[3] === rot);
+  let sum = 0;
+  for (const row of rows) {
+    if (row[0] === key) return sum;
+    const size = String(row[0]).match(/^fill(\d+)$/);
+    if (size) sum += Number(size[1]);
+  }
+  return -1;
+}
+
 function assertCleanReply(reply) {
   assert.doesNotMatch(reply, /\.\./, reply);
   assert.doesNotMatch(reply, /[a-z] The /, reply);
@@ -1186,7 +1198,7 @@ describe("john's L-shape conversation", () => {
     assert.ok(step.spec.legs[1].items.includes("trash"));
     assert.ok(step.spec.legs[1].items.includes("drawer-3"));
     assert.ok(step.spec.legs[1].items.includes("fridge"));
-    assert.equal(step.spec.legs[1].bases["bev-sink"], "door");
+    assert.equal(step.spec.legs[1].bases["bev-sink"], "door-v");
     assert.equal(step.spec.legs[0].lengthIn, 120);
     assert.doesNotMatch(step.reply, /Moved/);
     assertCleanReply(step.reply);
@@ -1198,7 +1210,7 @@ describe("john's L-shape conversation", () => {
     for (const id of ["drawer-3", "door", "fridge", "bev-sink", "bev", "drawer", "trash"]) {
       assert.ok(step.spec.legs[1].items.includes(id), id);
     }
-    assert.equal(step.spec.legs[1].bases["bev-sink"], "door");
+    assert.equal(step.spec.legs[1].bases["bev-sink"], "door-v");
     const fridges = step.spec.legs.reduce((n, l) => n + l.items.filter(id => id === "fridge").length, 0);
     assert.equal(fridges, 2);
     assert.match(step.reply, /already on the other side/);
@@ -1234,7 +1246,7 @@ describe("U shape segments", () => {
     assert.deepEqual(decodeDesign(result.code).lg, [120, 72, 72]);
     assert.deepEqual(result.spec.legs[0].items, ["grill", "side-burner", "fridge"]);
     assert.equal(result.spec.legs[0].bases.grill, "combo");
-    assert.equal(result.spec.legs[0].bases["side-burner"], "door");
+    assert.equal(result.spec.legs[0].bases["side-burner"], "door-v");
     assert.deepEqual(result.spec.legs[1].items, ["ctpizza"]);
     assert.deepEqual(result.spec.legs[2].items, ["drawer-3", "griddle"]);
     assert.match(result.reply, /10 ft/);
@@ -1248,10 +1260,62 @@ describe("U shape segments", () => {
     assert.deepEqual(gear, ["BLZ-4LTE3", "BLZ-SB2-LTEPLUS", "BLZ-SSRF20-4.3"]);
     assert.deepEqual(main.slice(main.indexOf("BLZ-4LTE3") + 1, main.indexOf("BLZ-SB2-LTEPLUS")), ["fill24"]);
     assert.equal(rows.find(row => row[0] === "BLZ-4LTE3")[5], "BLZ-DDC-R-LTSC");
-    assert.equal(rows.find(row => row[0] === "BLZ-SB2-LTEPLUS")[5], "BLZ-AD32-R-SC");
+    assert.equal(rows.find(row => row[0] === "BLZ-SB2-LTEPLUS")[5], "BLZ-SINGLE-2417-R-SC");
+    assert.doesNotMatch(result.reply, /don't stock a single door/i);
+    assert.equal(fillerBefore(result.code, 270, "ctpizza"), 36);
+    assert.match(result.reply, /corner before the pizza/);
     assert.deepEqual(keys(270).filter(key => !String(key).startsWith("fill")), ["ctpizza"]);
     assert.deepEqual(keys(90).filter(key => !String(key).startsWith("fill")), ["BLZ-DRW3-R-LT", "BLZ-GRIDDLE-LTE3"]);
     assertCleanReply(result.reply);
+  });
+
+  test("the pizza oven starts down the return, and a nudge slides it further", () => {
+    const built = drawn(U_LINE);
+    assert.equal(fillerBefore(built.code, 270, "ctpizza"), 36);
+    const john = "Pizza oven should slide to the left a little bit more down that side of the island.";
+    const slid = drawn(john, built.spec);
+    assert.equal(fillerBefore(slid.code, 270, "ctpizza"), 48);
+    assert.match(slid.reply, /12 inches/);
+    assert.match(slid.reply, /away from the corner/);
+    assert.equal(slid.spec.legs[0].items.includes("grill"), true);
+    const six = drawn("slide the pizza oven 6 inches toward the end", built.spec);
+    assert.equal(fillerBefore(six.code, 270, "ctpizza"), 40);
+    const back = drawn("slide the pizza oven right a foot", slid.spec);
+    assert.equal(fillerBefore(back.code, 270, "ctpizza"), 36);
+    const corner = drawn("shift the pizza oven toward the corner", built.spec);
+    assert.equal(fillerBefore(corner.code, 270, "ctpizza"), 24);
+    assert.match(corner.reply, /toward the corner/);
+  });
+
+  test("single door means the 17 inch vertical door, and horizontal is the wide one", () => {
+    assert.equal(CATALOG["door-v"].k, "BLZ-SINGLE-2417-R-SC");
+    assert.equal(CATALOG["door-v"].p, 463);
+    assert.equal(CATALOG["door-h"].k, "BLZ-SH-2417-R-SC");
+    assert.equal(CATALOG["door-h"].p, 463);
+    for (const line of [
+      "straight 8 ft island with a single door",
+      "straight 8 ft island with a single access door",
+      "straight 8 ft island with one door"
+    ]) {
+      const result = drawn(line);
+      assert.ok(result.spec.legs[0].items.includes("door-v"), line + " " + result.reply);
+      assert.equal(result.spec.legs[0].items.includes("door"), false, line);
+    }
+    for (const line of [
+      "straight 8 ft island with a horizontal door",
+      "straight 10 ft island with a horizontal access door"
+    ]) {
+      const result = drawn(line);
+      assert.ok(result.spec.legs[0].items.includes("door-h"), line + " " + result.reply);
+    }
+    const island = drawn("straight 10 ft island with a side burner");
+    const under = drawn("put a single door underneath the side burner", island.spec);
+    assert.equal(under.spec.legs[0].bases["side-burner"], "door-v");
+    assert.equal(decodeDesign(under.code).m.find(row => row[0] === "BLZ-SB2-LTEPLUS")[5], "BLZ-SINGLE-2417-R-SC");
+    assert.doesNotMatch(under.reply, /don't stock a single door/i);
+    const wet = drawn("straight 10 ft island with a sink");
+    const sink = drawn("put a single access door below the sink", wet.spec);
+    assert.equal(sink.spec.legs[0].bases.sink, "door-v");
   });
 
   test("the size chip reads the spec lengths, not the drawn modules", () => {
