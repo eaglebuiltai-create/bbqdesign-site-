@@ -1343,6 +1343,149 @@ describe("U shape segments", () => {
   });
 });
 
+describe("moving one piece to another leg", () => {
+  const L_LINE = "L shaped island, 12 ft grill side with a 32 inch grill and a countertop pizza oven, 6 ft return";
+
+  function johnsL() {
+    const built = drawn(L_LINE);
+    assert.equal(built.spec.shape, "ell");
+    assert.deepEqual(built.spec.legs.map(l => l.lengthIn), [144, 72]);
+    assert.ok(built.spec.legs[0].items.includes("grill"));
+    assert.ok(built.spec.legs[0].items.includes("ctpizza"));
+    assert.deepEqual(built.spec.legs[1].items, []);
+    return built;
+  }
+
+  function legOf(spec, id) {
+    return spec.legs.findIndex(l => (l.items || []).includes(id));
+  }
+
+  test("john's sentences move the pizza oven onto the empty return", () => {
+    const lines = [
+      "move the pizza oven to the other leg of the L",
+      "move the pizza oven to the other side",
+      "put the pizza oven on the return",
+      "move the pizza oven to the short side",
+      "move the pizza oven to the bar side"
+    ];
+    for (const line of lines) {
+      const built = johnsL();
+      const moved = drawn(line, built.spec);
+      assert.equal(legOf(moved.spec, "ctpizza"), 1, line + " " + moved.reply);
+      assert.equal(legOf(moved.spec, "grill"), 0, line);
+      assert.deepEqual(moved.spec.legs.map(l => l.lengthIn), [144, 72], line);
+      assert.match(moved.reply, /Done\. Moved the countertop pizza oven to the return\./, moved.reply);
+      assert.doesNotMatch(moved.reply, /already on the other side/, line);
+      assert.equal(fillerBefore(moved.code, 90, "ctpizza"), 36, line + " " + moved.reply);
+      assertCleanReply(moved.reply);
+    }
+  });
+
+  test("already on the other side is only said when it is already there", () => {
+    const built = johnsL();
+    const stayed = interpret("move the pizza oven to the long side", built.spec);
+    assert.equal(legOf(stayed.spec, "ctpizza"), 0);
+    assert.match(stayed.reply, /already on the long side/);
+    assert.doesNotMatch(stayed.reply, /already on the other side/);
+    const moved = drawn("move the pizza oven to the other side", built.spec);
+    const again = interpret("move the pizza oven to the other side", moved.spec);
+    assert.equal(legOf(again.spec, "ctpizza"), 1);
+    assert.match(again.reply, /already on the other side/);
+    assert.doesNotMatch(again.reply, /Moved/);
+    const back = drawn("move the pizza oven to the other leg", moved.spec);
+    assert.equal(legOf(back.spec, "ctpizza"), 0, back.reply);
+    assert.match(back.reply, /main leg/);
+  });
+
+  test("move it over follows the pizza oven just named, then the last piece added", () => {
+    const built = johnsL();
+    const named = drawn("put the pizza oven on the return", built.spec);
+    const back = drawn("move it over", named.spec);
+    assert.equal(legOf(back.spec, "ctpizza"), 0, back.reply);
+    assert.match(back.reply, /Moved the countertop pizza oven to the main leg/);
+    const over = drawn("move it to the other leg", back.spec);
+    assert.equal(legOf(over.spec, "ctpizza"), 1, over.reply);
+    const bare = drawn("L shaped island, 10 ft grill side with a grill, 6 ft return");
+    const added = drawn("add a countertop pizza oven", bare.spec);
+    assert.equal(legOf(added.spec, "ctpizza"), 0, added.reply);
+    const shifted = drawn("move it over", added.spec);
+    assert.equal(legOf(shifted.spec, "ctpizza"), 1, shifted.reply);
+    assert.equal(fillerBefore(shifted.code, 90, "ctpizza"), 36);
+  });
+
+  test("the cabinet under the grill moves with it", () => {
+    const built = drawn("put a combo under the grill", johnsL().spec);
+    assert.equal(built.spec.legs[0].bases.grill, "combo");
+    const moved = drawn("move the grill to the other leg of the L", built.spec);
+    assert.equal(legOf(moved.spec, "grill"), 1, moved.reply);
+    assert.equal(legOf(moved.spec, "ctpizza"), 0);
+    assert.equal(moved.spec.legs[1].bases.grill, "combo");
+    assert.equal(moved.spec.legs[0].bases && moved.spec.legs[0].bases.grill, undefined);
+    const row = decodeDesign(moved.code).m.find(part => part[0] === "BLZ-4LTE3");
+    assert.equal(row[5], "BLZ-DDC-R-LTSC");
+    assert.equal(row[3], 90);
+    assert.deepEqual(moved.spec.legs.map(l => l.lengthIn), [144, 72]);
+  });
+
+  test("a return that cannot hold the pizza oven stays as it was", () => {
+    const built = drawn("L shaped island, 10 ft grill side with a grill and a countertop pizza oven, 6 ft bar side with a fridge and a griddle");
+    assert.equal(legOf(built.spec, "ctpizza"), 0, built.reply);
+    assert.ok(built.spec.legs[1].items.includes("fridge"));
+    assert.ok(built.spec.legs[1].items.includes("griddle"));
+    const stayed = interpret("move the pizza oven to the return", built.spec);
+    assert.match(stayed.reply, /left it where it is/);
+    assert.equal(legOf(stayed.spec, "ctpizza"), 0);
+    assert.equal(stayed.spec.legs[1].items.includes("ctpizza"), false);
+    assert.deepEqual(stayed.spec.legs.map(l => l.lengthIn), built.spec.legs.map(l => l.lengthIn));
+  });
+
+  test("swap the pizza oven and the fridge across the legs", () => {
+    const built = drawn("L shaped island, 12 ft grill side with a countertop pizza oven, 8 ft return with a fridge");
+    assert.equal(legOf(built.spec, "ctpizza"), 0, built.reply);
+    assert.equal(legOf(built.spec, "fridge"), 1, built.reply);
+    const swapped = drawn("swap the pizza oven and the fridge", built.spec);
+    assert.equal(legOf(swapped.spec, "fridge"), 0, swapped.reply);
+    assert.equal(legOf(swapped.spec, "ctpizza"), 1, swapped.reply);
+    assert.match(swapped.reply, /Swapped/);
+    assert.equal(swapped.spec.legs[0].lengthIn, 144);
+    assert.equal(swapped.spec.legs[1].lengthIn, 96);
+    assert.equal(fillerBefore(swapped.code, 90, "ctpizza"), 48);
+    const withBase = drawn("put a combo under the grill", drawn("L shaped island, 12 ft grill side with a grill, 8 ft return with a fridge").spec);
+    const crossed = drawn("swap the grill and the fridge", withBase.spec);
+    assert.equal(legOf(crossed.spec, "grill"), 1, crossed.reply);
+    assert.equal(crossed.spec.legs[1].bases.grill, "combo");
+  });
+
+  test("the same moves work on a U", () => {
+    const roomy = drawn("U shaped kitchen, 12 ft main with a grill, 6 ft left with a countertop pizza oven, 6 ft right");
+    assert.equal(roomy.spec.shape, "yu");
+    assert.equal(legOf(roomy.spec, "ctpizza"), 1, roomy.reply);
+    const toMain = drawn("move the pizza oven to the other leg", roomy.spec);
+    assert.equal(legOf(toMain.spec, "ctpizza"), 0, toMain.reply);
+    assert.match(toMain.reply, /Moved the countertop pizza oven to the main leg/);
+    assert.deepEqual(toMain.spec.legs.map(l => l.lengthIn), [144, 72, 72]);
+    const back = drawn("move it over", toMain.spec);
+    assert.equal(legOf(back.spec, "ctpizza"), 1, back.reply);
+    assert.equal(fillerBefore(back.code, 270, "ctpizza"), 36);
+    const toRight = drawn("put the pizza oven on the return", roomy.spec);
+    assert.equal(legOf(toRight.spec, "ctpizza"), 2, toRight.reply);
+    assert.match(toRight.reply, /right return/);
+    assert.equal(fillerBefore(toRight.code, 90, "ctpizza"), 36);
+    const long = drawn("move the pizza oven to the long side", roomy.spec);
+    assert.equal(legOf(long.spec, "ctpizza"), 0, long.reply);
+    const home = drawn("move the pizza oven to the short side", long.spec);
+    assert.equal(legOf(home.spec, "ctpizza"), 1, home.reply);
+    const crowded = drawn(U_LINE);
+    const stayed = interpret("move the pizza oven to the other leg", crowded.spec);
+    assert.match(stayed.reply, /left it where it is/);
+    assert.equal(legOf(stayed.spec, "ctpizza"), 1);
+    assert.deepEqual(stayed.spec.legs.map(l => l.lengthIn), [120, 72, 72]);
+    const otherReturn = interpret("put the pizza oven on the return", crowded.spec);
+    assert.match(otherReturn.reply, /left it where it is/);
+    assert.equal(legOf(otherReturn.spec, "ctpizza"), 1);
+  });
+});
+
 describe("hold to talk", () => {
   test("short holds and junk transcripts are not a design turn", () => {
     assert.equal(holdLongEnough(299), false);

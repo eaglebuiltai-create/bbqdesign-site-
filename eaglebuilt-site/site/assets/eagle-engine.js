@@ -352,6 +352,19 @@ function findItems(text) {
   return items;
 }
 
+function pieceOnSpec(spec, id) {
+  if (!spec || !spec.legs) return false;
+  return spec.legs.some(l => (l.items || []).includes(id) || (l.bases && Object.values(l.bases).includes(id)));
+}
+
+/* "Pizza oven" is the built-in unless the island already has the countertop
+   one. A move should take the oven that is actually there. */
+function resolvePresent(id, spec) {
+  if (id === "pizza" && spec && !pieceOnSpec(spec, "pizza") && pieceOnSpec(spec, "ctpizza")) return "ctpizza";
+  if (id === "ctpizza" && spec && !pieceOnSpec(spec, "ctpizza") && pieceOnSpec(spec, "pizza")) return "pizza";
+  return id;
+}
+
 function speechClean(text) {
   return String(text || "")
     .replace(/\b(uh+|um+|er+|ah+|hmm+)\b/g, " ")
@@ -770,11 +783,113 @@ function slidePiece(t, current) {
   return { spec, brief: true, notes: ["Moved " + CATALOG[pieceId].spoken + " " + Math.abs(moved) + " inches " + way + "."] };
 }
 
+function legName(leg) {
+  if (!leg) return "the other leg";
+  if (leg.role === "bar" || leg.role === "return") return "the return";
+  if (leg.role === "left") return "the left return";
+  if (leg.role === "right") return "the right return";
+  if (leg.role === "grill" || leg.role === "main") return "the main leg";
+  return "the " + leg.role + " leg";
+}
+
+function theName(id) {
+  return CATALOG[id] ? CATALOG[id].spoken.replace(/^an? /, "the ") : "that piece";
+}
+
+function otherLeg(spec, fromLeg) {
+  const legs = spec.legs || [];
+  const others = legs.filter(l => l !== fromLeg);
+  if (others.length <= 1) return others[0] || null;
+  if (!fromLeg || fromLeg.role === "grill" || fromLeg.role === "main") {
+    return legs.find(l => l.role === "left")
+      || legs.find(l => l.role === "bar" || l.role === "return")
+      || others[0];
+  }
+  return legs.find(l => l.role === "grill" || l.role === "main") || others[0];
+}
+
+function legIntent(t) {
+  if (/\bother leg\b/.test(t)) return "opposite";
+  if (/\bmove\b/.test(t) && /\bover\b/.test(t)) return "opposite";
+  if (/\bother side\b/.test(t)) return "return";
+  if (/\b(?:bar side|return leg|on the return|the return)\b/.test(t)) return "return";
+  if (/\bshort side\b/.test(t)) return "short";
+  if (/\blong side\b/.test(t)) return "long";
+  if (/\b(?:grill side|grill leg|main leg)\b/.test(t)) return "grill";
+  return "";
+}
+
+function pronounItem(spec) {
+  if (spec.lastMentioned && pieceOnSpec(spec, spec.lastMentioned)) return spec.lastMentioned;
+  const added = (spec.lastAdded || []).filter(id => pieceOnSpec(spec, id));
+  return added.length ? added[added.length - 1] : "";
+}
+
+/* Move one piece, and the cabinet under it, from one leg to another.
+   "The other leg" is the opposite of where it sits. "The other side" and
+   "the return" are the return. Lengths stay unless the piece does not fit. */
+function moveAcross(t, current) {
+  if (!current || !current.legs || current.legs.length < 2) return null;
+  if (!/\b(?:move|put|place|relocate)\b/.test(t)) return null;
+  if (/\b(?:under|underneath|below|beneath|swap)\b/.test(t)) return null;
+  if (/\b(?:slide|shift|nudge|a little|a bit|away from the corner|down that side|toward the end|toward the corner)\b/.test(t)) return null;
+  const which = legIntent(t);
+  if (!which) return null;
+  let ids = findItems(t).map(id => resolvePresent(id, current));
+  if (!ids.length && /\bit\b/.test(t)) {
+    const one = pronounItem(current);
+    if (!one) return { clarify: "Tell me which piece should move to the other leg." };
+    ids = [one];
+  }
+  if (ids.length !== 1) return null;
+  const id = ids[0];
+  if (!CATALOG[id]) return null;
+  const fromI = current.legs.findIndex(l => (l.items || []).includes(id));
+  if (fromI < 0) return null;
+  const spec = cloneSpec(current);
+  spec.holdLengths = true;
+  const fromLeg = spec.legs[fromI];
+  let dest = fromLeg;
+  if (which === "opposite") dest = otherLeg(spec, fromLeg);
+  else if (which === "short" || which === "long") dest = resolveLeg(spec, which);
+  else if (which === "grill") dest = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+  else dest = resolveLeg(spec, "return");
+  if (!dest || dest === fromLeg) {
+    if (which === "opposite") return { clarify: "This island doesn't have another leg to move " + theName(id) + " to." };
+    const place = which === "return" && /\bother side\b/.test(t)
+      ? "the other side"
+      : (which === "short" ? "the short side" : which === "long" ? "the long side" : legName(fromLeg));
+    return { clarify: "That's already on " + place + "." };
+  }
+  const ask = gearSpan([...(dest.items || []).filter(x => x !== id), id], spec.gapIn, spec.grillGap);
+  if (dest.fixed && ask > dest.lengthIn + 4) {
+    return {
+      clarify: theName(id).replace(/^the /, "The ") + " needs about " + feet(ask) + " on " + legName(dest) + ", which is " + feet(dest.lengthIn) + ". I left it where it is. " + feet(Math.ceil(ask / 12) * 12) + " would fit it."
+    };
+  }
+  const base = fromLeg.bases && fromLeg.bases[id];
+  if (base) delete fromLeg.bases[id];
+  fromLeg.items = (fromLeg.items || []).filter(x => x !== id);
+  if (id === "ctpizza" || id === "ctwok") fromLeg.slide = 0;
+  dest.items = dest.items || [];
+  dest.items.push(id);
+  if (base) {
+    if (!dest.bases) dest.bases = {};
+    dest.bases[id] = base;
+  }
+  if (id === "ctpizza" || id === "ctwok") dest.slide = 0;
+  spec.lastMentioned = id;
+  spec.lastAdded = [id];
+  return { spec, brief: true, notes: ["Moved " + theName(id) + " to " + legName(dest) + "."] };
+}
+
 function refine(t, current) {
   if (!current) return null;
   const spec = cloneSpec(current);
   const movedGroup = moveGroup(t, current);
   if (movedGroup) return movedGroup;
+  const across = moveAcross(t, current);
+  if (across) return across;
   const slid = slidePiece(t, current);
   if (slid) return slid;
   const gap = readGap(t);
@@ -1060,15 +1175,28 @@ function swapPair(current, a, b) {
   if (A.leg === B.leg && A.i === B.i) {
     return { clarify: unchangedReply("swap " + a + " and " + b, spec) };
   }
+  const baseA = A.leg.bases && A.leg.bases[a];
+  const baseB = B.leg.bases && B.leg.bases[b];
   if (A.leg === B.leg) {
     const items = A.leg.items;
     const tmp = items[A.i];
     items[A.i] = items[B.i];
     items[B.i] = tmp;
   } else {
+    if (baseA) delete A.leg.bases[a];
+    if (baseB) delete B.leg.bases[b];
     A.leg.items[A.i] = b;
     B.leg.items[B.i] = a;
+    if (baseB) {
+      if (!A.leg.bases) A.leg.bases = {};
+      A.leg.bases[b] = baseB;
+    }
+    if (baseA) {
+      if (!B.leg.bases) B.leg.bases = {};
+      B.leg.bases[a] = baseA;
+    }
   }
+  spec.lastMentioned = a;
   return { spec, brief: true, notes: ["Swapped " + CATALOG[a].spoken + " and " + CATALOG[b].spoken + "."] };
 }
 
@@ -1076,7 +1204,7 @@ function rearrange(t, current) {
   if (!current || !current.legs || !current.legs.length) return null;
   if (!/\bswap\b/.test(t)) return null;
   if (/\b(stone|stucco|finish|veneer|longer|shorter)\b/.test(t)) return null;
-  const ids = findItems(t);
+  const ids = findItems(t).map(id => resolvePresent(id, current));
   if (ids.length < 2) return { clarify: "Tell me the two pieces to swap, for example the fridge and the combo." };
   return swapPair(current, ids[0], ids[1]);
 }
@@ -1199,6 +1327,7 @@ function addEquipment(t, current) {
   if ((!current || !current.legs || !current.legs.length) && (detectShape(t) === "ell" || detectShape(t) === "yu")) return null;
   const hits = mentionHits(t);
   if (!hits.length) return null;
+  for (const hit of hits) hit.id = resolvePresent(hit.id, current);
   const have = {};
   for (const legN of (current && current.legs) || []) {
     for (const id of legN.items || []) have[id] = (have[id] || 0) + 1;
@@ -1316,6 +1445,8 @@ function addEquipment(t, current) {
   if (hits.some(h => h.id === "ctwok")) tail.push("The countertop wok sits on the counter and has no equipment price in the catalog.");
   for (const hit of hits) if (hit.sizeNote) tail.push(hit.sizeNote);
   spec.lastAdded = added.map(h => h.id);
+  const touched = moved[moved.length - 1] || added[added.length - 1];
+  if (touched) spec.lastMentioned = touched.id;
   return { spec, brief: true, notes: [joinSentences([note].concat(tail))] };
 }
 
@@ -1587,6 +1718,7 @@ export function validateSpec(input) {
       gapIn: src.gapIn == null ? 6 : Math.max(0, Number(src.gapIn) || 0),
       grillGap: src.grillGap ? 24 : 0,
       lastAdded: Array.isArray(src.lastAdded) ? src.lastAdded.filter(id => CATALOG[id]).slice(0, 12) : [],
+      lastMentioned: CATALOG[src.lastMentioned] ? src.lastMentioned : "",
       pending: Array.isArray(src.pending) ? src.pending.filter(id => CATALOG[id]).slice(0, 12) : [],
       legs
     }
