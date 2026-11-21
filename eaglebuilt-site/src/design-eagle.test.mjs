@@ -1634,6 +1634,22 @@ describe("john's straight run", () => {
     assert.match(odd.reply, /3 inches isn't a panel we build, so 4 is the closest/);
     assert.ok(keysOf(odd.code).includes("fill4"));
   });
+
+  test("a size that starts with a vowel sound takes an", () => {
+    const base = drawn("straight 10 ft island with a grill and a fridge");
+    const eight = drawn("add an 8 inch filler panel on the end", base.spec);
+    assert.match(eight.reply, /Added an 8 inch filler panel/);
+    assert.doesNotMatch(eight.reply, /\ba 8\b/);
+    const six = drawn("add a 6 inch filler panel on the end", base.spec);
+    assert.match(six.reply, /Added a 6 inch filler panel/);
+    const both = drawn("add an 8 inch filler panel on both ends", base.spec);
+    assert.match(both.reply, /Added an 8 inch filler panel on both ends/);
+    for (const [ft, art] of [[8, "an"], [11, "an"], [18, "an"], [80, "an"], [6, "a"], [12, "a"], [4, "a"]]) {
+      const shaped = drawn("make it an L with a " + ft + " ft return", base.spec);
+      assert.match(shaped.reply, new RegExp("with " + art + " " + ft + " ft"), shaped.reply);
+      if (art === "an") assert.doesNotMatch(shaped.reply, new RegExp("\\ba " + ft + "\\b"), shaped.reply);
+    }
+  });
 });
 
 describe("adjacent pieces and nudges", () => {

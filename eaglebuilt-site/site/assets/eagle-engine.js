@@ -1176,8 +1176,9 @@ function placeFiller(t0, current) {
   const spots = at === "both" ? ["start", "end"] : [at];
   for (const spot of spots) legN.panels.push({ w, at: spot, after });
   legN.lengthIn += w * spots.length;
-  let note = "Added a " + w + " inch filler panel";
-  if (at === "both") note = "Added a " + w + " inch filler panel on both ends";
+  const art = sizeArticle(w);
+  let note = "Added " + art + " " + w + " inch filler panel";
+  if (at === "both") note = "Added " + art + " " + w + " inch filler panel on both ends";
   else if (at === "start") note += " on the left end";
   else if (at === "after") note += " between those pieces";
   else note += " on the end";
@@ -1464,7 +1465,7 @@ function refine(t, current) {
     spec.shape = "ell";
     spec.barOn = !!spec.barOn || /\bbar\b|\bstools?\b/.test(t);
     spec.legs = [main, leg("bar", Math.round(lens[0].ft * 12), [], findStools(t))];
-    return { spec, brief: true, notes: ["Made it an L with a " + lens[0].ft + " ft return."] };
+    return { spec, brief: true, notes: ["Made it an L with " + sizeArticle(lens[0].ft) + " " + lens[0].ft + " ft return."] };
   }
   if (detectShape(t) === "yu" && spec.shape !== "yu" && findLengths(t).length < 2 && /\b(make|turn|change|switch|build|want)\b/.test(t)) {
     const lens = findLengths(t);
@@ -2065,6 +2066,31 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
   return { seq, span, notes, between: between.map(gap => gap.w) };
 }
 
+/* Eight, eleven, and eighteen take "an", and so does any larger number
+   whose spoken form starts with those words (80, 800, 18,000). */
+function spokenHead(n) {
+  const whole = Math.floor(Math.abs(Number(n)));
+  if (!Number.isFinite(whole)) return "zero";
+  if (whole >= 1000000) return spokenHead(Math.floor(whole / 1000000));
+  if (whole >= 1000) return spokenHead(Math.floor(whole / 1000));
+  if (whole >= 100) return spokenHead(Math.floor(whole / 100));
+  const small = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+  if (whole < 20) return small[whole];
+  const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+  return tens[Math.floor(whole / 10)] || "zero";
+}
+
+function sizeArticle(n) {
+  return /^[aeiou]/.test(spokenHead(n)) ? "an" : "a";
+}
+
+function polishArticles(text) {
+  return String(text || "").replace(/\ba (\d+(?:\.\d+)?)\b/g, (full, num) => {
+    const art = sizeArticle(num);
+    return art === "a" ? full : art + " " + num;
+  });
+}
+
 function feet(inches) {
   const ft = Math.round(inches / 12 * 10) / 10;
   return (ft % 1 === 0 ? String(ft) : ft.toFixed(1)) + " ft";
@@ -2350,7 +2376,7 @@ function changeReply(spec, notes) {
 
 export function summaryReply(spec) {
   if (!spec) return "";
-  return describe(spec, []);
+  return polishArticles(describe(spec, []));
 }
 
 export function compileSpec(input, extraNotes) {
@@ -2455,7 +2481,7 @@ function keepResult(current, reply, notes) {
   return {
     handled: true,
     kind: "clarify",
-    reply,
+    reply: polishArticles(reply),
     spec: current || null,
     code: kept && kept.ok ? kept.code : "",
     link: kept && kept.ok ? kept.link : "",
@@ -2477,7 +2503,7 @@ function finishResult(parsed, current) {
     return {
       handled: parsed.handled !== false,
       kind: "clarify",
-      reply: [parsed.clarify].concat(parsed.notes || []).join(" "),
+      reply: polishArticles([parsed.clarify].concat(parsed.notes || []).join(" ")),
       spec: current || null,
       code: kept ? kept.code : "",
       link: kept ? kept.link : "",
@@ -2485,7 +2511,7 @@ function finishResult(parsed, current) {
     };
   }
   const built = compileSpec(parsed.spec, parsed.notes || []);
-  const reply = parsed.brief && built.ok ? changeReply(built.spec, built.warnings && built.warnings.length ? built.warnings : (parsed.notes || [])) : built.reply;
+  const reply = polishArticles(parsed.brief && built.ok ? changeReply(built.spec, built.warnings && built.warnings.length ? built.warnings : (parsed.notes || [])) : built.reply);
   return {
     handled: true,
     kind: parsed.brief ? "refine" : "draw",
@@ -2625,7 +2651,7 @@ export function applyModelSpec(raw, current) {
     const kept = current ? compileSpec(current) : null;
     return {
       handled: true,
-      reply: safe,
+      reply: polishArticles(safe),
       spec: current || null,
       code: kept ? kept.code : "",
       link: kept ? kept.link : "",
@@ -2648,14 +2674,14 @@ export function applyModelSpec(raw, current) {
     return {
       handled: true,
       kind: "clarify",
-      reply: current ? "I kept this layout. " + askBit("") : built.reply,
+      reply: polishArticles(current ? "I kept this layout. " + askBit("") : built.reply),
       spec: current || null,
       code: kept && kept.ok ? kept.code : "",
       link: kept && kept.ok ? kept.link : "",
       warnings: []
     };
   }
-  return { handled: true, reply: built.reply, spec: built.spec, code: built.code, link: built.link, warnings: built.warnings || [] };
+  return { handled: true, reply: polishArticles(built.reply), spec: built.spec, code: built.code, link: built.link, warnings: built.warnings || [] };
 }
 
 export function claimsSent(text) {
