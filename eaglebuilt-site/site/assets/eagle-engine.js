@@ -65,7 +65,8 @@ export const CONFIG = {
     name: "Adam",
     voiceId: "pNInz6obpgDQGcFmaJgB",
     modelId: "eleven_flash_v2_5",
-    sttModelId: "scribe_v1"
+    /* Batch speech-to-text. scribe_v1 is rejected immediately (HTTP 422). */
+    sttModelId: "scribe_v2"
   },
   voiceLimits: {
     sessionMs: 8 * 60 * 1000,

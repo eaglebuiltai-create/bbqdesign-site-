@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { describe, test } from "node:test";
 import { commitLead } from "./chat-lead.js";
-import worker from "./worker.js";
+import worker, { EagleRateLimit } from "./worker.js";
 import {
   CONFIG,
   applyModelSpec,
@@ -610,6 +610,128 @@ describe("design eagle voice", () => {
     } finally {
       globalThis.fetch = orig;
     }
+  });
+
+  test("scribe sends scribe_v2 and keeps the recording's filename", async () => {
+    const env = { ELEVENLABS_API_KEY: "xi-test-key" };
+    const seen = [];
+    const orig = globalThis.fetch;
+    globalThis.fetch = async (url, init) => {
+      const form = await new Request(url, init).formData();
+      const file = form.get("file");
+      seen.push({
+        url: String(url),
+        model: form.get("model_id"),
+        name: file && file.name,
+        type: file && file.type,
+        key: init.headers["xi-api-key"]
+      });
+      return Response.json({ text: "blaze grill on the right" });
+    };
+    try {
+      const mp3 = new FormData();
+      mp3.set("audio", new File([Uint8Array.from([1, 2, 3, 4])], "clip.mp3", { type: "audio/mpeg" }));
+      const named = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/transcribe", {
+        method: "POST",
+        headers: { Origin: "https://eaglebuilt.ai", "CF-Connecting-IP": "203.0.113.90" },
+        body: mp3
+      }), env);
+      const namedData = await named.json();
+      assert.equal(named.status, 200);
+      assert.equal(namedData.text, "blaze grill on the right");
+      const raw = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/transcribe", {
+        method: "POST",
+        headers: {
+          Origin: "https://eaglebuilt.ai",
+          "Content-Type": "audio/webm;codecs=opus",
+          "CF-Connecting-IP": "203.0.113.90"
+        },
+        body: Uint8Array.from([5, 6, 7, 8])
+      }), env);
+      assert.equal((await raw.json()).text, "blaze grill on the right");
+      assert.equal(seen[0].model, "scribe_v2");
+      assert.equal(seen[0].name, "clip.mp3");
+      assert.match(seen[0].type, /mpeg/);
+      assert.equal(seen[1].model, "scribe_v2");
+      assert.equal(seen[1].name, "speech.webm");
+      assert.match(seen[0].url, /\/v1\/speech-to-text$/);
+      assert.equal(seen[0].key, "xi-test-key");
+      assert.equal(JSON.stringify(namedData).includes("xi-test-key"), false);
+    } finally {
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("a scribe rejection is logged and told back without the key", async () => {
+    const env = { ELEVENLABS_API_KEY: "xi-test-key" };
+    const logs = [];
+    const origLog = console.log;
+    console.log = (...args) => { logs.push(args.join(" ")); };
+    const orig = globalThis.fetch;
+    globalThis.fetch = async () => new Response(JSON.stringify({
+      detail: { message: "invalid model id, key xi-test-key" }
+    }), { status: 422, headers: { "Content-Type": "application/json" } });
+    try {
+      const body = new FormData();
+      body.set("audio", new File([Uint8Array.from([1, 2, 3])], "clip.mp3", { type: "audio/mpeg" }));
+      const res = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/transcribe", {
+        method: "POST",
+        headers: { Origin: "https://eaglebuilt.ai", "CF-Connecting-IP": "203.0.113.91" },
+        body
+      }), env);
+      const data = await res.json();
+      assert.equal(res.status, 502);
+      assert.match(data.error, /Transcription was rejected \(422\): invalid model id/);
+      assert.match(data.error, /You can type it/);
+      assert.equal(data.error.includes("xi-test-key"), false);
+      const line = logs.join("\n");
+      assert.match(line, /scribe 422/);
+      assert.match(line, /model=scribe_v2/);
+      assert.equal(line.includes("xi-test-key"), false);
+    } finally {
+      console.log = origLog;
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("session mints share one counter, so a full window is refused", async () => {
+    const objects = new Map();
+    function namespace(seed) {
+      return {
+        getByName(name) {
+          if (!objects.has(name)) {
+            const data = new Map(seed || []);
+            const storage = {
+              async get(k) { return data.has(k) ? data.get(k) : undefined; },
+              async put(k, v) { data.set(k, v); }
+            };
+            objects.set(name, new EagleRateLimit({ storage }));
+          }
+          const obj = objects.get(name);
+          return { fetch: (input) => obj.fetch(new Request(String(input))) };
+        }
+      };
+    }
+    const env = { ELEVENLABS_API_KEY: "xi-test-key", EAGLE_LIMITS: namespace() };
+    let last = null;
+    for (let i = 0; i < 24; i++) {
+      last = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.78");
+      assert.equal(last.status, 200, "mint " + (i + 1));
+      assert.equal(last.data.speak, true);
+    }
+    const capped = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.78");
+    assert.equal(capped.status, 429);
+    assert.equal(capped.data.capped, true);
+    const other = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.79");
+    assert.equal(other.status, 200);
+
+    objects.clear();
+    const primed = {
+      ELEVENLABS_API_KEY: "xi-test-key",
+      EAGLE_LIMITS: namespace([["b:eagleSpeak", { start: Date.now(), n: 24 }]])
+    };
+    const fromElsewhere = await post("/api/design-eagle/voice/session", {}, primed, "203.0.113.80");
+    assert.equal(fromElsewhere.status, 429);
   });
 
   test("the first draw still gives the full layout", () => {
