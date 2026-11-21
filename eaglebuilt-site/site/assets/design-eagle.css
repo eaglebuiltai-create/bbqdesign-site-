@@ -14,6 +14,7 @@
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
+body { overflow: hidden; }
 body {
   margin: 0;
   background: var(--bg);
@@ -78,6 +79,7 @@ body[data-embed="1"] .shell { height: 100dvh; }
 }
 .chatHead b { display: block; font-size: 15px; }
 .chatHead span { color: var(--muted); font-size: 12.5px; }
+.thread { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; }
 .log {
   flex: 1;
   overflow: auto;
@@ -155,6 +157,22 @@ body[data-embed="1"] .shell { height: 100dvh; }
   text-decoration: none;
   font-weight: 750;
 }
+.viewbar {
+  display: none;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg2);
+  border-top: 1px solid var(--line);
+  order: 1;
+}
+.viewbar button {
+  flex: 1;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid #2A3B57;
+  background: transparent;
+  font-weight: 750;
+}
 .toggle {
   display: none;
   position: fixed;
@@ -176,7 +194,13 @@ body[data-embed="1"] .shell { height: 100dvh; }
   font-size: 13px;
 }
 .composer input { flex: 1 1 140px; }
-.mic { min-width: 108px; }
+.mic, #mic {
+  min-width: 108px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
 .hp {
   position: absolute;
   width: 1px;
@@ -188,26 +212,36 @@ body[data-embed="1"] .shell { height: 100dvh; }
   border: 0;
 }
 @media (max-width: 860px) {
-  .shell { display: block; height: calc(100dvh - 46px); }
-  .stage { height: calc(100dvh - 46px - 72px); }
-  body.chat-open .stage { height: 42dvh; }
+  .shell {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 46px);
+    max-height: calc(100dvh - 46px);
+    overflow: hidden;
+  }
+  .stage {
+    flex: 0 0 55%;
+    min-height: 300px;
+    height: auto;
+    order: 0;
+  }
+  .viewbar { display: flex; flex: 0 0 auto; }
   .chat {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 4;
-    height: min(70dvh, 560px);
-    overflow: auto;
+    position: relative;
+    flex: 1 1 auto;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    order: 2;
+    overflow: hidden;
     border-left: 0;
     border-top: 1px solid var(--line);
-    border-radius: 16px 16px 0 0;
-    transform: translateY(calc(100% - 0px));
+    border-radius: 0;
+    transform: none;
   }
-  body.chat-open .chat { transform: none; }
-  body:not(.chat-open) .chat { transform: translateY(110%); }
-  .toggle { display: block; }
-  body.chat-open .toggle { display: none; }
+  .composer, .save { flex-shrink: 0; }
+  .log { min-height: 0; }
+  .toggle { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .chat { transition: none; }

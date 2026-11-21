@@ -21,17 +21,23 @@
     <div class="empty" id="empty">Describe an island and it shows up here, in the same 3D designer.</div>
     <iframe id="designer" title="EagleBuilt 3D island designer" hidden></iframe>
   </section>
+  <div class="viewbar">
+    <button type="button" id="showChat">Chat</button>
+    <button type="button" id="seeIsland">See island</button>
+  </div>
   <section class="chat" id="chat" aria-label="Design Eagle">
     <div class="chatHead">
       <b>Design Eagle</b>
       <span>Type a layout. Voice uses this same thread later.</span>
       <button type="button" class="secondary" id="hideChat" style="float:right;padding:6px 10px;min-height:36px">Hide</button>
     </div>
+    <div class="thread">
     <div class="log" id="log" role="log" aria-live="polite"></div>
     <div class="book" id="book" hidden>
       <h3 id="bookTitle">Book a live design session with John</h3>
       <p id="bookPending">Live booking isn't connected yet.</p>
       <a class="btn" id="bookPhone" href="tel:+19163599692">(916) 359-9692</a>
+    </div>
     </div>
     <form class="composer" id="composer">
       <p class="live" id="live" hidden></p>
@@ -57,7 +63,6 @@
     </form>
   </section>
 </main>
-<button type="button" class="toggle" id="showChat">Design Eagle</button>
 <script type="module" src="/assets/design-eagle.js"></script>
 </body>
 </html>
