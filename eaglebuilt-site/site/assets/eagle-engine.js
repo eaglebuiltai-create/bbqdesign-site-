@@ -242,8 +242,8 @@ function prepareGearText(text) {
     .replace(/\bnext to the grill\b/g, " __next__ ")
     .replace(/\bbeside the grill\b/g, " __next__ ")
     .replace(/\bby the grill\b/g, " __next__ ")
-    .replace(/\bunder the (?:grill|bbq|barbecue|barbeque)\b/g, " __next__ ")
-    .replace(/\bunder it\b/g, " __next__ ")
+    .replace(/\b(?:under|below|beneath) the (?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
+    .replace(/\bunder it\b/g, " __under__ ")
     .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
     .replace(/\bunder the bar\b/g, " __bar__ ")
     .replace(/\bon the bar(?: side)?\b/g, " __bar__ ")
@@ -253,6 +253,7 @@ function prepareGearText(text) {
 
 function whereOf(after) {
   if (/__bar__|\bunder the bar\b|\bon the bar\b/.test(after)) return "bar";
+  if (/__under__/.test(after)) return "under";
   if (/__next__|\bnext to\b|\bbeside\b/.test(after)) return "next";
   if (/__end__|\bend of\b/.test(after)) return "end";
   if (/\bright side\b|\bon the right\b|\bto the right\b|\bright end\b|\bright\b/.test(after)) return "right";
@@ -357,8 +358,10 @@ function blankSpec(over) {
   };
 }
 
-function leg(role, lengthIn, items, stools, pinEnd) {
-  return { role, lengthIn, items: items || [], stools: stools || 0, pinEnd: !!pinEnd };
+function leg(role, lengthIn, items, stools, pinEnd, bases) {
+  const out = { role, lengthIn, items: items || [], stools: stools || 0, pinEnd: !!pinEnd };
+  if (bases && Object.keys(bases).length) out.bases = bases;
+  return out;
 }
 
 function withDefaultGrill(items, text) {
@@ -532,8 +535,128 @@ function placePhrase(where) {
   if (where === "right" || where === "end") return " on the right";
   if (where === "left") return " on the left";
   if (where === "bar") return " under the bar";
+  if (where === "under") return " in the base under the grill";
   if (where === "next") return " next to the grill";
   return "";
+}
+
+function isBaseCabinet(id) {
+  return id === "combo" || id === "door" || id === "drawer";
+}
+
+function readBases(raw) {
+  if (!raw || typeof raw !== "object") return undefined;
+  const out = {};
+  for (const host of ["grill", "grill-40"]) {
+    if (isBaseCabinet(raw[host])) out[host] = raw[host];
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
+function hostGrill(leg) {
+  if (!leg) return "";
+  if ((leg.items || []).includes("grill-40")) return "grill-40";
+  if ((leg.items || []).includes("grill")) return "grill";
+  if (leg.bases && leg.bases["grill-40"]) return "grill-40";
+  if (leg.bases && leg.bases.grill) return "grill";
+  return "";
+}
+
+/* Drop-in grills do not stack a second module underneath. The 3D view reads
+   the grill's u field and draws that cabinet face in the base opening
+   directly under the cutout (faceSpan → drawFace). */
+function attachUnder(spec, baseId) {
+  const leg = spec.legs.find(l => hostGrill(l));
+  if (!leg) {
+    return { clarify: "There's no grill to put that under. I can put " + CATALOG[baseId].spoken + " on the left or the right." };
+  }
+  const host = hostGrill(leg);
+  const name = CATALOG[baseId].spoken;
+  const sitting = spec.legs.some(l => (l.items || []).includes(baseId));
+  if (leg.bases && leg.bases[host] === baseId && !sitting) {
+    return { clarify: name.replace(/^a /, "The ") + " is already in the base under the grill. I can move it out beside the grill, or leave the fridge at the right end." };
+  }
+  spec.legs.forEach(l => { l.items = (l.items || []).filter(id => id !== baseId); });
+  const prev = leg.bases && leg.bases[host];
+  if (!leg.bases) leg.bases = {};
+  if (prev && prev !== baseId && !leg.items.includes(prev)) {
+    const at = leg.items.indexOf(host);
+    if (at >= 0) leg.items.splice(at + 1, 0, prev);
+    else leg.items.push(prev);
+  }
+  leg.bases[host] = baseId;
+  if (leg.items[leg.items.length - 1] === "fridge" || leg.items[leg.items.length - 1] === "fridge-24") leg.pinEnd = true;
+  return { note: "Moved " + name + " into the base under the grill." };
+}
+
+function layoutKey(spec) {
+  return JSON.stringify((spec.legs || []).map(l => ({
+    items: l.items || [],
+    bases: l.bases || null,
+    pin: !!l.pinEnd
+  })));
+}
+
+function unchangedReply(t, spec) {
+  const hits = findItemHits(t);
+  const id = hits[0] && hits[0].id;
+  const name = id && CATALOG[id] ? CATALOG[id].spoken.replace(/^a /, "The ") : "That piece";
+  if (hits.some(h => h.where === "under")) {
+    return name + " is already in the base under the grill. I can move it out beside the grill, or leave the fridge at the right end.";
+  }
+  if (hits.some(h => h.where === "right" || h.where === "end")) {
+    return name + " is already at the right end. I can move it to the left, or put the combo under the grill.";
+  }
+  if (hits.some(h => h.where === "left")) {
+    return name + " is already on the left. I can move it to the right end, or put a cabinet under the grill.";
+  }
+  const where = spec && spec.legs && spec.legs.some(l => l.bases && Object.values(l.bases).includes(id));
+  if (where) return name + " is in the base under the grill. I can move it out beside the grill, or move the fridge to the right end.";
+  return name + " is already on this island. Say which side, or say under the grill.";
+}
+
+function swapPair(current, a, b) {
+  const spec = cloneSpec(current);
+  const loc = id => {
+    for (const l of spec.legs) {
+      const i = (l.items || []).indexOf(id);
+      if (i >= 0) return { leg: l, i };
+    }
+    return null;
+  };
+  const A = loc(a);
+  const B = loc(b);
+  const underA = spec.legs.some(l => l.bases && Object.values(l.bases).includes(a));
+  const underB = spec.legs.some(l => l.bases && Object.values(l.bases).includes(b));
+  if ((underA || underB) && !(A && B)) {
+    return { clarify: "Those two are not side by side. The cabinet under the grill stays in that base. I can move it out beside the grill, or move the fridge to the right end." };
+  }
+  if (!A || !B) {
+    const missing = !A ? a : b;
+    return { clarify: "I don't see " + CATALOG[missing].spoken + " on this island. I can add it on the left or the right." };
+  }
+  if (A.leg === B.leg && A.i === B.i) {
+    return { clarify: unchangedReply("swap " + a + " and " + b, spec) };
+  }
+  if (A.leg === B.leg) {
+    const items = A.leg.items;
+    const tmp = items[A.i];
+    items[A.i] = items[B.i];
+    items[B.i] = tmp;
+  } else {
+    A.leg.items[A.i] = b;
+    B.leg.items[B.i] = a;
+  }
+  return { spec, brief: true, notes: ["Swapped " + CATALOG[a].spoken + " and " + CATALOG[b].spoken + "."] };
+}
+
+function rearrange(t, current) {
+  if (!current || !current.legs || !current.legs.length) return null;
+  if (!/\bswap\b/.test(t)) return null;
+  if (/\b(stone|stucco|finish|veneer|longer|shorter)\b/.test(t)) return null;
+  const ids = findItems(t);
+  if (ids.length < 2) return { clarify: "Tell me the two pieces to swap, for example the fridge and the combo." };
+  return swapPair(current, ids[0], ids[1]);
 }
 
 function gearCount(spec) {
@@ -606,51 +729,70 @@ function addEquipment(t, current) {
   const pin = right.length > 0;
 
   if (!current || !current.legs || !current.legs.length) {
-    const ids = ordered.map(h => h.id);
+    const bay = ordered.filter(h => !(h.where === "under" && isBaseCabinet(h.id)));
+    const ids = bay.map(h => h.id);
     const width = ids.reduce((sum, id) => sum + (CATALOG[id] ? CATALOG[id].w : 0), 0);
     const spec = blankSpec({ shape: "straight", barOn: false });
     spec.legs.push(leg("main", Math.max(120, Math.ceil(width)), ids, 0, pin));
     const notes = ["I laid this out as a straight run. Say if you wanted an L or a U."];
+    for (const h of ordered) {
+      if (h.where === "under" && isBaseCabinet(h.id)) {
+        const under = attachUnder(spec, h.id);
+        if (under.note) notes.push(under.note);
+        else if (under.clarify) spec.legs[0].items.push(h.id);
+      }
+    }
     if (pin) notes.push("I put " + joinSpoken(right.map(h => CATALOG[h.id].spoken)) + " on the right.");
     return { spec, notes };
   }
 
   const spec = cloneSpec(current);
+  const before = layoutKey(current);
   const added = [];
+  const underNotes = [];
   let changed = false;
   const queue = [...left].reverse().concat(mid, right);
   for (const hit of queue) {
     const dest = destLeg(spec, hit.where);
-    const had = spec.legs.some(l => (l.items || []).includes(hit.id));
+    const had = spec.legs.some(l => (l.items || []).includes(hit.id)) || spec.legs.some(l => l.bases && Object.values(l.bases).includes(hit.id));
     spec.legs.forEach(l => { if (l !== dest) l.items = (l.items || []).filter(id => id !== hit.id); });
+    if (hit.where === "under" && isBaseCabinet(hit.id)) {
+      const under = attachUnder(spec, hit.id);
+      if (under.clarify) return { clarify: under.clarify };
+      changed = true;
+      underNotes.push(under.note);
+      if (!had) added.push(hit);
+      continue;
+    }
     placeOnLeg(dest, hit.id, hit.where);
     if (!had) {
       changed = true;
       added.push(hit);
     } else if (hit.where) changed = true;
   }
-  if (!changed) return { clarify: "That's already on the island. What should I change?" };
+  if (layoutKey(spec) === before) return { clarify: unchangedReply(t, spec) };
   const wheres = [...new Set(added.map(h => h.where).filter(Boolean))];
   let note;
-  if (!added.length) note = "Moved " + joinSpoken(ordered.map(h => CATALOG[h.id].spoken)) + ".";
+  if (!added.length) note = underNotes[0] || ("Moved " + joinSpoken(ordered.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".");
   else if (wheres.length === 1) note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken)) + placePhrase(wheres[0]) + ".";
   else note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".";
   return { spec, brief: true, notes: [note] };
 }
 
-function underFor(id, items) {
+function underFor(id, items, bases) {
+  if (bases && isBaseCabinet(bases[id])) return CATALOG[bases[id]].k;
   const piece = CATALOG[id];
   if (!piece || !piece.under) return "";
-  if ((id === "grill" || id === "grill-40") && items.includes("combo")) return "";
+  if ((id === "grill" || id === "grill-40") && items.some(isBaseCabinet)) return "";
   return piece.under;
 }
 
-function pack(items, targetIn, pinEnd) {
+function pack(items, targetIn, pinEnd, bases) {
   const pieces = [];
   for (const id of items) {
     const item = CATALOG[id];
     if (!item) continue;
-    pieces.push({ k: item.k, w: item.w, u: underFor(id, items) });
+    pieces.push({ k: item.k, w: item.w, u: underFor(id, items, bases) });
   }
   const base = pieces.reduce((sum, item) => sum + item.w, 0);
   let target = targetIn;
@@ -804,7 +946,8 @@ export function validateSpec(input) {
     Math.round(Number(raw && (raw.lengthIn != null ? raw.lengthIn : raw.lengthFt && raw.lengthFt * 12)) || 0),
     Array.isArray(raw && raw.items) ? raw.items.map(id => String(id)).slice(0, 8) : [],
     Number(raw && raw.stools) || 0,
-    !!(raw && raw.pinEnd)
+    !!(raw && raw.pinEnd),
+    readBases(raw && raw.bases)
   ));
   return {
     ok: true,
@@ -826,6 +969,12 @@ function describe(spec, notes) {
     const names = l.items.map(id => CATALOG[id] ? CATALOG[id].spoken : "").filter(Boolean);
     let line = "The " + l.role + " leg is about " + feet(l.lengthIn);
     if (names.length) line += " with " + names.join(", ");
+    if (l.bases) {
+      for (const host of Object.keys(l.bases)) {
+        const cab = CATALOG[l.bases[host]];
+        if (cab) line += ", with " + cab.spoken + " in the base under the grill";
+      }
+    }
     if (l.stools) line += ", with the raised bar on for " + l.stools + (l.stools === 1 ? " stool" : " stools");
     return line;
   });
@@ -844,7 +993,7 @@ function describe(spec, notes) {
 }
 
 function changeReply(spec, notes) {
-  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Switched |Finish |That's |That piece)/.test(n));
+  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece)/.test(n));
   const bar = spec.legs.find(l => l.role === "bar");
   const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
   let text = "Done";
@@ -876,7 +1025,7 @@ export function compileSpec(input, extraNotes) {
   if (spec.shape === "yu" && spec.legs.length < 3) return { ok: false, reply: "A U needs a back and two returns. How long is each?", spec: null, code: "", link: "", warnings: [] };
   spec.legs.forEach(l => clampLeg(l, notes));
   const packed = spec.legs.map(l => {
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases);
     if (result.span > l.lengthIn + 0.5) l.lengthIn = Math.round(result.span);
     notes.push(...result.notes);
     const tight = stoolNote(l);
@@ -962,6 +1111,8 @@ export function interpret(text, current) {
   if (!t) return keepResult(current, current ? "I kept this layout. What should I change?" : CLARIFY);
   const change = refine(t, current);
   if (change) return guardWipe(current, finishResult({ handled: true, ...change }, current), t);
+  const moved = rearrange(t, current);
+  if (moved) return guardWipe(current, finishResult({ handled: true, ...moved }, current), t);
   const added = addEquipment(t, current);
   if (added) {
     if (added.clarify && !added.spec) return keepResult(current, added.clarify, added.notes);

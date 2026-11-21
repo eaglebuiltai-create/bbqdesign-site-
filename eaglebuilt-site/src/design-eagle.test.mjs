@@ -260,10 +260,12 @@ describe("design eagle layout", () => {
     const result = drawn(sentence, opened);
     assert.equal(result.spec.shape, "straight");
     assert.equal(result.spec.barOn, true);
-    assert.deepEqual(result.spec.legs[0].items, ["grill", "combo", "fridge"]);
+    assert.deepEqual(result.spec.legs[0].items, ["grill", "fridge"]);
+    assert.equal(result.spec.legs[0].bases.grill, "combo");
     assert.equal(result.spec.legs[0].lengthIn, 120);
-    const gear = decodeDesign(result.code).m.map(row => row[0]).filter(k => !String(k).startsWith("fill"));
-    assert.deepEqual(gear, ["BLZ-4LTE3", "BLZ-DDC-R-LTSC", "BLZ-SSRF20-4.3"]);
+    const gear = decodeDesign(result.code).m.filter(row => !String(row[0]).startsWith("fill"));
+    assert.deepEqual(gear.map(row => row[0]), ["BLZ-4LTE3", "BLZ-SSRF20-4.3"]);
+    assert.equal(gear[0][5], "BLZ-DDC-R-LTSC");
 
     const alone = drawn("add a blaze barbecue", opened);
     assert.deepEqual(alone.spec.legs[0].items, ["grill", "fridge"]);
@@ -275,14 +277,61 @@ describe("design eagle layout", () => {
     }
 
     const under = drawn("add the 32-in blaze Grill and a combo unit under the grill", opened);
-    assert.deepEqual(under.spec.legs[0].items, ["grill", "combo", "fridge"]);
-    const underGear = decodeDesign(under.code).m.map(row => row[0]).filter(k => !String(k).startsWith("fill"));
-    assert.deepEqual(underGear, ["BLZ-4LTE3", "BLZ-DDC-R-LTSC", "BLZ-SSRF20-4.3"]);
+    assert.deepEqual(under.spec.legs[0].items, ["grill", "fridge"]);
+    assert.equal(under.spec.legs[0].bases.grill, "combo");
+    const underGear = decodeDesign(under.code).m.filter(row => !String(row[0]).startsWith("fill"));
+    assert.deepEqual(underGear.map(row => row[0]), ["BLZ-4LTE3", "BLZ-SSRF20-4.3"]);
+    assert.equal(underGear[0][5], "BLZ-DDC-R-LTSC");
+
+    const below = drawn("add doors below the grill", { ...opened, legs: [{ role: "main", lengthIn: 120, items: ["grill", "fridge"], stools: 0, pinEnd: true }] });
+    assert.equal(below.spec.legs[0].bases.grill, "door");
+    assert.equal(decodeDesign(below.code).m.find(row => row[0] === "BLZ-4LTE3")[5], "BLZ-AD32-R-SC");
+    const beneath = drawn("add drawers beneath the grill", { ...opened, legs: [{ role: "main", lengthIn: 120, items: ["grill", "fridge"], stools: 0, pinEnd: true }] });
+    assert.equal(beneath.spec.legs[0].bases.grill, "drawer");
 
     const sink = drawn("add a sink on the left side", opened);
     assert.deepEqual(sink.spec.legs[0].items, ["sink", "fridge"]);
     const trash = drawn("add a trash pull-out on the right side", opened);
     assert.deepEqual(trash.spec.legs[0].items, ["fridge", "trash"]);
+  });
+
+  test("move the combo under the grill and keep the fridge at the right end", () => {
+    const opened = {
+      shape: "straight",
+      finish: "stucco",
+      counter: "concrete",
+      frame: "cmu",
+      depth: 32,
+      barOn: true,
+      legs: [{ role: "main", lengthIn: 120, items: ["grill", "fridge", "combo"], stools: 0, pinEnd: false }]
+    };
+    const moved = drawn("move the combo under the grill", opened);
+    assert.equal(moved.spec.barOn, true);
+    assert.equal(moved.spec.legs[0].lengthIn, 120);
+    assert.deepEqual(moved.spec.legs[0].items, ["grill", "fridge"]);
+    assert.equal(moved.spec.legs[0].bases.grill, "combo");
+    const gear = decodeDesign(moved.code).m.filter(row => !String(row[0]).startsWith("fill"));
+    assert.deepEqual(gear.map(row => row[0]), ["BLZ-4LTE3", "BLZ-SSRF20-4.3"]);
+    assert.equal(gear[0][5], "BLZ-DDC-R-LTSC");
+    assert.equal(gear[gear.length - 1][0], "BLZ-SSRF20-4.3");
+
+    const again = interpret("move the combo under the grill", moved.spec);
+    assert.equal(again.code, moved.code);
+    assert.match(again.reply, /already in the base under the grill/i);
+    assert.doesNotMatch(again.reply, /That's already on the island/);
+
+    const end = drawn("move the fridge to the right end", {
+      ...opened,
+      legs: [{ role: "main", lengthIn: 120, items: ["fridge", "grill", "combo"], stools: 0, pinEnd: false }]
+    });
+    assert.equal(end.spec.legs[0].items[end.spec.legs[0].items.length - 1], "fridge");
+
+    const swapped = drawn("swap fridge and combo", opened);
+    assert.deepEqual(swapped.spec.legs[0].items, ["grill", "combo", "fridge"]);
+
+    const parked = interpret("move the fridge to the right end", moved.spec);
+    assert.match(parked.reply, /already at the right end/i);
+    assert.equal(parked.code, moved.code);
   });
 
   test("a model payload cannot invent a price, a piece, or a send", () => {
