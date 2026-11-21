@@ -62,7 +62,7 @@ const PHRASES = [
   }],
   ["simple 6 ft island with a sink and a small grill", {
     shape: "straight",
-    legs: [{ role: "main", lengthIn: 72, items: ["sink", "grill"] }]
+    legs: [{ role: "main", lengthIn: 75, items: ["sink", "grill"] }]
   }],
   ["U-shape, 14 ft back with a grill and a double side burner, 5 ft left with a fridge, 5 ft right with a sink", {
     shape: "yu",
@@ -978,6 +978,94 @@ describe("design eagle miss log", () => {
     const entry = [...kv.store.entries()].find(([key]) => key.startsWith("miss:"));
     assert.ok(entry);
     assert.equal(entry[1].opts.expirationTtl, 30 * 24 * 60 * 60);
+  });
+});
+
+function gapsBetweenGear(code) {
+  const keys = decodeDesign(code).m.map(row => row[0]);
+  const gaps = [];
+  let pending = null;
+  let fills = [];
+  for (const key of keys) {
+    if (String(key).startsWith("fill")) {
+      if (pending) fills.push(key);
+      continue;
+    }
+    if (key === "corner24") { pending = null; fills = []; continue; }
+    if (pending) gaps.push({ fills });
+    pending = key;
+    fills = [];
+  }
+  return gaps;
+}
+
+describe("filler panels", () => {
+  test("a straight run puts 6 inch fillers between a grill and a fridge", () => {
+    const result = drawn("straight 10 ft island with a grill and a fridge");
+    const gaps = gapsBetweenGear(result.code);
+    assert.deepEqual(gaps.map(gap => gap.fills), [["fill6"]]);
+    assert.match(result.reply, /6 inch filler panels/);
+    assert.match(result.reply, /no equipment price/i);
+    assert.doesNotMatch(result.reply, /\$\d/);
+  });
+
+  test("a grill needs 12 inches before a side burner, griddle, or sink", () => {
+    for (const [line, fills] of [
+      ["straight 10 ft island with a grill and a side burner", ["fill12"]],
+      ["straight 10 ft island with a grill and a griddle", ["fill12"]],
+      ["straight 10 ft island with a grill and a sink", ["fill12"]],
+      ["straight 10 ft island with a grill and a fridge", ["fill6"]]
+    ]) {
+      const result = drawn(line);
+      assert.deepEqual(gapsBetweenGear(result.code).map(gap => gap.fills), [fills], line + " " + result.reply);
+    }
+  });
+
+  test("an L keeps the 12 inch grill gap on the corner leg", () => {
+    const result = drawn("L-shape, 10 ft grill leg with a side burner, 8 ft return");
+    assert.equal(result.spec.shape, "ell");
+    assert.ok(result.spec.legs[0].items.includes("grill"));
+    assert.ok(result.spec.legs[0].items.includes("side-burner"));
+    const gaps = gapsBetweenGear(result.code);
+    assert.ok(gaps.some(gap => gap.fills.includes("fill12")), result.reply);
+    assert.ok(decodeDesign(result.code).m.some(row => row[0] === "corner24"));
+  });
+
+  test("a short run says what length fits the fillers", () => {
+    const result = drawn("straight 6 ft island with a sink and a grill");
+    assert.ok(result.spec.legs[0].lengthIn > 72);
+    assert.match(result.reply, /longer than asked/);
+    assert.match(result.reply, /fits them/);
+  });
+
+  test("3 inch fillers snap to 4, and never close the grill gap below 12", () => {
+    const fridge = drawn("straight 10 ft island with a grill and a fridge");
+    const narrowed = drawn("3 inch fillers", fridge.spec);
+    assert.deepEqual(gapsBetweenGear(narrowed.code).map(gap => gap.fills), [["fill4"]]);
+    assert.match(narrowed.reply, /4 inch/);
+    assert.match(narrowed.reply, /isn't a panel we build/);
+    const burner = drawn("straight 10 ft island with a grill and a side burner");
+    const kept = drawn("3 inch fillers", burner.spec);
+    assert.ok(gapsBetweenGear(kept.code).some(gap => gap.fills.includes("fill12")), kept.reply);
+    assert.match(kept.reply, /12 inches beside the grill/);
+  });
+
+  test("no fillers and remove filler panels clear the 6 inch gaps", () => {
+    const fridge = drawn("straight 10 ft island with a grill and a fridge");
+    const gone = drawn("no fillers", fridge.spec);
+    assert.ok(gapsBetweenGear(gone.code).every(gap => gap.fills.length === 0));
+    assert.match(gone.reply, /Removed the filler panels/);
+    const back = drawn("6 inch filler between grill and fridge", gone.spec);
+    assert.deepEqual(gapsBetweenGear(back.code).map(gap => gap.fills), [["fill6"]]);
+    const removed = drawn("remove filler panels", back.spec);
+    assert.ok(gapsBetweenGear(removed.code).every(gap => gap.fills.length === 0));
+  });
+
+  test("removing fillers still leaves 12 inches beside a side burner", () => {
+    const burner = drawn("straight 10 ft island with a grill and a side burner");
+    const result = drawn("remove filler panels", burner.spec);
+    assert.ok(gapsBetweenGear(result.code).some(gap => gap.fills.includes("fill12")));
+    assert.match(result.reply, /12 inches beside the grill/);
   });
 });
 

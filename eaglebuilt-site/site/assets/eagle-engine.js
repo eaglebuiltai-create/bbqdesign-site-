@@ -189,6 +189,7 @@ export function normalize(text) {
   let t = String(text || "").toLowerCase().replace(/[’']/g, "'");
   t = t.replace(/\bel[\s-]*shaped?\b/g, "l shaped");
   t = t.replace(/\byou[\s-]*shaped?\b/g, "u shaped");
+  t = t.replace(/(\d+(?:\.\d+)?)\s*(?:"|″|”)/g, "$1 inch ");
   t = t.replace(/(\d)\s*'/g, "$1 ft");
   t = t.replace(/(\d)\s*ft\b/g, "$1 ft");
   t = t.replace(/(\d)\s*-\s*(foot|feet|ft)\b/g, "$1 ft");
@@ -506,9 +507,59 @@ function cloneSpec(spec) {
   return JSON.parse(JSON.stringify(spec));
 }
 
+const GRILLS = { grill: 1, "grill-40": 1 };
+const HOT_BESIDE_GRILL = {
+  grill: 1, "grill-40": 1, "side-burner": 1, "side-burner-single": 1,
+  power: 1, griddle: 1, sink: 1, pizza: 1, smoker: 1
+};
+const FILLER_SIZES = [4, 6, 8, 12, 16, 24];
+
+function isGrill(id) { return !!GRILLS[id]; }
+function hotBesideGrill(a, b) {
+  return (isGrill(a) && HOT_BESIDE_GRILL[b]) || (isGrill(b) && HOT_BESIDE_GRILL[a]);
+}
+function pairsNeedGrillGap(spec) {
+  for (const leg of (spec && spec.legs) || []) {
+    const items = leg.items || [];
+    for (let i = 0; i < items.length - 1; i++) if (hotBesideGrill(items[i], items[i + 1])) return true;
+  }
+  return false;
+}
+function nearestFiller(want) {
+  let best = 6;
+  let dist = Math.abs(want - best);
+  for (const size of FILLER_SIZES) {
+    const d = Math.abs(want - size);
+    if (d < dist) { best = size; dist = d; }
+  }
+  return best;
+}
+function readGap(t) {
+  if (/\b(?:no fillers|without fillers|remove (?:the )?filler panels|remove (?:the )?fillers)\b/.test(t)) return { gapIn: 0, clear: true };
+  const m = t.match(/\b(\d+(?:\.\d+)?)\s+inch(?:es)?\s+fillers?\b/) || t.match(/\bfiller(?:\s+panels?)?\s+(?:of\s+|to\s+)?(\d+(?:\.\d+)?)\s+inch/);
+  if (!m) return null;
+  return { gapIn: Number(m[1]), clear: false };
+}
+function gapNote(spec, gap) {
+  if (gap.clear || gap.gapIn === 0) {
+    const keep = pairsNeedGrillGap(spec) ? " I kept 12 inches beside the grill. A side burner, griddle, or sink needs that much." : "";
+    return "Removed the filler panels between appliances." + keep;
+  }
+  const best = nearestFiller(gap.gapIn);
+  let note = "Set the filler panels between appliances to " + best + " inches.";
+  if (best !== gap.gapIn) note += " " + gap.gapIn + " inches isn't a panel we build, so " + best + " is the closest.";
+  if (pairsNeedGrillGap(spec) && gap.gapIn < 12) note += " I kept 12 inches beside the grill. A side burner, griddle, or sink needs that much.";
+  return note;
+}
+
 function refine(t, current) {
   if (!current) return null;
   const spec = cloneSpec(current);
+  const gap = readGap(t);
+  if (gap) {
+    spec.gapIn = gap.gapIn === 0 ? 0 : nearestFiller(gap.gapIn);
+    return { spec, brief: true, notes: [gapNote(spec, gap)] };
+  }
   if (/\b(stone veneer|ledgestone|stacked stone)\b/.test(t) || /\bswap to stone\b|\bswitch to stone\b/.test(t)) {
     spec.finish = "stack";
     return { spec, brief: true, notes: ["Switched the finish to ledgestone veneer."] };
@@ -980,19 +1031,29 @@ function underFor(id, items, bases) {
   return piece.under;
 }
 
-function pack(items, targetIn, pinEnd, bases) {
+function pack(items, targetIn, pinEnd, bases, gapIn) {
+  const requested = gapIn == null ? 6 : gapIn;
   const pieces = [];
   for (const id of items) {
     const item = CATALOG[id];
     if (!item) continue;
-    pieces.push({ k: item.k, w: item.w, u: underFor(id, items, bases) });
+    pieces.push({ id, k: item.k, w: item.w, u: underFor(id, items, bases) });
   }
-  const base = pieces.reduce((sum, item) => sum + item.w, 0);
+  const between = [];
+  for (let i = 0; i < pieces.length - 1; i++) {
+    const want = hotBesideGrill(pieces[i].id, pieces[i + 1].id) ? Math.max(12, requested) : requested;
+    if (want > 0) {
+      const w = nearestFiller(want);
+      between.push({ k: "fill" + w, w });
+    }
+  }
+  const base = pieces.reduce((sum, item) => sum + item.w, 0) + between.reduce((sum, gap) => sum + gap.w, 0);
   let target = targetIn;
   const notes = [];
-  if (base > target) {
+  if (base > target + 0.01) {
+    const fit = Math.ceil(base / 12) * 12;
     target = base;
-    notes.push("Those pieces need about " + feet(base) + ", so this leg is longer than asked.");
+    notes.push("Those pieces and the filler panels need about " + feet(base) + ", so this leg is longer than asked. " + feet(fit) + " fits them.");
   }
   let remain = target - base;
   const fillers = [];
@@ -1002,18 +1063,24 @@ function pack(items, targetIn, pinEnd, bases) {
       remain -= size;
     }
   }
-  const slots = pinEnd && pieces.length ? pieces.length : Math.max(1, pieces.length + 1);
-  const buckets = Array.from({ length: slots }, () => []);
-  fillers.forEach((size, i) => buckets[i % slots].push(size));
+  const endCount = pieces.length && pinEnd ? 1 : Math.max(1, pieces.length ? 2 : 1);
+  const buckets = Array.from({ length: endCount }, () => []);
+  fillers.forEach((size, i) => buckets[i % endCount].push(size));
+  const pushEnd = (bucket) => { for (const size of bucket || []) seq.push({ k: "fill" + size, w: size, u: "" }); };
   const seq = [];
-  for (let i = 0; i < pieces.length; i++) {
-    for (const size of buckets[i]) seq.push({ k: "fill" + size, w: size, u: "" });
-    seq.push({ k: pieces[i].k, w: pieces[i].w, u: pieces[i].u || "" });
+  if (!pieces.length) {
+    pushEnd(buckets[0]);
+    if (!seq.length) seq.push({ k: "fill24", w: 24, u: "" });
+  } else {
+    pushEnd(buckets[0]);
+    for (let i = 0; i < pieces.length; i++) {
+      if (i > 0 && between[i - 1]) seq.push({ k: between[i - 1].k, w: between[i - 1].w, u: "" });
+      seq.push({ k: pieces[i].k, w: pieces[i].w, u: pieces[i].u || "" });
+    }
+    if (!pinEnd) pushEnd(buckets[1]);
   }
-  if (!pinEnd) for (const size of buckets[pieces.length] || []) seq.push({ k: "fill" + size, w: size, u: "" });
-  if (!seq.length) seq.push({ k: "fill24", w: 24, u: "" });
   const span = seq.reduce((sum, part) => sum + part.w, 0);
-  return { seq, span, notes };
+  return { seq, span, notes, between: between.map(gap => gap.w) };
 }
 
 function feet(inches) {
@@ -1151,6 +1218,7 @@ export function validateSpec(input) {
       frame,
       depth: DEPTH,
       barOn: !!src.barOn || legs.some(l => l.stools > 0 || l.role === "bar"),
+      gapIn: src.gapIn == null ? 6 : Math.max(0, Number(src.gapIn) || 0),
       legs
     }
   };
@@ -1199,6 +1267,8 @@ function changeReply(spec, notes) {
   } else if (first) {
     text = "Done. " + first.replace(/\.$/, "");
   }
+  const filler = (notes || []).find(n => /^I added |^I left 12 inches/.test(n));
+  if (filler && /^Added /.test(first)) text += " " + filler;
   const limit = (notes || []).find(n => /longer than asked|shorter than a leg|longer than a single/.test(n));
   if (limit) text += ". " + limit.replace(/\.$/, "");
   return text + ".";
@@ -1218,13 +1288,25 @@ export function compileSpec(input, extraNotes) {
   if (spec.shape === "yu" && spec.legs.length < 3) return { ok: false, reply: "A U needs a back and two returns. How long is each?", spec: null, code: "", link: "", warnings: [] };
   spec.legs.forEach(l => clampLeg(l, notes));
   const packed = spec.legs.map(l => {
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn);
     if (result.span > l.lengthIn + 0.5) l.lengthIn = Math.round(result.span);
     notes.push(...result.notes);
     const tight = stoolNote(l);
     if (tight) notes.push(tight);
     return result;
   });
+  const gaps = packed.flatMap(result => result.between || []);
+  if (gaps.length && !notes.some(n => /filler panel|beside the grill/i.test(n))) {
+    const has6 = gaps.some(w => w === 6);
+    const has12 = gaps.some(w => w === 12);
+    const other = gaps.find(w => w !== 6 && w !== 12);
+    let blurb = "";
+    if (has6 && has12) blurb = "I added 6 inch filler panels between appliances, and 12 inches beside the grill.";
+    else if (has12) blurb = "I left 12 inches beside the grill. A side burner, griddle, or sink needs that much.";
+    else if (has6) blurb = "I added 6 inch filler panels between appliances.";
+    else if (other) blurb = "I added " + other + " inch filler panels between appliances.";
+    if (blurb) notes.push(blurb + " Filler panels have no equipment price of their own. The build rate covers the extra length.");
+  }
   const mods = place(spec, packed);
   const code = encodeDesign(spec, mods);
   const link = CONFIG.designer.shareOrigin + CONFIG.designer.pagePath + "#d=" + code;

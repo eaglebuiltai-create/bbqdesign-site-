@@ -3554,6 +3554,19 @@ function runs(){
   }).sort((a, b) => b.len - a.len);
 }
 
+/* L and U: the bounding box is one number that hides the legs. Show each run. */
+function islandLegLabel() {
+  const R = runs();
+  if (!R || R.length < 2) return "";
+  const bare = (run) => {
+    const corner = run.mods.filter(m => String(m.k).indexOf("corner") === 0).reduce((sum, m) => sum + modWidth(m), 0);
+    const inches = Math.max(0, run.len - corner);
+    return Math.max(1, Math.round(inches / 12)) + "'";
+  };
+  const returns = R.slice(1).map(bare);
+  return bare(R[0]) + " + " + returns.join(" + ") + (returns.length > 1 ? " returns" : " return");
+}
+
 
 function fitEl(){
   viewEl = { z: 1, ox: 0, oy: 0 };
@@ -5250,7 +5263,7 @@ function syncControls(){
     $("#inDepth").value = (Number.isInteger(S.depth) ? S.depth : S.depth.toFixed(1)) + '"';
   const row = mainRow(), t = takeoff();
   if (document.activeElement !== $("#inLength"))
-    $("#inLength").value = row ? ftin(rowLength(row)) : "—";
+    $("#inLength").value = islandLegLabel() || (row ? ftin(rowLength(row)) : "—");
   $("#sizeNote").innerHTML = S.mods.length
     ? `Countertop finishes <b style="color:#8DA0B8">${ftin(t.width)} × ${ftin(t.depth)}</b> ` +
       `with the ${S.overhang}&quot; overhang.` +
@@ -5285,8 +5298,11 @@ function refresh(){
   renderQuote();
   syncControls();
   const t = takeoff();
+  const legs = islandLegLabel();
   $("#dimChip").innerHTML = has
-    ? `<b>${ftin(t.width)}</b> wide <span style="color:#5F7391">×</span> <b>${ftin(t.depth)}</b> deep`
+    ? (legs
+        ? `<b>${legs}</b>`
+        : `<b>${ftin(t.width)}</b> wide <span style="color:#5F7391">×</span> <b>${ftin(t.depth)}</b> deep`)
     : "<b>—</b> island";
   $("#dimChip").title = has
     ? `Countertop extents, including the ${S.overhang}" overhang all round.\n` +
