@@ -6222,7 +6222,12 @@ const EagleOne = (() => {
     if (/\belevation|front view\b/.test(t))    { setView("el"); return "Showing the elevation."; }
     if (/\bplan|top down|overhead\b/.test(t))  { setView("2d"); return "Showing the plan."; }
 
-    /* --- separator / filler panels --- */
+    /* --- separator / filler panels. Supported widths are 4, 6, 8, 12, 16, 24.
+           A bare "filler" is 6. "a foot" is 12 and "two foot" is 24. --- */
+    t = t.replace(/\b(?:a|one|1)\s+foot\b(?=\s+(?:filler|panel|separator|spacer))/, "12 inch ");
+    t = t.replace(/\b(?:two|2)\s+foots?\b(?=\s+(?:filler|panel|separator|spacer))/, "24 inch ");
+    t = t.replace(/\b(?:filler|separator|spacer)(?:\s+panel)?\s+(?:of\s+)?(?:a|one|1)\s+foot\b/, "filler 12 inch");
+    t = t.replace(/\b(?:filler|separator|spacer)(?:\s+panel)?\s+(?:of\s+)?(?:two|2)\s+foots?\b/, "filler 24 inch");
     const fill = t.match(/\b(\d{1,2})\s*(?:inch|inches|in|")\s*(?:filler|separator|spacer|panel|gap)/) ||
                  t.match(/\b(?:filler|separator|spacer)\s*(?:panel)?\s*(?:of\s*)?(\d{1,2})\s*(?:inch|inches|in|")?/);
     if (fill) {
@@ -6231,7 +6236,7 @@ const EagleOne = (() => {
       const best = sizes.reduce((a, b) => Math.abs(b - want) < Math.abs(a - want) ? b : a);
       return place("fill" + best, best + '" filler panel' + (best !== want ? " (nearest size)" : ""));
     }
-    if (/\b(filler|separator|spacer)\b/.test(t)) return place("fill8", '8" filler panel');
+    if (/\b(filler|separator|spacer)\b/.test(t)) return place("fill6", '6" filler panel');
 
     /* --- island dimensions --- */
     const deep = t.match(/\b(\d{2})\s*(?:inch|inches|in|")?\s*deep\b/) || t.match(/\bdeep(?:er)?\s*(?:to\s*)?(\d{2})\b/);

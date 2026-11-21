@@ -1571,6 +1571,69 @@ describe("john's straight run", () => {
     assert.match(removed.reply, /Removed the filler/);
     assert.deepEqual(removed.spec.legs[0].items, ["grill", "fridge"]);
   });
+
+  test("each supported filler size lengthens the run by that exact width", () => {
+    const sizes = [4, 6, 8, 12, 16, 24];
+    const base = drawn("straight 10 ft island with a grill and a fridge");
+    assert.equal(base.spec.legs[0].lengthIn, 120);
+    const span = code => decodeDesign(code).m.reduce((sum, row) => {
+      const key = String(row[0]);
+      if (key.startsWith("fill")) return sum + Number(key.slice(4));
+      const item = Object.values(CATALOG).find(entry => entry.k === key);
+      return sum + (item ? item.w : 0);
+    }, 0);
+    const keysOf = code => decodeDesign(code).m.map(row => row[0]);
+    const beforeSpan = span(base.code);
+    for (const size of sizes) {
+      const end = drawn("add a " + size + " inch filler panel on the end", base.spec);
+      const left = drawn("add a " + size + " inch filler panel on the left end", base.spec);
+      const right = drawn("add a " + size + " inch filler panel on the right end", base.spec);
+      const mid = drawn("add a " + size + " inch filler panel between the grill and the fridge", base.spec);
+      for (const [placed, where] of [[end, "end"], [left, "start"], [right, "end"], [mid, "after"]]) {
+        assert.equal(placed.spec.legs[0].lengthIn, 120 + size, size + " " + where + " " + placed.reply);
+        assert.equal(placed.spec.legs[0].items.join(","), "grill,fridge", placed.reply);
+        assert.ok(placed.spec.legs[0].panels.some(panel => panel.w === size && panel.at === where), size + " " + where);
+        assert.ok(Math.abs(span(placed.code) - beforeSpan - size) < 0.2, size + " " + where);
+        assert.match(placed.reply, new RegExp(size + " inch filler panel"));
+        assert.match(placed.reply, /no equipment price/i);
+        assert.doesNotMatch(placed.reply, /\$\d/);
+      }
+      const endKeys = keysOf(end.code);
+      const rightKeys = keysOf(right.code);
+      const leftKeys = keysOf(left.code);
+      const midKeys = keysOf(mid.code);
+      const lastGear = list => {
+        let at = -1;
+        list.forEach((key, i) => { if (!String(key).startsWith("fill")) at = i; });
+        return at;
+      };
+      const firstGear = list => list.findIndex(key => !String(key).startsWith("fill"));
+      assert.equal(endKeys[lastGear(endKeys) + 1], "fill" + size, endKeys.join(","));
+      assert.equal(rightKeys[lastGear(rightKeys) + 1], "fill" + size, rightKeys.join(","));
+      assert.equal(leftKeys[firstGear(leftKeys) - 1], "fill" + size, leftKeys.join(","));
+      const grillAt = midKeys.indexOf("BLZ-4LTE3");
+      const fridgeAt = midKeys.indexOf("BLZ-SSRF20-4.3");
+      assert.ok(midKeys.slice(grillAt + 1, fridgeAt).includes("fill" + size), midKeys.join(","));
+    }
+    const spoken = [
+      ["add a four inch filler panel on the end", 4],
+      ["add an eight inch filler panel on the right end", 8],
+      ["add a foot filler panel on the left end", 12],
+      ["add a sixteen inch filler panel between the grill and the fridge", 16],
+      ["add a two foot filler panel on the end", 24],
+      ["add a 24 inch filler panel on the right end", 24]
+    ];
+    for (const [line, size] of spoken) {
+      const placed = drawn(line, base.spec);
+      assert.equal(placed.spec.legs[0].lengthIn, 120 + size, line + " " + placed.reply);
+      assert.ok(keysOf(placed.code).includes("fill" + size), line);
+      assert.match(placed.reply, /no equipment price/i);
+    }
+    const odd = drawn("add a 3 inch filler panel on the end", base.spec);
+    assert.equal(odd.spec.legs[0].lengthIn, 124, odd.reply);
+    assert.match(odd.reply, /3 inches isn't a panel we build, so 4 is the closest/);
+    assert.ok(keysOf(odd.code).includes("fill4"));
+  });
 });
 
 describe("adjacent pieces and nudges", () => {
@@ -1663,6 +1726,80 @@ describe("adjacent pieces and nudges", () => {
     assert.match(six.reply, /6 inches/, six.reply);
     const foot = interpret("move it over a foot", built.spec);
     assert.match(foot.reply, /12 inches/, foot.reply);
+  });
+
+  test("move it back restores the previous side, then the one before that", () => {
+    let step = drawn("straight 12 ft island with a griddle and a fridge");
+    step = drawn("put a power burner to the left of the griddle", step.spec);
+    assert.deepEqual(step.spec.legs[0].items, ["power", "griddle", "fridge"]);
+    const fresh = interpret("okay move it back", step.spec);
+    assert.match(fresh.reply, /Nothing has moved yet/);
+    assert.match(fresh.reply, /unchanged|earlier version/);
+    assert.deepEqual(fresh.spec.legs[0].items, ["power", "griddle", "fridge"]);
+    step = drawn("move it to the other side of the griddle", step.spec);
+    step = drawn("flip it to the other side of the griddle", step.spec);
+    assert.deepEqual(step.spec.legs[0].items, ["power", "griddle", "fridge"], step.reply);
+    const back = drawn("okay move it back", step.spec);
+    assert.deepEqual(back.spec.legs[0].items, ["griddle", "power", "fridge"], back.reply);
+    assert.match(back.reply, /Moved the power burner back to the right of the 30 inch griddle/);
+    assert.equal(CATALOG.power.k, "BLZ-PBLTE3");
+    assert.equal(CATALOG.power.p, 1499);
+    assert.doesNotMatch(back.reply, /\$\d/);
+    const earlier = drawn("move it back", back.spec);
+    assert.deepEqual(earlier.spec.legs[0].items, ["power", "griddle", "fridge"], earlier.reply);
+    assert.match(earlier.reply, /back to the left of the 30 inch griddle/);
+    for (const line of ["put it back", "undo that", "go back", "never mind, put it where it was", "alright move it back", "now put it back"]) {
+      const again = drawn(line, back.spec);
+      assert.deepEqual(again.spec.legs[0].items, ["power", "griddle", "fridge"], line + " " + again.reply);
+    }
+    const leg = drawn("L shaped island, 12 ft grill side with a grill and a fridge, 8 ft return");
+    const moved = drawn("move the fridge to the other side", leg.spec);
+    assert.deepEqual(moved.spec.legs[1].items, ["fridge"], moved.reply);
+    const home = drawn("okay move it back", moved.spec);
+    assert.deepEqual(home.spec.legs[0].items, ["grill", "fridge"], home.reply);
+    assert.deepEqual(home.spec.legs[1].items, [], home.reply);
+  });
+
+  test("countertop color uses a catalog material and does not invent a price", () => {
+    const built = drawn("straight 10 ft island with a grill and a fridge");
+    const ask = interpret("change the color of the countertop", built.spec);
+    assert.equal(ask.spec.counter, "concrete");
+    assert.match(ask.reply, /gray color concrete/);
+    assert.match(ask.reply, /white concrete/);
+    assert.match(ask.reply, /black granite/);
+    assert.match(ask.reply, /white quartz/);
+    assert.match(ask.reply, /gray quartzite/);
+    assert.match(ask.reply, /tan porcelain tile/);
+    assert.match(ask.reply, /Which color/);
+    assert.match(ask.reply, /quote add/);
+    assert.match(ask.reply, /included in the build rate/);
+    assert.doesNotMatch(ask.reply, /\$\d/);
+    const black = drawn("make the countertop black granite", built.spec);
+    assert.equal(black.spec.counter, "granite");
+    assert.equal(decodeDesign(black.code).c, "granite");
+    assert.match(black.reply, /black granite/);
+    assert.match(black.reply, /quote add/);
+    const white = drawn("change the counter to white quartz", built.spec);
+    assert.equal(white.spec.counter, "quartz");
+    assert.equal(decodeDesign(white.code).c, "quartz");
+    assert.match(white.reply, /white quartz/);
+    const gray = drawn("gray concrete countertop", white.spec);
+    assert.equal(gray.spec.counter, "concrete");
+    assert.equal(decodeDesign(gray.code).c, "concrete");
+    assert.match(gray.reply, /included in the build rate/);
+    assert.doesNotMatch(gray.reply, /quote add/);
+    const darker = drawn("make the countertop darker", gray.spec);
+    assert.equal(darker.spec.counter, "granite", darker.reply);
+    const lighter = drawn("lighter countertop", gray.spec);
+    assert.equal(lighter.spec.counter, "quartzite", lighter.reply);
+    assert.equal(drawn("black", built.spec).spec.counter, "granite");
+    assert.equal(drawn("white", built.spec).spec.counter, "concretew");
+    assert.equal(drawn("gray", built.spec).spec.counter, "concrete");
+    assert.equal(drawn("tan", built.spec).spec.counter, "tilep");
+    assert.equal(drawn("brown", built.spec).spec.counter, "tilep");
+    const edge = interpret("make the countertop lighter", drawn("make the countertop white quartz", built.spec).spec);
+    assert.match(edge.reply, /already the lightest/);
+    assert.equal(edge.spec.counter, "quartz");
   });
 });
 

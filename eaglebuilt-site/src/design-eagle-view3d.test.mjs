@@ -191,4 +191,22 @@ describe("webgl view fixtures", () => {
     }
     assert.match(page, /image\/jpeg/);
   });
+
+  test("catalog counter colors use the existing stone speckle, and a filler widens the slab", () => {
+    const slab = (counter, width) => islandBoxes({
+      finish: "stucco", counter, height: 37.5, slab: counter === "concrete" ? 3 : 1.25,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: width, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: width, y1: 32 }],
+      bays: []
+    });
+    assert.ok(slab("granite", 40).some(part => part.mat === "granite"));
+    assert.ok(slab("quartz", 40).some(part => part.mat === "quartz"));
+    assert.ok(slab("concretew", 40).some(part => part.mat === "concretew"));
+    const narrow = slab("concrete", 32);
+    const withFiller = slab("concrete", 40);
+    const widthOf = parts => Math.max(...parts.filter(part => part.mat === "concrete").map(part => part.w));
+    assert.ok(Math.abs(widthOf(withFiller) - widthOf(narrow) - 8) < 0.1);
+    assert.match(readFileSync(new URL("../site/design/app/view3d.js", import.meta.url), "utf8"), /granite\(g[\s\S]*speckle/);
+  });
 });

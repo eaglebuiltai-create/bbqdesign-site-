@@ -158,15 +158,19 @@ const FINISHES = {
   tile: "porcelain tile veneer"
 };
 
+/* Names and colors match the designer swatches. Stone and tile stay quote
+   adds. Concrete stays in the build rate. No new prices. */
 const COUNTERS = {
-  concrete: { n: "color concrete", quote: false },
-  concretew: { n: "white concrete", quote: false },
-  concrete2: { n: "2 inch color concrete", quote: false },
-  granite: { n: "granite", quote: true },
-  quartz: { n: "quartz", quote: true },
-  quartzite: { n: "quartzite", quote: true },
-  tilep: { n: "porcelain tile", quote: true }
+  concrete: { n: "gray color concrete", color: "gray", quote: false },
+  concretew: { n: "white concrete", color: "white", quote: false },
+  concrete2: { n: "2 inch gray concrete", color: "gray", quote: false },
+  granite: { n: "black granite", color: "black", quote: true },
+  quartz: { n: "white quartz", color: "white", quote: true },
+  quartzite: { n: "gray quartzite", color: "gray", quote: true },
+  tilep: { n: "tan porcelain tile", color: "tan", quote: true }
 };
+const COUNTER_SHADE = ["granite", "concrete", "quartzite", "concretew", "quartz"];
+const COLOR_COUNTER = { black: "granite", white: "concretew", gray: "concrete", tan: "tilep", brown: "tilep" };
 
 const WORD_NUM = {
   one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
@@ -381,7 +385,9 @@ function resolvePresent(id, spec) {
 function speechClean(text) {
   return String(text || "")
     .replace(/\b(uh+|um+|er+|ah+|hmm+)\b/g, " ")
-    .replace(/\b(basically|actually|kinda|sorta|please|just|like|okay|ok|so|well|yeah|yep|hey)\b/g, " ")
+    .replace(/\ball right\b/g, " ")
+    .replace(/\b(basically|actually|kinda|sorta|please|just|like|okay|ok|alright|so|well|yeah|yep|hey)\b/g, " ")
+    .replace(/^\s*now\b/, " ")
     .replace(/\b(blaise|blase|blayze|blaze|lynx|coyote|fire magic|firemagic|dcs|alfresco|summerset|hestan|twin eagles|diablo|yoder|rcs)\b/g, " ")
     .replace(/\bthirty[\s-]*two\b/g, "32")
     .replace(/\bforty[\s-]*two\b/g, "42")
@@ -413,13 +419,72 @@ function finishOf(text) {
   return "";
 }
 
-function counterOf(text) {
-  if (/quartzite/.test(text)) return "quartzite";
-  if (/quartz/.test(text)) return "quartz";
-  if (/granite/.test(text)) return "granite";
-  if (/white concrete/.test(text)) return "concretew";
-  if (/tile counter|porcelain tile counter/.test(text)) return "tilep";
+function wallTalk(text) {
+  return /\b(?:brick|stucco|veneer|flagstone|fieldstone|ledgestone|finish)\b/.test(text);
+}
+
+function colorWord(text) {
+  if (/\bblack\b/.test(text)) return "black";
+  if (/\bwhite\b/.test(text)) return "white";
+  if (/\bgr[ae]y\b/.test(text)) return "gray";
+  if (/\btan\b/.test(text)) return "tan";
+  if (/\bbrown\b/.test(text)) return "brown";
   return "";
+}
+
+/* A counter color maps onto a catalog key. The swatch already on that key
+   is the color the plan and the 3D draw. */
+function counterOf(text) {
+  const t = String(text || "");
+  if (wallTalk(t) && !/\bcounter(?:\s*top)?\b/.test(t)) return "";
+  if (/quartzite/.test(t)) return "quartzite";
+  if (/quartz/.test(t)) return "quartz";
+  if (/granite/.test(t)) return "granite";
+  if (/white concrete/.test(t)) return "concretew";
+  if (/\b2\s+inch\b/.test(t) && /concrete/.test(t)) return "concrete2";
+  if (/porcelain|\btile counter\b|\btilep\b/.test(t)) return "tilep";
+  if (/concrete/.test(t)) return "concrete";
+  const color = colorWord(t);
+  if (!color) return "";
+  const named = /\bcounter(?:\s*top)?\b/.test(t);
+  const bare = /^(?:black|white|gr[ae]y|tan|brown)$/.test(t.trim());
+  const brief = /\b(?:make|change|set|use)\b/.test(t) && t.trim().split(/\s+/).length <= 5;
+  if (named || bare || brief) return COLOR_COUNTER[color];
+  return "";
+}
+
+function counterShade(t, spec) {
+  if (!/\b(?:darker|lighter)\b/.test(t)) return null;
+  if (wallTalk(t) && !/\bcounter(?:\s*top)?\b/.test(t)) return null;
+  if (!/\bcounter(?:\s*top)?\b/.test(t) && findItems(t).length) return null;
+  const cur = spec && spec.counter || "concrete";
+  let i = COUNTER_SHADE.indexOf(cur);
+  if (i < 0) i = 1;
+  if (/\bdarker\b/.test(t)) {
+    if (i <= 0) return { same: "darkest" };
+    return { id: COUNTER_SHADE[i - 1] };
+  }
+  if (i >= COUNTER_SHADE.length - 1) return { same: "lightest" };
+  return { id: COUNTER_SHADE[i + 1] };
+}
+
+function asksCounterColor(t) {
+  if (!/\bcounter(?:\s*top)?\b/.test(t)) return false;
+  if (!/\b(?:color|colour)\b/.test(t)) return false;
+  if (counterOf(t) || /\b(?:darker|lighter)\b/.test(t)) return false;
+  return true;
+}
+
+function counterChoices() {
+  const list = Object.keys(COUNTERS).map(id => COUNTERS[id].n).join(", ");
+  return "The countertop choices are " + list + ". Gray color concrete, white concrete, and the 2 inch top are included in the build rate. Granite, quartz, quartzite, and porcelain tile are quote adds, so I won't put a price on them. Which color do you want?";
+}
+
+function counterNote(id) {
+  const named = COUNTERS[id];
+  if (!named) return "Switched the countertop.";
+  if (named.quote) return "Switched the countertop to " + named.n + ", which the designer lists as a quote add, so I won't put a price on it.";
+  return "Switched the countertop to " + named.n + ". That color is included in the build rate.";
 }
 
 function frameOf(text) {
@@ -829,6 +894,7 @@ function slidePiece(t, current) {
     legN.slide = next;
     spec.lastMoved = pieceId;
     spec.lastDir = sign;
+    noteMove(spec, current, pieceId);
     if (!moved) return { clarify: theName(pieceId).replace(/^the /, "The ") + " is already as far that way as this side allows." };
     const way = sign > 0 ? "toward the open end, away from the corner" : "back toward the corner";
     return { spec, brief: true, notes: ["Moved " + CATALOG[pieceId].spoken + " " + Math.abs(moved) + " inches " + way + "."] };
@@ -844,6 +910,7 @@ function slidePiece(t, current) {
   legN.shift = next;
   spec.holdLengths = true;
   spec.lastMoved = pieceId;
+  noteMove(spec, current, pieceId);
   spec.lastDir = sign;
   spec.lastMentioned = pieceId;
   const side = sign > 0 ? "right" : "left";
@@ -937,6 +1004,7 @@ function flipBeside(t, current) {
   spec.holdLengths = true;
   spec.lastMoved = subject;
   spec.lastMentioned = subject;
+  noteMove(spec, current, subject);
   const side = wasLeft ? "right" : "left";
   return { spec, brief: true, notes: ["Moved " + theName(subject) + " to the " + side + " of " + theName(anchor) + "."] };
 }
@@ -1001,6 +1069,7 @@ function moveAcross(t, current) {
   spec.lastMentioned = id;
   spec.lastMoved = id;
   spec.lastAdded = [id];
+  noteMove(spec, current, id);
   return { spec, brief: true, notes: ["Moved " + theName(id) + " to " + legName(dest) + "."] };
 }
 
@@ -1018,18 +1087,36 @@ function shiftRun(t, current) {
   legN.pinEnd = !left;
   spec.lastDir = left ? -1 : 1;
   const gear = (legN.items || []).filter(id => CATALOG[id]);
-  if (gear.length) spec.lastMoved = gear[gear.length - 1];
+  if (gear.length) {
+    spec.lastMoved = gear[gear.length - 1];
+    noteMove(spec, current, gear[gear.length - 1]);
+  }
   return { spec, brief: true, notes: ["Moved the equipment to the " + (left ? "left" : "right") + " end."] };
 }
 
-const INCH_WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12 };
+const INCH_WORDS = {
+  one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
+  ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15,
+  sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20, "twenty four": 24
+};
 
+/* Spoken sizes for a filler panel. "a foot" is already 12 inch. "two foot"
+   arrives as "2 ft". Other sizes snap to 4, 6, 8, 12, 16, or 24. */
 function fillerText(t) {
-  return String(t || "")
+  let s = String(t || "")
     .replace(/\bfill her\b/g, "filler")
     .replace(/\bpannels\b/g, "panels")
     .replace(/\bpannel\b/g, "panel")
-    .replace(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\s+inch/g, (all, word) => INCH_WORDS[word] + " inch");
+    .replace(/\b(\d+(?:\.\d+)?)\s+ft\b(?=\s+(?:filler|panel))/, (_, n) => (Number(n) * 12) + " inch")
+    .replace(/\b(?:filler|panel)\s+(?:of\s+)?(\d+(?:\.\d+)?)\s+ft\b/, (_, n) => "filler " + (Number(n) * 12) + " inch");
+  const words = Object.keys(INCH_WORDS).sort((a, b) => b.length - a.length);
+  for (const word of words) {
+    const n = INCH_WORDS[word];
+    const re = word.replace(" ", "\\s+");
+    s = s.replace(new RegExp("\\b" + re + "\\s+inch", "g"), n + " inch");
+    s = s.replace(new RegExp("\\b" + re + "\\s+(?=filler|panel)", "g"), n + " inch ");
+  }
+  return s;
 }
 
 function fridgeEnd(legN) {
@@ -1099,8 +1186,118 @@ function placeFiller(t0, current) {
   return { spec, brief: true, notes: [note + "."] };
 }
 
+function pieceSpot(spec, id) {
+  if (!spec || !spec.legs || !CATALOG[id]) return null;
+  for (let li = 0; li < spec.legs.length; li++) {
+    const legN = spec.legs[li];
+    const index = (legN.items || []).indexOf(id);
+    if (index < 0) continue;
+    return {
+      id,
+      leg: li,
+      index,
+      shift: Math.round(Number(legN.shift) || 0),
+      slide: Math.round(Number(legN.slide) || 0),
+      align: legN.align === "left" || legN.align === "right" ? legN.align : "",
+      pinEnd: !!legN.pinEnd,
+      base: legN.bases && CATALOG[legN.bases[id]] ? legN.bases[id] : ""
+    };
+  }
+  return null;
+}
+
+function sameSpot(a, b) {
+  return !!a && !!b && a.id === b.id && a.leg === b.leg && a.index === b.index
+    && a.shift === b.shift && a.slide === b.slide && a.align === b.align
+    && !!a.pinEnd === !!b.pinEnd && (a.base || "") === (b.base || "");
+}
+
+function noteMove(spec, before, id) {
+  const was = pieceSpot(before, id);
+  const now = pieceSpot(spec, id);
+  if (!was || !now || sameSpot(was, now)) return;
+  const hist = Array.isArray(spec.moveHist) ? spec.moveHist.slice() : [];
+  hist.push(was);
+  spec.moveHist = hist.slice(-6);
+}
+
+function applySpot(spec, spot) {
+  const id = spot && spot.id;
+  const dest = spec.legs && spec.legs[spot.leg];
+  if (!CATALOG[id] || !dest) return false;
+  let from = null;
+  spec.legs.forEach(legN => {
+    if ((legN.items || []).includes(id)) from = legN;
+  });
+  const carried = (from && from.bases && from.bases[id]) || (CATALOG[spot.base] ? spot.base : "");
+  if (from) {
+    if (from.bases && from.bases[id]) delete from.bases[id];
+    from.items = (from.items || []).filter(x => x !== id);
+  }
+  const items = dest.items || [];
+  items.splice(Math.max(0, Math.min(spot.index, items.length)), 0, id);
+  dest.items = items;
+  if (carried) {
+    if (!dest.bases) dest.bases = {};
+    dest.bases[id] = carried;
+  }
+  if (spot.shift) dest.shift = spot.shift;
+  else delete dest.shift;
+  if (spot.slide) dest.slide = spot.slide;
+  else delete dest.slide;
+  if (spot.align === "left" || spot.align === "right") dest.align = spot.align;
+  else delete dest.align;
+  dest.pinEnd = !!spot.pinEnd;
+  return true;
+}
+
+function besidePhrase(spec, id) {
+  for (const legN of spec.legs || []) {
+    const items = (legN.items || []).filter(x => CATALOG[x]);
+    const i = items.indexOf(id);
+    if (i < 0) continue;
+    if (i > 0) return "to the right of " + theName(items[i - 1]);
+    if (i + 1 < items.length) return "to the left of " + theName(items[i + 1]);
+    return "to " + legName(legN);
+  }
+  return "where it was";
+}
+
+function wantsUndo(t) {
+  if (/\bback toward\b|\bback to the corner\b/.test(t)) return false;
+  if (/\b(?:move|put|place)\s+(?:it|that)\s+back\b/.test(t)) return true;
+  if (/\bput\s+(?:it|that)\s+where\s+it\s+was\b/.test(t)) return true;
+  if (/\bwhere\s+it\s+was\b/.test(t) && /\b(?:put|move|place)\b/.test(t)) return true;
+  if (/\bundo(?:\s+that)?\b/.test(t)) return true;
+  if (/\bgo back\b/.test(t) && !/\bgo back to\b/.test(t)) return true;
+  if (/\bnever\s*mind\b/.test(t)) return true;
+  return false;
+}
+
+function nothingMoved() {
+  return { clarify: "Nothing has moved yet. I don't have an earlier version of this design. The island is unchanged." };
+}
+
+/* "Move it back" restores the previous leg and index. A second say restores
+   the one before that. "The other side" with no "back" is still a leg change. */
+function moveBack(t, current) {
+  if (!current || !wantsUndo(t)) return null;
+  const hist = Array.isArray(current.moveHist) ? current.moveHist.slice() : [];
+  if (!hist.length) return nothingMoved();
+  const spot = hist.pop();
+  const spec = cloneSpec(current);
+  spec.moveHist = hist;
+  if (!applySpot(spec, spot)) return nothingMoved();
+  spec.holdLengths = true;
+  spec.lastMoved = spot.id;
+  spec.lastMentioned = spot.id;
+  return { spec, brief: true, notes: ["Moved " + theName(spot.id) + " back " + besidePhrase(spec, spot.id) + "."] };
+}
+
 function refine(t, current) {
   if (!current) return null;
+  const undone = moveBack(t, current);
+  if (undone) return undone;
   const spec = cloneSpec(current);
   const movedGroup = moveGroup(t, current);
   if (movedGroup) return movedGroup;
@@ -1226,12 +1423,25 @@ function refine(t, current) {
     spec.barOn = true;
     return { spec, brief: true, notes: ["Set the bar for " + stools + " stools."] };
   }
+  if (asksCounterColor(t) && !findItems(t).length) {
+    return { clarify: counterChoices() };
+  }
+  const shade = counterShade(t, spec);
+  if (shade && !findItems(t).length) {
+    if (shade.same) {
+      const edge = shade.same === "darkest" ? "black granite" : "white quartz";
+      return { clarify: "The countertop is already the " + shade.same + " catalog color, " + edge + ". I left it." };
+    }
+    spec.counter = shade.id;
+    return { spec, brief: true, notes: [counterNote(shade.id)] };
+  }
   const counter = counterOf(t);
   if (counter && !findItems(t).length) {
+    if (spec.counter === counter) {
+      return { clarify: "The countertop is already " + COUNTERS[counter].n + ". I left it." };
+    }
     spec.counter = counter;
-    const named = COUNTERS[counter];
-    const quote = named.quote ? ", which the designer lists as a quote add" : "";
-    return { spec, brief: true, notes: ["Switched the counter to " + named.n + quote + "."] };
+    return { spec, brief: true, notes: [counterNote(counter)] };
   }
   if (fin && !findItems(t).length && fin !== spec.finish) {
     spec.finish = fin;
@@ -1421,6 +1631,9 @@ function swapPair(current, a, b) {
     }
   }
   spec.lastMentioned = a;
+  spec.lastMoved = a;
+  noteMove(spec, current, a);
+  noteMove(spec, current, b);
   return { spec, brief: true, notes: ["Swapped " + CATALOG[a].spoken + " and " + CATALOG[b].spoken + "."] };
 }
 
@@ -1709,6 +1922,7 @@ function addEquipment(t, current) {
   if (hits.some(h => h.id === "ctwok")) tail.push("The countertop wok sits on the counter and has no equipment price in the catalog.");
   for (const hit of hits) if (hit.sizeNote) tail.push(hit.sizeNote);
   spec.lastAdded = added.map(h => h.id);
+  for (const hit of moved) noteMove(spec, current, hit.id);
   const touched = moved[moved.length - 1] || added[added.length - 1];
   if (touched) {
     spec.lastMentioned = touched.id;
@@ -1972,6 +2186,29 @@ function stoolNote(legObj) {
   return "";
 }
 
+function cleanHist(raw) {
+  if (!Array.isArray(raw)) return [];
+  const out = [];
+  for (const spot of raw.slice(-6)) {
+    if (!spot || !CATALOG[spot.id]) continue;
+    const leg = Math.round(Number(spot.leg));
+    const index = Math.round(Number(spot.index));
+    if (!Number.isFinite(leg) || leg < 0 || leg > 2) continue;
+    if (!Number.isFinite(index) || index < 0 || index > 12) continue;
+    out.push({
+      id: spot.id,
+      leg,
+      index,
+      shift: Math.round(Number(spot.shift) || 0),
+      slide: Math.round(Number(spot.slide) || 0),
+      align: spot.align === "left" || spot.align === "right" ? spot.align : "",
+      pinEnd: !!spot.pinEnd,
+      base: CATALOG[spot.base] ? spot.base : ""
+    });
+  }
+  return out;
+}
+
 export function validateSpec(input) {
   const src = input && typeof input === "object" ? input : {};
   const shape = src.shape === "ell" || src.shape === "yu" || src.shape === "straight" ? src.shape : "";
@@ -2017,6 +2254,7 @@ export function validateSpec(input) {
       lastMentioned: CATALOG[src.lastMentioned] ? src.lastMentioned : "",
       lastMoved: CATALOG[src.lastMoved] ? src.lastMoved : "",
       lastDir: src.lastDir === 1 || src.lastDir === -1 ? src.lastDir : 0,
+      moveHist: cleanHist(src.moveHist),
       pending: Array.isArray(src.pending) ? src.pending.filter(id => CATALOG[id]).slice(0, 12) : [],
       legs
     }
