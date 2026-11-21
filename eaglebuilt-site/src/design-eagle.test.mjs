@@ -1035,7 +1035,7 @@ describe("filler panels", () => {
     const result = drawn("straight 6 ft island with a sink and a grill");
     assert.ok(result.spec.legs[0].lengthIn > 72);
     assert.match(result.reply, /longer than asked/);
-    assert.match(result.reply, /fits them/);
+    assert.match(result.reply, /fit them/);
   });
 
   test("3 inch fillers snap to 4, and never close the grill gap below 12", () => {
@@ -1099,6 +1099,12 @@ describe("side words on one build", () => {
   });
 });
 
+function assertCleanReply(reply) {
+  assert.doesNotMatch(reply, /\.\./, reply);
+  assert.doesNotMatch(reply, /[a-z] The /, reply);
+  for (const clause of reply.split(/(?<=\.)\s+/)) assert.match(clause, /^[A-Z]/, clause);
+}
+
 describe("john's L-shape conversation", () => {
   test("four turns keep both legs and put the bar list on the return", () => {
     let step = drawn("like to build a 10 ft long L shape with a 17 ft return");
@@ -1109,22 +1115,38 @@ describe("john's L-shape conversation", () => {
     assert.equal(step.spec.legs[1].lengthIn, 204);
     assert.equal(step.spec.legs[0].bases.grill, "combo");
     assert.deepEqual(step.spec.legs[0].items, ["grill", "fridge", "ctwok", "side-burner"]);
+    assert.ok(step.spec.legs[1].items.includes("drawer-3"));
+    assert.ok(step.spec.legs[1].items.includes("door"));
+    assert.ok(step.spec.legs[1].items.includes("fridge"));
     assert.match(step.reply, /countertop wok/);
     assert.match(step.reply, /no equipment price/);
-    assert.match(step.reply, /don't fit/);
-    assert.match(step.reply, /triple drawer/);
-    assert.match(step.reply, /32 inch access door/);
+    assert.match(step.reply, /so I put/);
+    assert.match(step.reply, /return/);
+    assertCleanReply(step.reply);
     step = drawn("on the long side of the bar I want a beverage center sink with a single access door below it I want a beverage refrigerator I want a two drawer unit and a trash", step.spec);
-    assert.deepEqual(step.spec.legs[1].items, ["bev-sink", "bev", "drawer", "trash"]);
+    assert.ok(step.spec.legs[1].items.includes("bev-sink"));
+    assert.ok(step.spec.legs[1].items.includes("bev"));
+    assert.ok(step.spec.legs[1].items.includes("drawer"));
+    assert.ok(step.spec.legs[1].items.includes("trash"));
+    assert.ok(step.spec.legs[1].items.includes("drawer-3"));
+    assert.ok(step.spec.legs[1].items.includes("fridge"));
     assert.equal(step.spec.legs[1].bases["bev-sink"], "door");
     assert.equal(step.spec.legs[0].lengthIn, 120);
     assert.doesNotMatch(step.reply, /Moved/);
+    assertCleanReply(step.reply);
     step = drawn("I need that on the other side of the island on the L shape", step.spec);
     assert.equal(step.spec.legs[0].lengthIn, 120);
     assert.equal(step.spec.legs[1].lengthIn, 204);
     assert.deepEqual(step.spec.legs[0].items, ["grill", "fridge", "ctwok", "side-burner"]);
-    assert.deepEqual(step.spec.legs[1].items, ["bev-sink", "bev", "drawer", "trash"]);
+    assert.equal(step.spec.legs[0].bases.grill, "combo");
+    for (const id of ["drawer-3", "door", "fridge", "bev-sink", "bev", "drawer", "trash"]) {
+      assert.ok(step.spec.legs[1].items.includes(id), id);
+    }
+    assert.equal(step.spec.legs[1].bases["bev-sink"], "door");
+    const fridges = step.spec.legs.reduce((n, l) => n + l.items.filter(id => id === "fridge").length, 0);
+    assert.equal(fridges, 2);
     assert.match(step.reply, /already on the other side/);
+    assertCleanReply(step.reply);
   });
 
   test("leg names and a repeated fridge", () => {

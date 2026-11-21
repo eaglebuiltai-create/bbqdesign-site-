@@ -1058,13 +1058,13 @@ function addEquipment(t, current) {
   for (const legN of (current && current.legs) || []) {
     for (const id of legN.items || []) have[id] = (have[id] || 0) + 1;
   }
+  const listing = /\b(add|want|need|got|another|also)\b/.test(t) && !/\b(move|relocate|swap)\b/.test(t);
   const seen = {};
   for (const hit of hits) {
     seen[hit.id] = (seen[hit.id] || 0) + 1;
     const another = /\b(another|extra|second|third)\b/.test(t.slice(Math.max(0, hit.index - 30), hit.index));
-    hit.fresh = another || seen[hit.id] > (have[hit.id] || 0);
+    hit.fresh = another || seen[hit.id] > (have[hit.id] || 0) || (listing && hit.where === "under");
   }
-  const listing = /\b(add|want|need|got|another|also)\b/.test(t) && !/\b(move|relocate|swap)\b/.test(t);
   const aimed = sentenceLeg(t);
   if (aimed === "return" || aimed === "long" || aimed === "short" || aimed === "other") {
     const where = aimed === "long" ? "long" : aimed === "short" ? "short" : "return";
@@ -1166,10 +1166,11 @@ function addEquipment(t, current) {
     spec.barOn = true;
     note += " Room for " + stools + " stools.";
   }
-  if (hits.some(h => h.id === "ctwok")) note += " The countertop wok sits on the counter and has no equipment price in the catalog.";
-  for (const hit of hits) if (hit.sizeNote) note += " " + hit.sizeNote;
+  const tail = [];
+  if (hits.some(h => h.id === "ctwok")) tail.push("The countertop wok sits on the counter and has no equipment price in the catalog.");
+  for (const hit of hits) if (hit.sizeNote) tail.push(hit.sizeNote);
   spec.lastAdded = added.map(h => h.id);
-  return { spec, brief: true, notes: [note] };
+  return { spec, brief: true, notes: [joinSentences([note].concat(tail))] };
 }
 
 function underFor(id, items, bases) {
@@ -1197,7 +1198,7 @@ function gearSpan(items, gapIn) {
   return sum;
 }
 
-function pack(items, targetIn, pinEnd, bases, gapIn) {
+function pack(items, targetIn, pinEnd, bases, gapIn, locked) {
   const requested = gapIn == null ? 6 : gapIn;
   const pieces = [];
   for (const id of items) {
@@ -1218,8 +1219,9 @@ function pack(items, targetIn, pinEnd, bases, gapIn) {
   const notes = [];
   if (base > target + 0.01) {
     const fit = Math.ceil(base / 12) * 12;
+    const quiet = locked && base <= target + 4;
     target = base;
-    notes.push("Those pieces and the filler panels need about " + feet(base) + ", so this leg is longer than asked. " + feet(fit) + " fits them.");
+    if (!quiet) notes.push("Those pieces and the filler panels need about " + feet(base) + ", so this leg is longer than asked. About " + feet(fit) + " would fit them.");
   }
   let remain = target - base;
   const fillers = [];
@@ -1387,9 +1389,46 @@ export function validateSpec(input) {
       barOn: !!src.barOn || legs.some(l => l.stools > 0),
       gapIn: src.gapIn == null ? 6 : Math.max(0, Number(src.gapIn) || 0),
       lastAdded: Array.isArray(src.lastAdded) ? src.lastAdded.filter(id => CATALOG[id]).slice(0, 12) : [],
+      pending: Array.isArray(src.pending) ? src.pending.filter(id => CATALOG[id]).slice(0, 12) : [],
       legs
     }
   };
+}
+
+function stripClaimed(notes, ids) {
+  const counts = {};
+  for (const id of ids) {
+    const name = CATALOG[id] ? CATALOG[id].spoken : String(id);
+    counts[name] = (counts[name] || 0) + 1;
+  }
+  for (let i = 0; i < notes.length; i++) {
+    if (!/^Added /.test(notes[i])) continue;
+    let text = notes[i];
+    for (const name of Object.keys(counts)) {
+      for (let n = 0; n < counts[name]; n++) {
+        const at = text.lastIndexOf(name);
+        if (at < 0) break;
+        text = text.slice(0, at) + text.slice(at + name.length);
+      }
+    }
+    text = text.replace(/Added\s+(,|and)\s+/gi, "Added ");
+    text = text.replace(/(,\s*)+(and\s*)?/g, ", ");
+    text = text.replace(/,\s*,/g, ",");
+    text = text.replace(/,\s+and\s+,/g, ", ");
+    text = text.replace(/,\s*\./g, ".");
+    text = text.replace(/,\s*$/g, "");
+    text = text.replace(/\s{2,}/g, " ").trim();
+    notes[i] = /^Added\s+\S/.test(text) ? text : "";
+  }
+}
+
+function joinSentences(parts) {
+  const bits = [];
+  for (const part of parts) {
+    const clean = String(part || "").trim().replace(/^\.+/, "").replace(/\.+$/, "");
+    if (clean) bits.push(clean);
+  }
+  return bits.join(". ") + (bits.length ? "." : "");
 }
 
 function describe(spec, notes) {
@@ -1416,30 +1455,28 @@ function describe(spec, notes) {
       ? " The counter is " + counter.n + ", which the designer lists as a quote add, so I won't put a price on it."
       : " The counter is " + counter.n + ".";
   }
-  if (notes.length) text += " " + notes.join(" ");
   text += " The price on the design comes from the catalog and the build rates. Tell me what to change, or save it when it looks right.";
-  return text.replace(/\s+/g, " ").trim();
+  return joinSentences([text].concat(notes || []));
 }
 
 function changeReply(spec, notes) {
   const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece|Cleared |Turned |Set )/ .test(n));
   const bar = spec.legs.find(l => l.role === "bar");
   const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
-  let text = "Done";
   const first = changes[0] || "";
+  let lead = "Done. ";
+  let body = first;
   if (/^Made the bar/.test(first) && bar) {
-    text = "Done, the bar is now " + feet(bar.lengthIn);
-    if (bar.stools) text += ", room for " + bar.stools + (bar.stools === 1 ? " stool" : " stools");
+    lead = "Done, ";
+    body = "the bar is now " + feet(bar.lengthIn);
+    if (bar.stools) body += ", room for " + bar.stools + (bar.stools === 1 ? " stool" : " stools");
   } else if (/^Made the grill/.test(first) && grill) {
-    text = "Done, the grill leg is now " + feet(grill.lengthIn);
-  } else if (first) {
-    text = "Done. " + first.replace(/\.$/, "");
+    lead = "Done, ";
+    body = "the grill leg is now " + feet(grill.lengthIn);
   }
-  const filler = (notes || []).find(n => /^I added |^I left 12 inches/.test(n));
-  if (filler && /^Added /.test(first)) text += " " + filler;
-  const limit = (notes || []).find(n => /longer than asked|shorter than a leg|longer than a single|doesn.t fit|don.t fit/.test(n));
-  if (limit) text += ". " + limit.replace(/\.$/, "");
-  return text.replace(/\.$/, "") + ".";
+  const extra = (notes || []).filter(n => n && n !== first && /so I put |either leg|longer than asked|shorter than a leg|longer than a single|^I added |^I left 12 inches/.test(n));
+  if (!body && !extra.length) return "Done.";
+  return lead + joinSentences([body].concat(extra));
 }
 
 export function summaryReply(spec) {
@@ -1460,18 +1497,43 @@ export function compileSpec(input, extraNotes) {
     for (const l of spec.legs) {
       if (!l.fixed) continue;
       const ask = gearSpan(l.items || [], spec.gapIn);
-      if (ask <= l.lengthIn + 0.5) continue;
+      if (ask <= l.lengthIn + 4) continue;
       const dropped = [];
-      while ((l.items || []).length && gearSpan(l.items, spec.gapIn) > l.lengthIn + 0.5) dropped.push(l.items.pop());
-      if (dropped.length) {
-        const names = joinSpoken(dropped.reverse().map(id => CATALOG[id] ? CATALOG[id].spoken : id));
-        notes.push("The " + l.role + " leg stays " + feet(l.lengthIn) + ". " + names + (dropped.length > 1 ? " don't fit. " : " doesn't fit. ") + feet(Math.ceil(ask / 12) * 12) + " would fit them.");
+      while ((l.items || []).length && gearSpan(l.items, spec.gapIn) > l.lengthIn + 4) dropped.push(l.items.pop());
+      dropped.reverse();
+      const moved = [];
+      const pending = [];
+      for (const id of dropped) {
+        const home = spec.legs.find(o => {
+          if (o === l) return false;
+          const span = gearSpan((o.items || []).concat(id), spec.gapIn);
+          const room = o.fixed ? o.lengthIn : Math.max(o.lengthIn, span);
+          return span <= room + 4;
+        });
+        if (home) {
+          home.items = home.items || [];
+          home.items.push(id);
+          moved.push({ id, dest: home });
+        } else pending.push(id);
+      }
+      const legName = l.role === "grill" || l.role === "main" ? "grill leg" : l.role + " leg";
+      if (moved.length) {
+        const dest = moved[0].dest;
+        const destName = dest.role === "bar" || dest.role === "return" ? "the return" : "the other leg";
+        notes.push("The " + legName + " stays " + feet(l.lengthIn) + ", so I put " + joinSpoken(moved.map(row => CATALOG[row.id] ? CATALOG[row.id].spoken : row.id)) + " on " + destName + ".");
+        stripClaimed(notes, moved.map(row => row.id));
+      }
+      if (pending.length) {
+        spec.pending = (spec.pending || []).concat(pending);
+        const names = joinSpoken(pending.map(id => CATALOG[id] ? CATALOG[id].spoken : id));
+        notes.push(names + (pending.length > 1 ? " don't fit on either leg. " : " doesn't fit on either leg. ") + "Where should " + (pending.length > 1 ? "they" : "it") + " go, or should a leg be longer? " + feet(Math.ceil(ask / 12) * 12) + " would fit them.");
+        stripClaimed(notes, pending);
       }
     }
   }
   const packed = spec.legs.map(l => {
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn);
-    if (result.span > l.lengthIn + 0.5) l.lengthIn = Math.round(result.span);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed);
+    if (!(hold && l.fixed) && result.span > l.lengthIn + 0.5) l.lengthIn = Math.round(result.span);
     notes.push(...result.notes);
     const tight = stoolNote(l);
     if (tight) notes.push(tight);

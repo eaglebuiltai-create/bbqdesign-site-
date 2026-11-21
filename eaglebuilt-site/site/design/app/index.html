@@ -3563,8 +3563,9 @@ function islandLegLabel() {
     const inches = Math.max(0, run.len - corner);
     return Math.max(1, Math.round(inches / 12)) + "'";
   };
-  const returns = R.slice(1).map(bare);
-  return bare(R[0]) + " + " + returns.join(" + ") + (returns.length > 1 ? " returns" : " return");
+  const ordered = R.slice().sort((a, b) => (a.horiz === b.horiz ? 0 : a.horiz ? -1 : 1));
+  const returns = ordered.slice(1).map(bare);
+  return bare(ordered[0]) + " + " + returns.join(" + ") + (returns.length > 1 ? " returns" : " return");
 }
 
 
