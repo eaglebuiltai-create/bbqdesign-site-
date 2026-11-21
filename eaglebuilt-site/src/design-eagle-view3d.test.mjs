@@ -59,12 +59,14 @@ describe("webgl view fixtures", () => {
         top, barTop: [{ x0: -12, y0: -18, x1: 92, y1: 1 }],
         bays: [{
           x: 40, z: 16, w: 32, d: 32, fx: 0, fz: 1,
-          t: "grill", mount: "top", ch: 10, under: true, filler: false, sits: false
+          t: "grill", mount: "top", cw: 32, cd: 22, ch: 10,
+          underT: "door2", faceW: 28, faceY0: 2, faceY1: 30, sits: false
         }]
       });
       assert.ok(boxes.some(box => box.mat === counter), counter);
-      assert.ok(boxes.some(box => box.mat === "grill"), counter);
+      assert.ok(boxes.some(box => box.kind === "barrel" && box.mat === "steel"), counter);
       assert.ok(boxes.some(box => box.mat === "door"), counter);
+      assert.ok(boxes.some(box => box.kind === "tube" && box.mat === "handle"), counter);
     }
   });
 
@@ -81,7 +83,32 @@ describe("webgl view fixtures", () => {
     assert.match(page, /gl=1/);
     assert.match(page, /render3d\(\)/);
     assert.match(eagle, /gl=1/);
-    assert.match(page, /eaglebuilt-3d-view\.png/);
+    assert.match(view, /-0\.62/);
+    assert.match(view, /1\.55/);
+    assert.match(view, /captureFrame/);
+    const pizza = islandBoxes({
+      finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 72, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 72, y1: 32 }],
+      bays: [{
+        x: 20, z: 40, w: 28, d: 32, fx: 0, fz: 1,
+        t: "ctpizza", mount: "counter", sits: true, cw: 24, cd: 16, ch: 13
+      }]
+    });
+    assert.ok(pizza.some(part => part.kind === "barrel"));
+    assert.ok(pizza.some(part => part.kind === "tube" && part.mat === "flue"));
+    const cold = islandBoxes({
+      finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      bays: [{
+        x: 16, z: 16, w: 24, d: 32, fx: 0, fz: 1,
+        t: "fridge", mount: "full", faceW: 22, faceY0: 2, faceY1: 33
+      }]
+    });
+    assert.ok(cold.some(part => part.mat === "glass"));
     assert.match(page, /image\/jpeg/);
   });
 });

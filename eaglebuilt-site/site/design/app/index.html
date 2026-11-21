@@ -5319,7 +5319,7 @@ function glPhone(){
 }
 function glSnapshot(){
   const t = takeoff();
-  const b = bounds(0);
+  const b = bounds(S.overhang + 10);
   return {
     finish: S.finish,
     counter: S.counter,
@@ -5331,9 +5331,12 @@ function glSnapshot(){
     barWalls: decompose(t.bar),
     top: decompose(t.top),
     barTop: decompose(t.barTop),
-    bays: S.mods.map(m => {
+    fit: b ? { x0: b.x0, z0: b.y0, x1: b.x1, z1: b.y1 } : null,
+    bays: S.mods.filter(m => !modSpec(m).filler).map(m => {
       const c = modSpec(m), sz = modSize(m);
       const f = FRONT[m.r] || FRONT[0];
+      const fs = faceSpan(m);
+      const faceSpec = fs ? fs.spec : (c.mount === "full" ? c : null);
       return {
         x: m.x, z: m.y, w: sz.w, d: sz.d,
         fx: f[0], fz: f[1],
@@ -5341,8 +5344,13 @@ function glSnapshot(){
         filler: !!c.filler,
         sits: !!c.sits,
         mount: c.mount || "base",
+        cw: c.cw || sz.w,
+        cd: c.cd || sz.d,
         ch: c.ch || 10,
-        under: !!m.u
+        underT: m.u && underSpec(m) ? underSpec(m).t : "",
+        faceW: faceSpec ? Math.max(4, faceSpec.w - 2) : Math.max(4, (Math.abs(f[0]) > 0.5 ? sz.d : sz.w) - 2),
+        faceY0: fs ? fs.y0 : 2,
+        faceY1: fs ? fs.y1 : (S.height - slabThk() - 1)
       };
     }),
     cx: b ? (b.x0 + b.x1) / 2 : 0,
@@ -6990,7 +6998,8 @@ function copyText(txt, okMsg){
 }
 function active3dCanvas(){
   if (document.body.dataset.gl === "1" && glApi){
-    glApi.renderNow();
+    if (glApi.captureFrame) glApi.captureFrame();
+    else glApi.renderNow();
     return $("#c3gl");
   }
   render3d();

@@ -61,15 +61,15 @@ function speckle(g, height, n, base, dot, count) {
 
 const PAINTERS = {
   stucco(g, height, n) {
-    g.fillStyle = "#cfc8bc";
+    g.fillStyle = "#9c9588";
     g.fillRect(0, 0, n, n);
     for (let i = 0; i < 1800; i++) {
       const x = Math.floor(noise(i, 1) * n);
       const y = Math.floor(noise(2, i) * n);
-      const shade = 180 + Math.floor(noise(i, 4) * 50);
-      g.fillStyle = "rgb(" + shade + "," + (shade - 6) + "," + (shade - 14) + ")";
+      const shade = 130 + Math.floor(noise(i, 4) * 55);
+      g.fillStyle = "rgb(" + shade + "," + (shade - 4) + "," + (shade - 12) + ")";
       g.fillRect(x, y, 2, 2);
-      height[y * n + x] = noise(i, 8) * 0.35;
+      height[y * n + x] = noise(i, 8) * 0.55;
     }
   },
   stack(g, height, n) { brick(g, height, n, (r, c) => ["#7a756b", "#585449", "#93897a", "#635f58"][(r + c) & 3], "#3e3b36", 14, 36); },
@@ -78,9 +78,9 @@ const PAINTERS = {
   brickw(g, height, n) { brick(g, height, n, (r, c) => ["#f1ede5", "#e9e4db", "#e7e2d8", "#c7c7c0"][(r + c) & 3], "#ddd6cc", 12, 28); },
   brick(g, height, n) { brick(g, height, n, (r, c) => ["#8c4a38", "#7a3e2e", "#a05b44", "#6e3a2c"][(r + c) & 3], "#c4b2a4", 12, 28); },
   tile(g, height, n) { brick(g, height, n, (r, c) => ["#3b4350", "#2a2f38", "#6b7480"][(r + c) & 2], "#1c2128", 32, 56); },
-  concrete(g, height, n) { speckle(g, height, n, "#8e9298", (i) => (i % 5 ? "#9aa0a6" : "#6e747c"), 700); },
-  concretew(g, height, n) { speckle(g, height, n, "#e4e1d9", (i) => (i % 4 ? "#f2efe8" : "#c8c4ba"), 600); },
-  concrete2(g, height, n) { speckle(g, height, n, "#8e9298", (i) => (i % 5 ? "#a8adb3" : "#757b83"), 500); },
+  concrete(g, height, n) { speckle(g, height, n, "#6a7078", (i) => (i % 4 ? "#8b929a" : "#4e545c"), 900); },
+  concretew(g, height, n) { speckle(g, height, n, "#c9c4ba", (i) => (i % 3 ? "#ddd8ce" : "#9e978c"), 800); },
+  concrete2(g, height, n) { speckle(g, height, n, "#6a7078", (i) => (i % 4 ? "#90979f" : "#525860"), 700); },
   granite(g, height, n) { speckle(g, height, n, "#5a5f66", (i) => ["#3e434a", "#8b919a", "#2c3036", "#6a7078"][i & 3], 1400); },
   quartz(g, height, n) { speckle(g, height, n, "#e6e3db", (i) => (i % 7 ? "#f7f5f0" : "#b7b3aa"), 900); },
   quartzite(g, height, n) { speckle(g, height, n, "#c5cad0", (i) => ["#9aa3ac", "#eef1f4", "#7e8790"][i % 3], 1000); },
@@ -123,10 +123,92 @@ function mapsFor(THREE, key) {
   return { map: color, normalMap: normal, roughnessMap: roughness };
 }
 
-function solid(THREE, color, metal, rough) {
-  return new THREE.MeshStandardMaterial({
-    color, metalness: metal, roughness: rough
-  });
+function patioMesh(THREE) {
+  const c = document.createElement("canvas");
+  c.width = 256;
+  c.height = 256;
+  const g = c.getContext("2d");
+  const wash = g.createRadialGradient(128, 128, 16, 128, 128, 128);
+  wash.addColorStop(0, "rgba(92,86,78,0.92)");
+  wash.addColorStop(0.62, "rgba(62,58,54,0.45)");
+  wash.addColorStop(1, "rgba(14,23,38,0)");
+  g.fillStyle = wash;
+  g.fillRect(0, 0, 256, 256);
+  g.strokeStyle = "rgba(40,36,32,0.35)";
+  g.lineWidth = 2;
+  for (let i = 1; i < 5; i++) {
+    g.strokeRect(28 * i, 28 * i, 256 - 56 * i, 256 - 56 * i);
+  }
+  const map = new THREE.CanvasTexture(c);
+  map.colorSpace = THREE.SRGBColorSpace;
+  const mesh = new THREE.Mesh(
+    new THREE.CircleGeometry(1, 48),
+    new THREE.MeshStandardMaterial({ map, transparent: true, roughness: 0.95, metalness: 0, depthWrite: false })
+  );
+  mesh.rotation.x = -Math.PI / 2;
+  mesh.position.y = 0.04;
+  return mesh;
+}
+
+function solid(THREE, color, metal, rough, extra) {
+  return new THREE.MeshStandardMaterial(Object.assign({
+    color, metalness: metal, roughness: rough, envMapIntensity: metal > 0.5 ? 1.35 : 0.4
+  }, extra || {}));
+}
+
+function FINISH_OR_COUNTER(mat) {
+  return mat === "stucco" || mat === "stack" || mat === "cult" || mat === "flag" || mat === "brickw" || mat === "brick" || mat === "tile"
+    || mat === "concrete" || mat === "concretew" || mat === "concrete2" || mat === "granite" || mat === "quartz" || mat === "quartzite" || mat === "tilep"
+    || mat.endsWith("Edge");
+}
+
+function tubeMesh(THREE, part, mat) {
+  const a = part.a;
+  const b = part.b;
+  const dir = new THREE.Vector3(b[0] - a[0], b[1] - a[1], b[2] - a[2]);
+  const len = Math.max(0.05, dir.length());
+  const geo = new THREE.CylinderGeometry(part.r, part.r, len, 12);
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2);
+  mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.normalize());
+  return mesh;
+}
+
+function barrelMesh(THREE, part, mat) {
+  const segs = 16;
+  const e = part.pw || 2;
+  const prof = [];
+  for (let i = 0; i <= segs; i++) {
+    const th = Math.PI * i / segs;
+    const ct = Math.cos(th);
+    const st = Math.sin(th);
+    let px = (ct < 0 ? -1 : 1) * Math.pow(Math.abs(ct), 2 / e) * part.d / 2;
+    const py = Math.pow(Math.abs(st), 2 / e) * part.h;
+    if (part.flat && px < 0) px *= 0.78;
+    prof.push([px, py]);
+  }
+  const pos = [];
+  const idx = [];
+  for (const end of [-part.w / 2, part.w / 2]) {
+    for (const p of prof) {
+      if (part.alongX) pos.push(end, p[1], p[0]);
+      else pos.push(p[0], p[1], end);
+    }
+  }
+  const n = prof.length;
+  for (let i = 0; i < segs; i++) {
+    idx.push(i, n + i, i + 1, i + 1, n + i, n + i + 1);
+  }
+  for (const start of [0, n]) {
+    for (let i = 1; i < segs; i++) idx.push(start, start + i, start + i + 1);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  geo.setIndex(idx);
+  geo.computeVertexNormals();
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(part.x, part.y0, part.z);
+  return mesh;
 }
 
 export async function createView(canvas, opts) {
@@ -142,11 +224,11 @@ export async function createView(canvas, opts) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color("#121820");
+  scene.background = new THREE.Color("#0e1726");
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   pmrem.dispose();
-  const camera = new THREE.PerspectiveCamera(42, 1, 1, 4000);
+  const camera = new THREE.PerspectiveCamera(48, 1, 1, 4000);
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.maxPolarAngle = Math.PI * 0.48;
@@ -161,35 +243,43 @@ export async function createView(canvas, opts) {
   sun.shadow.camera.near = 10;
   sun.shadow.camera.far = 500;
   scene.add(sun);
-  scene.add(new THREE.AmbientLight(0xc5d0de, 0.45));
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(2400, 2400),
-    new THREE.MeshStandardMaterial({ color: "#8a8178", roughness: 0.92, metalness: 0 })
-  );
-  ground.rotation.x = -Math.PI / 2;
-  ground.receiveShadow = true;
-  scene.add(ground);
+  scene.add(new THREE.AmbientLight(0xc5d0de, 0.35));
+  const patio = patioMesh(THREE);
+  patio.receiveShadow = true;
+  scene.add(patio);
   const root = new THREE.Group();
   scene.add(root);
   const library = {};
   function material(mat) {
-    if (mat === "toe") return library.toe || (library.toe = solid(THREE, "#10161f", 0.04, 0.9));
-    if (mat === "steel" || mat === "door" || mat === "drawer" || mat === "fridge") {
-      return library.steel || (library.steel = solid(THREE, "#c5ccd4", 0.82, 0.38));
-    }
-    if (mat === "handle") return library.handle || (library.handle = solid(THREE, "#f2f5f8", 0.95, 0.22));
-    if (mat === "grill") return library.grill || (library.grill = solid(THREE, "#2a3138", 0.7, 0.45));
-    if (mat === "pizza") return library.pizza || (library.pizza = solid(THREE, "#1c1f24", 0.4, 0.55));
-    if (mat === "blank") return library.blank || (library.blank = solid(THREE, "#6d675f", 0.02, 0.95));
     if (library[mat]) return library[mat];
-    const maps = mapsFor(THREE, mat);
-    maps.map.repeat.set(1, 1);
+    const metal = {
+      steel: ["#d8e0ea", 0.92, 0.28],
+      steelDark: ["#9aa6b3", 0.84, 0.36],
+      door: ["#c2ccd8", 0.78, 0.4],
+      handle: ["#eff4f9", 1, 0.16],
+      grate: ["#59626d", 0.7, 0.42],
+      hood: ["#333a42", 0.55, 0.45],
+      cavity: ["#12161c", 0.2, 0.7],
+      dark: ["#232a33", 0.35, 0.55],
+      flue: ["#3a4048", 0.6, 0.4],
+      glass: ["#40586e", 0.2, 0.08]
+    };
+    if (metal[mat]) {
+      const spec = metal[mat];
+      const extra = mat === "glass" ? { transparent: true, opacity: 0.72 } : {};
+      return library[mat] = solid(THREE, spec[0], spec[1], spec[2], extra);
+    }
+    if (mat === "toe") return library.toe = solid(THREE, "#10161f", 0.04, 0.9);
+    const finish = mat.endsWith("Edge") ? mat.slice(0, -4) : mat;
+    const maps = mapsFor(THREE, finish);
     return library[mat] = new THREE.MeshStandardMaterial({
       map: maps.map,
       normalMap: maps.normalMap,
       roughnessMap: maps.roughnessMap,
-      metalness: mat === "granite" || mat === "quartz" || mat === "quartzite" ? 0.08 : 0.02,
-      roughness: mat === "quartz" ? 0.28 : 0.78
+      color: mat.endsWith("Edge") ? "#d5dbe2" : "#ffffff",
+      metalness: finish === "granite" || finish === "quartz" || finish === "quartzite" ? 0.12 : 0.02,
+      roughness: mat.endsWith("Edge") ? 0.22 : (finish === "quartz" ? 0.32 : 0.82),
+      envMapIntensity: 0.55
     });
   }
   function tileUVs(geo, w, h) {
@@ -212,24 +302,34 @@ export async function createView(canvas, opts) {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
   }
-  function fit(sceneData) {
-    const dist = Math.max((sceneData.span || 120) * 1.7, 140);
+  let lastScene = null;
+  function placeCamera(sceneData, forShot) {
+    const fit = sceneData.fit || {};
+    const w = Math.max(40, (fit.x1 || 0) - (fit.x0 || 0));
+    const d = Math.max(40, (fit.z1 || 0) - (fit.z0 || 0));
+    const cx = fit.x1 != null ? (fit.x0 + fit.x1) / 2 : sceneData.cx || 0;
+    const cz = fit.z1 != null ? (fit.z0 + fit.z1) / 2 : sceneData.cz || 0;
+    const dist = Math.max(110, Math.min(900, Math.max(w, d) * 1.55 + (forShot ? 36 : 70)));
     const pitch = 0.42;
     const yaw = -0.62;
+    const ty = forShot ? (sceneData.height || 37) * 0.42 : 16;
     camera.position.set(
-      sceneData.cx + dist * Math.cos(pitch) * Math.sin(yaw),
-      18 + dist * Math.sin(pitch),
-      sceneData.cz + dist * Math.cos(pitch) * Math.cos(yaw)
+      cx + dist * Math.cos(pitch) * Math.sin(yaw),
+      ty + dist * Math.sin(pitch),
+      cz + dist * Math.cos(pitch) * Math.cos(yaw)
     );
-    controls.target.set(sceneData.cx, (sceneData.height || 37) * 0.42, sceneData.cz);
-    const span = Math.max(sceneData.span || 120, 80);
+    controls.target.set(cx, ty, cz);
+    const span = Math.max(w, d, 80);
     sun.shadow.camera.left = -span;
     sun.shadow.camera.right = span;
     sun.shadow.camera.top = span;
     sun.shadow.camera.bottom = -span;
-    sun.target.position.set(sceneData.cx, 20, sceneData.cz);
+    sun.position.set(cx - span * 0.45, ty + span * 1.1, cz + span * 0.55);
+    sun.target.position.set(cx, 18, cz);
     scene.add(sun.target);
     sun.shadow.camera.updateProjectionMatrix();
+    patio.scale.set(span * 0.85, span * 0.85, 1);
+    patio.position.set(cx, 0.04, cz);
     controls.update();
   }
   function loop() {
@@ -252,21 +352,27 @@ export async function createView(canvas, opts) {
         if (child.geometry) child.geometry.dispose();
         root.remove(child);
       }
-      const boxes = islandBoxes(sceneData);
-      for (const box of boxes) {
-        const bw = Math.max(0.4, box.w);
-        const bh = Math.max(0.2, box.y1 - box.y0);
-        const bd = Math.max(0.4, box.d);
-        const geo = new THREE.BoxGeometry(bw, bh, bd);
-        tileUVs(geo, Math.max(bw, bd), bh);
-        const mesh = new THREE.Mesh(geo, material(box.mat));
-        mesh.position.set(box.x, (box.y0 + box.y1) / 2, box.z);
-        mesh.castShadow = true;
+      const parts = islandBoxes(sceneData);
+      lastScene = sceneData;
+      for (const part of parts) {
+        let mesh;
+        if (part.kind === "tube") mesh = tubeMesh(THREE, part, material(part.mat));
+        else if (part.kind === "barrel") mesh = barrelMesh(THREE, part, material(part.mat));
+        else {
+          const bw = Math.max(0.4, part.w);
+          const bh = Math.max(0.2, part.y1 - part.y0);
+          const bd = Math.max(0.4, part.d);
+          const geo = new THREE.BoxGeometry(bw, bh, bd);
+          if (part.mat && FINISH_OR_COUNTER(part.mat)) tileUVs(geo, Math.max(bw, bd), bh);
+          mesh = new THREE.Mesh(geo, material(part.mat));
+          mesh.position.set(part.x, (part.y0 + part.y1) / 2, part.z);
+        }
+        mesh.castShadow = part.mat !== "glass";
         mesh.receiveShadow = true;
         root.add(mesh);
       }
       const key = (sceneData.bays || []).length + ":" + Math.round(sceneData.cx) + ":" + Math.round(sceneData.cz) + ":" + sceneData.finish + ":" + sceneData.counter;
-      if (key !== fitted) { fit(sceneData); fitted = key; }
+      if (key !== fitted) { placeCamera(sceneData, false); fitted = key; }
     },
     start() { paused = false; if (!frame) loop(); },
     stop() { paused = true; if (frame) cancelAnimationFrame(frame); frame = 0; },
@@ -279,6 +385,17 @@ export async function createView(canvas, opts) {
       camera.position.copy(controls.target).add(offset);
     },
     renderNow() { resize(); controls.update(); renderer.render(scene, camera); },
+    captureFrame() {
+      const pos = camera.position.clone();
+      const target = controls.target.clone();
+      if (lastScene) placeCamera(lastScene, true);
+      resize();
+      controls.update();
+      renderer.render(scene, camera);
+      camera.position.copy(pos);
+      controls.target.copy(target);
+      controls.update();
+    },
     resize
   };
 }
