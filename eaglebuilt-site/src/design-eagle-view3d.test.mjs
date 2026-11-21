@@ -140,6 +140,46 @@ describe("webgl view fixtures", () => {
     });
     assert.ok(wok.some(part => part.kind === "cyl" && part.mat === "steel"));
     assert.ok(wok.some(part => part.kind === "cyl" && part.mat === "cavity"));
+    const underGrill = islandBoxes({
+      finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 80, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 80, y1: 32 }],
+      bays: [{
+        x: 40, z: 16, w: 34, d: 32, fx: 0, fz: 1,
+        t: "grill", mount: "top", cw: 32, cd: 22,
+        underT: "drawer", faceW: 30, faceY0: 2, faceY1: 28
+      }]
+    });
+    const knobYs = underGrill.filter(part => part.kind === "tube" && (part.mat === "knobRed" || (part.mat === "steel" && part.r >= 0.7))).map(part => part.a[1]);
+    assert.ok(knobYs.length > 0);
+    assert.ok(knobYs.every(y => y > 37.5), knobYs.join(","));
+    assert.ok(underGrill.filter(part => part.mat === "brushed").length >= 2);
+    const triple = islandBoxes({
+      finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      bays: [{
+        x: 16, z: 16, w: 24, d: 32, fx: 0, fz: 1,
+        t: "drawer", mount: "base", faceW: 20, faceY0: 2, faceY1: 32
+      }]
+    });
+    assert.ok(triple.filter(part => part.mat === "brushed").length >= 3);
+    assert.ok(triple.some(part => part.mat === "steel" && part.kind === "box"));
+    const access = islandBoxes({
+      finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      bays: [{
+        x: 16, z: 16, w: 24, d: 32, fx: 0, fz: 1,
+        t: "door1", mount: "base", faceW: 20, faceY0: 2, faceY1: 32
+      }]
+    });
+    assert.ok(access.some(part => part.mat === "door"));
+    assert.ok(access.some(part => part.mat === "steel" && part.kind === "box"));
+    assert.equal(access.some(part => part.mat === "steelDark"), false);
     assert.match(page, /image\/jpeg/);
   });
 });

@@ -67,8 +67,7 @@ function bayParts(bay, H, slab) {
     const iw = w - 1.6;
     const h = y1 - y0 - 1.2;
     const by = y0 + 0.6;
-    box(fx, fz, isX ? 0.4 : w + 1.4, isX ? w + 1.4 : 0.4, y0 - 0.2, y0 + 0.35, "steelDark");
-    ring(w + 0.2, y0, y1, 1.05, 1.25, "steelDark");
+    ring(w + 0.1, y0, y1, 0.18, 0.5, "steel");
     if (t === "door1" || t === "trash") {
       boxAt(w * 0.72, by + 0.7, by + h - 0.7, 0, 0.16, "door");
       const pull = t === "trash"
@@ -82,11 +81,13 @@ function bayParts(bay, H, slab) {
       handle(Math.min(h - 3, 18), by + h / 2, k * (gap / 2 + 2.4), false);
       });
     } else if (t === "drawer") {
+      const reveal = 0.7;
       const n = h > 22 ? 3 : 2;
-      const dh = (h - gap * (n - 1)) / n;
+      const dh = (h - reveal * (n - 1)) / n;
       for (let i = 0; i < n; i++) {
-        const a0 = by + i * (dh + gap);
-        boxAt(iw * 0.84, a0 + 0.45, a0 + dh - 0.45, 0, 0.16, "door");
+        const a0 = by + i * (dh + reveal);
+        boxAt(iw * 0.86, a0 + 0.28, a0 + dh - 0.28, 0, 0.55, "steel");
+        boxAt(iw * 0.78, a0 + 0.7, a0 + dh - 0.7, 0, 0.12, "brushed");
         handle(Math.min(18, iw - 2), a0 + dh * 0.55, 0, true);
       }
     } else if (t === "combo") {
@@ -97,7 +98,8 @@ function bayParts(bay, H, slab) {
       const dh = (h - gap) / 2;
       for (let i = 0; i < 2; i++) {
         const a0 = by + i * (dh + gap);
-        boxAt(dw * 0.82, a0 + 0.4, a0 + dh - 0.4, lo, 0.16, "door");
+        boxAt(dw * 0.84, a0 + 0.28, a0 + dh - 0.28, lo, 0.5, "steel");
+        boxAt(dw * 0.74, a0 + 0.65, a0 + dh - 0.65, lo, 0.12, "brushed");
         handle(Math.min(14, dw - 1.5), a0 + dh * 0.55, lo, true);
       }
       boxAt(dr * 0.82, by + 0.55, by + h - 0.55, ro, 0.16, "door");
@@ -207,12 +209,13 @@ function bayParts(bay, H, slab) {
       const a0 = alongX ? [bay.x - (hw - 8) / 2, hy, bay.z + f1 * hr] : [bay.x + f0 * hr, hy, bay.z - (hw - 8) / 2];
       const b0 = alongX ? [bay.x + (hw - 8) / 2, hy, bay.z + f1 * hr] : [bay.x + f0 * hr, hy, bay.z + (hw - 8) / 2];
       tube(a0, b0, 0.58, "handle");
-      box(fx, fz, isX ? 0.55 : faceW * 0.92, isX ? faceW * 0.92 : 0.55, yFace1 - 6.2, yFace1, "dark");
-      knobs(t === "griddle" ? Math.max(2, Math.round(cw / 12)) : Math.max(3, Math.round(cw / 9)), yFace1 - 3.5);
+      const panelY = H + 1.15;
+      box(fx, fz, isX ? 0.4 : faceW * 0.7, isX ? faceW * 0.7 : 0.4, panelY, panelY + 4.4, "steel");
+      knobs(t === "griddle" ? Math.max(2, Math.round(cw / 12)) : Math.max(3, Math.round(cw / 9)), panelY + 2.2);
     } else if (t === "burner" || t === "wok") {
       barrel(bay.x, bay.z, hw - 1, hd - 0.6, H + 0.4, t === "wok" ? 5.4 : 4.2, alongX, "steel", true, 2);
-      box(fx, fz, isX ? 0.55 : faceW * 0.9, isX ? faceW * 0.9 : 0.55, yFace1 - 6.2, yFace1, "dark");
-      knobs(1, yFace1 - 3.5);
+      box(fx, fz, isX ? 0.4 : faceW * 0.7, isX ? faceW * 0.7 : 0.4, H + 1.15, H + 5.2, "steel");
+      knobs(1, H + 3.2);
     } else if (t === "pizza") {
       barrel(bay.x, bay.z, hw - 1, hd - 1, H + 0.4, 14.2, alongX, "hood", false, 2);
       const mr = hd / 2 * 0.94;

@@ -154,6 +154,27 @@ function patioMesh(THREE) {
   return mesh;
 }
 
+function brushMap(THREE) {
+  const c = document.createElement("canvas");
+  c.width = 24;
+  c.height = 128;
+  const g = c.getContext("2d");
+  g.fillStyle = "#d5dde6";
+  g.fillRect(0, 0, 24, 128);
+  for (let x = 0; x < 24; x++) {
+    const shade = 176 + Math.floor(noise(x, 5) * 60);
+    g.strokeStyle = "rgba(" + shade + "," + (shade + 6) + "," + (shade + 12) + ",0.45)";
+    g.beginPath();
+    g.moveTo(x + 0.5, 0);
+    g.lineTo(x + 0.5, 128);
+    g.stroke();
+  }
+  const map = new THREE.CanvasTexture(c);
+  map.wrapS = map.wrapT = THREE.RepeatWrapping;
+  map.colorSpace = THREE.SRGBColorSpace;
+  return map;
+}
+
 function solid(THREE, color, metal, rough, extra) {
   return new THREE.MeshStandardMaterial(Object.assign({
     color, metalness: metal, roughness: rough, envMapIntensity: metal > 0.5 ? 1.35 : 0.4
@@ -294,6 +315,15 @@ export async function createView(canvas, opts) {
       knobRed: ["#c34a3e", 0.35, 0.42],
       glass: ["#40586e", 0.2, 0.08]
     };
+    if (mat === "brushed") {
+      return library.brushed = new THREE.MeshStandardMaterial({
+        color: "#e7eef5",
+        map: brushMap(THREE),
+        metalness: 0.88,
+        roughness: 0.32,
+        envMapIntensity: 1.15
+      });
+    }
     if (metal[mat]) {
       const spec = metal[mat];
       const extra = mat === "glass" ? { transparent: true, opacity: 0.72 } : {};
