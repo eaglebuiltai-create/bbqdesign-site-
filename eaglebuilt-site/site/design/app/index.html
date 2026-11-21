@@ -674,6 +674,7 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 #ebGate button:disabled{opacity:.6;cursor:default}
 #ebGate .ebErr{color:#E8342B;font-size:12px;margin:8px 0 0;display:none}
 #ebGate .ebFine{color:#5F7391;font-size:11px;margin:12px 0 0;line-height:1.5}
+body[data-eagle="1"] .eagle{display:none !important}
 </style>
 
 <div id="ebGate" hidden>
@@ -788,7 +789,13 @@ window.EB_SAMPLES = [
   var gate = document.getElementById("ebGate");
   var samples = document.getElementById("ebSamples");
 
-  /* ?shot=<sample> is tools/sample-shots.sh drawing a sample's picture. */
+  /* ?shot=<sample> is tools/sample-shots.sh drawing a sample's picture.
+     ?eagle=1 is Design Eagle embedding this page. Skip the email gate when
+     the design hash is already here, or when a parent frame is driving it,
+     so the visitor sees the island before anyone asks for contact. */
+  var eagleFrame = /[?&]eagle=1/.test(location.search);
+  var eagle = eagleFrame && (location.hash.indexOf("#d=") === 0 || window.parent !== window);
+  if (eagle) document.body.setAttribute("data-eagle", "1");
   var shot = /[?&]shot=/.test(location.search);
 
   /* A browser that blocks storage throws on read. Show the gate in that case —
@@ -815,7 +822,7 @@ window.EB_SAMPLES = [
     }
   };
 
-  if (shot) return;
+  if (shot || eagle) return;
   /* A shared design link, or a "design around this grill" link, is what they
      came for: it opens straight away (behind the gate on a first visit, as
      before). Everyone else starts at the samples. A returning visitor gets
@@ -8487,6 +8494,7 @@ let LOGO_DATA = "";
   requestAnimationFrame(() => {
     fit(); refresh();
     if (shotSample){ takeSampleShot(); return; }
+    if (document.body.dataset.eagle === "1") bootEagleFrame();
     EagleOne.init(); window.EagleReady = 1;
     bootState = S.mods.length ? encodeState() : "";
     fillSamples();
@@ -8602,6 +8610,36 @@ let LOGO_DATA = "";
       ? '<img alt="" src="' + url + '" style="position:fixed;inset:0;width:100%;height:100%;object-fit:cover;background:#0B1018">'
       : "no picture";
   }
+  function bootEagleFrame(){
+    const eagleEl = $("#eagle");
+    if (eagleEl) eagleEl.classList.add("min");
+    setView("3d");
+    const publish = (type) => {
+      if (window.parent === window) return;
+      let total = 0, image = null;
+      try { if (S.mods.length) total = Math.round(priceIt().total); } catch (err) {}
+      if (type === "shot") { try { image = designShot(); } catch (err) {} }
+      window.parent.postMessage({ source: "eagle-app", type, total, image }, location.origin);
+    };
+    const applyCode = (code) => {
+      if (!code || !decodeState(code)) return false;
+      S.sel = null;
+      syncControls();
+      fit();
+      setView("3d");
+      refresh();
+      return true;
+    };
+    window.addEventListener("message", (e) => {
+      if (e.origin !== location.origin) return;
+      const data = e.data;
+      if (!data || data.source !== "design-eagle") return;
+      if (data.type === "load" && applyCode(data.code)) publish("loaded");
+      if (data.type === "shot") publish("shot");
+    });
+    publish("ready");
+  }
+
   window.EBDesigner = {
     loadSample, openSamples,
     quickBuild: () => QuickBuild.open(),
