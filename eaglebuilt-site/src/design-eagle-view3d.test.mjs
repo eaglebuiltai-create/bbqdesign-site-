@@ -67,6 +67,7 @@ describe("webgl view fixtures", () => {
       assert.ok(boxes.some(box => box.kind === "barrel" && box.mat === "steel"), counter);
       assert.ok(boxes.some(box => box.mat === "door"), counter);
       assert.ok(boxes.some(box => box.kind === "tube" && box.mat === "handle"), counter);
+      assert.ok(boxes.some(box => box.mat === "knobRed"), counter);
     }
   });
 
@@ -84,8 +85,10 @@ describe("webgl view fixtures", () => {
     assert.match(page, /render3d\(\)/);
     assert.match(eagle, /gl=1/);
     assert.match(view, /-0\.62/);
-    assert.match(view, /1\.55/);
+    assert.match(view, /0\.42/);
     assert.match(view, /captureFrame/);
+    assert.match(view, /clearcoat/);
+    assert.match(view, /knobRed/);
     const pizza = islandBoxes({
       finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
       barOn: false, barRise: 0,
@@ -109,6 +112,34 @@ describe("webgl view fixtures", () => {
       }]
     });
     assert.ok(cold.some(part => part.mat === "glass"));
+    const sink = islandBoxes({
+      finish: "stucco", counter: "concrete", height: 37.5, slab: 3,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 80, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 80, y1: 32 }],
+      bays: [{
+        x: 50, z: 16, w: 32, d: 32, fx: 0, fz: 1,
+        t: "sink", mount: "top", cw: 28, cd: 20, ch: 9
+      }]
+    });
+    assert.ok(sink.some(part => part.mat === "basin"));
+    assert.ok(sink.some(part => part.kind === "tube" && part.mat === "handle"));
+    const covered = sink.some(part => (part.mat === "concrete" || part.mat === "concreteEdge")
+      && Math.abs(part.x - 50) < part.w / 2 - 1
+      && Math.abs(part.z - 16) < part.d / 2 - 1);
+    assert.equal(covered, false);
+    const wok = islandBoxes({
+      finish: "stucco", counter: "granite", height: 37.5, slab: 1.25,
+      barOn: false, barRise: 0,
+      base: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      top: [{ x0: 0, y0: 0, x1: 40, y1: 32 }],
+      bays: [{
+        x: 16, z: 16, w: 20, d: 32, fx: 0, fz: 1,
+        t: "ctwok", mount: "counter", sits: true, cw: 16, cd: 16, ch: 10
+      }]
+    });
+    assert.ok(wok.some(part => part.kind === "cyl" && part.mat === "steel"));
+    assert.ok(wok.some(part => part.kind === "cyl" && part.mat === "cavity"));
     assert.match(page, /image\/jpeg/);
   });
 });

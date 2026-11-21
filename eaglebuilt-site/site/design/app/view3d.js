@@ -50,12 +50,9 @@ function speckle(g, height, n, base, dot, count) {
   for (let i = 0; i < count; i++) {
     const x = Math.floor(noise(i, 3) * n);
     const y = Math.floor(noise(3, i) * n);
-    const s = 1 + Math.floor(noise(i, 9) * 3);
     g.fillStyle = dot(i);
-    g.fillRect(x, y, s, s);
-    for (let yy = y; yy < y + s && yy < n; yy++) for (let xx = x; xx < x + s && xx < n; xx++) {
-      height[yy * n + xx] = 0.25;
-    }
+    g.fillRect(x, y, 1, 1);
+    if (y < n && x < n) height[y * n + x] = 0.05;
   }
 }
 
@@ -81,9 +78,9 @@ const PAINTERS = {
   concrete(g, height, n) { speckle(g, height, n, "#6a7078", (i) => (i % 4 ? "#8b929a" : "#4e545c"), 900); },
   concretew(g, height, n) { speckle(g, height, n, "#c9c4ba", (i) => (i % 3 ? "#ddd8ce" : "#9e978c"), 800); },
   concrete2(g, height, n) { speckle(g, height, n, "#6a7078", (i) => (i % 4 ? "#90979f" : "#525860"), 700); },
-  granite(g, height, n) { speckle(g, height, n, "#5a5f66", (i) => ["#3e434a", "#8b919a", "#2c3036", "#6a7078"][i & 3], 1400); },
-  quartz(g, height, n) { speckle(g, height, n, "#e6e3db", (i) => (i % 7 ? "#f7f5f0" : "#b7b3aa"), 900); },
-  quartzite(g, height, n) { speckle(g, height, n, "#c5cad0", (i) => ["#9aa3ac", "#eef1f4", "#7e8790"][i % 3], 1000); },
+  granite(g, height, n) { speckle(g, height, n, "#5a5f66", (i) => ["#3e434a", "#8b919a", "#2c3036", "#6a7078"][i & 3], 2400); },
+  quartz(g, height, n) { speckle(g, height, n, "#e4e1d8", (i) => (i % 5 ? "#f4f2ec" : "#b9b4aa"), 1800); },
+  quartzite(g, height, n) { speckle(g, height, n, "#c5cad0", (i) => ["#9aa3ac", "#eef1f4", "#7e8790"][i % 3], 2000); },
   tilep(g, height, n) { brick(g, height, n, (r, c) => ["#9a8f80", "#b5ab9c", "#7e7568"][(r + c) & 2], "#6a6156", 40, 40); }
 };
 
@@ -128,16 +125,23 @@ function patioMesh(THREE) {
   c.width = 256;
   c.height = 256;
   const g = c.getContext("2d");
-  const wash = g.createRadialGradient(128, 128, 16, 128, 128, 128);
-  wash.addColorStop(0, "rgba(92,86,78,0.92)");
-  wash.addColorStop(0.62, "rgba(62,58,54,0.45)");
+  const wash = g.createRadialGradient(128, 128, 20, 128, 128, 128);
+  wash.addColorStop(0, "rgba(58,54,50,0.42)");
+  wash.addColorStop(0.55, "rgba(36,34,32,0.22)");
   wash.addColorStop(1, "rgba(14,23,38,0)");
   g.fillStyle = wash;
   g.fillRect(0, 0, 256, 256);
-  g.strokeStyle = "rgba(40,36,32,0.35)";
-  g.lineWidth = 2;
-  for (let i = 1; i < 5; i++) {
-    g.strokeRect(28 * i, 28 * i, 256 - 56 * i, 256 - 56 * i);
+  g.strokeStyle = "rgba(28,26,24,0.16)";
+  g.lineWidth = 1;
+  for (let i = 0; i < 8; i++) {
+    g.beginPath();
+    g.moveTo(0, 18 + i * 32);
+    g.lineTo(256, 14 + i * 32);
+    g.stroke();
+    g.beginPath();
+    g.moveTo(16 + i * 32, 0);
+    g.lineTo(12 + i * 32, 256);
+    g.stroke();
   }
   const map = new THREE.CanvasTexture(c);
   map.colorSpace = THREE.SRGBColorSpace;
@@ -160,6 +164,14 @@ function FINISH_OR_COUNTER(mat) {
   return mat === "stucco" || mat === "stack" || mat === "cult" || mat === "flag" || mat === "brickw" || mat === "brick" || mat === "tile"
     || mat === "concrete" || mat === "concretew" || mat === "concrete2" || mat === "granite" || mat === "quartz" || mat === "quartzite" || mat === "tilep"
     || mat.endsWith("Edge");
+}
+
+function cylMesh(THREE, part, mat) {
+  const h = Math.max(0.1, part.y1 - part.y0);
+  const geo = new THREE.CylinderGeometry(part.r, part.r, h, 28);
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set(part.x, (part.y0 + part.y1) / 2, part.z);
+  return mesh;
 }
 
 function tubeMesh(THREE, part, mat) {
@@ -220,7 +232,7 @@ export async function createView(canvas, opts) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, phone ? 1.5 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 0.94;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   const scene = new THREE.Scene();
@@ -233,8 +245,8 @@ export async function createView(canvas, opts) {
   controls.enableDamping = true;
   controls.maxPolarAngle = Math.PI * 0.48;
   controls.minDistance = 45;
-  controls.maxDistance = 1400;
-  const sun = new THREE.DirectionalLight(0xfff2df, 2.6);
+  controls.maxDistance = 1800;
+  const sun = new THREE.DirectionalLight(0xfff6ee, 0.72);
   sun.position.set(-80, 160, 90);
   sun.castShadow = true;
   const shadow = phone ? 1024 : 2048;
@@ -243,10 +255,26 @@ export async function createView(canvas, opts) {
   sun.shadow.camera.near = 10;
   sun.shadow.camera.far = 500;
   scene.add(sun);
-  scene.add(new THREE.AmbientLight(0xc5d0de, 0.35));
+  scene.add(new THREE.AmbientLight(0xd0d8e4, 0.55));
   const patio = patioMesh(THREE);
   patio.receiveShadow = true;
   scene.add(patio);
+  let grid = null;
+  function showGrid(cx, cz, span) {
+    const size = Math.max(120, Math.ceil(span * 1.2 / 12) * 12);
+    const divs = Math.max(8, Math.round(size / 12));
+    if (grid) {
+      scene.remove(grid);
+      grid.geometry.dispose();
+      grid.material.dispose();
+    }
+    grid = new THREE.GridHelper(size, divs, 0x8aa0bc, 0x6c849c);
+    grid.material.transparent = true;
+    grid.material.opacity = 0.055;
+    grid.material.depthWrite = false;
+    grid.position.set(cx, 0.02, cz);
+    scene.add(grid);
+  }
   const root = new THREE.Group();
   scene.add(root);
   const library = {};
@@ -258,10 +286,12 @@ export async function createView(canvas, opts) {
       door: ["#c2ccd8", 0.78, 0.4],
       handle: ["#eff4f9", 1, 0.16],
       grate: ["#59626d", 0.7, 0.42],
-      hood: ["#333a42", 0.55, 0.45],
-      cavity: ["#12161c", 0.2, 0.7],
+      hood: ["#2a3036", 0.62, 0.4],
+      cavity: ["#0e1116", 0.15, 0.72],
       dark: ["#232a33", 0.35, 0.55],
       flue: ["#3a4048", 0.6, 0.4],
+      basin: ["#b7c1cb", 0.72, 0.32],
+      knobRed: ["#c34a3e", 0.35, 0.42],
       glass: ["#40586e", 0.2, 0.08]
     };
     if (metal[mat]) {
@@ -272,14 +302,18 @@ export async function createView(canvas, opts) {
     if (mat === "toe") return library.toe = solid(THREE, "#10161f", 0.04, 0.9);
     const finish = mat.endsWith("Edge") ? mat.slice(0, -4) : mat;
     const maps = mapsFor(THREE, finish);
-    return library[mat] = new THREE.MeshStandardMaterial({
+    const polished = finish === "granite" || finish === "quartz" || finish === "quartzite";
+    const Mat = polished ? THREE.MeshPhysicalMaterial : THREE.MeshStandardMaterial;
+    return library[mat] = new Mat({
       map: maps.map,
       normalMap: maps.normalMap,
       roughnessMap: maps.roughnessMap,
-      color: mat.endsWith("Edge") ? "#d5dbe2" : "#ffffff",
-      metalness: finish === "granite" || finish === "quartz" || finish === "quartzite" ? 0.12 : 0.02,
-      roughness: mat.endsWith("Edge") ? 0.22 : (finish === "quartz" ? 0.32 : 0.82),
-      envMapIntensity: 0.55
+      color: mat.endsWith("Edge") ? "#c5ccd4" : "#f2f2f2",
+      metalness: polished ? 0.04 : 0.02,
+      roughness: mat.endsWith("Edge") ? 0.2 : (polished ? 0.22 : 0.84),
+      clearcoat: polished ? 0.4 : 0,
+      clearcoatRoughness: 0.3,
+      envMapIntensity: polished ? 0.85 : 0.4
     });
   }
   function tileUVs(geo, w, h) {
@@ -305,14 +339,50 @@ export async function createView(canvas, opts) {
   let lastScene = null;
   function placeCamera(sceneData, forShot) {
     const fit = sceneData.fit || {};
-    const w = Math.max(40, (fit.x1 || 0) - (fit.x0 || 0));
-    const d = Math.max(40, (fit.z1 || 0) - (fit.z0 || 0));
-    const cx = fit.x1 != null ? (fit.x0 + fit.x1) / 2 : sceneData.cx || 0;
-    const cz = fit.z1 != null ? (fit.z0 + fit.z1) / 2 : sceneData.cz || 0;
-    const dist = Math.max(110, Math.min(900, Math.max(w, d) * 1.55 + (forShot ? 36 : 70)));
+    const x0 = fit.x0 != null ? fit.x0 : (sceneData.cx || 0) - 40;
+    const x1 = fit.x1 != null ? fit.x1 : (sceneData.cx || 0) + 40;
+    const z0 = fit.z0 != null ? fit.z0 : (sceneData.cz || 0) - 40;
+    const z1 = fit.z1 != null ? fit.z1 : (sceneData.cz || 0) + 40;
+    const w = Math.max(40, x1 - x0);
+    const d = Math.max(40, z1 - z0);
+    const cx = (x0 + x1) / 2;
+    const cz = (z0 + z1) / 2;
+    const inset = forShot ? 0.95 : 0.98;
+    const mx = (x0 + x1) / 2;
+    const mz = (z0 + z1) / 2;
+    const ix0 = mx + (x0 - mx) * inset;
+    const ix1 = mx + (x1 - mx) * inset;
+    const iz0 = mz + (z0 - mz) * inset;
+    const iz1 = mz + (z1 - mz) * inset;
+    const topY = (sceneData.height || 37) + 14;
     const pitch = 0.42;
     const yaw = -0.62;
-    const ty = forShot ? (sceneData.height || 37) * 0.42 : 16;
+    const ty = topY * (forShot ? 0.55 : 0.5);
+    const aspect = Math.max(0.42, camera.aspect || 1);
+    const fov = camera.fov * Math.PI / 180;
+    const tanV = Math.tan(fov / 2);
+    const tanH = tanV * aspect;
+    const cp = Math.cos(pitch);
+    const ox = cp * Math.sin(yaw);
+    const oy = Math.sin(pitch);
+    const oz = cp * Math.cos(yaw);
+    const rx = Math.cos(yaw);
+    const rz = -Math.sin(yaw);
+    const yx = -oy * ox / cp;
+    const yy = cp;
+    const yz = -oy * oz / cp;
+    const margin = forShot ? 1.0 : 0.94;
+    let dist = 80;
+    for (const x of [ix0, ix1]) for (const z of [iz0, iz1]) for (const y of [2, topY]) {
+      const vx = x - cx;
+      const vy = y - ty;
+      const vz = z - cz;
+      const depth = vx * ox + vy * oy + vz * oz;
+      const sx = vx * rx + vz * rz;
+      const sy = vx * yx + vy * yy + vz * yz;
+      dist = Math.max(dist, depth + Math.abs(sx) / (tanH * margin), depth + Math.abs(sy) / (tanV * margin));
+    }
+    dist = Math.max(70, Math.min(1800, dist));
     camera.position.set(
       cx + dist * Math.cos(pitch) * Math.sin(yaw),
       ty + dist * Math.sin(pitch),
@@ -328,8 +398,9 @@ export async function createView(canvas, opts) {
     sun.target.position.set(cx, 18, cz);
     scene.add(sun.target);
     sun.shadow.camera.updateProjectionMatrix();
-    patio.scale.set(span * 0.85, span * 0.85, 1);
+    patio.scale.set(span * 0.62, span * 0.62, 1);
     patio.position.set(cx, 0.04, cz);
+    showGrid(cx, cz, span);
     controls.update();
   }
   function loop() {
@@ -357,6 +428,7 @@ export async function createView(canvas, opts) {
       for (const part of parts) {
         let mesh;
         if (part.kind === "tube") mesh = tubeMesh(THREE, part, material(part.mat));
+        else if (part.kind === "cyl") mesh = cylMesh(THREE, part, material(part.mat));
         else if (part.kind === "barrel") mesh = barrelMesh(THREE, part, material(part.mat));
         else {
           const bw = Math.max(0.4, part.w);
@@ -381,15 +453,15 @@ export async function createView(canvas, opts) {
       const offset = camera.position.clone().sub(controls.target);
       offset.multiplyScalar(factor);
       const len = offset.length();
-      if (len < 45 || len > 1400) return;
+      if (len < 45 || len > 1800) return;
       camera.position.copy(controls.target).add(offset);
     },
     renderNow() { resize(); controls.update(); renderer.render(scene, camera); },
     captureFrame() {
       const pos = camera.position.clone();
       const target = controls.target.clone();
-      if (lastScene) placeCamera(lastScene, true);
       resize();
+      if (lastScene) placeCamera(lastScene, true);
       controls.update();
       renderer.render(scene, camera);
       camera.position.copy(pos);
