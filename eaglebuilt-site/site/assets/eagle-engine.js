@@ -168,7 +168,7 @@ const ITEM_RES = [
   [/\bdoors?\b/, "door"],
   [/\bsink\b/, "sink"],
   [/refrigerator|\bfridge\b|\bcooler\b|kegerator|\bkeg\b/, "fridge"],
-  [/\bgrill\b/, "grill"]
+  [/\b(?:bbq|barbeque|barbecue)(?:\s+grill)?\b|\bgrill\b/, "grill"]
 ];
 
 const UNKNOWN_RES = [
@@ -242,6 +242,8 @@ function prepareGearText(text) {
     .replace(/\bnext to the grill\b/g, " __next__ ")
     .replace(/\bbeside the grill\b/g, " __next__ ")
     .replace(/\bby the grill\b/g, " __next__ ")
+    .replace(/\bunder the (?:grill|bbq|barbecue|barbeque)\b/g, " __next__ ")
+    .replace(/\bunder it\b/g, " __next__ ")
     .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
     .replace(/\bunder the bar\b/g, " __bar__ ")
     .replace(/\bon the bar(?: side)?\b/g, " __bar__ ")
@@ -489,9 +491,9 @@ function refine(t, current) {
     grill.lengthIn += delta;
     return { spec, brief: true, notes: [delta > 0 ? "Made the grill leg longer." : "Made the grill leg shorter."] };
   }
-  const placed = /\b(left|right side|on the right|on the left|under the bar|next to|end of)\b/.test(t);
+  const placed = /\b(left|right side|on the right|on the left|under the bar|under the grill|under it|next to|end of)\b/.test(t);
   const add = t.match(/\badd (?:a |an )?(sink|fridge|refrigerator|side burner|single side burner|grill|power burner|griddle|trash|cooler)\b/);
-  if (add && !placed) {
+  if (add && !placed && findItems(t).length < 2) {
     const id = findItems(add[1])[0] || (add[1] === "cooler" || add[1] === "refrigerator" ? "fridge" : "");
     if (!id) return { clarify: "I can add a sink, fridge, side burner, grill, griddle, or trash drawer. That one isn't in the catalog." };
     const dest = spec.legs.find(l => l.role === "bar" && !l.items.includes(id))
@@ -556,9 +558,41 @@ function isFullLayout(t) {
   return findLengths(t).length > 0;
 }
 
+/* A fridge already on the right stays the right end. Left, right, and
+   "under the grill" insert around it instead of appending past it. */
+function placeOnLeg(leg, id, where) {
+  leg.items = (leg.items || []).filter(x => x !== id);
+  if (where === "right" || where === "end") {
+    leg.items.push(id);
+    leg.pinEnd = true;
+    return;
+  }
+  if (where === "left") {
+    leg.items.unshift(id);
+    return;
+  }
+  if (where === "next") {
+    const at = leg.items.findIndex(x => x === "grill" || x === "grill-40");
+    if (at >= 0) {
+      leg.items.splice(at + 1, 0, id);
+      if (leg.items[leg.items.length - 1] === "fridge") leg.pinEnd = true;
+      return;
+    }
+  }
+  const last = leg.items[leg.items.length - 1];
+  if ((last === "fridge" || last === "fridge-24") && id !== "fridge" && id !== "fridge-24") {
+    leg.items.splice(leg.items.length - 1, 0, id);
+    leg.pinEnd = true;
+    return;
+  }
+  leg.items.push(id);
+}
+
 /* Equipment with no shape or length is an add. It never starts an empty island. */
 function addEquipment(t, current) {
-  if (/\b(remove|delete)\b/.test(t) || isFullLayout(t)) return null;
+  /* "we have the 10 ft bar, now add a grill" is an add, not a new island. */
+  const adding = current && current.legs && current.legs.length && /\b(add|put|place)\b/.test(t);
+  if (/\b(remove|delete)\b/.test(t) || (isFullLayout(t) && !adding)) return null;
   const hits = [];
   for (const hit of findItemHits(t)) {
     if (!hits.some(h => h.id === hit.id)) hits.push(hit);
@@ -584,17 +618,12 @@ function addEquipment(t, current) {
   const spec = cloneSpec(current);
   const added = [];
   let changed = false;
-  for (const hit of ordered) {
+  const queue = [...left].reverse().concat(mid, right);
+  for (const hit of queue) {
     const dest = destLeg(spec, hit.where);
     const had = spec.legs.some(l => (l.items || []).includes(hit.id));
-    spec.legs.forEach(l => { l.items = (l.items || []).filter(id => id !== hit.id); });
-    if (hit.where === "left") dest.items.unshift(hit.id);
-    else if (hit.where === "next") {
-      const at = dest.items.findIndex(id => id === "grill" || id === "grill-40");
-      if (at >= 0) dest.items.splice(at + 1, 0, hit.id);
-      else dest.items.push(hit.id);
-    } else dest.items.push(hit.id);
-    dest.pinEnd = hit.where === "right" || hit.where === "end";
+    spec.legs.forEach(l => { if (l !== dest) l.items = (l.items || []).filter(id => id !== hit.id); });
+    placeOnLeg(dest, hit.id, hit.where);
     if (!had) {
       changed = true;
       added.push(hit);
