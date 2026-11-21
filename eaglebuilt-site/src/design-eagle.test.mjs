@@ -9,6 +9,9 @@ import {
   claimsSent,
   classifyTurn,
   decodeDesign,
+  holdLongEnough,
+  prefersScribe,
+  usableTranscript,
   interpret,
   saveReply,
   summaryReply,
@@ -975,5 +978,24 @@ describe("design eagle miss log", () => {
     const entry = [...kv.store.entries()].find(([key]) => key.startsWith("miss:"));
     assert.ok(entry);
     assert.equal(entry[1].opts.expirationTtl, 30 * 24 * 60 * 60);
+  });
+});
+
+describe("hold to talk", () => {
+  test("short holds and junk transcripts are not a design turn", () => {
+    assert.equal(holdLongEnough(299), false);
+    assert.equal(holdLongEnough(300), true);
+    assert.equal(usableTranscript(""), "");
+    assert.equal(usableTranscript("[music]"), "");
+    assert.equal(usableTranscript("[outro jingle]"), "");
+    assert.equal(usableTranscript("grill"), "");
+    assert.equal(usableTranscript("um add a grill"), "um add a grill");
+  });
+
+  test("iPhone Safari records for Scribe instead of webkit speech", () => {
+    const iphone = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1";
+    const android = "Mozilla/5.0 (Linux; Android 14; Pixel) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36";
+    assert.equal(prefersScribe(iphone), true);
+    assert.equal(prefersScribe(android), false);
   });
 });

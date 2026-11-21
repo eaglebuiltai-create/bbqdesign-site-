@@ -1238,6 +1238,26 @@ function plainWords(text) {
 
 /* A turn worth keeping for the training log. Null means the layout landed
    and there is nothing to learn from. Contact-shaped text is never a miss. */
+export function holdLongEnough(ms) {
+  return Number(ms) >= 300;
+}
+
+/* Bracketed non-speech tags and one-word scraps are not a design request. */
+export function usableTranscript(text) {
+  const raw = String(text || "").replace(/\[[^\]]*\]/g, " ").replace(/\s+/g, " ").trim();
+  if (!raw) return "";
+  const words = raw.split(" ").filter(word => /[a-z0-9]/i.test(word));
+  if (words.length < 2) return "";
+  return words.join(" ");
+}
+
+export function prefersScribe(ua) {
+  const agent = String(ua || "");
+  const iOS = /iPhone|iPad|iPod/.test(agent);
+  const safari = /Safari/.test(agent) && !/CriOS|FxiOS|EdgiOS|Chrome|Android/.test(agent);
+  return iOS && safari;
+}
+
 export function classifyTurn(text, reply, before, after, prevText) {
   const t = String(text || "").trim();
   const r = String(reply || "");

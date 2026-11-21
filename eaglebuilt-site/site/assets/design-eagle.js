@@ -3,7 +3,7 @@
  * Typed turns and a future voice transcript both call applyTurn(), which
  * runs the same layout engine. The 3D view is the existing designer.
  */
-import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn } from "./eagle-engine.js";
+import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn, usableTranscript, holdLongEnough, prefersScribe } from "./eagle-engine.js";
 import { HANDOFF, wantsSave } from "./eagle-voice.js";
 
 const state = {
@@ -17,7 +17,8 @@ const state = {
   voiceOn: false,
   pendingRefine: null,
   heard: "",
-  prevText: ""
+  prevText: "",
+  listening: false
 };
 
 const log = document.getElementById("log");
@@ -101,6 +102,8 @@ function showDesign(code) {
   else frame.contentWindow.postMessage({ source: "design-eagle", type: "load", code }, location.origin);
   try { sessionStorage.setItem("de:" + code, JSON.stringify(state.spec)); } catch (e) {}
   if (location.hash !== "#d=" + code) history.replaceState(null, "", "#d=" + code);
+  const stage = document.querySelector(".stage");
+  if (stage && stage.scrollIntoView) stage.scrollIntoView({ block: "start", inline: "nearest" });
 }
 
 function requestShot() {
@@ -278,8 +281,16 @@ async function onSave(event) {
   }
 }
 
-function openChat() { document.body.classList.add("chat-open"); }
-function closeChat() { document.body.classList.remove("chat-open"); }
+function openChat() {
+  document.body.classList.add("chat-open");
+  const chat = document.getElementById("chat");
+  if (chat && chat.scrollIntoView) chat.scrollIntoView({ block: "nearest" });
+}
+function closeChat() {
+  document.body.classList.remove("chat-open");
+  const stage = document.querySelector(".stage");
+  if (stage && stage.scrollIntoView) stage.scrollIntoView({ block: "start" });
+}
 
 paintBrand();
 const saveBtn = document.createElement("button");
@@ -291,7 +302,6 @@ saveBtn.hidden = true;
 document.querySelector(".composer").appendChild(saveBtn);
 saveBtn.addEventListener("click", () => openSaveForm());
 
-openChat();
 addMsg("bot", "Describe the island you want. For example: L-shape, 10 ft grill leg with a side burner and a fridge, 5 ft bar with 3 stools.");
 
 const hash = location.hash.match(/^#d=(.+)$/);
@@ -317,6 +327,8 @@ document.getElementById("saveBack").addEventListener("click", () => {
 });
 document.getElementById("showChat").addEventListener("click", openChat);
 document.getElementById("hideChat").addEventListener("click", closeChat);
+const seeIsland = document.getElementById("seeIsland");
+if (seeIsland) seeIsland.addEventListener("click", closeChat);
 
 window.DesignEagle = {
   applyTurn,
@@ -342,7 +354,7 @@ async function ensureVoice() {
 }
 
 async function speak(text, grant) {
-  if (!state.voiceOn || !state.voiceToken || !text) return;
+  if (state.listening || !state.voiceOn || !state.voiceToken || !text) return;
   stopTalking();
   try {
     const res = await fetch("/api/design-eagle/voice/speak", {
@@ -352,6 +364,7 @@ async function speak(text, grant) {
     });
     const next = res.headers.get("X-Voice-Token");
     if (next) state.voiceToken = next;
+    if (state.listening) return;
     if (!res.ok) {
       if (res.status === 429 || res.status === 401) {
         state.voiceOn = false;
@@ -361,9 +374,23 @@ async function speak(text, grant) {
       return;
     }
     const blob = await res.blob();
+    if (state.listening) return;
     audio.src = URL.createObjectURL(blob);
     audio.play().catch(() => {});
   } catch (e) {}
+}
+
+function missHint() {
+  state.listening = false;
+  state.heard = "";
+  live.hidden = false;
+  live.textContent = "Didn't catch that, hold and talk";
+  micLabel("Hold to talk");
+}
+
+function micLabel(text) {
+  const mic = document.getElementById("mic");
+  if (mic) mic.textContent = text;
 }
 
 function wireMic() {
@@ -371,16 +398,84 @@ function wireMic() {
   const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
   let rec = null;
   let media = null;
+  let stream = null;
   let chunks = [];
+  let aborted = false;
+  let startedAt = 0;
+  let forceScribe = prefersScribe(navigator.userAgent);
 
-  async function start(e) {
-    e.preventDefault();
+  function useScribe() {
+    return forceScribe || !Rec;
+  }
+
+  function beginRecorder() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      missHint();
+      return;
+    }
+    const pending = navigator.mediaDevices.getUserMedia({ audio: true });
+    pending.then(got => {
+      if (aborted) {
+        got.getTracks().forEach(track => track.stop());
+        state.listening = false;
+        return;
+      }
+      stream = got;
+      chunks = [];
+      media = new MediaRecorder(stream);
+      media.ondataavailable = (ev) => { if (ev.data && ev.data.size) chunks.push(ev.data); };
+      media.onstop = () => {
+        const tracks = stream ? stream.getTracks() : [];
+        tracks.forEach(track => track.stop());
+        stream = null;
+        const recorded = chunks.slice();
+        const type = media && media.mimeType || "audio/webm";
+        media = null;
+        if (aborted || !holdLongEnough(performance.now() - startedAt)) {
+          missHint();
+          return;
+        }
+        finishRecording(recorded, type);
+      };
+      media.start();
+    }).catch(() => missHint());
+  }
+
+  async function finishRecording(recorded, type) {
+    state.listening = false;
+    const blob = new Blob(recorded, { type: type || "audio/webm" });
+    if (!blob.size) { missHint(); return; }
+    const body = new FormData();
+    body.set("audio", blob, prefersScribe(navigator.userAgent) ? "speech.mp4" : "speech.webm");
+    live.textContent = "Hearing that…";
+    try {
+      const res = await fetch("/api/design-eagle/voice/transcribe", { method: "POST", body });
+      const data = await res.json();
+      const said = usableTranscript(data && data.text);
+      if (!said || state.listening) { missHint(); return; }
+      applyTurn(said, "voice");
+    } catch (err) {
+      missHint();
+    }
+  }
+
+  function start(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    aborted = false;
+    startedAt = performance.now();
+    state.listening = true;
+    state.heard = "";
     stopTalking();
-    await ensureVoice();
+    try { if (e && mic.setPointerCapture) mic.setPointerCapture(e.pointerId); } catch (err) {}
     live.hidden = false;
     live.textContent = "Listening…";
-    mic.textContent = "Listening…";
-    if (Rec) {
+    mic.textContent = "Listening… release to send";
+    ensureVoice();
+    if (useScribe()) {
+      beginRecorder();
+      return;
+    }
+    try {
       rec = new Rec();
       rec.lang = "en-US";
       rec.interimResults = true;
@@ -391,49 +486,46 @@ function wireMic() {
         live.textContent = said;
         state.heard = said;
       };
+      rec.onerror = () => { forceScribe = true; beginRecorder(); };
       rec.onend = () => {
-        const said = state.heard;
-        state.heard = "";
+        const heard = state.heard;
+        const elapsed = performance.now() - startedAt;
         rec = null;
-        live.hidden = !said;
-        if (said) applyTurn(said, "voice");
-      };
-      rec.onerror = () => { live.textContent = "The mic didn't start. You can type instead."; };
-      try { rec.start(); } catch (err) { live.textContent = "The mic didn't start. You can type instead."; }
-      return;
-    }
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      chunks = [];
-      media = new MediaRecorder(stream);
-      media.ondataavailable = (ev) => { if (ev.data && ev.data.size) chunks.push(ev.data); };
-      media.onstop = async () => {
-        stream.getTracks().forEach(t => t.stop());
-        const blob = new Blob(chunks, { type: media.mimeType || "audio/webm" });
-        const body = new FormData();
-        body.set("audio", blob, "speech.webm");
-        live.textContent = "Hearing that…";
-        try {
-          const res = await fetch("/api/design-eagle/voice/transcribe", { method: "POST", body });
-          const data = await res.json();
-          if (data.text) applyTurn(data.text, "voice");
-          else live.textContent = data.error || "I didn't catch that. You can type it.";
-        } catch (err) {
-          live.textContent = "I didn't catch that. You can type it.";
+        if (aborted || !holdLongEnough(elapsed)) { missHint(); return; }
+        const said = usableTranscript(heard);
+        if (!said && elapsed < 500) {
+          forceScribe = true;
+          missHint();
+          return;
         }
+        state.listening = false;
+        if (!said) { missHint(); return; }
+        applyTurn(said, "voice");
       };
-      media.start();
+      rec.start();
     } catch (err) {
-      live.textContent = "The mic didn't start. You can type instead.";
+      forceScribe = true;
+      beginRecorder();
     }
   }
 
   function stop() {
+    const elapsed = performance.now() - startedAt;
+    if (!holdLongEnough(elapsed)) {
+      aborted = true;
+      if (rec) { try { rec.stop(); } catch (e) {} rec = null; }
+      if (media && media.state === "recording") { try { media.stop(); } catch (e) {} }
+      else if (stream) { stream.getTracks().forEach(track => track.stop()); stream = null; }
+      missHint();
+      return;
+    }
     mic.textContent = "Hold to talk";
     if (rec) {
       try { rec.stop(); } catch (e) {}
     } else if (media && media.state === "recording") {
-      media.stop();
+      try { media.stop(); } catch (e) {}
+    } else {
+      state.listening = false;
     }
   }
 
@@ -443,4 +535,5 @@ function wireMic() {
   mic.addEventListener("pointerleave", (e) => { if (e.buttons) stop(); });
 }
 
+ensureVoice();
 wireMic();
