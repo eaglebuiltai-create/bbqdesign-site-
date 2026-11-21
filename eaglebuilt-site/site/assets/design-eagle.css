@@ -157,36 +157,6 @@ body[data-embed="1"] .shell { height: 100dvh; }
   text-decoration: none;
   font-weight: 750;
 }
-.viewbar {
-  display: none;
-  gap: 8px;
-  padding: 8px 10px;
-  background: var(--bg2);
-  border-top: 1px solid var(--line);
-  order: 1;
-}
-.viewbar button {
-  flex: 1;
-  min-height: 40px;
-  border-radius: 999px;
-  border: 1px solid #2A3B57;
-  background: transparent;
-  font-weight: 750;
-}
-.toggle {
-  display: none;
-  position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: max(10px, env(safe-area-inset-bottom));
-  z-index: 5;
-  border: 0;
-  border-radius: 999px;
-  min-height: 44px;
-  font-weight: 750;
-  color: #fff;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
-}
 .live {
   flex: 1 0 100%;
   margin: 0;
@@ -225,7 +195,6 @@ body[data-embed="1"] .shell { height: 100dvh; }
     height: auto;
     order: 0;
   }
-  .viewbar { display: flex; flex: 0 0 auto; }
   .chat {
     position: relative;
     flex: 1 1 auto;
@@ -239,9 +208,30 @@ body[data-embed="1"] .shell { height: 100dvh; }
     border-radius: 0;
     transform: none;
   }
-  .composer, .save { flex-shrink: 0; }
+  .composer, .save, .book { flex-shrink: 0; }
+  .book {
+    order: 5;
+    margin: 0;
+    padding: 8px 10px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--bg2);
+  }
+  .book h3, .book p { display: none; }
+  .book a.btn { width: 100%; justify-content: center; min-height: 40px; font-size: 0; }
+  .book a.btn::before { content: "Book a session"; font-size: 14px; }
   .log { min-height: 0; }
-  .toggle { display: none; }
+}
+@media (max-width: 480px) {
+  .composer { flex-wrap: wrap; }
+  .live, .composer input { flex: 1 0 100%; }
+  #mic, #composer > .go, #openSave {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .chat { transition: none; }

@@ -58,12 +58,18 @@ function paintBrand() {
   if (location.search.indexOf("embed=1") !== -1) document.body.dataset.embed = "1";
 }
 
+function revealLatest() {
+  log.scrollTop = log.scrollHeight;
+  const thread = log.closest(".thread");
+  if (thread) thread.scrollTop = thread.scrollHeight;
+}
+
 function addMsg(role, text) {
   const el = document.createElement("div");
   el.className = "msg " + role;
   el.textContent = text;
   log.appendChild(el);
-  log.scrollTop = log.scrollHeight;
+  revealLatest();
   return el;
 }
 
@@ -87,7 +93,7 @@ function showPrice(total) {
     log.appendChild(price);
   }
   price.textContent = label;
-  log.scrollTop = log.scrollHeight;
+  revealLatest();
 }
 
 function showDesign(code) {
@@ -154,64 +160,74 @@ function noteMiss(body) {
   } catch (e) {}
 }
 
+function clearLive() {
+  if (state.listening) return;
+  live.hidden = true;
+  live.textContent = "";
+}
+
 async function applyTurn(text, source) {
   const clean = String(text || "").trim();
-  if (!clean) return;
-  addMsg("user", clean);
-  if (state.spec && wantsSave(clean)) {
-    openSaveForm();
-    return;
-  }
-  const before = state.spec ? JSON.parse(JSON.stringify(state.spec)) : null;
-  let result = interpret(clean, state.spec);
-  if (!result.handled) {
-    try {
-      const res = await fetch("/api/design-eagle", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: clean, spec: state.spec, source: source || "typed" })
+  try {
+    if (!clean) return;
+    addMsg("user", clean);
+    if (state.spec && wantsSave(clean)) {
+      openSaveForm();
+      return;
+    }
+    const before = state.spec ? JSON.parse(JSON.stringify(state.spec)) : null;
+    let result = interpret(clean, state.spec);
+    if (!result.handled) {
+      try {
+        const res = await fetch("/api/design-eagle", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: clean, spec: state.spec, source: source || "typed" })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.reply) result = data;
+        }
+      } catch (e) {}
+    }
+    let reply = String(result.reply || "");
+    if (claimsSent(reply)) {
+      reply = "I'll keep the drawing here. Call " + CONFIG.phoneDisplay + " if you'd rather talk it through.";
+    }
+    if (result.spec && result.code && !wouldWipe(state.spec, result)) {
+      state.link = result.link || state.link;
+      const same = result.code === state.code;
+      state.spec = result.spec;
+      if (!same) showDesign(result.code);
+    }
+    const el = addMsg("bot", reply);
+    if (result.kind === "refine") {
+      el.dataset.base = reply.replace(/\.$/, "");
+      state.pendingRefine = el;
+      setTimeout(() => {
+        if (state.pendingRefine === el) {
+          state.pendingRefine = null;
+          speak(el.textContent);
+        }
+      }, 1800);
+    } else if (source === "voice" || state.voiceOn) {
+      speak(reply);
+    }
+    const kind = classifyTurn(clean, reply, before, state.spec, state.prevText);
+    state.prevText = clean;
+    if (kind) {
+      noteMiss({
+        text: clean,
+        reply,
+        kind,
+        specBefore: before,
+        specAfter: state.spec,
+        source: source === "voice" ? "voice" : "typed",
+        ts: Date.now()
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.reply) result = data;
-      }
-    } catch (e) {}
-  }
-  let reply = String(result.reply || "");
-  if (claimsSent(reply)) {
-    reply = "I'll keep the drawing here. Call " + CONFIG.phoneDisplay + " if you'd rather talk it through.";
-  }
-  if (result.spec && result.code && !wouldWipe(state.spec, result)) {
-    state.link = result.link || state.link;
-    const same = result.code === state.code;
-    state.spec = result.spec;
-    if (!same) showDesign(result.code);
-  }
-  const el = addMsg("bot", reply);
-  if (result.kind === "refine") {
-    el.dataset.base = reply.replace(/\.$/, "");
-    state.pendingRefine = el;
-    setTimeout(() => {
-      if (state.pendingRefine === el) {
-        state.pendingRefine = null;
-        speak(el.textContent);
-      }
-    }, 1800);
-  } else if (source === "voice" || state.voiceOn) {
-    speak(reply);
-  }
-  const kind = classifyTurn(clean, reply, before, state.spec, state.prevText);
-  state.prevText = clean;
-  if (kind) {
-    noteMiss({
-      text: clean,
-      reply,
-      kind,
-      specBefore: before,
-      specAfter: state.spec,
-      source: source === "voice" ? "voice" : "typed",
-      ts: Date.now()
-    });
+    }
+  } finally {
+    if (source === "voice") clearLive();
   }
 }
 
@@ -275,21 +291,10 @@ async function onSave(event) {
   document.getElementById("save").hidden = true;
   document.getElementById("composer").hidden = false;
   book.hidden = false;
-  book.scrollIntoView({ block: "nearest" });
+  revealLatest();
   if (data && data.leadSubmitted && window.ebTrack) {
     window.ebTrack("design_lead", { tool: "Design Eagle" });
   }
-}
-
-function openChat() {
-  document.body.classList.add("chat-open");
-  const chat = document.getElementById("chat");
-  if (chat && chat.scrollIntoView) chat.scrollIntoView({ block: "nearest" });
-}
-function closeChat() {
-  document.body.classList.remove("chat-open");
-  const stage = document.querySelector(".stage");
-  if (stage && stage.scrollIntoView) stage.scrollIntoView({ block: "start" });
 }
 
 paintBrand();
@@ -325,10 +330,6 @@ document.getElementById("saveBack").addEventListener("click", () => {
   document.getElementById("save").hidden = true;
   document.getElementById("composer").hidden = false;
 });
-document.getElementById("showChat").addEventListener("click", openChat);
-document.getElementById("hideChat").addEventListener("click", closeChat);
-const seeIsland = document.getElementById("seeIsland");
-if (seeIsland) seeIsland.addEventListener("click", closeChat);
 
 window.DesignEagle = {
   applyTurn,
