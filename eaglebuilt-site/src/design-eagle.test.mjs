@@ -175,6 +175,77 @@ describe("design eagle layout", () => {
     assert.match(tv.reply, /TV isn't in the catalog/);
   });
 
+  test("voice equipment adds stay on the island", () => {
+    const john = "a Blaze grill and a Blaze combo unit, and a Blaze refrigerator on the right side";
+    const variants = [
+      john,
+      "blaze grill and a blaze combo unit and a blaze refrigerator on the right side",
+      "uh a blaze grill and um a combo unit and a fridge on the right",
+      "blaze 32 grill",
+      "a forty inch grill and a double side burner",
+      "side burner combo on the right",
+      "put a refrigerator on the right side",
+      "add a trash pull-out next to the grill",
+      "doors and drawers under the bar",
+      "ice maker on the left",
+      "can I get a sink and a blaze grill",
+      "I want a blaze grill and a combo and a refrigerator",
+      "thirty two inch grill and a combo unit and a fridge"
+    ];
+    assert.ok(variants.length >= 11);
+    for (const line of variants) {
+      const result = drawn(line);
+      const gear = result.spec.legs.flatMap(l => l.items);
+      assert.ok(gear.length > 0, line);
+      const keys = decodeDesign(result.code).m.map(row => row[0]);
+      assert.ok(keys.some(k => !String(k).startsWith("fill")), line);
+      assert.doesNotMatch(result.reply, /How long should it be/);
+    }
+
+    const full = drawn(john);
+    assert.equal(full.spec.shape, "straight");
+    assert.deepEqual(full.spec.legs[0].items, ["grill", "combo", "fridge"]);
+    const rows = decodeDesign(full.code).m;
+    const gearKeys = rows.map(row => row[0]).filter(k => !String(k).startsWith("fill"));
+    assert.deepEqual(gearKeys, ["BLZ-4LTE3", "BLZ-DDC-R-LTSC", "BLZ-SSRF20-4.3"]);
+    assert.equal(rows.find(row => row[0] === "BLZ-4LTE3")[5], "");
+
+    let step = drawn("Blaze grill");
+    assert.deepEqual(step.spec.legs[0].items, ["grill"]);
+    step = drawn("add a Blaze combo unit", step.spec);
+    assert.deepEqual(step.spec.legs[0].items, ["grill", "combo"]);
+    step = drawn("put a Blaze fridge on the right side", step.spec);
+    assert.deepEqual(step.spec.legs[0].items, ["grill", "combo", "fridge"]);
+    const placed = decodeDesign(step.code).m.map(row => row[0]).filter(k => !String(k).startsWith("fill"));
+    assert.equal(placed[placed.length - 1], "BLZ-SSRF20-4.3");
+
+    const kept = interpret("hmm I don't know", step.spec);
+    assert.deepEqual(kept.spec.legs[0].items, ["grill", "combo", "fridge"]);
+    assert.equal(kept.code, step.code);
+    assert.match(kept.reply, /kept this layout/i);
+
+    const burner = drawn("side burner combo on the right");
+    assert.deepEqual(burner.spec.legs[0].items, ["side-burner"]);
+    assert.ok(decodeDesign(burner.code).m.some(row => row[0] === "BLZ-SB2-LTEPLUS"));
+
+    const sized = drawn("a forty inch grill and a double side burner");
+    assert.deepEqual(sized.spec.legs[0].items, ["grill-40", "side-burner"]);
+    const ice = drawn("ice maker on the left");
+    assert.deepEqual(ice.spec.legs[0].items, ["ice"]);
+    assert.ok(decodeDesign(ice.code).m.some(row => row[0] === "BLZ-ICEMKR-50GR"));
+    const trash = drawn("add a trash pull-out next to the grill");
+    assert.ok(trash.spec.legs[0].items.includes("trash"));
+    assert.ok(decodeDesign(trash.code).m.some(row => row[0] === "BLZ-TRLP-DRW-H"));
+
+    let island = drawn("L-shape, 10 ft grill leg with a grill, 5 ft bar");
+    island = drawn("doors and drawers under the bar", island.spec);
+    assert.ok(island.spec.legs[0].items.includes("grill"));
+    assert.ok(island.spec.legs[1].items.includes("door"));
+    assert.ok(island.spec.legs[1].items.includes("drawer"));
+    assert.equal(decodeDesign(island.code).m.find(row => row[0] === "BLZ-AD32-R-SC") != null, true);
+    assert.equal(decodeDesign(island.code).m.find(row => row[0] === "BLZ-DRW2-R-LT") != null, true);
+  });
+
   test("a model payload cannot invent a price, a piece, or a send", () => {
     const result = applyModelSpec({
       action: "spec",
@@ -192,6 +263,12 @@ describe("design eagle layout", () => {
     const question = applyModelSpec({ action: "clarify", question: "I emailed you the L-shape." }, null);
     assert.equal(claimsSent(question.reply), false);
     assert.match(question.reply, /\(916\) 359-9692/);
+    const kept = applyModelSpec({
+      action: "spec",
+      spec: { shape: "straight", legs: [{ role: "main", lengthIn: 96, items: [] }] }
+    }, result.spec);
+    assert.deepEqual(kept.spec.legs[0].items, ["grill"]);
+    assert.match(kept.reply, /kept this layout/i);
   });
 });
 

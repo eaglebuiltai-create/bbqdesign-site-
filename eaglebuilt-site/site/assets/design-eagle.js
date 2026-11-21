@@ -131,6 +131,15 @@ window.addEventListener("message", (e) => {
   }
 });
 
+function gearCount(spec) {
+  if (!spec || !Array.isArray(spec.legs)) return 0;
+  return spec.legs.reduce((n, l) => n + (Array.isArray(l.items) ? l.items.filter(Boolean).length : 0), 0);
+}
+
+function wouldWipe(current, result) {
+  return !!(current && gearCount(current) && result.kind !== "refine" && !gearCount(result.spec));
+}
+
 async function applyTurn(text, source) {
   const clean = String(text || "").trim();
   if (!clean) return;
@@ -157,10 +166,11 @@ async function applyTurn(text, source) {
   if (claimsSent(reply)) {
     reply = "I'll keep the drawing here. Call " + CONFIG.phoneDisplay + " if you'd rather talk it through.";
   }
-  if (result.spec && result.code) {
+  if (result.spec && result.code && !wouldWipe(state.spec, result)) {
+    state.link = result.link || state.link;
+    const same = result.code === state.code;
     state.spec = result.spec;
-    state.link = result.link || "";
-    showDesign(result.code);
+    if (!same) showDesign(result.code);
   }
   const el = addMsg("bot", reply);
   if (result.kind === "refine") {
