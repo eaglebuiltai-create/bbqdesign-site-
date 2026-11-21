@@ -2065,7 +2065,8 @@ const S = {
   mountSize: "auto",
   addons: { paint:false, trash:true },
   sel: null,
-  nextId: 1
+  nextId: 1,
+  legLens: null           // spec leg lengths from a Design Eagle code, inches
 };
 /* The customer's patio photo. Session-only and deliberately outside S: a data
    URL runs to megabytes, which would blow past the localStorage quota and make
@@ -3554,8 +3555,15 @@ function runs(){
   }).sort((a, b) => b.len - a.len);
 }
 
-/* L and U: the bounding box is one number that hides the legs. Show each run. */
+/* L and U: the bounding box is one number that hides the legs. Show each run.
+   A Design Eagle code carries the spec lengths. Measuring the drawn modules
+   instead counts a wide door under a narrow side burner and turns 10 ft into 11. */
 function islandLegLabel() {
+  if (Array.isArray(S.legLens) && S.legLens.length >= 2) {
+    const feet = (n) => Math.max(1, Math.round(n / 12)) + "'";
+    const rest = S.legLens.slice(1).map(feet);
+    return feet(S.legLens[0]) + " + " + rest.join(" + ") + (rest.length > 1 ? " returns" : " return");
+  }
   const R = runs();
   if (!R || R.length < 2) return "";
   const bare = (run) => {
@@ -6646,6 +6654,7 @@ function encodeState(){
     bar: S.bar.on ? [S.bar.depth, S.bar.rise] : 0,
     ol: S.outlets, ms: S.mountSize, fc: S.finishColor, fr: S.frame,
     a: Object.keys(S.addons).filter(k => S.addons[k]),
+    lg: Array.isArray(S.legLens) && S.legLens.length >= 2 ? S.legLens.slice() : undefined,
     /* Kept out of the module tuple so an ordinary design's share code does not
        grow: only the pieces that are actually the customer's own appear here. */
     og: S.mods.map((m, i) => m.og ? i : -1).filter(i => i >= 0),
@@ -6724,6 +6733,10 @@ function decodeState(str){
     S.mountSize = /^(auto|small|large)$/.test(o.ms) ? o.ms : "auto";
     S.finishColor = clamp(+o.fc||0, 0, 3);
     S.addons = {}; (o.a||[]).forEach(k => S.addons[k] = true);
+    S.legLens = Array.isArray(o.lg) && o.lg.length >= 2
+      ? o.lg.map(n => Math.round(+n)).filter(n => n > 0)
+      : null;
+    if (!S.legLens || S.legLens.length < 2) S.legLens = null;
     return true;
   } catch(err){ return false; }
 }
@@ -8214,6 +8227,7 @@ function setIslandLength(target){
   if (!row){ toast("Add some pieces first"); syncControls(); return; }
   let need = clamp(target, 12, 1200) - rowLength(row);
   if (Math.abs(need) < 0.25){ syncControls(); return; }
+  S.legLens = null;
 
   const MINRUN = 3;
   let flex = row.filter(isFlex);

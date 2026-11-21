@@ -1403,9 +1403,21 @@ export function encodeDesign(spec, mods) {
     fr: spec.frame || "cmu",
     a: ["trash"],
     og: [],
-    cu: []
+    cu: [],
+    /* Spec leg lengths, grill run first. The designer chip reads these so a
+       wider cabinet face under a narrow appliance cannot change the size. */
+    lg: (spec.legs || []).map(l => Math.round(l.lengthIn))
   };
   return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/=+$/, "");
+}
+
+/* "10' + 6' + 6' returns". The first leg is the grill run. */
+export function legChip(spec) {
+  const legs = spec && spec.legs || [];
+  if (legs.length < 2) return "";
+  const feet = (n) => Math.max(1, Math.round(Number(n) / 12)) + "'";
+  const rest = legs.slice(1).map(l => feet(l.lengthIn));
+  return feet(legs[0].lengthIn) + " + " + rest.join(" + ") + (rest.length > 1 ? " returns" : " return");
 }
 
 export function decodeDesign(code) {

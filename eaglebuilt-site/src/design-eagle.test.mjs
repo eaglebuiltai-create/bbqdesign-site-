@@ -9,6 +9,7 @@ import {
   claimsSent,
   classifyTurn,
   decodeDesign,
+  legChip,
   holdLongEnough,
   prefersScribe,
   usableTranscript,
@@ -1164,6 +1165,7 @@ describe("john's L-shape conversation", () => {
     let step = drawn("like to build a 10 ft long L shape with a 17 ft return");
     assert.equal(step.spec.barOn, false);
     assert.deepEqual(step.spec.legs.map(l => l.lengthIn), [120, 204]);
+    assert.equal(legChip(step.spec), "10' + 17' return");
     step = drawn("got a grill Blaze Grill 32 inch with a combo unit just below the grill a refrigerator a table top walk a side burner a drawer unit three drawers another access door 32 in and a refrigerator", step.spec);
     assert.equal(step.spec.legs[0].lengthIn, 120);
     assert.equal(step.spec.legs[1].lengthIn, 204);
@@ -1228,6 +1230,8 @@ describe("U shape segments", () => {
     const result = drawn(U_LINE);
     assert.equal(result.spec.shape, "yu");
     assert.deepEqual(result.spec.legs.map(l => l.lengthIn), [120, 72, 72]);
+    assert.equal(legChip(result.spec), "10' + 6' + 6' returns");
+    assert.deepEqual(decodeDesign(result.code).lg, [120, 72, 72]);
     assert.deepEqual(result.spec.legs[0].items, ["grill", "side-burner", "fridge"]);
     assert.equal(result.spec.legs[0].bases.grill, "combo");
     assert.equal(result.spec.legs[0].bases["side-burner"], "door");
@@ -1248,6 +1252,12 @@ describe("U shape segments", () => {
     assert.deepEqual(keys(270).filter(key => !String(key).startsWith("fill")), ["ctpizza"]);
     assert.deepEqual(keys(90).filter(key => !String(key).startsWith("fill")), ["BLZ-DRW3-R-LT", "BLZ-GRIDDLE-LTE3"]);
     assertCleanReply(result.reply);
+  });
+
+  test("the size chip reads the spec lengths, not the drawn modules", () => {
+    const page = readFileSync(new URL("../site/design/app/index.html", import.meta.url), "utf8");
+    assert.match(page, /S\.legLens/);
+    assert.match(page, /wider cabinet face|wide door under a narrow/);
   });
 
   test("next part, other side, third side, corner, and left or right leg split a U", () => {
