@@ -4,7 +4,7 @@
  * runs the same layout engine. The 3D view is the existing designer.
  */
 import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn, usableTranscript, holdLongEnough, prefersScribe } from "./eagle-engine.js";
-import { HANDOFF, wantsSave } from "./eagle-voice.js";
+import { HANDOFF, spokenSummary, wantsSave } from "./eagle-voice.js";
 
 const state = {
   spec: null,
@@ -354,31 +354,37 @@ async function ensureVoice() {
   } catch (e) {}
 }
 
+function voicePaused(why) {
+  console.log("design-eagle voice: " + why);
+  live.hidden = false;
+  live.textContent = "Voice is paused, reply is on screen";
+}
+
 async function speak(text, grant) {
-  if (state.listening || !state.voiceOn || !state.voiceToken || !text) return;
+  const summary = spokenSummary(text);
+  if (state.listening || !state.voiceOn || !state.voiceToken || !summary) return;
   stopTalking();
   try {
     const res = await fetch("/api/design-eagle/voice/speak", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: state.voiceToken, text, grant: grant || "" })
+      body: JSON.stringify({ token: state.voiceToken, text: summary, grant: grant || "" })
     });
     const next = res.headers.get("X-Voice-Token");
     if (next) state.voiceToken = next;
     if (state.listening) return;
     if (!res.ok) {
-      if (res.status === 429 || res.status === 401) {
-        state.voiceOn = false;
-        live.hidden = false;
-        live.textContent = "Voice time is up for this visit. You can keep typing.";
-      }
+      if (res.status === 429 || res.status === 401) state.voiceOn = false;
+      voicePaused("speak http " + res.status);
       return;
     }
     const blob = await res.blob();
     if (state.listening) return;
     audio.src = URL.createObjectURL(blob);
-    audio.play().catch(() => {});
-  } catch (e) {}
+    audio.play().catch((err) => voicePaused("play rejected " + (err && err.name || "")));
+  } catch (e) {
+    voicePaused("speak failed");
+  }
 }
 
 function missHint() {

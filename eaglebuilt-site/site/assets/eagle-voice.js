@@ -81,16 +81,32 @@ export async function readVoiceToken(secret, token) {
   }
 }
 
+export function spokenSummary(text) {
+  const clean = String(text || "")
+    .replace(/\$[\d,]+(?:\.\d+)?/g, "")
+    .replace(/["“”]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  const sentences = clean.split(/(?<=\.)\s+/).filter(sentence => {
+    return sentence && !/price on the design|filler panel|build rate covers|no equipment price/i.test(sentence);
+  });
+  let out = sentences.slice(0, 2).join(" ");
+  if (out.length > 250) out = out.slice(0, 247).replace(/\s+\S*$/, "").replace(/\.+$/, "") + ".";
+  if (out && !/[.!?]$/.test(out)) out += ".";
+  return out;
+}
+
 export function newVoiceSession() {
   const now = Date.now();
   return {
     exp: now + CONFIG.voiceLimits.sessionMs,
-    left: CONFIG.voiceLimits.sessionChars
+    left: CONFIG.voiceLimits.sessionChars,
+    gen: 0
   };
 }
 
 export function spendVoiceSession(session, chars) {
   const n = Math.max(0, Math.round(chars) || 0);
   if (!session || n > session.left || n > CONFIG.voiceLimits.maxChars) return null;
-  return { exp: session.exp, left: session.left - n };
+  return { exp: session.exp, left: session.left - n, gen: session.gen || 0 };
 }

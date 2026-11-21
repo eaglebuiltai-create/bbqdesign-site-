@@ -69,9 +69,11 @@ export const CONFIG = {
     sttModelId: "scribe_v2"
   },
   voiceLimits: {
-    sessionMs: 8 * 60 * 1000,
-    sessionChars: 3500,
-    maxChars: 900
+    sessionMs: 30 * 60 * 1000,
+    sessionChars: 8000,
+    maxChars: 900,
+    /* One refresh after the budget runs low. 16k chars a visit stays well under a Creator month. */
+    maxRenew: 1
   }
 };
 
@@ -113,6 +115,7 @@ export const CATALOG = {
   power: { k: "BLZ-PBLTE3", spoken: "a power burner", w: 16, p: 1499 },
   griddle: { k: "BLZ-GRIDDLE-LTE3", spoken: "a 30 inch griddle", w: 30.25, p: 2749, under: "BLZ-AD25-R-SC" },
   pizza: { k: "BLZ-26-PZOVN", spoken: "a 26 inch pizza oven", w: 26.5, p: 2499 },
+  ctpizza: { k: "ctpizza", spoken: "a countertop pizza oven", w: 24, p: 0 },
   trash: { k: "BLZ-TRLP-DRW-H", spoken: "a trash drawer", w: 20.375, p: 695 },
   door: { k: "BLZ-AD32-R-SC", spoken: "a 32 inch access door", w: 30.75, p: 521 },
   "door-25": { k: "BLZ-AD25-R-SC", spoken: "a 25 inch access door", w: 23.375, p: 429 },
@@ -166,12 +169,13 @@ const ITEM_RES = [
   [/power burner|\bwok\b/, "power"],
   [/\b40\s*(?:inch|in)?\s*(?:\w+\s+){0,2}grill/, "grill-40"],
   [/griddle/, "griddle"],
+  [/pizza oven on top|pizza on top|countertop pizza|tabletop pizza/, "ctpizza"],
   [/pizza oven|\bpizza\b/, "pizza"],
   [/smoker/, "smoker"],
   [/ice maker|icemaker/, "ice"],
   [/trash pull ?out|pull ?out trash|trash drawer|\btrash\b/, "trash"],
   [/doors and drawers|door\s+(?:and\s+)?drawers?(?:\s+combo)?|combo unit|combo cabinet|\bcombo\b/, "combo"],
-  [/drawer unit three drawers|triple drawer|three drawers|drawer unit three|3 drawers/, "drawer-3"],
+  [/three drawer unit|drawer unit three drawers|triple drawer|three drawers|drawer unit three|3 drawers/, "drawer-3"],
   [/two drawers|double drawer|drawer unit/, "drawer"],
   [/\bdrawers?\b/, "drawer"],
   [/access doors?/, "door"],
@@ -221,6 +225,8 @@ export function normalize(text) {
     const ft = Math.round((inches / 12) * 10) / 10;
     return (ft % 1 === 0 ? String(ft) : ft.toFixed(1)) + " ft";
   });
+  t = t.replace(/\b12\s*(?:inch(?:es)?|in)?\s*to\s*2\s*ft(?:\s*away)?\b/g, " grillgap ");
+  t = t.replace(/\bi want to refrigerator\b/g, "i want a refrigerator");
   return t.replace(/\s+/g, " ").trim();
 }
 
@@ -427,7 +433,63 @@ function withDefaultGrill(items, text) {
   return next;
 }
 
+function splitSegments(t) {
+  const re = /\b(?:then on the next part(?: of the island)?|then the next side(?: of the island)?|on the next part(?: of the island)?|the next part(?: of the island)?|the next side(?: of the island)?|next part(?: of the island)?|next side(?: of the island)?|then on the other side|the third side|(?:then |on |at )?the corner|left leg|right leg)\b/g;
+  const chunks = [];
+  let last = 0;
+  let m;
+  while ((m = re.exec(t))) {
+    chunks.push(t.slice(last, m.index).trim());
+    last = m.index + m[0].length;
+  }
+  chunks.push(t.slice(last).trim());
+  return chunks.filter(Boolean);
+}
+
+function buildSegmented(chunks, grillGap, unknown) {
+  const roles = ["grill", "left", "right"];
+  const lengths = [120, 72, 72];
+  const spec = blankSpec({ shape: "yu", barOn: false, grillGap: grillGap || 0 });
+  const notes = unknown.slice();
+  notes.push("I used 10 ft for the main run and 6 ft for the returns. Say if you want different lengths.");
+  if (grillGap) notes.push("I left 2 ft between the grill and the side burner.");
+  chunks.slice(0, 3).forEach((chunk, i) => {
+    const hits = mentionHits(chunk);
+    const items = [];
+    const bases = {};
+    for (const hit of hits) {
+      if (hit.where === "under" && isBaseCabinet(hit.id)) {
+        const host = hit.host || (i === 0 ? "grill" : "");
+        if (host) bases[host] = hit.id;
+        else items.push(hit.id);
+      } else if (!items.includes(hit.id)) items.push(hit.id);
+    }
+    const legItems = i === 0 ? withDefaultGrill(items, chunk) : items;
+    const legObj = leg(roles[i], lengths[i], legItems, 0);
+    if (Object.keys(bases).length) legObj.bases = bases;
+    legObj.fixed = true;
+    spec.legs.push(legObj);
+    if (/\bsingle door\b/.test(chunk)) notes.push("I put a 32 inch access door under the side burner. We don't stock a single door.");
+  });
+  while (spec.legs.length < 3) {
+    const i = spec.legs.length;
+    const legObj = leg(roles[i], lengths[i], [], 0);
+    legObj.fixed = true;
+    spec.legs.push(legObj);
+  }
+  if (spec.legs.some(l => (l.items || []).includes("ctpizza"))) {
+    notes.push("The countertop pizza oven sits on the counter and has no equipment price in the catalog.");
+  }
+  return { handled: true, spec, notes };
+}
+
 function parseNew(t) {
+  const grillGap = /\bgrillgap\b/.test(t) ? 24 : 0;
+  const body = t.replace(/\bgrillgap\b/g, " ");
+  const segments = splitSegments(body);
+  if (detectShape(t) === "yu" && segments.length > 1 && !findLengths(body).length) {
+    return buildSegmented(segments, grillGap, findUnknown(t));
+  }
   const shapeWord = detectShape(t);
   const found = findLengths(t);
   const unknown = findUnknown(t);
@@ -542,7 +604,7 @@ const HOT_BESIDE_GRILL = {
   grill: 1, "grill-40": 1, "side-burner": 1, "side-burner-single": 1,
   power: 1, griddle: 1, sink: 1, pizza: 1, smoker: 1,
   /* Blaze 15" ice maker is a gravity-drain wet unit. A fridge is not. */
-  ice: 1, ctwok: 1
+  ice: 1, ctwok: 1, ctpizza: 1
 };
 const FILLER_SIZES = [4, 6, 8, 12, 16, 24];
 
@@ -838,7 +900,7 @@ function isBaseCabinet(id) {
 function readBases(raw) {
   if (!raw || typeof raw !== "object") return undefined;
   const out = {};
-  for (const host of ["grill", "grill-40", "sink", "bev-sink"]) {
+  for (const host of ["grill", "grill-40", "sink", "bev-sink", "side-burner", "side-burner-single"]) {
     if (isBaseCabinet(raw[host])) out[host] = raw[host];
   }
   return Object.keys(out).length ? out : undefined;
@@ -1041,8 +1103,20 @@ function mentionHits(text) {
         if (best[0] !== n) sizeNote = n + " inches isn't an access door we stock, so I used the " + best[0] + " inch door.";
       }
     }
-    const host = hit.where === "under" ? (([...hits].reverse().find(h => !isBaseCabinet(h.id)) || {}).id || "") : "";
-    hits.push({ ...hit, id, sizeNote, host });
+    let where = hit.where;
+    let host = where === "under" ? (([...hits].reverse().find(h => !isBaseCabinet(h.id)) || {}).id || "") : "";
+    const before = text.slice(Math.max(0, hit.index - 48), hit.index);
+    const after = text.slice(hit.end, hit.end + 24);
+    const near = before + " " + after;
+    if (isBaseCabinet(id) && /\b(?:under|underneath|below|beneath) the grill\b/.test(before)) {
+      where = "under";
+      host = "grill";
+    } else if (isBaseCabinet(id) && /\b(?:under|underneath|below|beneath)\b/.test(near) && !/\b(?:under|underneath|below|beneath) the bar\b/.test(near)) {
+      where = "under";
+      host = ([...hits].reverse().find(h => !isBaseCabinet(h.id)) || {}).id || "";
+    }
+    if (id === "pizza" && /\bon top\b/.test(text.slice(hit.index, hit.end + 24))) id = "ctpizza";
+    hits.push({ ...hit, id, where, sizeNote, host });
   }
   return hits;
 }
@@ -1052,6 +1126,7 @@ function addEquipment(t, current) {
   /* "we have the 10 ft bar, now add a grill" is an add, not a new island. */
   const adding = current && current.legs && current.legs.length && /\b(add|put|place)\b/.test(t);
   if (/\b(remove|delete)\b/.test(t) || (isFullLayout(t) && !adding)) return null;
+  if ((!current || !current.legs || !current.legs.length) && (detectShape(t) === "ell" || detectShape(t) === "yu")) return null;
   const hits = mentionHits(t);
   if (!hits.length) return null;
   const have = {};
@@ -1181,24 +1256,27 @@ function underFor(id, items, bases) {
   return piece.under;
 }
 
-function gearSpan(items, gapIn) {
+function gapWidth(prev, id, requested, grillGap) {
+  let want = requested;
+  if (hotBesideGrill(prev, id)) want = Math.max(12, grillGap || 0, requested);
+  return want > 0 ? nearestFiller(want) : 0;
+}
+
+function gearSpan(items, gapIn, grillGap) {
   const requested = gapIn == null ? 6 : gapIn;
   let sum = 0;
   let prev = "";
   for (const id of items || []) {
     const item = CATALOG[id];
     if (!item) continue;
-    if (prev) {
-      const want = hotBesideGrill(prev, id) ? Math.max(12, requested) : requested;
-      if (want > 0) sum += nearestFiller(want);
-    }
+    if (prev) sum += gapWidth(prev, id, requested, grillGap);
     sum += item.w;
     prev = id;
   }
   return sum;
 }
 
-function pack(items, targetIn, pinEnd, bases, gapIn, locked) {
+function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap) {
   const requested = gapIn == null ? 6 : gapIn;
   const pieces = [];
   for (const id of items) {
@@ -1208,11 +1286,8 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked) {
   }
   const between = [];
   for (let i = 0; i < pieces.length - 1; i++) {
-    const want = hotBesideGrill(pieces[i].id, pieces[i + 1].id) ? Math.max(12, requested) : requested;
-    if (want > 0) {
-      const w = nearestFiller(want);
-      between.push({ k: "fill" + w, w });
-    }
+    const w = gapWidth(pieces[i].id, pieces[i + 1].id, requested, grillGap);
+    if (w > 0) between.push({ k: "fill" + w, w });
   }
   const base = pieces.reduce((sum, item) => sum + item.w, 0) + between.reduce((sum, gap) => sum + gap.w, 0);
   let target = targetIn;
@@ -1388,6 +1463,7 @@ export function validateSpec(input) {
       depth: DEPTH,
       barOn: !!src.barOn || legs.some(l => l.stools > 0),
       gapIn: src.gapIn == null ? 6 : Math.max(0, Number(src.gapIn) || 0),
+      grillGap: src.grillGap ? 24 : 0,
       lastAdded: Array.isArray(src.lastAdded) ? src.lastAdded.filter(id => CATALOG[id]).slice(0, 12) : [],
       pending: Array.isArray(src.pending) ? src.pending.filter(id => CATALOG[id]).slice(0, 12) : [],
       legs
@@ -1440,7 +1516,10 @@ function describe(spec, notes) {
     if (l.bases) {
       for (const host of Object.keys(l.bases)) {
         const cab = CATALOG[l.bases[host]];
-        if (cab) line += ", with " + cab.spoken + " in the base under the grill";
+        const under = host === "grill" || host === "grill-40"
+          ? "the grill"
+          : (CATALOG[host] ? CATALOG[host].spoken.replace(/^an? /, "the ") : "that piece");
+        if (cab) line += ", with " + cab.spoken + " in the base under " + under;
       }
     }
     if (l.stools) line += ", with the raised bar on for " + l.stools + (l.stools === 1 ? " stool" : " stools");
@@ -1496,17 +1575,17 @@ export function compileSpec(input, extraNotes) {
   if (hold) {
     for (const l of spec.legs) {
       if (!l.fixed) continue;
-      const ask = gearSpan(l.items || [], spec.gapIn);
+      const ask = gearSpan(l.items || [], spec.gapIn, spec.grillGap);
       if (ask <= l.lengthIn + 4) continue;
       const dropped = [];
-      while ((l.items || []).length && gearSpan(l.items, spec.gapIn) > l.lengthIn + 4) dropped.push(l.items.pop());
+      while ((l.items || []).length && gearSpan(l.items, spec.gapIn, spec.grillGap) > l.lengthIn + 4) dropped.push(l.items.pop());
       dropped.reverse();
       const moved = [];
       const pending = [];
       for (const id of dropped) {
         const home = spec.legs.find(o => {
           if (o === l) return false;
-          const span = gearSpan((o.items || []).concat(id), spec.gapIn);
+          const span = gearSpan((o.items || []).concat(id), spec.gapIn, spec.grillGap);
           const room = o.fixed ? o.lengthIn : Math.max(o.lengthIn, span);
           return span <= room + 4;
         });
@@ -1532,7 +1611,7 @@ export function compileSpec(input, extraNotes) {
     }
   }
   const packed = spec.legs.map(l => {
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap);
     if (!(hold && l.fixed) && result.span > l.lengthIn + 0.5) l.lengthIn = Math.round(result.span);
     notes.push(...result.notes);
     const tight = stoolNote(l);

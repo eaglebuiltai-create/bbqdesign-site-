@@ -17,7 +17,7 @@ import {
   summaryReply,
   validateContact
 } from "../site/assets/eagle-engine.js";
-import { guardSpoken, mintVoiceToken, newVoiceSession, readVoiceToken, spendVoiceSession, wantsSave } from "../site/assets/eagle-voice.js";
+import { guardSpoken, mintVoiceToken, newVoiceSession, readVoiceToken, spendVoiceSession, spokenSummary, wantsSave } from "../site/assets/eagle-voice.js";
 
 const PHRASES = [
   ["L-shape, 10 ft grill leg with side burner and fridge, 5 ft bar with 3 stools", {
@@ -690,6 +690,60 @@ describe("design eagle voice", () => {
     }
   });
 
+  test("spoken summary stays short and drops price and filler boilerplate", () => {
+    const long = "Done. Added a grill and a fridge. The countertop wok sits on the counter and has no equipment price in the catalog. I added 6 inch filler panels between appliances. Filler panels have no equipment price of their own. The build rate covers the extra length. The price on the design comes from the catalog and the build rates. He said \"about $26,976\" for the island.";
+    const said = spokenSummary(long);
+    assert.ok(said.length <= 250, said);
+    assert.match(said, /^Done\. Added a grill and a fridge\./);
+    assert.doesNotMatch(said, /filler panel|build rate|price on the design|\$|"/i);
+  });
+
+  test("a spent voice budget renews once, then stops", async () => {
+    const env = { ELEVENLABS_API_KEY: "xi-test-key" };
+    const orig = globalThis.fetch;
+    let posted = "";
+    globalThis.fetch = async (url, init) => {
+      posted = JSON.parse(init.body).text;
+      return new Response(new Uint8Array([7]), { status: 200, headers: { "Content-Type": "audio/mpeg" } });
+    };
+    try {
+      const session = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.90");
+      const read = await readVoiceToken(env.ELEVENLABS_API_KEY, session.data.token);
+      read.left = 12;
+      const low = await mintVoiceToken(env.ELEVENLABS_API_KEY, read);
+      const line = "Done. The grill is in, and he said \"about $2,400\".";
+      const said = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://eaglebuilt.ai", "CF-Connecting-IP": "203.0.113.90" },
+        body: JSON.stringify({ token: low, text: line })
+      }), env);
+      assert.equal(said.status, 200);
+      assert.match(posted, /\$2,400/);
+      assert.match(posted, /"/);
+      const renewed = await readVoiceToken(env.ELEVENLABS_API_KEY, said.headers.get("X-Voice-Token"));
+      assert.equal(renewed.gen, 1);
+      assert.ok(renewed.left < CONFIG.voiceLimits.sessionChars);
+      renewed.left = 8;
+      const spent = await mintVoiceToken(env.ELEVENLABS_API_KEY, renewed);
+      const blocked = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://eaglebuilt.ai", "CF-Connecting-IP": "203.0.113.90" },
+        body: JSON.stringify({ token: spent, text: "Done. This reply is longer than eight characters." })
+      }), env);
+      assert.equal(blocked.status, 429);
+    } finally {
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("the page says when voice is paused", () => {
+    const page = readFileSync(new URL("../site/assets/design-eagle.js", import.meta.url), "utf8");
+    assert.match(page, /Voice is paused, reply is on screen/);
+    assert.match(page, /console\.log\("design-eagle voice:/);
+    assert.match(page, /spokenSummary\(text\)/);
+    assert.match(page, /play\(\)\.catch/);
+  });
+
   test("a missing ElevenLabs key leaves typing in place and does not pretend to speak", async () => {
     let called = 0;
     const orig = globalThis.fetch;
@@ -1164,6 +1218,54 @@ describe("john's L-shape conversation", () => {
     const sized = drawn("add an access door 28 in on the grill side", island);
     assert.ok(sized.spec.legs[0].items.includes("door-25"));
     assert.match(sized.reply, /25 inch/);
+  });
+});
+
+const U_LINE = "build a U-shaped barbecue island with a 32 inch Blaze Grill under the grill a combo unit 12 to 2 ft away I want a side burner with a single door underneath the next to that I want to refrigerator then on the next part of the island I'd like a pizza oven on top then the next side of the island let's put a three drawer unit in and a griddle Blaze griddle";
+
+describe("U shape segments", () => {
+  test("a spoken U puts the grill run, pizza, and griddle on three legs", () => {
+    const result = drawn(U_LINE);
+    assert.equal(result.spec.shape, "yu");
+    assert.deepEqual(result.spec.legs.map(l => l.lengthIn), [120, 72, 72]);
+    assert.deepEqual(result.spec.legs[0].items, ["grill", "side-burner", "fridge"]);
+    assert.equal(result.spec.legs[0].bases.grill, "combo");
+    assert.equal(result.spec.legs[0].bases["side-burner"], "door");
+    assert.deepEqual(result.spec.legs[1].items, ["ctpizza"]);
+    assert.deepEqual(result.spec.legs[2].items, ["drawer-3", "griddle"]);
+    assert.match(result.reply, /10 ft/);
+    assert.match(result.reply, /6 ft/);
+    assert.match(result.reply, /2 ft between the grill and the side burner/);
+    assert.match(result.reply, /no equipment price/i);
+    const rows = decodeDesign(result.code).m;
+    const keys = (rot) => rows.filter(row => row[3] === rot).map(row => row[0]);
+    const main = keys(0);
+    const gear = main.filter(key => !String(key).startsWith("fill"));
+    assert.deepEqual(gear, ["BLZ-4LTE3", "BLZ-SB2-LTEPLUS", "BLZ-SSRF20-4.3"]);
+    assert.deepEqual(main.slice(main.indexOf("BLZ-4LTE3") + 1, main.indexOf("BLZ-SB2-LTEPLUS")), ["fill24"]);
+    assert.equal(rows.find(row => row[0] === "BLZ-4LTE3")[5], "BLZ-DDC-R-LTSC");
+    assert.equal(rows.find(row => row[0] === "BLZ-SB2-LTEPLUS")[5], "BLZ-AD32-R-SC");
+    assert.deepEqual(keys(270).filter(key => !String(key).startsWith("fill")), ["ctpizza"]);
+    assert.deepEqual(keys(90).filter(key => !String(key).startsWith("fill")), ["BLZ-DRW3-R-LT", "BLZ-GRIDDLE-LTE3"]);
+    assertCleanReply(result.reply);
+  });
+
+  test("next part, other side, third side, corner, and left or right leg split a U", () => {
+    const variants = [
+      "build a U shaped island with a grill then on the next part of the island a fridge then on the other side a sink",
+      "build a U shaped island with a grill the next part a fridge the third side a sink",
+      "build a U shaped island with a grill then the corner a fridge the next side a sink",
+      "build a U shaped island with a grill left leg a fridge right leg a sink"
+    ];
+    for (const line of variants) {
+      const result = drawn(line);
+      assert.equal(result.spec.shape, "yu", line);
+      assert.deepEqual(result.spec.legs.map(l => l.lengthIn), [120, 72, 72], line + " " + result.reply);
+      assert.ok(result.spec.legs[0].items.includes("grill"), line);
+      assert.ok(result.spec.legs[1].items.includes("fridge"), line);
+      assert.ok(result.spec.legs[2].items.includes("sink"), line);
+      assert.match(result.reply, /10 ft/, line);
+    }
   });
 });
 

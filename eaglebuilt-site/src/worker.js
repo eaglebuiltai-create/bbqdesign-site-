@@ -841,7 +841,16 @@ async function voiceSpeak(request, env) {
   const allowedSent = !!(grant && grant.say && grant.say === raw.trim());
   const text = guardSpoken(raw, allowedSent);
   if (!text) return json({ error: "Nothing to say." }, 400);
-  const next = spendVoiceSession(session, text.length);
+  let budget = session;
+  let next = spendVoiceSession(budget, text.length);
+  if (!next && (budget.gen || 0) < EAGLE.voiceLimits.maxRenew) {
+    budget = {
+      exp: Date.now() + EAGLE.voiceLimits.sessionMs,
+      left: EAGLE.voiceLimits.sessionChars,
+      gen: (budget.gen || 0) + 1
+    };
+    next = spendVoiceSession(budget, text.length);
+  }
   if (!next) return json({ capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
   let audio;
   try {
