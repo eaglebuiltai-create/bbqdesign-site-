@@ -1099,6 +1099,52 @@ describe("side words on one build", () => {
   });
 });
 
+describe("john's L-shape conversation", () => {
+  test("four turns keep both legs and put the bar list on the return", () => {
+    let step = drawn("like to build a 10 ft long L shape with a 17 ft return");
+    assert.equal(step.spec.barOn, false);
+    assert.deepEqual(step.spec.legs.map(l => l.lengthIn), [120, 204]);
+    step = drawn("got a grill Blaze Grill 32 inch with a combo unit just below the grill a refrigerator a table top walk a side burner a drawer unit three drawers another access door 32 in and a refrigerator", step.spec);
+    assert.equal(step.spec.legs[0].lengthIn, 120);
+    assert.equal(step.spec.legs[1].lengthIn, 204);
+    assert.equal(step.spec.legs[0].bases.grill, "combo");
+    assert.deepEqual(step.spec.legs[0].items, ["grill", "fridge", "ctwok", "side-burner"]);
+    assert.match(step.reply, /countertop wok/);
+    assert.match(step.reply, /no equipment price/);
+    assert.match(step.reply, /don't fit/);
+    assert.match(step.reply, /triple drawer/);
+    assert.match(step.reply, /32 inch access door/);
+    step = drawn("on the long side of the bar I want a beverage center sink with a single access door below it I want a beverage refrigerator I want a two drawer unit and a trash", step.spec);
+    assert.deepEqual(step.spec.legs[1].items, ["bev-sink", "bev", "drawer", "trash"]);
+    assert.equal(step.spec.legs[1].bases["bev-sink"], "door");
+    assert.equal(step.spec.legs[0].lengthIn, 120);
+    assert.doesNotMatch(step.reply, /Moved/);
+    step = drawn("I need that on the other side of the island on the L shape", step.spec);
+    assert.equal(step.spec.legs[0].lengthIn, 120);
+    assert.equal(step.spec.legs[1].lengthIn, 204);
+    assert.deepEqual(step.spec.legs[0].items, ["grill", "fridge", "ctwok", "side-burner"]);
+    assert.deepEqual(step.spec.legs[1].items, ["bev-sink", "bev", "drawer", "trash"]);
+    assert.match(step.reply, /already on the other side/);
+  });
+
+  test("leg names and a repeated fridge", () => {
+    const island = drawn("like to build a 10 ft long L shape with a 17 ft return").spec;
+    const short = drawn("add a trash drawer on the short side", island);
+    assert.ok(short.spec.legs[0].items.includes("trash"));
+    const grillSide = drawn("add a sink on the grill side", island);
+    assert.ok(grillSide.spec.legs[0].items.includes("sink"));
+    const ret = drawn("add a double drawer on the return", island);
+    assert.deepEqual(ret.spec.legs[1].items, ["drawer"]);
+    const corner = drawn("add a side burner on the corner", island);
+    assert.ok(corner.spec.legs[0].items.includes("side-burner"));
+    const again = drawn("add another refrigerator", drawn("straight 10 ft island with a grill and a fridge").spec);
+    assert.equal(again.spec.legs[0].items.filter(id => id === "fridge").length, 2);
+    const sized = drawn("add an access door 28 in on the grill side", island);
+    assert.ok(sized.spec.legs[0].items.includes("door-25"));
+    assert.match(sized.reply, /25 inch/);
+  });
+});
+
 describe("hold to talk", () => {
   test("short holds and junk transcripts are not a design turn", () => {
     assert.equal(holdLongEnough(299), false);
