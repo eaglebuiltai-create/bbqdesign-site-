@@ -79,7 +79,8 @@ const RATE_LIMITS = {
   eagle:   30,   // Design Eagle layout turns
   eagleSave: 8,  // Design Eagle save: visitor email plus the lead
   eagleSpeak: 24, // spoken replies
-  eagleHear: 12   // server transcription when the browser has no speech API
+  eagleHear: 12,  // server transcription when the browser has no speech API
+  eagleMiss: 30   // training notes when a turn does not land
 };
 const hits = new Map();
 
@@ -187,12 +188,113 @@ export default {
       if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
       return cors(await voiceTranscribe(request, env), request, true);
     }
+    if (url.pathname === "/api/design-eagle/miss") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await recordMiss(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/misses") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "GET") return cors(json({ error: "GET only" }, 405), request, true);
+      return cors(await listMisses(request, env), request, true);
+    }
 
     // Anything else with no matching file. Hand back to assets so 404s still
     // look like the site rather than a bare worker error.
     return env.ASSETS ? env.ASSETS.fetch(request) : new Response("Not found", { status: 404 });
   }
 };
+
+const MISS_TTL = 30 * 24 * 60 * 60;
+
+function stripPII(text) {
+  return String(text || "")
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email]")
+    .replace(/(?:\+?1[\s.-]*)?\(?\d{3}\)?[\s.-]*\d{3}[\s.-]*\d{4}\b/g, "[phone]")
+    .replace(/[ \t]+\n/g, "\n")
+    .trim()
+    .slice(0, 500);
+}
+
+function contactCard(text) {
+  const s = String(text || "");
+  return [/\bname\s*:/i, /\bemail\s*:/i, /\bphone\s*:/i].filter(re => re.test(s)).length >= 2;
+}
+
+function cleanSpec(spec) {
+  if (!spec || typeof spec !== "object") return null;
+  try {
+    const copy = JSON.parse(stripPII(JSON.stringify(spec)));
+    delete copy.name;
+    delete copy.email;
+    delete copy.phone;
+    return copy;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function recordMiss(request, env) {
+  const kv = env && env.EAGLE_MISSES;
+  if (!kv || typeof kv.put !== "function") return new Response(null, { status: 204 });
+  if (await limited(request, env, "eagleMiss")) {
+    return json({ error: "Too many notes." }, 429);
+  }
+  let body;
+  try { body = await request.json(); } catch { return new Response(null, { status: 204 }); }
+  if (!body || typeof body !== "object") return new Response(null, { status: 204 });
+  if (body.name || body.email || body.phone) return new Response(null, { status: 204 });
+  const text = stripPII(body.text);
+  const reply = stripPII(body.reply);
+  if (!text || contactCard(text) || contactCard(reply)) return new Response(null, { status: 204 });
+  const ts = Number(body.ts) || Date.now();
+  const kind = String(body.kind || "miss").slice(0, 20);
+  const source = body.source === "voice" ? "voice" : "typed";
+  const entry = {
+    text,
+    reply,
+    kind,
+    specBefore: cleanSpec(body.specBefore),
+    specAfter: cleanSpec(body.specAfter),
+    source,
+    ts
+  };
+  const key = "miss:" + String(ts).padStart(13, "0") + ":" + Math.random().toString(36).slice(2, 8);
+  await kv.put(key, JSON.stringify(entry), { expirationTtl: MISS_TTL });
+  let index = [];
+  try {
+    const raw = await kv.get("miss-index");
+    if (raw) index = JSON.parse(raw);
+  } catch (e) { index = []; }
+  if (!Array.isArray(index)) index = [];
+  index.unshift(key);
+  await kv.put("miss-index", JSON.stringify(index.slice(0, 500)));
+  return new Response(null, { status: 204 });
+}
+
+async function listMisses(request, env) {
+  const token = String(env && env.MISS_LOG_TOKEN || "");
+  const sent = request.headers.get("X-Miss-Token") || "";
+  if (!token || sent !== token) return json({ error: "Forbidden." }, 403);
+  const kv = env && env.EAGLE_MISSES;
+  if (!kv || typeof kv.get !== "function") return json({ misses: [] }, 200);
+  const limit = Math.max(1, Math.min(200, Number(new URL(request.url).searchParams.get("limit")) || 200));
+  let keys = [];
+  try {
+    const raw = await kv.get("miss-index");
+    if (raw) keys = JSON.parse(raw);
+  } catch (e) { keys = []; }
+  if (!Array.isArray(keys)) keys = [];
+  const misses = [];
+  for (const key of keys) {
+    if (misses.length >= limit) break;
+    if (!String(key).startsWith("miss:")) continue;
+    const raw = await kv.get(key);
+    if (!raw) continue;
+    try { misses.push(JSON.parse(raw)); } catch (e) {}
+  }
+  return json({ misses }, 200);
+}
 
 async function confirm(request, env) {
   /* Trim defensively. Piping the key in from a shell can append CR/LF, which

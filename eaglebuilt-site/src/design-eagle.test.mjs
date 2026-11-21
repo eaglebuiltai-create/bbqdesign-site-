@@ -7,6 +7,7 @@ import {
   CONFIG,
   applyModelSpec,
   claimsSent,
+  classifyTurn,
   decodeDesign,
   interpret,
   saveReply,
@@ -866,5 +867,113 @@ describe("design eagle voice", () => {
     assert.match(first.reply, /Here's an L-shape/);
     assert.match(summaryReply(first.spec), /Here's an L-shape/);
     assert.match(summaryReply(first.spec), /10 ft/);
+  });
+});
+
+function missKv() {
+  const store = new Map();
+  return {
+    store,
+    async get(key) { return store.has(key) ? store.get(key).value : null; },
+    async put(key, value, opts) { store.set(key, { value: String(value), opts: opts || null }); }
+  };
+}
+
+async function missPost(body, env, ip) {
+  return worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/miss", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: "https://eaglebuilt.ai",
+      "CF-Connecting-IP": ip || "203.0.113.240"
+    },
+    body: JSON.stringify(body)
+  }), env || {});
+}
+
+describe("design eagle miss log", () => {
+  test("a miss, a partial, a no-op, a help line, and a rephrase are worth logging", () => {
+    const before = { shape: "straight", legs: [{ items: ["grill"] }] };
+    const after = { shape: "straight", legs: [{ items: ["grill", "sink"] }] };
+    assert.equal(classifyTurn("add a tv", "A TV isn't in the catalog, so I left it off. The layout is unchanged.", before, before, ""), "unchanged");
+    assert.equal(classifyTurn("um add a tv and a sink on the left", "Done. Added a 30 inch sink on the left. A TV isn't in the catalog, so I left it off.", before, after, ""), "partial");
+    assert.equal(classifyTurn("move it", "The combo is already in the base under the grill.", before, before, ""), "unchanged");
+    assert.equal(classifyTurn("make it fancy", "I can make the bar or the grill leg longer or shorter, add or remove a sink.", before, before, ""), "help");
+    assert.equal(classifyTurn("add a grill on the left", "Done. Added a 32 inch Blaze grill on the left.", before, after, "um add a grill on the left side"), "repeat");
+    assert.equal(classifyTurn("name: Ada email: ada@example.com", "Thanks.", before, before, ""), null);
+    assert.equal(classifyTurn("add a grill", "Done. Added a 32 inch Blaze grill.", null, after, ""), null);
+  });
+
+  test("an unbound miss log is a silent no-op", async () => {
+    const res = await missPost({ text: "add a tv", reply: "I kept this layout.", kind: "miss", source: "typed", ts: 1 });
+    assert.equal(res.status, 204);
+  });
+
+  test("stored misses drop contact details and read newest first", async () => {
+    const kv = missKv();
+    const env = { EAGLE_MISSES: kv, MISS_LOG_TOKEN: "train-token" };
+    const spec = { shape: "straight", legs: [{ items: ["grill"] }] };
+    const first = await missPost({
+      text: "add a grill email me at ada@example.com or 916-555-0100",
+      reply: "I kept this layout. Call (916) 359-9692.",
+      kind: "miss",
+      specBefore: spec,
+      specAfter: spec,
+      source: "voice",
+      ts: 1000
+    }, env, "203.0.113.241");
+    assert.equal(first.status, 204);
+    const saved = await missPost({
+      text: "move the grill",
+      reply: "Done.",
+      kind: "miss",
+      name: "Ada",
+      email: "ada@example.com",
+      phone: "9165550100",
+      source: "typed",
+      ts: 2000
+    }, env, "203.0.113.241");
+    assert.equal(saved.status, 204);
+    const card = await missPost({
+      text: "name: Ada\nemail: ada@example.com\nphone: 916-555-0199",
+      reply: "I kept this layout.",
+      kind: "miss",
+      source: "typed",
+      ts: 3000
+    }, env, "203.0.113.241");
+    assert.equal(card.status, 204);
+    const later = await missPost({
+      text: "x".repeat(800),
+      reply: "I kept this layout.",
+      kind: "miss",
+      source: "typed",
+      ts: 4000
+    }, env, "203.0.113.241");
+    assert.equal(later.status, 204);
+
+    const locked = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/misses?limit=200"), env);
+    assert.equal(locked.status, 403);
+    const wrong = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/misses", {
+      headers: { "X-Miss-Token": "nope" }
+    }), env);
+    assert.equal(wrong.status, 403);
+    const open = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/misses?limit=200", {
+      headers: { "X-Miss-Token": "train-token" }
+    }), env);
+    const data = await open.json();
+    assert.equal(open.status, 200);
+    assert.equal(data.misses.length, 2);
+    assert.equal(data.misses[0].ts, 4000);
+    assert.equal(data.misses[0].text.length, 500);
+    assert.equal(data.misses[1].text.includes("ada@example.com"), false);
+    assert.match(data.misses[1].text, /\[email\]/);
+    assert.match(data.misses[1].text, /\[phone\]/);
+    assert.equal(data.misses[1].reply.includes("359-9692"), false);
+    assert.equal(data.misses[1].source, "voice");
+    assert.equal(JSON.stringify(data).includes("Ada"), false);
+    const stored = [...kv.store.values()].find(row => String(row.value).includes("miss") || String(row.value).startsWith("{"));
+    const entry = [...kv.store.entries()].find(([key]) => key.startsWith("miss:"));
+    assert.ok(entry);
+    assert.equal(entry[1].opts.expirationTtl, 30 * 24 * 60 * 60);
   });
 });

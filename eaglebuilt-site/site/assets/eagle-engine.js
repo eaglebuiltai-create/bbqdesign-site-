@@ -1232,6 +1232,30 @@ function finishResult(parsed, current) {
   };
 }
 
+function plainWords(text) {
+  return String(text || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/* A turn worth keeping for the training log. Null means the layout landed
+   and there is nothing to learn from. Contact-shaped text is never a miss. */
+export function classifyTurn(text, reply, before, after, prevText) {
+  const t = String(text || "").trim();
+  const r = String(reply || "");
+  if (!t || !r) return null;
+  const card = [/\bname\s*:/i, /\bemail\s*:/i, /\bphone\s*:/i].filter(re => re.test(t)).length;
+  if (card >= 2) return null;
+  const prev = plainWords(prevText);
+  const now = plainWords(t);
+  const repeat = prev.length > 8 && (prev === now || now.includes(prev) || prev.includes(now));
+  const changed = JSON.stringify(before || null) !== JSON.stringify(after || null);
+  if (repeat) return "repeat";
+  if (/isn't in the catalog|left it off|didn't add/i.test(r) && changed) return "partial";
+  if (/already|unchanged|haven't changed|left the rest|still there/i.test(r)) return "unchanged";
+  if (/I can make the bar or the grill leg/i.test(r)) return "help";
+  if (/I kept this layout|didn't catch|which side should|How long should|isn't in the catalog|earlier version/i.test(r)) return "miss";
+  return null;
+}
+
 export function interpret(text, current) {
   const t = speechClean(normalize(text));
   if (!t) return keepResult(current, current ? "I kept this layout. What should I change?" : CLARIFY);

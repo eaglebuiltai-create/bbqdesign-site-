@@ -3,7 +3,7 @@
  * Typed turns and a future voice transcript both call applyTurn(), which
  * runs the same layout engine. The 3D view is the existing designer.
  */
-import { CONFIG, interpret, summaryReply, validateContact, claimsSent } from "./eagle-engine.js";
+import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn } from "./eagle-engine.js";
 import { HANDOFF, wantsSave } from "./eagle-voice.js";
 
 const state = {
@@ -16,7 +16,8 @@ const state = {
   voiceToken: "",
   voiceOn: false,
   pendingRefine: null,
-  heard: ""
+  heard: "",
+  prevText: ""
 };
 
 const log = document.getElementById("log");
@@ -140,6 +141,16 @@ function wouldWipe(current, result) {
   return !!(current && gearCount(current) && result.kind !== "refine" && !gearCount(result.spec));
 }
 
+function noteMiss(body) {
+  try {
+    fetch("/api/design-eagle/miss", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 async function applyTurn(text, source) {
   const clean = String(text || "").trim();
   if (!clean) return;
@@ -148,6 +159,7 @@ async function applyTurn(text, source) {
     openSaveForm();
     return;
   }
+  const before = state.spec ? JSON.parse(JSON.stringify(state.spec)) : null;
   let result = interpret(clean, state.spec);
   if (!result.handled) {
     try {
@@ -184,6 +196,19 @@ async function applyTurn(text, source) {
     }, 1800);
   } else if (source === "voice" || state.voiceOn) {
     speak(reply);
+  }
+  const kind = classifyTurn(clean, reply, before, state.spec, state.prevText);
+  state.prevText = clean;
+  if (kind) {
+    noteMiss({
+      text: clean,
+      reply,
+      kind,
+      specBefore: before,
+      specAfter: state.spec,
+      source: source === "voice" ? "voice" : "typed",
+      ts: Date.now()
+    });
   }
 }
 
