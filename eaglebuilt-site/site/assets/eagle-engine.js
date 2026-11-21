@@ -157,17 +157,18 @@ const ITEM_RES = [
   [/single side burner/, "side-burner-single"],
   [/side burner combo|double side burner|side burner|sideburner/, "side-burner"],
   [/power burner|\bwok\b/, "power"],
-  [/\b40\s*(?:inch|in)?\s*grill/, "grill-40"],
+  [/\b40\s*(?:inch|in)?\s*(?:\w+\s+){0,2}grill/, "grill-40"],
   [/griddle/, "griddle"],
   [/pizza oven|\bpizza\b/, "pizza"],
   [/smoker/, "smoker"],
   [/ice maker|icemaker/, "ice"],
-  [/trash pull out|pull out trash|trash drawer|\btrash\b/, "trash"],
-  [/door\s+(?:and\s+)?drawers?(?:\s+combo)?|combo unit|combo cabinet|\bcombo\b/, "combo"],
+  [/trash pull ?out|pull ?out trash|trash drawer|\btrash\b/, "trash"],
+  [/doors and drawers|door\s+(?:and\s+)?drawers?(?:\s+combo)?|combo unit|combo cabinet|\bcombo\b/, "combo"],
   [/\bdrawers?\b/, "drawer"],
+  [/access doors?/, "door"],
   [/\bdoors?\b/, "door"],
   [/\bsink\b/, "sink"],
-  [/refrigerator|\bfridge\b|\bcooler\b|kegerator|\bkeg\b/, "fridge"],
+  [/beverage center|bev center|refrigerator|\bfridge\b|\bcooler\b|kegerator|\bkeg\b/, "fridge"],
   [/\b(?:bbq|barbeque|barbecue)(?:\s+grill)?\b|\bgrill\b/, "grill"]
 ];
 
@@ -196,7 +197,7 @@ export function normalize(text) {
 }
 
 function detectShape(t) {
-  if (/\bu\s*shape|\bu shaped|\bbig u\b/.test(t)) return "yu";
+  if (/\bu\s*shape|\bu shaped|\bbig u\b|\ba u\b/.test(t)) return "yu";
   if (/\bl\s*shape|\bl shaped|\ban l\b|\bell\b|\bcorner\b|\bl with\b|\bfoot l\b|\bft l\b/.test(t)) return "ell";
   if (/\bstraight\b|\blinear\b|\bsingle run\b/.test(t)) return "straight";
   return "";
@@ -242,6 +243,8 @@ function prepareGearText(text) {
     .replace(/\bnext to the grill\b/g, " __next__ ")
     .replace(/\bbeside the grill\b/g, " __next__ ")
     .replace(/\bby the grill\b/g, " __next__ ")
+    .replace(/\bbetween the grill and the (?:fridge|refrigerator)\b/g, " __between__ ")
+    .replace(/\bin the middle\b|\bin the center\b/g, " __between__ ")
     .replace(/\b(?:under|underneath|below|beneath) the (?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
     .replace(/\b(?:under|underneath) it\b/g, " __under__ ")
     .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
@@ -254,6 +257,7 @@ function prepareGearText(text) {
 function whereOf(after) {
   if (/__bar__|\bunder the bar\b|\bon the bar\b/.test(after)) return "bar";
   if (/__under__/.test(after)) return "under";
+  if (/__between__/.test(after)) return "between";
   if (/__next__|\bnext to\b|\bbeside\b/.test(after)) return "next";
   if (/__end__|\bend of\b/.test(after)) return "end";
   if (/\bright side\b|\bon the right\b|\bto the right\b|\bright end\b|\bright\b/.test(after)) return "right";
@@ -299,7 +303,8 @@ function findItems(text) {
 function speechClean(text) {
   return String(text || "")
     .replace(/\b(uh+|um+|er+|ah+|hmm+)\b/g, " ")
-    .replace(/\b(basically|actually|kinda|sorta|please|just|like)\b/g, " ")
+    .replace(/\b(basically|actually|kinda|sorta|please|just|like|okay|ok|so|well|yeah|yep|hey)\b/g, " ")
+    .replace(/\b(blaise|blase|blayze|blaze|lynx|coyote|fire magic|firemagic|dcs|alfresco|summerset|hestan|twin eagles|diablo|yoder|rcs)\b/g, " ")
     .replace(/\bthirty[\s-]*two\b/g, "32")
     .replace(/\bforty[\s-]*two\b/g, "42")
     .replace(/\bforty\b/g, "40")
@@ -519,6 +524,96 @@ function refine(t, current) {
     if (!hit) return { spec: current, brief: true, notes: ["That piece isn't on the design."] };
     return { spec, brief: true, notes: ["Removed " + joinSpoken(ids.map(id => CATALOG[id].spoken)) + "."] };
   }
+  if (/\b(undo|go back|never mind|nevermind)\b/.test(t)) {
+    return { clarify: "I don't have an earlier version of this design. The island is unchanged. Tell me what to move." };
+  }
+  if (/\b(start over|from scratch|clear the island|clear it)\b/.test(t)) {
+    spec.legs.forEach(l => { l.items = []; delete l.bases; });
+    return { spec, brief: true, notes: ["Cleared the equipment. The run is still here."] };
+  }
+  if (/\bhow long\b/.test(t) && !findItems(t).length) {
+    const bar = spec.legs.find(l => l.role === "bar");
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    const which = /\bbar\b/.test(t) && bar ? bar : main;
+    return { clarify: "The " + which.role + " leg is " + feet(which.lengthIn) + ". I haven't changed the layout." };
+  }
+  if (/\b(how much|what fits|what can i add|whats the price|what is the price)\b/.test(t) || (/\bprice\b/.test(t) && !findItems(t).length)) {
+    if (/\bwhat fits\b|\bwhat can i add\b/.test(t)) {
+      return { clarify: "A grill, fridge, sink, side burner, combo, or trash drawer fit on this run. What should I add?" };
+    }
+    return { clarify: "The price is the one on the design, from the catalog and the build rates. I haven't changed the layout." };
+  }
+  const unknownOnly = findUnknown(t);
+  if (unknownOnly.length && !findItems(t).length) {
+    return { clarify: unknownOnly.join(" ") + " The layout is unchanged." };
+  }
+  if (/\b(?:inches|inch|in)\s*deep\b|\bdeeper\b|\bshallower\b|\bdepth\b/.test(t) && !findItems(t).length) {
+    return { clarify: "This layout stays 32 inches deep. That's the counter depth we build. I left the rest as it is." };
+  }
+  if (/\b(bigger|longer)\b/.test(t) && !/\bbar\b/.test(t) && !/\bgrill leg\b/.test(t) && !findItems(t).length) {
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    main.lengthIn += 24;
+    return { spec, brief: true, notes: ["Made the main run longer."] };
+  }
+  if (/\b(make|change|set)\b/.test(t) && findLengths(t).length === 1 && !findItems(t).length && !detectShape(t)) {
+    const ft = findLengths(t)[0].ft;
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    main.lengthIn = Math.round(ft * 12);
+    return { spec, brief: true, notes: ["Made the main run " + ft + " ft."] };
+  }
+  if (((/\bbar\b/.test(t) && /\boff\b/.test(t)) || /\bno bar\b/.test(t)) && !findItems(t).length) {
+    spec.barOn = false;
+    spec.legs.forEach(l => { l.stools = 0; });
+    return { spec, brief: true, notes: ["Turned the raised bar off."] };
+  }
+  if (/\b(bar on|raised bar|add a bar|turn the bar on)\b/.test(t) && !findItems(t).length) {
+    spec.barOn = true;
+    return { spec, brief: true, notes: ["Turned the raised bar on."] };
+  }
+  if (findStools(t) && !findItems(t).length) {
+    const stools = findStools(t);
+    const legN = spec.legs.find(l => l.role === "bar") || spec.legs[spec.legs.length - 1];
+    legN.stools = stools;
+    spec.barOn = true;
+    return { spec, brief: true, notes: ["Set the bar for " + stools + " stools."] };
+  }
+  const counter = counterOf(t);
+  if (counter && !findItems(t).length) {
+    spec.counter = counter;
+    const named = COUNTERS[counter];
+    const quote = named.quote ? ", which the designer lists as a quote add" : "";
+    return { spec, brief: true, notes: ["Switched the counter to " + named.n + quote + "."] };
+  }
+  if (fin && !findItems(t).length && fin !== spec.finish) {
+    spec.finish = fin;
+    return { spec, brief: true, notes: ["Switched the finish to " + FINISHES[fin] + "."] };
+  }
+  if (detectShape(t) === "straight" && spec.shape !== "straight" && /\b(make|turn|change|straighten)\b/.test(t)) {
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    spec.shape = "straight";
+    spec.legs = [leg("main", main.lengthIn, main.items, 0, main.pinEnd, main.bases)];
+    return { spec, brief: true, notes: ["Made it a straight run."] };
+  }
+  if (detectShape(t) === "ell" && spec.shape !== "ell" && /\b(make|turn|change)\b/.test(t)) {
+    const lens = findLengths(t);
+    if (!lens.length) return { clarify: "How long should the bar leg be? I kept this layout." };
+    const main = spec.legs[0];
+    main.role = "grill";
+    spec.shape = "ell";
+    spec.barOn = true;
+    spec.legs = [main, leg("bar", Math.round(lens[0].ft * 12), [], findStools(t))];
+    return { spec, brief: true, notes: ["Made it an L with a " + lens[0].ft + " ft bar."] };
+  }
+  if (detectShape(t) === "yu" && spec.shape !== "yu" && /\b(make|turn|change)\b/.test(t)) {
+    const lens = findLengths(t);
+    if (!lens.length) return { clarify: "How long should each return be? I kept this layout." };
+    const main = spec.legs[0];
+    main.role = "grill";
+    spec.shape = "yu";
+    const side = Math.round(lens[0].ft * 12);
+    spec.legs = [main, leg("left", side, [], 0), leg("right", side, [], 0)];
+    return { spec, brief: true, notes: ["Made it a U with " + lens[0].ft + " ft returns."] };
+  }
   if ((/^(make|add|remove|swap|change|switch)\b/.test(t) || /\b(longer|shorter)\b/.test(t)) && !findItems(t).length) {
     return { clarify: "I can make the bar or the grill leg longer or shorter, add or remove a sink, fridge, side burner, or grill, or swap the finish to stone veneer or stucco." };
   }
@@ -695,6 +790,15 @@ function placeOnLeg(leg, id, where) {
     leg.items.unshift(id);
     return;
   }
+  if (where === "between") {
+    const g = leg.items.findIndex(x => x === "grill" || x === "grill-40");
+    const f = leg.items.lastIndexOf("fridge");
+    if (g >= 0) leg.items.splice(g + 1, 0, id);
+    else if (f > 0) leg.items.splice(f, 0, id);
+    else leg.items.splice(Math.min(1, leg.items.length), 0, id);
+    if (leg.items[leg.items.length - 1] === "fridge") leg.pinEnd = true;
+    return;
+  }
   if (where === "next") {
     const at = leg.items.findIndex(x => x === "grill" || x === "grill-40");
     if (at >= 0) {
@@ -780,6 +884,24 @@ function addEquipment(t, current) {
   if (!added.length) note = underNotes[0] || ("Moved " + joinSpoken(ordered.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".");
   else if (wheres.length === 1) note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken)) + placePhrase(wheres[0]) + ".";
   else note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".";
+  const unknown = findUnknown(t);
+  if (unknown.length) note += " " + unknown.join(" ");
+  if (findLengths(t).length === 1 && /\b(make|set)\b/.test(t)) {
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    main.lengthIn = Math.round(findLengths(t)[0].ft * 12);
+    note += " The run is " + findLengths(t)[0].ft + " ft.";
+  }
+  if (/\bno bar\b|\bbar off\b|\bturn off the bar\b/.test(t)) {
+    spec.barOn = false;
+    note += " The raised bar is off.";
+  }
+  if (findStools(t)) {
+    const stools = findStools(t);
+    const legN = spec.legs[spec.legs.length - 1];
+    legN.stools = stools;
+    spec.barOn = true;
+    note += " Room for " + stools + " stools.";
+  }
   return { spec, brief: true, notes: [note] };
 }
 
@@ -997,7 +1119,7 @@ function describe(spec, notes) {
 }
 
 function changeReply(spec, notes) {
-  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece)/.test(n));
+  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece|Cleared |Turned |Set )/ .test(n));
   const bar = spec.legs.find(l => l.role === "bar");
   const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
   let text = "Done";

@@ -240,10 +240,8 @@ describe("design eagle layout", () => {
     let island = drawn("L-shape, 10 ft grill leg with a grill, 5 ft bar");
     island = drawn("doors and drawers under the bar", island.spec);
     assert.ok(island.spec.legs[0].items.includes("grill"));
-    assert.ok(island.spec.legs[1].items.includes("door"));
-    assert.ok(island.spec.legs[1].items.includes("drawer"));
-    assert.equal(decodeDesign(island.code).m.find(row => row[0] === "BLZ-AD32-R-SC") != null, true);
-    assert.equal(decodeDesign(island.code).m.find(row => row[0] === "BLZ-DRW2-R-LT") != null, true);
+    assert.ok(island.spec.legs[1].items.includes("combo"));
+    assert.equal(decodeDesign(island.code).m.find(row => row[0] === "BLZ-DDC-R-LTSC") != null, true);
   });
 
   test("barbecue is a grill and stays left of a fridge", () => {
