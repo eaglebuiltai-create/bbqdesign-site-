@@ -187,18 +187,34 @@ function num(token) {
 
 export function normalize(text) {
   let t = String(text || "").toLowerCase().replace(/[’']/g, "'");
+  t = t.replace(/\bel[\s-]*shaped?\b/g, "l shaped");
+  t = t.replace(/\byou[\s-]*shaped?\b/g, "u shaped");
   t = t.replace(/(\d)\s*'/g, "$1 ft");
   t = t.replace(/(\d)\s*ft\b/g, "$1 ft");
   t = t.replace(/(\d)\s*-\s*(foot|feet|ft)\b/g, "$1 ft");
   t = t.replace(/\b(foot|feet)\b/g, "ft");
   t = t.replace(/\b(\d+(?:\.\d+)?)\s+by\s+(\d+(?:\.\d+)?)\s+ft\b/g, "$1 ft by $2 ft");
+  t = t.replace(/\b(\d+(?:\.\d+)?)\s+ft\s+by\s+(\d+(?:\.\d+)?)(?!\s*ft)\b/g, "$1 ft by $2 ft");
   t = t.replace(/[^a-z0-9.\s]/g, " ");
+  t = t.replace(/\b(\d+(?:\.\d+)?)\s+by\s+(\d+(?:\.\d+)?)(?!\s*ft)\b/g, (full, a, b) => {
+    const x = Number(a);
+    const y = Number(b);
+    if (x < 3 || y < 3 || x > 40 || y > 40) return full;
+    return a + " ft by " + b + " ft";
+  });
+  /* Leg lengths said in inches. Appliance sizes ("32 inch grill") stay put. */
+  t = t.replace(/\b(\d+(?:\.\d+)?)\s*(?:inches|inch|in)\b(?!\s+(?:grill|bbq|barbecue|barbeque|fridge|refrigerator|burner|door|doors|combo|drawer|drawers|sink|trash|keg|cooler|ice|pizza|griddle|smoker|blaze))/g, (full, n) => {
+    const inches = Number(n);
+    if (!Number.isFinite(inches) || inches < 48) return full;
+    const ft = Math.round((inches / 12) * 10) / 10;
+    return (ft % 1 === 0 ? String(ft) : ft.toFixed(1)) + " ft";
+  });
   return t.replace(/\s+/g, " ").trim();
 }
 
 function detectShape(t) {
-  if (/\bu\s*shape|\bu shaped|\bbig u\b|\ba u\b/.test(t)) return "yu";
-  if (/\bl\s*shape|\bl shaped|\ban l\b|\bell\b|\bcorner\b|\bl with\b|\bfoot l\b|\bft l\b/.test(t)) return "ell";
+  if (/\bu\s*shape|\bu shaped|\bbig u\b|\ba u\b|\bu island\b/.test(t)) return "yu";
+  if (/\bl\s*shape|\bl shaped|\ban l\b|\bell\b|\bcorner\b|\bl with\b|\bfoot l\b|\bft l\b|\bl island\b|\breturn\b/.test(t)) return "ell";
   if (/\bstraight\b|\blinear\b|\bsingle run\b/.test(t)) return "straight";
   return "";
 }
@@ -212,7 +228,7 @@ function findLengths(t) {
     if (ft == null) continue;
     const from = Math.max(0, m.index - 24);
     const before = t.slice(from, m.index);
-    const after = t.slice(m.index + m[0].length, m.index + m[0].length + 22);
+    const after = t.slice(m.index + m[0].length, m.index + m[0].length + 14);
     out.push({ ft, index: m.index, end: m.index + m[0].length, before, after, role: roleOf(before, after) });
   }
   return out;
@@ -224,9 +240,10 @@ function roleOf(before, after) {
   if (/\bleft\b/.test(after)) return "left";
   if (/\bright\b/.test(after)) return "right";
   if (/\b(return|short)\b/.test(after)) return "return";
-  if (/\b(grill|cook|main|back)\b/.test(after)) return "grill";
+  if (/\bone side\b/.test(after)) return "grill";
+  if (/\b(?:grill\s+(?:side|leg|run)|cook|main|back)\b/.test(after)) return "grill";
   const tail = before.slice(-18);
-  if (/\b(grill|main|back)\b/.test(tail)) return "grill";
+  if (/\b(?:grill\s+(?:side|leg|run)|main|back)\b/.test(tail)) return "grill";
   if (/\bbar\b/.test(tail)) return "bar";
   return "";
 }
@@ -262,6 +279,8 @@ function whereOf(after) {
   if (/__end__|\bend of\b/.test(after)) return "end";
   if (/\bright side\b|\bon the right\b|\bto the right\b|\bright end\b|\bright\b/.test(after)) return "right";
   if (/\bleft side\b|\bon the left\b|\bto the left\b|\bleft end\b|\bleft\b/.test(after)) return "left";
+  if (/\bon the other\b|\bother side\b/.test(after)) return "return";
+  if (/\bone side\b/.test(after)) return "main";
   return "";
 }
 
@@ -290,6 +309,11 @@ function findItemHits(text) {
   const tail = hits.length ? whereOf(src.slice(hits[hits.length - 1].end)) : "";
   if (tail === "bar") {
     for (const hit of hits) if (!hit.where) hit.where = "bar";
+  }
+  /* "on one side ... on the other" is the two legs of an L, in that order. */
+  if (/\bone side\b/.test(src) && /\bon the other\b|\bother side\b/.test(src) && hits.length >= 2) {
+    if (!hits[0].where || hits[0].where === "main") hits[0].where = "main";
+    if (!hits[1].where || hits[1].where === "return") hits[1].where = "return";
   }
   return hits;
 }
@@ -397,9 +421,10 @@ function parseNew(t) {
   }
   const bySplit = parts.length === 2 && /\bby\b/.test(parts[0].text) && !findItems(parts[0].text).length;
   const trailingItems = findItems(parts[parts.length - 1].text);
+  const leadItems = findItems(t.slice(0, found[0].index));
 
   function itemsFor(index) {
-    if (bySplit) return index === 0 ? trailingItems : [];
+    if (bySplit) return index === 0 ? trailingItems.slice() : [];
     return findItems(parts[index].text);
   }
 
@@ -415,7 +440,7 @@ function parseNew(t) {
       notes: unknown
     };
   }
-  if (shape === "yu" && !found.some(h => h.role === "each" || h.role === "left" || h.role === "right")) {
+  if (shape === "yu" && found.length < 2 && !found.some(h => h.role === "each" || h.role === "left" || h.role === "right")) {
     return {
       handled: true,
       clarify: "How long should the two return legs be? I have the " + found[0].ft + " ft run.",
@@ -439,6 +464,14 @@ function parseNew(t) {
     if (b < 0) b = parts.findIndex((_, i) => i !== g);
     const grillItems = withDefaultGrill(itemsFor(g), (parts[g].before || "") + " " + parts[g].text);
     const barItems = itemsFor(b).filter(id => id === "sink" || !grillItems.includes(id));
+    for (const id of leadItems) if (!grillItems.includes(id) && !barItems.includes(id)) grillItems.unshift(id);
+    /* A grill named beside the return, not "on the bar", belongs on the main run. */
+    if (parts[b].role !== "bar") {
+      for (const id of barItems.filter(item => item === "grill" || item === "grill-40")) {
+        barItems.splice(barItems.indexOf(id), 1);
+        if (!grillItems.includes(id)) grillItems.push(id);
+      }
+    }
     const grillStools = findStools(parts[g].text);
     const barStools = findStools(parts[b].text) || (findStools(t) - grillStools);
     spec.legs.push(leg("grill", Math.round(parts[g].ft * 12), grillItems, grillStools));
@@ -447,14 +480,20 @@ function parseNew(t) {
     const mainIndex = parts.findIndex(p => p.role === "grill" || p.role === "");
     const m = mainIndex >= 0 ? mainIndex : 0;
     const each = parts.find(p => p.role === "each");
-    const left = parts.find(p => p.role === "left") || each;
-    const right = parts.find(p => p.role === "right") || each;
+    const left = parts.find(p => p.role === "left") || each || (parts.length >= 2 ? parts.find((p, i) => i !== m) : null);
+    const right = parts.find(p => p.role === "right") || each || left;
     if (!left || !right) {
       return { handled: true, clarify: "How long is the back, and how long is each return?", notes: unknown };
     }
-    spec.legs.push(leg("grill", Math.round(parts[m].ft * 12), withDefaultGrill(itemsFor(m), (parts[m].before || "") + " " + parts[m].text), 0));
-    spec.legs.push(leg("left", Math.round(left.ft * 12), left === each ? [] : findItems(left.text), 0));
-    spec.legs.push(leg("right", Math.round(right.ft * 12), right === each ? [] : findItems(right.text), 0));
+    const mainItems = withDefaultGrill(itemsFor(m), (parts[m].before || "") + " " + parts[m].text);
+    for (const id of leadItems) if (!mainItems.includes(id)) mainItems.unshift(id);
+    if (each) {
+      for (const id of findItems(each.text)) if (!mainItems.includes(id)) mainItems.push(id);
+    }
+    const sharedSide = bySplit || (left === right && left !== each);
+    spec.legs.push(leg("grill", Math.round(parts[m].ft * 12), mainItems, 0));
+    spec.legs.push(leg("left", Math.round(left.ft * 12), sharedSide || left === each ? [] : findItems(left.text), 0));
+    spec.legs.push(leg("right", Math.round(right.ft * 12), sharedSide || right === each ? [] : findItems(right.text), 0));
   }
 
   spec.barOn = spec.legs.some(l => l.stools > 0 || l.role === "bar") || /\bbar\b|\bstools?\b/.test(t);
@@ -594,19 +633,25 @@ function refine(t, current) {
     spec.legs = [leg("main", main.lengthIn, main.items, 0, main.pinEnd, main.bases)];
     return { spec, brief: true, notes: ["Made it a straight run."] };
   }
-  if (detectShape(t) === "ell" && spec.shape !== "ell" && /\b(make|turn|change)\b/.test(t)) {
+  if (detectShape(t) === "ell" && spec.shape !== "ell" && findLengths(t).length < 2 && /\b(make|turn|change|switch|build|want)\b/.test(t)) {
     const lens = findLengths(t);
-    if (!lens.length) return { clarify: "How long should the bar leg be? I kept this layout." };
+    if (!lens.length) {
+      if (/\b(make|turn|change)\b/.test(t)) return { clarify: "How long should the bar leg be? I kept this layout." };
+      return null;
+    }
     const main = spec.legs[0];
     main.role = "grill";
     spec.shape = "ell";
     spec.barOn = true;
     spec.legs = [main, leg("bar", Math.round(lens[0].ft * 12), [], findStools(t))];
-    return { spec, brief: true, notes: ["Made it an L with a " + lens[0].ft + " ft bar."] };
+    return { spec, brief: true, notes: ["Made it an L with a " + lens[0].ft + " ft return."] };
   }
-  if (detectShape(t) === "yu" && spec.shape !== "yu" && /\b(make|turn|change)\b/.test(t)) {
+  if (detectShape(t) === "yu" && spec.shape !== "yu" && findLengths(t).length < 2 && /\b(make|turn|change|switch|build|want)\b/.test(t)) {
     const lens = findLengths(t);
-    if (!lens.length) return { clarify: "How long should each return be? I kept this layout." };
+    if (!lens.length) {
+      if (/\b(make|turn|change)\b/.test(t)) return { clarify: "How long should each return be? I kept this layout." };
+      return null;
+    }
     const main = spec.legs[0];
     main.role = "grill";
     spec.shape = "yu";
@@ -630,6 +675,8 @@ function joinSpoken(parts) {
 function placePhrase(where) {
   if (where === "right" || where === "end") return " on the right";
   if (where === "left") return " on the left";
+  if (where === "return") return " on the return";
+  if (where === "main") return " on the main run";
   if (where === "bar") return " under the bar";
   if (where === "under") return " in the base under the grill";
   if (where === "next") return " next to the grill";
@@ -682,7 +729,8 @@ function attachUnder(spec, baseId) {
   }
   leg.bases[host] = baseId;
   if (leg.items[leg.items.length - 1] === "fridge" || leg.items[leg.items.length - 1] === "fridge-24") leg.pinEnd = true;
-  return { note: "Moved " + name + " into the base under the grill." };
+  const word = sitting || prev === baseId ? "Moved " : "Added ";
+  return { note: word + name + " into the base under the grill." };
 }
 
 function layoutKey(spec) {
@@ -766,7 +814,10 @@ function gearCount(spec) {
 
 function destLeg(spec, where) {
   const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
-  if (where === "bar") return spec.legs.find(l => l.role === "bar") || main;
+  if (where === "bar" || where === "return") {
+    return spec.legs.find(l => l.role === "bar" || l.role === "return" || l.role === "right") || spec.legs[1] || main;
+  }
+  if (where === "main") return main;
   if (where === "left") return spec.legs.find(l => l.role === "left") || main;
   if (where === "right" && spec.shape === "yu") return spec.legs.find(l => l.role === "right") || main;
   if (where === "right" && spec.shape === "ell") return spec.legs.find(l => l.role === "bar") || main;
@@ -780,6 +831,7 @@ function isFullLayout(t) {
 /* A fridge already on the right stays the right end. Left, right, and
    "under the grill" insert around it instead of appending past it. */
 function placeOnLeg(leg, id, where) {
+  if ((where === "main" || where === "return") && (leg.items || []).includes(id)) return;
   leg.items = (leg.items || []).filter(x => x !== id);
   if (where === "right" || where === "end") {
     leg.items.push(id);
@@ -854,36 +906,51 @@ function addEquipment(t, current) {
   const spec = cloneSpec(current);
   const before = layoutKey(current);
   const added = [];
+  const moved = [];
   const underNotes = [];
-  let changed = false;
+  const wasAt = id => {
+    for (const l of current.legs || []) {
+      const i = (l.items || []).indexOf(id);
+      if (i >= 0) return l.role + "#" + i;
+      if (l.bases && Object.values(l.bases).includes(id)) return l.role + "#under";
+    }
+    return "";
+  };
+  const nowAt = id => {
+    for (const l of spec.legs || []) {
+      const i = (l.items || []).indexOf(id);
+      if (i >= 0) return l.role + "#" + i;
+      if (l.bases && Object.values(l.bases).includes(id)) return l.role + "#under";
+    }
+    return "";
+  };
   const queue = [...left].reverse().concat(mid, right);
   for (const hit of queue) {
     const dest = destLeg(spec, hit.where);
-    const had = spec.legs.some(l => (l.items || []).includes(hit.id)) || spec.legs.some(l => l.bases && Object.values(l.bases).includes(hit.id));
+    const had = !!wasAt(hit.id);
     spec.legs.forEach(l => { if (l !== dest) l.items = (l.items || []).filter(id => id !== hit.id); });
     if (hit.where === "under" && isBaseCabinet(hit.id)) {
       const under = attachUnder(spec, hit.id);
       if (under.clarify) return { clarify: under.clarify };
-      changed = true;
       underNotes.push(under.note);
-      if (!had) added.push(hit);
       continue;
     }
     if (/\b(move|relocate|put|place)\b/.test(t) && had && !hit.where) {
       return { clarify: "Where should " + CATALOG[hit.id].spoken.replace(/^a /, "the ") + " go? Under the grill, on the left, or on the right." };
     }
     placeOnLeg(dest, hit.id, hit.where);
-    if (!had) {
-      changed = true;
-      added.push(hit);
-    } else if (hit.where) changed = true;
+    const phraseHit = hit;
+    if (!had) added.push(phraseHit);
+    else if (wasAt(hit.id) !== nowAt(hit.id)) moved.push(phraseHit);
   }
   if (layoutKey(spec) === before) return { clarify: unchangedReply(t, spec) };
-  const wheres = [...new Set(added.map(h => h.where).filter(Boolean))];
-  let note;
-  if (!added.length) note = underNotes[0] || ("Moved " + joinSpoken(ordered.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".");
-  else if (wheres.length === 1) note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken)) + placePhrase(wheres[0]) + ".";
-  else note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".";
+  const spoken = h => CATALOG[h.id].spoken + placePhrase(h.where);
+  const bits = [];
+  if (added.length) bits.push("Added " + joinSpoken(added.map(spoken)));
+  if (moved.length) bits.push("Moved " + joinSpoken(moved.map(spoken)));
+  for (const line of underNotes) bits.push(String(line).replace(/\.$/, ""));
+  let note = bits.join(". ");
+  if (!note) note = "Moved " + joinSpoken(ordered.map(spoken));
   const unknown = findUnknown(t);
   if (unknown.length) note += " " + unknown.join(" ");
   if (findLengths(t).length === 1 && /\b(make|set)\b/.test(t)) {
@@ -1276,6 +1343,54 @@ export function classifyTurn(text, reply, before, after, prevText) {
   return null;
 }
 
+function keepUnmentioned(spec, current, t) {
+  if (!current || !spec || !spec.legs || !spec.legs.length) return;
+  const named = new Set(findItems(t));
+  const have = new Set();
+  spec.legs.forEach(l => (l.items || []).forEach(id => have.add(id)));
+  const main = spec.legs[0];
+  for (const l of current.legs || []) {
+    for (const id of l.items || []) {
+      if (!id || named.has(id) || have.has(id) || !CATALOG[id]) continue;
+      main.items.push(id);
+      have.add(id);
+    }
+  }
+  if (current.barOn && !/\bno bar\b|\bbar off\b/.test(t)) spec.barOn = true;
+}
+
+function defaultShape(t, current) {
+  const shape = detectShape(t);
+  if (shape !== "ell" && shape !== "yu") return null;
+  if (findLengths(t).length || /\b(make|turn|change)\b/.test(t)) return null;
+  if (current && current.shape === shape) return { handled: true, spec: cloneSpec(current), notes: [] };
+  const src = current && current.legs && current.legs[0];
+  const mainLen = src && src.lengthIn || 120;
+  const named = findItems(t);
+  const spec = blankSpec({
+    shape,
+    finish: (current && current.finish) || finishOf(t) || "stucco",
+    counter: (current && current.counter) || counterOf(t) || "concrete",
+    frame: (current && current.frame) || "cmu",
+    barOn: !!(current && current.barOn) || /\bbar\b|\bstools?\b/.test(t)
+  });
+  const items = named.length ? named.slice() : (src && src.items ? src.items.slice() : []);
+  const bases = named.length ? undefined : src && src.bases;
+  spec.legs.push(leg(shape === "ell" ? "grill" : "grill", mainLen, items, 0, src && src.pinEnd, bases));
+  if (shape === "ell") spec.legs.push(leg("bar", 72, [], findStools(t)));
+  else {
+    spec.legs.push(leg("left", 72, [], 0));
+    spec.legs.push(leg("right", 72, [], 0));
+  }
+  keepUnmentioned(spec, current, t);
+  const which = shape === "ell" ? "return" : "returns";
+  return {
+    handled: true,
+    spec,
+    notes: ["I used " + feet(mainLen) + " for the main run and " + feet(72) + " for the " + which + ". Say if you want different lengths."]
+  };
+}
+
 export function interpret(text, current) {
   const t = speechClean(normalize(text));
   if (!t) return keepResult(current, current ? "I kept this layout. What should I change?" : CLARIFY);
@@ -1289,6 +1404,10 @@ export function interpret(text, current) {
     return finishResult({ handled: true, ...added }, current);
   }
   const parsed = parseNew(t);
+  if (parsed.spec && current && detectShape(t) && detectShape(t) !== current.shape) keepUnmentioned(parsed.spec, current, t);
+  if (parsed.spec) return guardWipe(current, finishResult(parsed, current), t);
+  const shaped = defaultShape(t, current);
+  if (shaped) return guardWipe(current, finishResult(shaped, current), t);
   if (!parsed.handled) {
     const reply = current ? "I kept this layout. " + askBit(t) : (parsed.clarify || CLARIFY);
     return keepResult(current, reply, parsed.notes);

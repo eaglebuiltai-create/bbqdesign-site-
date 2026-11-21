@@ -285,6 +285,82 @@ add("L-shape, 10 ft grill leg with a side burner and a fridge, 5 ft bar with 3 s
   shape: "ell", barOn: true, reply: /L-shape|bar/i
 });
 
+const raised = () => island({ items: ["grill", "fridge"], barOn: true, lengthIn: 120 });
+const bareL = () => island({
+  shape: "ell",
+  legs: [
+    { role: "grill", lengthIn: 144, items: ["sink"], stools: 0, pinEnd: false },
+    { role: "bar", lengthIn: 96, items: [], stools: 0, pinEnd: false }
+  ]
+});
+
+add("build a barbecue island L-shaped 12 ft on one side with an 8-ft return on the other side", raised, {
+  shape: "ell", items: ["grill", "fridge"], lengthIn: 144, returnLen: 96, returnItems: [],
+  reply: /L-shape/, notReply: /kept this layout/
+});
+add("build an L-shaped Island", raised, {
+  shape: "ell", items: ["grill", "fridge"], lengthIn: 120, returnLen: 72,
+  reply: /L-shape|6 ft/, notReply: /kept this layout/
+});
+add("had a barbecue on one side and a refrigerator on the other", bareL, {
+  shape: "ell", items: ["sink", "grill"], returnItems: ["fridge"], lengthIn: 144, returnLen: 96,
+  reply: /Added/, notReply: /Moved|kept this layout/
+});
+add("had a barbecue on one side and a refrigerator on the other", () => island({
+  shape: "ell",
+  legs: [
+    { role: "grill", lengthIn: 144, items: ["grill", "fridge"], stools: 0, pinEnd: false },
+    { role: "bar", lengthIn: 96, items: [], stools: 0, pinEnd: false }
+  ]
+}), {
+  shape: "ell", items: ["grill"], returnItems: ["fridge"], reply: /Moved/, notReply: /Added/
+});
+add("el shaped 10 ft by 6 ft with a grill", null, {
+  shape: "ell", items: ["grill"], lengthIn: 120, returnLen: 72, reply: /L-shape/
+});
+add("L-shape 12 by 8 with a grill", null, {
+  shape: "ell", lengthIn: 144, returnLen: 96, items: ["grill"], reply: /L-shape/
+});
+add("l shaped 12 foot and 8 foot with a grill", null, {
+  shape: "ell", lengthIn: 144, returnLen: 96, reply: /L-shape/
+});
+add("corner island, 10 ft grill side and a 5 ft return", null, {
+  shape: "ell", lengthIn: 120, returnLen: 60, items: ["grill"], reply: /L-shape/
+});
+add("12 ft on one side with an 8 ft return and a grill", null, {
+  shape: "ell", lengthIn: 144, returnLen: 96, items: ["grill"], reply: /L-shape/
+});
+add("I want an L island 8 feet by 6 feet with a fridge", null, {
+  shape: "ell", lengthIn: 96, returnLen: 72, reply: /L-shape|fridge/
+});
+add("switch to an L with a 6 ft return", raised, {
+  shape: "ell", items: ["grill", "fridge"], lengthIn: 120, returnLen: 72, reply: /L|return/
+});
+add("U-shape 14 ft by 6 ft with a grill", null, {
+  shape: "yu", lengthIn: 168, returnLen: 72, items: ["grill"], reply: /U-shape/
+});
+add("you shaped kitchen, 12 ft main, 5 ft each side, with a grill", null, {
+  shape: "yu", lengthIn: 144, returnLen: 60, items: ["grill"], reply: /U-shape/
+});
+add("u shaped 10 ft back and 4 ft each side with a sink", null, {
+  shape: "yu", lengthIn: 120, returnLen: 48, reply: /U-shape|sink/
+});
+add("linear 9 ft island with a grill", null, {
+  shape: "straight", lengthIn: 108, items: ["grill"], reply: /straight|grill/
+});
+add("straight run, 11 feet, with a fridge", null, {
+  shape: "straight", lengthIn: 132, items: ["fridge"], reply: /straight/
+});
+add("build a U-shaped island", raised, {
+  shape: "yu", items: ["grill", "fridge"], lengthIn: 120, returnLen: 72, reply: /U-shape|6 ft/, notReply: /kept this layout/
+});
+add("96 inches on one side and a 72 inch return with a grill", null, {
+  shape: "ell", lengthIn: 96, returnLen: 72, items: ["grill"], reply: /L-shape/
+});
+add("make it an L with an 8-ft return", raised, {
+  shape: "ell", items: ["grill", "fridge"], lengthIn: 120, returnLen: 96, reply: /L|return/
+});
+
 add("add a blaze side burner combo on the right", fridgeRight, { items: ["fridge", "side-burner"], reply: /burner/i });
 add("remove the side burner", island({ items: ["grill", "side-burner", "fridge"] }), { items: ["grill", "fridge"], reply: /Removed|burner/i });
 add("swap the grill and the fridge", island({ items: ["grill", "fridge"], barOn: true }), { items: ["fridge", "grill"], reply: /Swapped/i });
@@ -323,6 +399,8 @@ describe("customer phrase suite", () => {
       if (expect.shape) assert.equal(result.spec.shape, expect.shape, result.reply);
       if (expect.barOn != null) assert.equal(!!result.spec.barOn, expect.barOn, result.reply);
       if (expect.lengthIn != null) assert.equal(leg0.lengthIn, expect.lengthIn, result.reply);
+      if (expect.returnLen != null) assert.equal(result.spec.legs[1].lengthIn, expect.returnLen, result.reply);
+      if (expect.returnItems) assert.deepEqual(result.spec.legs[1].items, expect.returnItems, result.reply);
       if (expect.finish) assert.equal(result.spec.finish, expect.finish, result.reply);
       if (expect.counter) assert.equal(result.spec.counter, expect.counter, result.reply);
       if (expect.stools != null) assert.equal(leg0.stools, expect.stools, result.reply);
