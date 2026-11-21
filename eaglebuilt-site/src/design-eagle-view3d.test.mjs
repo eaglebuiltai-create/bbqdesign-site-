@@ -65,7 +65,7 @@ describe("webgl view fixtures", () => {
       });
       assert.ok(boxes.some(box => box.mat === counter), counter);
       assert.ok(boxes.some(box => box.kind === "barrel" && box.mat === "steel"), counter);
-      assert.ok(boxes.some(box => box.mat === "door"), counter);
+      assert.ok(boxes.some(box => box.mat === "brushed"), counter);
       assert.ok(boxes.some(box => box.kind === "tube" && box.mat === "handle"), counter);
       assert.ok(boxes.some(box => box.mat === "knobRed"), counter);
     }
@@ -177,9 +177,10 @@ describe("webgl view fixtures", () => {
         t: "door1", mount: "base", faceW: 20, faceY0: 2, faceY1: 32
       }]
     });
-    assert.ok(access.some(part => part.mat === "door"));
+    assert.ok(access.some(part => part.mat === "brushed"));
     assert.ok(access.some(part => part.mat === "steel" && part.kind === "box"));
-    assert.equal(access.some(part => part.mat === "steelDark"), false);
+    assert.ok(access.some(part => part.kind === "tube" && part.mat === "standoff" && part.r >= 0.7));
+    assert.ok(access.some(part => part.kind === "tube" && part.mat === "handle" && part.r >= 1.4));
     assert.match(page, /image\/jpeg/);
   });
 });

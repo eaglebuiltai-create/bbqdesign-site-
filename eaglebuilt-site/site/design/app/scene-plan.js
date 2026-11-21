@@ -68,27 +68,29 @@ function bayParts(bay, H, slab) {
     const h = y1 - y0 - 1.2;
     const by = y0 + 0.6;
     ring(w + 0.1, y0, y1, 0.18, 0.5, "steel");
+    boxAt(w * 0.94, by, by + h, 0, -0.25, "cavity");
+    const sheet = (fw, sy0, sy1, off, pullLen, horizontal, pullOff) => {
+      boxAt(fw, sy0, sy1, off, 0.9, "standoff");
+      const inset = Math.min(0.55, Math.max(0.32, (sy1 - sy0) * 0.08));
+      boxAt(Math.max(1.6, fw - inset * 2), sy0 + inset, sy1 - inset, off, 0.48, "brushed");
+      handle(pullLen, (sy0 + sy1) / 2, pullOff == null ? off : pullOff, horizontal);
+    };
     if (t === "door1" || t === "trash") {
-      boxAt(w * 0.72, by + 0.7, by + h - 0.7, 0, 0.16, "door");
-      const pull = t === "trash"
-        ? [Math.min(15, iw - 3), by + h - 3.2, true]
-        : [Math.min(h - 3, 18), by + h / 2, false];
-      handle(pull[0], pull[1], t === "trash" ? 0 : iw / 2 - 2.4, pull[2]);
+      if (t === "trash") sheet(w * 0.78, by + 0.45, by + h - 0.45, 0, Math.min(15, iw - 3), true, 0);
+      else sheet(w * 0.82, by + 0.4, by + h - 0.4, 0, Math.min(h - 3, 18), false, iw / 2 - 2.4);
     } else if (t === "door2") {
       const dw = (iw - gap) / 2;
       [-1, 1].forEach(k => {
-      boxAt(dw * 0.86, by + 0.55, by + h - 0.55, k * (dw + gap) / 2, 0.16, "door");
-      handle(Math.min(h - 3, 18), by + h / 2, k * (gap / 2 + 2.4), false);
+        const off = k * (dw + gap) / 2;
+        sheet(dw * 0.9, by + 0.4, by + h - 0.4, off, Math.min(h - 3, 18), false, k * (gap / 2 + 2.4));
       });
     } else if (t === "drawer") {
-      const reveal = 0.7;
+      const reveal = 1.2;
       const n = h > 22 ? 3 : 2;
       const dh = (h - reveal * (n - 1)) / n;
       for (let i = 0; i < n; i++) {
         const a0 = by + i * (dh + reveal);
-        boxAt(iw * 0.86, a0 + 0.28, a0 + dh - 0.28, 0, 0.55, "steel");
-        boxAt(iw * 0.78, a0 + 0.7, a0 + dh - 0.7, 0, 0.12, "brushed");
-        handle(Math.min(18, iw - 2), a0 + dh * 0.55, 0, true);
+        sheet(iw * 0.9, a0 + 0.12, a0 + dh - 0.12, 0, Math.min(18, iw - 2), true, 0);
       }
     } else if (t === "combo") {
       const dw = iw * 0.45;
@@ -98,12 +100,9 @@ function bayParts(bay, H, slab) {
       const dh = (h - gap) / 2;
       for (let i = 0; i < 2; i++) {
         const a0 = by + i * (dh + gap);
-        boxAt(dw * 0.84, a0 + 0.28, a0 + dh - 0.28, lo, 0.5, "steel");
-        boxAt(dw * 0.74, a0 + 0.65, a0 + dh - 0.65, lo, 0.12, "brushed");
-        handle(Math.min(14, dw - 1.5), a0 + dh * 0.55, lo, true);
+        sheet(dw * 0.88, a0 + 0.2, a0 + dh - 0.2, lo, Math.min(14, dw - 1.5), true, lo);
       }
-      boxAt(dr * 0.82, by + 0.55, by + h - 0.55, ro, 0.16, "door");
-      handle(Math.min(h - 3, 18), by + h / 2, ro - dr / 2 + 2.4, false);
+      sheet(dr * 0.86, by + 0.4, by + h - 0.4, ro, Math.min(h - 3, 18), false, ro - dr / 2 + 2.4);
     } else if (t === "fridge") {
       boxAt(iw, by, by + h, 0, 0.5, "steel");
       boxAt(iw - 1.7, by + 0.85, by + h - 0.85, 0, 0.72, "glass");
@@ -136,14 +135,15 @@ function bayParts(bay, H, slab) {
   }
 
   function handle(len, y, off, horizontal) {
-    const a = facePt(off - (horizontal ? len / 2 : 0), y - (horizontal ? 0 : len / 2), 2.05);
-    const b = facePt(off + (horizontal ? len / 2 : 0), y + (horizontal ? 0 : len / 2), 2.05);
-    tube(a, b, 1.15, "handle");
+    const a = facePt(off - (horizontal ? len / 2 : 0), y - (horizontal ? 0 : len / 2), 2.35);
+    const b = facePt(off + (horizontal ? len / 2 : 0), y + (horizontal ? 0 : len / 2), 2.35);
+    tube(a, b, 1.85, "handle");
     const posts = horizontal ? [[-1, 0], [1, 0]] : [[0, -1], [0, 1]];
     posts.forEach(([kx, ky]) => {
-      const p = off + kx * (len / 2 - 0.8);
-      const py = y + ky * (len / 2 - 0.8);
-      tube(facePt(p, py, 0.35), facePt(p, py, 2.05), 0.38, "handle");
+      const p = off + kx * (len / 2 - 1.3);
+      const py = y + ky * (len / 2 - 1.3);
+      tube(facePt(p, py, 0.02), facePt(p, py, 0.5), 1.25, "standoff");
+      tube(facePt(p, py, 0.4), facePt(p, py, 2.55), 0.95, "standoff");
     });
   }
 

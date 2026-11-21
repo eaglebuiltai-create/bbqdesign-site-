@@ -441,6 +441,15 @@ add("put a fill her panel on the end by the fridge", island({ items: ["grill", "
 add("add a filler pannel on the right end", island({ items: ["grill", "fridge"], barOn: false }), {
   lengthIn: 126, reply: /filler panel/i
 });
+add("fill her panel on the right end", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], lengthIn: 126, reply: /filler panel/i, notReply: /kept this layout|What should I add/
+});
+add("filler panel on the right end", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], lengthIn: 126, reply: /filler panel/i, notReply: /kept this layout|What should I add/
+});
+add("a filler on the left end", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["grill", "fridge"], lengthIn: 126, reply: /left end/i, notReply: /kept this layout|What should I add/
+});
 
 describe("customer phrase suite", () => {
   test("at least 120 customer lines", () => {

@@ -946,7 +946,8 @@ function placeFiller(t0, current) {
   const t = fillerText(t0);
   if (!/\bfiller/.test(t)) return null;
   const removing = /\b(?:remove|delete)\b/.test(t);
-  const adding = /\b(?:add|put|place)\b/.test(t) || /\bboth ends\b/.test(t);
+  const atEnd = /\b(?:left end|right end|both ends|the end|at the end|on the end)\b/.test(t);
+  const adding = /\b(?:add|put|place)\b/.test(t) || atEnd;
   if (!removing && !adding) return null;
   if (removing && /\bfiller panels\b|\bfillers\b/.test(t) && !/\b(?:by|next to|end|left|right|fridge|refrigerator)\b/.test(t)) return null;
   const spec = cloneSpec(current);

@@ -156,21 +156,24 @@ function patioMesh(THREE) {
 
 function brushMap(THREE) {
   const c = document.createElement("canvas");
-  c.width = 24;
-  c.height = 128;
+  c.width = 48;
+  c.height = 256;
   const g = c.getContext("2d");
-  g.fillStyle = "#d5dde6";
-  g.fillRect(0, 0, 24, 128);
-  for (let x = 0; x < 24; x++) {
-    const shade = 176 + Math.floor(noise(x, 5) * 60);
-    g.strokeStyle = "rgba(" + shade + "," + (shade + 6) + "," + (shade + 12) + ",0.45)";
-    g.beginPath();
-    g.moveTo(x + 0.5, 0);
-    g.lineTo(x + 0.5, 128);
-    g.stroke();
+  g.fillStyle = "#4e565e";
+  g.fillRect(0, 0, 48, 256);
+  for (let x = 0; x < 48; x++) {
+    const n = noise(x, 11);
+    const shade = Math.floor(28 + n * n * 190);
+    g.fillStyle = "rgb(" + shade + "," + (shade + 3) + "," + (shade + 6) + ")";
+    g.fillRect(x, 0, 1, 256);
+    if (n > 0.82) {
+      g.fillStyle = "rgba(210,218,226,0.55)";
+      g.fillRect(x, 0, 1, 256);
+    }
   }
   const map = new THREE.CanvasTexture(c);
   map.wrapS = map.wrapT = THREE.RepeatWrapping;
+  map.repeat.set(6, 1);
   map.colorSpace = THREE.SRGBColorSpace;
   return map;
 }
@@ -304,8 +307,9 @@ export async function createView(canvas, opts) {
     const metal = {
       steel: ["#d8e0ea", 0.92, 0.28],
       steelDark: ["#9aa6b3", 0.84, 0.36],
+      standoff: ["#2c3238", 0.72, 0.55],
       door: ["#c2ccd8", 0.78, 0.4],
-      handle: ["#eff4f9", 1, 0.16],
+      handle: ["#6e787f", 0.9, 0.4],
       grate: ["#59626d", 0.7, 0.42],
       hood: ["#2a3036", 0.62, 0.4],
       cavity: ["#0e1116", 0.15, 0.72],
@@ -316,12 +320,14 @@ export async function createView(canvas, opts) {
       glass: ["#40586e", 0.2, 0.08]
     };
     if (mat === "brushed") {
-      return library.brushed = new THREE.MeshStandardMaterial({
-        color: "#e7eef5",
+      return library.brushed = new THREE.MeshPhysicalMaterial({
+        color: "#5c656d",
         map: brushMap(THREE),
-        metalness: 0.88,
-        roughness: 0.32,
-        envMapIntensity: 1.15
+        metalness: 0.82,
+        roughness: 0.55,
+        anisotropy: 0.95,
+        anisotropyRotation: Math.PI / 2,
+        envMapIntensity: 0.35
       });
     }
     if (metal[mat]) {
