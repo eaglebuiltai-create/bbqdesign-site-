@@ -429,10 +429,10 @@ describe("design eagle voice", () => {
     assert.match(guardSpoken("I just emailed you the design"), /359-9692/);
     assert.equal(claimsSent(guardSpoken("I just emailed you the design")), false);
     assert.equal(guardSpoken("Done, the bar is now 7 ft."), "Done, the bar is now 7 ft.");
-    const session = newVoiceSession("203.0.113.80");
+    const session = newVoiceSession();
     const token = await mintVoiceToken(secret, session);
     const read = await readVoiceToken(secret, token);
-    assert.equal(read.ip, "203.0.113.80");
+    assert.equal(read.left, session.left);
     assert.equal(await readVoiceToken(secret, token + "x"), null);
     assert.equal(spendVoiceSession(read, CONFIG.voiceLimits.maxChars + 1), null);
     const spent = spendVoiceSession(read, 20);
@@ -472,6 +472,48 @@ describe("design eagle voice", () => {
       assert.equal(posted.init.headers["xi-api-key"], "xi-test-key");
       assert.match(posted.url, /pNInz6obpgDQGcFmaJgB/);
       assert.equal(body.model_id, "eleven_flash_v2_5");
+    } finally {
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("a voice token still speaks after the caller address changes", async () => {
+    const env = { ELEVENLABS_API_KEY: "xi-test-key" };
+    let calls = 0;
+    const orig = globalThis.fetch;
+    globalThis.fetch = async () => {
+      calls += 1;
+      return new Response(new Uint8Array([9, 9]), { status: 200, headers: { "Content-Type": "audio/mpeg" } });
+    };
+    try {
+      const session = await post("/api/design-eagle/voice/session", {}, env, "198.51.100.10");
+      assert.equal(session.status, 200);
+      assert.equal(session.data.speak, true);
+      const said = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://eaglebuilt.ai",
+          "CF-Connecting-IP": "2001:db8::1"
+        },
+        body: JSON.stringify({ token: session.data.token, text: "Done, the bar is now 7 ft." })
+      }), env);
+      assert.equal(said.status, 200);
+      assert.match(said.headers.get("Content-Type"), /audio\/mpeg/);
+      assert.equal(calls, 1);
+      const again = said.headers.get("X-Voice-Token");
+      assert.ok(again);
+      const third = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://eaglebuilt.ai",
+          "CF-Connecting-IP": "203.0.113.250"
+        },
+        body: JSON.stringify({ token: again, text: "Room for 3 stools." })
+      }), env);
+      assert.equal(third.status, 200);
+      assert.equal(calls, 2);
     } finally {
       globalThis.fetch = orig;
     }

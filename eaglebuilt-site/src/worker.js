@@ -712,7 +712,7 @@ async function voiceSession(request, env) {
   if (limited(request, "eagleSpeak")) {
     return json({ speak: false, capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
   }
-  const token = await mintVoiceToken(key, newVoiceSession(clientIp(request)));
+  const token = await mintVoiceToken(key, newVoiceSession());
   return json({ speak: true, token, voice: EAGLE.voice.name }, 200);
 }
 
@@ -725,8 +725,11 @@ async function voiceSpeak(request, env) {
   let d;
   try { d = await request.json(); } catch { return json({ error: "bad json" }, 400); }
   const session = await readVoiceToken(key, d && d.token);
-  const ip = clientIp(request);
-  if (!session || session.say || session.ip !== ip) {
+  /* Address is not part of the check. A phone moves between IPv4 and IPv6
+     and between cell and Wi-Fi, and some networks give each connection a
+     new egress address. The signature, expiry, and character budget are
+     what keep the token honest. limited() above is the per-IP soft cap. */
+  if (!session || session.say) {
     return json({ capped: true, error: "Voice session expired. You can keep typing." }, 401);
   }
   const grant = d.grant ? await readVoiceToken(key, d.grant) : null;

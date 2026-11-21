@@ -4,6 +4,9 @@
  * The browser never sees the ElevenLabs key. The worker mints an HMAC
  * session token, speaks only text that has passed the layout honesty guard,
  * and returns a replacement token with the remaining character budget.
+ * The token is not tied to an IP. Phones change address mid-visit, so a
+ * mismatch must not end the session. Expiry and the character budget are
+ * the limits. Per-IP rate limiting stays a separate check in the worker.
  * Contact fields are not taken by voice: wantsSave() hands those to the form.
  */
 
@@ -78,17 +81,16 @@ export async function readVoiceToken(secret, token) {
   }
 }
 
-export function newVoiceSession(ip) {
+export function newVoiceSession() {
   const now = Date.now();
   return {
     exp: now + CONFIG.voiceLimits.sessionMs,
-    left: CONFIG.voiceLimits.sessionChars,
-    ip: String(ip || "")
+    left: CONFIG.voiceLimits.sessionChars
   };
 }
 
 export function spendVoiceSession(session, chars) {
   const n = Math.max(0, Math.round(chars) || 0);
   if (!session || n > session.left || n > CONFIG.voiceLimits.maxChars) return null;
-  return { exp: session.exp, left: session.left - n, ip: session.ip };
+  return { exp: session.exp, left: session.left - n };
 }
