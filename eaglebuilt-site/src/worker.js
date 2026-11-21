@@ -31,9 +31,21 @@
  * =============================================================================
  */
 
-import { acceptLead, clientIp, looksConfirmed, validateLead } from "./chat-lead.js";
+import { acceptLead, clientIp, commitLead, looksConfirmed, validateLead } from "./chat-lead.js";
 import { CHAT_SYSTEM, CHAT_TOOLS } from "./chat-prompt.js";
 import { FAILED_REPLY, SAVED_REPLY, visitorReply } from "./chat-honesty.js";
+import {
+  CONFIG as EAGLE,
+  MODEL_SYSTEM,
+  applyModelSpec,
+  compileSpec,
+  interpret,
+  layoutSummary,
+  publicConfig,
+  saveReply,
+  validateContact,
+  claimsSent
+} from "../site/assets/eagle-engine.js";
 
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
@@ -54,7 +66,9 @@ const RATE_LIMITS = {
   chat:    20,   // widget messages
   confirm: 6,    // design copies mailed to the customer
   leads:   12,   // gate signups forwarded to the CRM
-  designs: 60    // saving and reopening designs, which John does in bursts
+  designs: 60,   // saving and reopening designs, which John does in bursts
+  eagle:   30,   // Design Eagle layout turns
+  eagleSave: 8   // Design Eagle save: visitor email plus the lead
 };
 const hits = new Map();
 
@@ -128,6 +142,24 @@ export default {
       if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
       if (request.method !== "POST")    return cors(json({ ok: false, error: "POST only" }, 405), request, true);
       return cors(await chatLeadRequest(request, env), request, true);
+    }
+
+    /* Design Eagle. The page can also run the layout engine locally. This
+       route is the model path and the only path that sends mail or a lead. */
+    if (url.pathname === "/api/design-eagle/config") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "GET") return cors(json({ error: "GET only" }, 405), request, true);
+      return cors(json(publicConfig(), 200), request, true);
+    }
+    if (url.pathname === "/api/design-eagle") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await designEagleTurn(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/save") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ ok: false, error: "POST only" }, 405), request, true);
+      return cors(await designEagleSave(request, env), request, true);
     }
 
     // Anything else with no matching file. Hand back to assets so 404s still
@@ -422,6 +454,223 @@ function publicLead(result) {
     return { ok: false, message: result.message || "Too many submissions. Call (916) 359-9692." };
   }
   return { ok: true, leadSubmitted: !!result.leadSubmitted, duplicate: !!result.duplicate };
+}
+
+async function designEagleTurn(request, env) {
+  if (limited(request, "eagle")) {
+    return json({ error: "Too many messages. Call " + EAGLE.phoneDisplay + "." }, 429);
+  }
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 32_000) return json({ error: "Message is too long." }, 413);
+  let d;
+  try { d = await request.json(); } catch { return json({ error: "bad json" }, 400); }
+  const message = String(d && d.message || "").slice(0, 2000);
+  if (!message.trim()) return json({ error: "Send a message." }, 400);
+  const current = d && d.spec && typeof d.spec === "object" ? d.spec : null;
+  let result = interpret(message, current);
+  if (!result.handled) {
+    const model = await eagleModel(env, message, current);
+    if (model) result = applyModelSpec(model, current);
+  }
+  let reply = String(result.reply || "");
+  if (claimsSent(reply)) {
+    reply = "I'll draw the island here. I can't say anything was sent. Call " + EAGLE.phoneDisplay + " if you'd rather talk it through.";
+  }
+  return json({
+    reply,
+    spec: result.spec || null,
+    code: result.code || "",
+    link: result.link || "",
+    warnings: result.warnings || []
+  }, 200);
+}
+
+async function eagleModel(env, message, spec) {
+  const key = String(env && env.XAI_API_KEY || "").trim();
+  if (!key) return null;
+  try {
+    const r = await fetch("https://api.x.ai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": "Bearer " + key, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: CHAT_MODEL,
+        temperature: 0,
+        max_tokens: 700,
+        stream: false,
+        messages: [
+          { role: "system", content: MODEL_SYSTEM },
+          { role: "user", content: JSON.stringify({ message, current: spec || null }).slice(0, 6000) }
+        ]
+      }),
+      signal: AbortSignal.timeout(15000)
+    });
+    if (!r.ok) return null;
+    const data = await r.json();
+    const messageOut = data && data.choices && data.choices[0] && data.choices[0].message;
+    return parseModelJson(chatMessageText(messageOut));
+  } catch {
+    return null;
+  }
+}
+
+function parseModelJson(text) {
+  const s = String(text || "");
+  const start = s.indexOf("{");
+  const end = s.lastIndexOf("}");
+  if (start < 0 || end <= start) return null;
+  try { return JSON.parse(s.slice(start, end + 1)); } catch { return null; }
+}
+
+async function designEagleSave(request, env) {
+  const fail = (extra, status) => json({
+    ok: false,
+    emailConfirmed: false,
+    leadSubmitted: false,
+    reply: saveReply({}),
+    ...extra
+  }, status || 400);
+
+  if (limited(request, "eagleSave")) return fail({}, 429);
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 4_000_000) return fail({}, 413);
+  let d;
+  try { d = await request.json(); } catch { return fail({ message: "bad json" }); }
+  if (d && d.hp) {
+    return json({ ok: true, emailConfirmed: false, leadSubmitted: false, reply: saveReply({}) }, 200);
+  }
+  const opened = Number(d && d.t);
+  if (Number.isFinite(opened) && opened > 0) {
+    const age = Date.now() - opened;
+    if (age >= 0 && age < 2000) {
+      return json({ ok: true, emailConfirmed: false, leadSubmitted: false, reply: saveReply({}) }, 200);
+    }
+  }
+
+  const contact = validateContact(d);
+  if (!contact.ok) {
+    return json({
+      ok: false,
+      emailConfirmed: false,
+      leadSubmitted: false,
+      field: contact.field,
+      message: contact.message,
+      reply: contact.message
+    }, 400);
+  }
+
+  const built = compileSpec(d.spec);
+  if (!built.ok || !built.spec) return fail({ message: built.reply, reply: built.reply });
+
+  const image = jpegPayload(d.image);
+  const mailed = await sendVisitorDesign(env, {
+    email: contact.contact.email,
+    name: contact.contact.name,
+    link: built.link,
+    image
+  });
+  const summary = layoutSummary(built.spec);
+  const person = contact.contact;
+  const stored = await commitLead(env, {
+    name: person.name,
+    phone: person.phone,
+    email: person.email,
+    city: person.city,
+    zip: person.zip,
+    notes: person.notes,
+    project: (summary + (person.notes ? ". Notes: " + person.notes : "")).slice(0, 400),
+    page: EAGLE.leads.page,
+    source: EAGLE.leads.source,
+    link: built.link,
+    spec: built.spec,
+    specSummary: summary,
+    subject: "Design Eagle — " + person.name,
+    dedupeExtra: built.code.slice(0, 64),
+    renderNote: mailed.confirmed && image ? "Picture attached to the visitor email." : "No picture was confirmed.",
+    designSummary: [
+      "Design Eagle",
+      "Link: " + built.link,
+      "ZIP: " + (person.zip || ""),
+      "City: " + (person.city || ""),
+      "Notes: " + (person.notes || ""),
+      "Layout: " + summary,
+      "Spec: " + JSON.stringify(built.spec)
+    ].join("\n").slice(0, 3500)
+  });
+  const emailConfirmed = !!mailed.confirmed;
+  const leadSubmitted = !!(stored && stored.leadSubmitted);
+  const teamHasIt = leadSubmitted || !!(stored && stored.duplicate);
+  return json({
+    ok: true,
+    emailConfirmed,
+    leadSubmitted,
+    duplicate: !!(stored && stored.duplicate),
+    link: built.link,
+    reply: saveReply({
+      emailConfirmed,
+      leadSubmitted: teamHasIt,
+      email: person.email,
+      link: built.link,
+      imageAttached: !!(emailConfirmed && image)
+    })
+  }, 200);
+}
+
+function jpegPayload(image) {
+  const m = String(image || "").match(/^data:image\/jpeg;base64,([A-Za-z0-9+/=]+)$/);
+  if (!m || m[1].length < 100 || m[1].length >= 3_000_000) return "";
+  return m[1];
+}
+
+async function sendVisitorDesign(env, payload) {
+  const key = String(env && env.RESEND_API_KEY || "").trim();
+  if (!key) {
+    console.log("design-eagle: RESEND_API_KEY is not set");
+    return { confirmed: false };
+  }
+  const first = String(payload.name || "there").split(" ")[0] || "there";
+  const text = [
+    "Hi " + first + ",",
+    "",
+    "Here is the outdoor kitchen you designed with Design Eagle.",
+    "This link reopens that same design:",
+    "",
+    payload.link,
+    "",
+    "The price on the design comes from the catalog and the island build rates.",
+    "It is a budget proposal. Final pricing follows a site visit.",
+    "",
+    "John Simpson",
+    "EagleBuilt AI",
+    EAGLE.phoneDisplay,
+    "info@eaglebuilt.ai"
+  ].join("\n");
+  try {
+    const r = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + key,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: EAGLE.leads.visitorFrom,
+        to: [payload.email],
+        bcc: [EAGLE.leads.notifyTo],
+        reply_to: EAGLE.leads.notifyTo,
+        subject: "Your EagleBuilt outdoor kitchen design",
+        text,
+        ...(payload.image ? { attachments: [{ filename: "your-design.jpg", content: payload.image }] } : {})
+      }),
+      signal: AbortSignal.timeout(15000)
+    });
+    if (!r.ok) {
+      console.log("design-eagle: resend http " + r.status);
+      return { confirmed: false };
+    }
+    return { confirmed: true };
+  } catch (e) {
+    console.log("design-eagle: resend threw");
+    return { confirmed: false };
+  }
 }
 
 async function chat(request, env) {
