@@ -753,12 +753,18 @@ async function voiceSpeak(request, env) {
       body: JSON.stringify({ text, model_id: EAGLE.voice.modelId }),
       signal: AbortSignal.timeout(15000)
     });
+    /* A key limited to speech_to_text still returns 200 from transcribe and
+       401/403 here. The code is missing_permissions. quota_exceeded and
+       voice_not_found fail the same way. The log line is the only place
+       that code is kept. */
     if (!r.ok) {
-      console.log("design-eagle: elevenlabs tts " + r.status);
-      return json({ speak: false, error: "Voice playback didn't start. You can keep typing." }, 502);
+      const upstream = await r.text();
+      logEleven("tts", r.status, upstream, key, "model=" + EAGLE.voice.modelId + " voice=" + EAGLE.voice.voiceId);
+      return json({ speak: false, error: voiceError("Voice playback", r.status, upstream, key) }, 502);
     }
     audio = await r.arrayBuffer();
-  } catch {
+  } catch (err) {
+    console.log("design-eagle: tts threw " + redact(err && err.message, key));
     return json({ speak: false, error: "Voice playback didn't start. You can keep typing." }, 502);
   }
   const token = await mintVoiceToken(key, next);
@@ -812,9 +818,9 @@ async function voiceTranscribe(request, env) {
       signal: AbortSignal.timeout(20000)
     });
     if (!r.ok) {
-      const upstream = redact(await r.text(), key);
-      console.log("design-eagle: scribe " + r.status + " model=" + EAGLE.voice.sttModelId + " bytes=" + upload.size + " type=" + upload.type + " " + upstream);
-      return json({ text: "", error: scribeError(r.status, upstream) }, 502);
+      const upstream = await r.text();
+      logEleven("scribe", r.status, upstream, key, "model=" + EAGLE.voice.sttModelId + " bytes=" + upload.size + " type=" + upload.type);
+      return json({ text: "", error: voiceError("Transcription", r.status, upstream, key) }, 502);
     }
     const data = await r.json();
     return json({ text: String(data.text || "").trim().slice(0, 2000) }, 200);
@@ -1194,22 +1200,47 @@ function redact(text, key) {
   return s.replace(/xi-[A-Za-z0-9_-]{8,}/g, "[redacted]").slice(0, 500);
 }
 
-function scribeDetail(body) {
+/* ElevenLabs puts the machine code on detail.status (missing_permissions,
+   quota_exceeded, voice_not_found) and the sentence on detail.message. */
+function elevenFault(body) {
+  let code = "";
+  let detail = "";
   try {
     const parsed = JSON.parse(body);
-    const msg = parsed.detail || parsed.message || parsed.error;
-    if (typeof msg === "string") return msg;
-    if (Array.isArray(msg) && msg[0]) return String(msg[0].msg || msg[0].message || "");
-    if (msg && typeof msg === "object") return String(msg.message || msg.status || "");
-  } catch { /* plain text from upstream */ }
-  return "";
+    const msg = parsed.detail != null ? parsed.detail : (parsed.message || parsed.error);
+    if (typeof msg === "string") detail = msg;
+    else if (Array.isArray(msg) && msg[0]) {
+      code = String(msg[0].type || msg[0].code || "");
+      detail = String(msg[0].msg || msg[0].message || "");
+    } else if (msg && typeof msg === "object") {
+      code = String(msg.status || msg.code || msg.type || "");
+      detail = String(msg.message || "");
+    }
+  } catch {
+    detail = String(body || "");
+  }
+  return {
+    code: code.replace(/[^a-z0-9_]/gi, "").slice(0, 64),
+    detail: detail.replace(/\s+/g, " ").trim()
+  };
 }
 
-function scribeError(status, body) {
-  const detail = scribeDetail(body).replace(/\s+/g, " ").trim().slice(0, 160);
-  if (status === 401) return "The transcription key was rejected. You can type it.";
-  if (detail) return "Transcription was rejected (" + status + "): " + detail + " You can type it.";
-  return "Transcription was rejected (" + status + "). You can type it.";
+function logEleven(kind, status, body, key, extra) {
+  const fault = elevenFault(redact(body, key));
+  const bits = ["design-eagle:", kind, String(status), "code=" + (fault.code || "none")];
+  if (extra) bits.push(extra);
+  if (fault.detail) bits.push("detail=" + redact(fault.detail, key).slice(0, 300));
+  console.log(bits.join(" "));
+}
+
+function voiceError(what, status, body, key) {
+  const fault = elevenFault(redact(body, key));
+  const code = fault.code ? " " + fault.code : "";
+  const detail = redact(fault.detail, key).slice(0, 160);
+  const tail = what === "Transcription" ? " You can type it." : " You can keep typing.";
+  if (status === 401 && !fault.code) return "The " + what.toLowerCase() + " key was rejected." + tail;
+  if (detail) return what + " was rejected (" + status + code + "): " + detail + tail;
+  return what + " was rejected (" + status + code + ")." + tail;
 }
 
 function clean(v, max) {

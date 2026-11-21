@@ -669,7 +669,7 @@ describe("design eagle voice", () => {
     console.log = (...args) => { logs.push(args.join(" ")); };
     const orig = globalThis.fetch;
     globalThis.fetch = async () => new Response(JSON.stringify({
-      detail: { message: "invalid model id, key xi-test-key" }
+      detail: { status: "invalid_model", message: "invalid model id, key xi-test-key" }
     }), { status: 422, headers: { "Content-Type": "application/json" } });
     try {
       const body = new FormData();
@@ -681,12 +681,49 @@ describe("design eagle voice", () => {
       }), env);
       const data = await res.json();
       assert.equal(res.status, 502);
-      assert.match(data.error, /Transcription was rejected \(422\): invalid model id/);
+      assert.match(data.error, /Transcription was rejected \(422 invalid_model\): invalid model id/);
       assert.match(data.error, /You can type it/);
       assert.equal(data.error.includes("xi-test-key"), false);
       const line = logs.join("\n");
       assert.match(line, /scribe 422/);
+      assert.match(line, /code=invalid_model/);
       assert.match(line, /model=scribe_v2/);
+      assert.equal(line.includes("xi-test-key"), false);
+    } finally {
+      console.log = origLog;
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("a tts rejection logs the upstream code and not the key", async () => {
+    const env = { ELEVENLABS_API_KEY: "xi-test-key" };
+    const logs = [];
+    const origLog = console.log;
+    console.log = (...args) => { logs.push(args.join(" ")); };
+    const orig = globalThis.fetch;
+    globalThis.fetch = async () => new Response(JSON.stringify({
+      detail: { status: "missing_permissions", message: "missing text_to_speech for xi-test-key" }
+    }), { status: 401, headers: { "Content-Type": "application/json" } });
+    try {
+      const session = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.93");
+      assert.equal(session.status, 200);
+      const said = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://eaglebuilt.ai",
+          "CF-Connecting-IP": "203.0.113.93"
+        },
+        body: JSON.stringify({ token: session.data.token, text: "Done, the bar is now 7 ft." })
+      }), env);
+      const data = await said.json();
+      assert.equal(said.status, 502);
+      assert.match(data.error, /401 missing_permissions/);
+      assert.equal(data.error.includes("xi-test-key"), false);
+      const line = logs.join("\n");
+      assert.match(line, /tts 401/);
+      assert.match(line, /code=missing_permissions/);
+      assert.match(line, /voice=pNInz6obpgDQGcFmaJgB/);
       assert.equal(line.includes("xi-test-key"), false);
     } finally {
       console.log = origLog;
