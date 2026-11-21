@@ -450,6 +450,12 @@ add("filler panel on the right end", island({ items: ["grill", "fridge"], barOn:
 add("a filler on the left end", island({ items: ["grill", "fridge"], barOn: false }), {
   items: ["grill", "fridge"], lengthIn: 126, reply: /left end/i, notReply: /kept this layout|What should I add/
 });
+add("put a bartending station just left of the grill", island({ items: ["grill", "fridge"], barOn: false }), {
+  items: ["bev-sink", "grill", "fridge"], reply: /bartending station/i, notReply: /Where should the 32 inch|kept this layout/
+});
+add("put a power burner to the left of the griddle", island({ items: ["griddle", "fridge"], barOn: false }), {
+  items: ["power", "griddle", "fridge"], reply: /power burner/i, notReply: /Where should the 30 inch griddle/
+});
 
 describe("customer phrase suite", () => {
   test("at least 120 customer lines", () => {

@@ -1573,6 +1573,99 @@ describe("john's straight run", () => {
   });
 });
 
+describe("adjacent pieces and nudges", () => {
+  test("a bartending station is the Blaze beverage center and sits 12 inches from the grill", () => {
+    assert.equal(CATALOG["bev-sink"].k, "BLZ-30CKT-SNK");
+    assert.equal(CATALOG["bev-sink"].p, 1899);
+    const lines = [
+      "put a bartending station just left of the grill",
+      "add a bartender station just to the left of the grill",
+      "put a cocktail station just left of the grill",
+      "add a bar center just left of the grill"
+    ];
+    for (const line of lines) {
+      const built = drawn("straight 12 ft island with a grill and a fridge");
+      const placed = drawn(line, built.spec);
+      assert.deepEqual(placed.spec.legs[0].items, ["bev-sink", "grill", "fridge"], line + " " + placed.reply);
+      assert.equal(placed.spec.legs[0].lengthIn, 144, line);
+      assert.match(placed.reply, /bartending station/, placed.reply);
+      assert.doesNotMatch(placed.reply, /Where should|price to be confirmed|\$\d/, placed.reply);
+      const gaps = gapsBetweenGear(placed.code);
+      assert.deepEqual(gaps[0].fills, ["fill12"], line + " " + JSON.stringify(gaps));
+    }
+    const right = drawn("put a bartending station immediately right of the grill", drawn("straight 12 ft island with a grill and a fridge").spec);
+    assert.deepEqual(right.spec.legs[0].items, ["grill", "bev-sink", "fridge"], right.reply);
+    assert.deepEqual(gapsBetweenGear(right.code)[0].fills, ["fill12"]);
+    const beside = drawn("put a trash drawer right next to the grill", drawn("straight 12 ft island with a grill and a fridge").spec);
+    assert.deepEqual(beside.spec.legs[0].items, ["grill", "trash", "fridge"], beside.reply);
+  });
+
+  test("put a power burner to the left of the griddle adds the burner, not a question about the griddle", () => {
+    assert.equal(CATALOG.power.k, "BLZ-PBLTE3");
+    assert.equal(CATALOG.power.p, 1499);
+    const built = drawn("straight 12 ft island with a griddle and a fridge");
+    const first = drawn("put a power burner to the left of the griddle", built.spec);
+    assert.deepEqual(first.spec.legs[0].items, ["power", "griddle", "fridge"], first.reply);
+    assert.doesNotMatch(first.reply, /Where should the 30 inch griddle/);
+    assert.match(first.reply, /power burner/);
+    assert.deepEqual(gapsBetweenGear(first.code)[0].fills, ["fill6"], first.reply);
+    const again = interpret("put a power burner to the left of the griddle", first.spec);
+    assert.doesNotMatch(again.reply, /Where should the 30 inch griddle/);
+    assert.deepEqual(again.spec.legs[0].items, ["power", "griddle", "fridge"]);
+    const flipped = drawn("move it to the other side of the griddle", first.spec);
+    assert.deepEqual(flipped.spec.legs[0].items, ["griddle", "power", "fridge"], flipped.reply);
+    assert.match(flipped.reply, /other side|right of the 30 inch griddle/);
+    assert.doesNotMatch(flipped.reply, /Where should the 30 inch griddle|on the return/);
+    assert.deepEqual(gapsBetweenGear(flipped.code).find(gap => gap.fills.length).fills, ["fill6"]);
+    const flipWord = drawn("flip it to the other side of the griddle", flipped.spec);
+    assert.deepEqual(flipWord.spec.legs[0].items, ["power", "griddle", "fridge"], flipWord.reply);
+    const aroundGrill = drawn("move it to the other side of the grill", drawn("put a power burner just left of the grill", drawn("straight 12 ft island with a grill and a fridge").spec).spec);
+    assert.deepEqual(aroundGrill.spec.legs[0].items, ["grill", "power", "fridge"], aroundGrill.reply);
+    assert.ok(gapsBetweenGear(aroundGrill.code).some(gap => gap.fills.includes("fill12")), aroundGrill.reply);
+    const sink = drawn("put a sink to the right of the fridge", built.spec);
+    assert.deepEqual(sink.spec.legs[0].items, ["griddle", "fridge", "sink"], sink.reply);
+    assert.doesNotMatch(sink.reply, /Where should the 20 inch fridge/);
+    const ice = drawn("put an ice maker to the left of the drawer", drawn("straight 12 ft island with a double drawer and a fridge").spec);
+    assert.equal(ice.spec.legs[0].items[0], "ice", ice.reply);
+    assert.ok(ice.spec.legs[0].items.indexOf("ice") < ice.spec.legs[0].items.indexOf("drawer"));
+    const burner = drawn("put a side burner next to the griddle", built.spec);
+    assert.deepEqual(burner.spec.legs[0].items, ["griddle", "side-burner", "fridge"], burner.reply);
+    assert.deepEqual(gapsBetweenGear(burner.code)[0].fills, ["fill6"]);
+  });
+
+  test("move it over a little bit further slides the last piece along its run", () => {
+    let step = drawn("straight 12 ft island with a grill and a fridge");
+    step = drawn("put a bartending station just left of the grill", step.spec);
+    assert.equal(step.spec.lastMoved, "bev-sink");
+    const nudged = drawn("move it over a little bit further", step.spec);
+    assert.deepEqual(nudged.spec.legs[0].items, ["bev-sink", "grill", "fridge"], nudged.reply);
+    assert.equal(nudged.spec.legs[0].lengthIn, 144);
+    assert.match(nudged.reply, /12 inches/);
+    assert.match(nudged.reply, /bartending station/);
+    assert.doesNotMatch(nudged.reply, /shares its run|Where should|on the return/);
+    assert.equal(nudged.spec.lastMoved, "bev-sink");
+  });
+
+  test("move it over to feet is a two foot slide, not a leg change", () => {
+    const built = drawn("L shaped island, 12 ft grill side with a grill and a fridge, 8 ft return");
+    built.spec.lastMoved = "fridge";
+    built.spec.lastDir = -1;
+    for (const line of ["move it over to feet", "move it over too feet", "move it over two foot"]) {
+      const slid = interpret(line, built.spec);
+      assert.equal(slid.spec.legs[0].items.includes("fridge"), true, line + " " + slid.reply);
+      assert.equal(slid.spec.legs[1].items.includes("fridge"), false, line);
+      assert.equal(slid.spec.legs[1].items.includes("grill"), false, line);
+      assert.match(slid.reply, /24 inches/, line + " " + slid.reply);
+      assert.match(slid.reply, /fridge/, slid.reply);
+      assert.doesNotMatch(slid.reply, /needs about|on the return|I left it where it is/, line + " " + slid.reply);
+    }
+    const six = interpret("move it over six inches", built.spec);
+    assert.match(six.reply, /6 inches/, six.reply);
+    const foot = interpret("move it over a foot", built.spec);
+    assert.match(foot.reply, /12 inches/, foot.reply);
+  });
+});
+
 describe("hold to talk", () => {
   test("short holds and junk transcripts are not a design turn", () => {
     assert.equal(holdLongEnough(299), false);
