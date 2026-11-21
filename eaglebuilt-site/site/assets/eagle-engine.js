@@ -394,6 +394,20 @@ function leg(role, lengthIn, items, stools, pinEnd, bases) {
   return out;
 }
 
+/* "fridge on the left" and "side burner on the right" are positions on this run, around the grill. */
+function orderBySide(items, text) {
+  const wanted = new Set(items);
+  const hits = [];
+  for (const hit of findItemHits(text)) {
+    if (!wanted.has(hit.id) || hits.some(h => h.id === hit.id)) continue;
+    hits.push(hit);
+  }
+  const left = hits.filter(h => h.where === "left").map(h => h.id);
+  const right = hits.filter(h => h.where === "right" || h.where === "end").map(h => h.id);
+  const mid = items.filter(id => !left.includes(id) && !right.includes(id));
+  return { items: [...left, ...mid, ...right], pinEnd: right.length > 0 };
+}
+
 function withDefaultGrill(items, text) {
   const next = items.slice();
   const cooking = next.some(id => id === "grill" || id === "grill-40" || id === "griddle" || id === "power" || id === "pizza" || id === "smoker");
@@ -457,7 +471,8 @@ function parseNew(t) {
   });
 
   if (shape === "straight") {
-    spec.legs.push(leg("main", Math.round(parts[0].ft * 12), withDefaultGrill(itemsFor(0), (parts[0].before || "") + " " + parts[0].text), findStools(t)));
+    const placed = orderBySide(withDefaultGrill(itemsFor(0), (parts[0].before || "") + " " + parts[0].text), t);
+    spec.legs.push(leg("main", Math.round(parts[0].ft * 12), placed.items, findStools(t), placed.pinEnd));
   } else if (shape === "ell") {
     const grillIndex = parts.findIndex(p => p.role === "grill");
     const g = grillIndex >= 0 ? grillIndex : 0;
@@ -473,6 +488,9 @@ function parseNew(t) {
         if (!grillItems.includes(id)) grillItems.push(id);
       }
     }
+    const placedGrill = orderBySide(grillItems, t);
+    grillItems.length = 0;
+    for (const id of placedGrill.items) grillItems.push(id);
     const grillStools = findStools(parts[g].text);
     const barStools = findStools(parts[b].text) || (findStools(t) - grillStools);
     spec.legs.push(leg("grill", Math.round(parts[g].ft * 12), grillItems, grillStools));
@@ -510,7 +528,9 @@ function cloneSpec(spec) {
 const GRILLS = { grill: 1, "grill-40": 1 };
 const HOT_BESIDE_GRILL = {
   grill: 1, "grill-40": 1, "side-burner": 1, "side-burner-single": 1,
-  power: 1, griddle: 1, sink: 1, pizza: 1, smoker: 1
+  power: 1, griddle: 1, sink: 1, pizza: 1, smoker: 1,
+  /* Blaze 15" ice maker is a gravity-drain wet unit. A fridge is not. */
+  ice: 1
 };
 const FILLER_SIZES = [4, 6, 8, 12, 16, 24];
 

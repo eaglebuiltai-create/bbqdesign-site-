@@ -1069,6 +1069,36 @@ describe("filler panels", () => {
   });
 });
 
+function gearSequence(code) {
+  const keys = decodeDesign(code).m.map(row => row[0]);
+  const first = keys.findIndex(key => !String(key).startsWith("fill"));
+  const last = keys.length - 1 - [...keys].reverse().findIndex(key => !String(key).startsWith("fill") && key !== "corner24");
+  return keys.slice(Math.max(0, first), last + 1).filter(key => key !== "corner24");
+}
+
+describe("side words on one build", () => {
+  test("fridge on the left and side burner on the right sit around the grill", () => {
+    const result = drawn("build a straight 12 ft island with a 32 inch blaze grill, a side burner on the right and a fridge on the left");
+    assert.deepEqual(result.spec.legs[0].items, ["fridge", "grill", "side-burner"]);
+    assert.deepEqual(gearSequence(result.code), ["BLZ-SSRF20-4.3", "fill6", "BLZ-4LTE3", "fill12", "BLZ-SB2-LTEPLUS"]);
+  });
+
+  test("left end, far right, and swapped sides stay relative to the grill", () => {
+    const cases = [
+      ["straight 12 ft island with a fridge on the left end and a 32 inch grill", ["fridge", "grill"], ["BLZ-SSRF20-4.3", "fill6", "BLZ-4LTE3"]],
+      ["straight 10 ft island with a grill and a sink on the far right", ["grill", "sink"], ["BLZ-4LTE3", "fill12", "BLZ-30CKT-SNK"]],
+      ["straight 12 ft island with a side burner on the left and a fridge on the right and a grill", ["side-burner", "grill", "fridge"], ["BLZ-SB2-LTEPLUS", "fill12", "BLZ-4LTE3", "fill6", "BLZ-SSRF20-4.3"]],
+      ["straight 10 ft island with a grill and a fridge on the left", ["fridge", "grill"], ["BLZ-SSRF20-4.3", "fill6", "BLZ-4LTE3"]],
+      ["straight 10 ft island with an ice maker on the left and a 32 inch grill", ["ice", "grill"], ["BLZ-ICEMKR-50GR", "fill12", "BLZ-4LTE3"]]
+    ];
+    for (const [line, items, seq] of cases) {
+      const result = drawn(line);
+      assert.deepEqual(result.spec.legs[0].items, items, line);
+      assert.deepEqual(gearSequence(result.code), seq, line + " " + result.reply);
+    }
+  });
+});
+
 describe("hold to talk", () => {
   test("short holds and junk transcripts are not a design turn", () => {
     assert.equal(holdLongEnough(299), false);
