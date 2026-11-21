@@ -25,18 +25,21 @@
     <div class="chatHead">
       <b>Design Eagle</b>
       <span>Type a layout. Voice uses this same thread later.</span>
-      <button type="button" class="secondary" id="hideChat" style="float:right;padding:6px 10px;min-height:36px">Hide</button>
     </div>
+    <div class="thread">
     <div class="log" id="log" role="log" aria-live="polite"></div>
+    </div>
+    <form class="composer" id="composer">
+      <p class="live" id="live" hidden></p>
+      <input id="text" type="text" maxlength="2000" autocomplete="off" aria-label="Describe your island" placeholder="L-shape, 10 ft grill leg with a side burner and fridge, 5 ft bar with 3 stools">
+      <button type="button" class="secondary mic" id="mic">Hold to talk</button>
+      <button class="go" type="submit">Draw</button>
+    </form>
     <div class="book" id="book" hidden>
       <h3 id="bookTitle">Book a live design session with John</h3>
       <p id="bookPending">Live booking isn't connected yet.</p>
       <a class="btn" id="bookPhone" href="tel:+19163599692">(916) 359-9692</a>
     </div>
-    <form class="composer" id="composer">
-      <input id="text" type="text" maxlength="2000" autocomplete="off" aria-label="Describe your island" placeholder="L-shape, 10 ft grill leg with a side burner and fridge, 5 ft bar with 3 stools">
-      <button class="go" type="submit">Draw</button>
-    </form>
     <form class="save" id="save" hidden>
       <p class="err" id="saveErr" hidden></p>
       <label>Name <input id="name" name="name" autocomplete="name" required></label>
@@ -55,7 +58,6 @@
     </form>
   </section>
 </main>
-<button type="button" class="toggle" id="showChat">Design Eagle</button>
 <script type="module" src="/assets/design-eagle.js"></script>
 </body>
 </html>

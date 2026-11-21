@@ -57,6 +57,21 @@ export const CONFIG = {
     pagePath: "/design-eagle/",
     shareOrigin: "https://eaglebuilt.ai",
     eagleParam: "eagle=1"
+  },
+  /* ElevenLabs premade Adam. Swap voiceId here for a cloned EB voice.
+     The API key never lives in this object. */
+  voice: {
+    provider: "elevenlabs",
+    name: "Adam",
+    voiceId: "pNInz6obpgDQGcFmaJgB",
+    modelId: "eleven_flash_v2_5",
+    /* Batch speech-to-text. scribe_v1 is rejected immediately (HTTP 422). */
+    sttModelId: "scribe_v2"
+  },
+  voiceLimits: {
+    sessionMs: 8 * 60 * 1000,
+    sessionChars: 3500,
+    maxChars: 900
   }
 };
 
@@ -73,6 +88,11 @@ export function publicConfig() {
     designer: {
       appPath: CONFIG.designer.appPath,
       pagePath: CONFIG.designer.pagePath
+    },
+    voice: {
+      provider: CONFIG.voice.provider,
+      name: CONFIG.voice.name,
+      voiceId: CONFIG.voice.voiceId
     }
   };
 }
@@ -94,6 +114,10 @@ export const CATALOG = {
   pizza: { k: "BLZ-26-PZOVN", spoken: "a 26 inch pizza oven", w: 26.5, p: 2499 },
   trash: { k: "BLZ-TRLP-DRW-H", spoken: "a trash drawer", w: 20.375, p: 695 },
   door: { k: "BLZ-AD32-R-SC", spoken: "storage doors", w: 30.75, p: 521 },
+  /* Real catalog SKUs. "combo unit" is the door + drawer combo, not a side burner. */
+  combo: { k: "BLZ-DDC-R-LTSC", spoken: "a door and drawer combo", w: 32.25, p: 986 },
+  drawer: { k: "BLZ-DRW2-R-LT", spoken: "a double drawer", w: 17.5, p: 812 },
+  ice: { k: "BLZ-ICEMKR-50GR", spoken: "a 15 inch ice maker", w: 18.75, p: 2749 },
   smoker: { k: "YS640S-CM", spoken: "a pellet smoker", w: 54.2, p: 3049 },
   corner: { k: "corner24", spoken: "a corner", w: 24, p: 349 }
 };
@@ -131,16 +155,21 @@ const WORD_NUM = {
 
 const ITEM_RES = [
   [/single side burner/, "side-burner-single"],
-  [/double side burner|side burner|sideburner/, "side-burner"],
+  [/side burner combo|double side burner|side burner|sideburner/, "side-burner"],
   [/power burner|\bwok\b/, "power"],
-  [/40\s*(?:inch|in)\s*grill/, "grill-40"],
+  [/\b40\s*(?:inch|in)?\s*(?:\w+\s+){0,2}grill/, "grill-40"],
   [/griddle/, "griddle"],
   [/pizza oven|\bpizza\b/, "pizza"],
   [/smoker/, "smoker"],
-  [/\btrash\b/, "trash"],
+  [/ice maker|icemaker/, "ice"],
+  [/trash pull ?out|pull ?out trash|trash drawer|\btrash\b/, "trash"],
+  [/doors and drawers|door\s+(?:and\s+)?drawers?(?:\s+combo)?|combo unit|combo cabinet|\bcombo\b/, "combo"],
+  [/\bdrawers?\b/, "drawer"],
+  [/access doors?/, "door"],
+  [/\bdoors?\b/, "door"],
   [/\bsink\b/, "sink"],
-  [/refrigerator|\bfridge\b|\bcooler\b|kegerator|\bkeg\b/, "fridge"],
-  [/\bgrill\b/, "grill"]
+  [/beverage center|bev center|refrigerator|\bfridge\b|\bcooler\b|kegerator|\bkeg\b/, "fridge"],
+  [/\b(?:bbq|barbeque|barbecue)(?:\s+grill)?\b|\bgrill\b/, "grill"]
 ];
 
 const UNKNOWN_RES = [
@@ -168,7 +197,7 @@ export function normalize(text) {
 }
 
 function detectShape(t) {
-  if (/\bu\s*shape|\bu shaped|\bbig u\b/.test(t)) return "yu";
+  if (/\bu\s*shape|\bu shaped|\bbig u\b|\ba u\b/.test(t)) return "yu";
   if (/\bl\s*shape|\bl shaped|\ban l\b|\bell\b|\bcorner\b|\bl with\b|\bfoot l\b|\bft l\b/.test(t)) return "ell";
   if (/\bstraight\b|\blinear\b|\bsingle run\b/.test(t)) return "straight";
   return "";
@@ -208,8 +237,36 @@ function stripRoleWords(text) {
     .replace(/\bgrill\s+side\b(?!\s+burner)/g, " ");
 }
 
-function findItems(text) {
-  const src = stripRoleWords(String(text || ""));
+/* Placement phrases name a spot, not a second grill. Tokens stay so whereOf can see them. */
+function prepareGearText(text) {
+  return stripRoleWords(String(text || ""))
+    .replace(/\bnext to the grill\b/g, " __next__ ")
+    .replace(/\bbeside the grill\b/g, " __next__ ")
+    .replace(/\bby the grill\b/g, " __next__ ")
+    .replace(/\bbetween the grill and the (?:fridge|refrigerator)\b/g, " __between__ ")
+    .replace(/\bin the middle\b|\bin the center\b/g, " __between__ ")
+    .replace(/\b(?:under|underneath|below|beneath) the (?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
+    .replace(/\b(?:under|underneath) it\b/g, " __under__ ")
+    .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
+    .replace(/\bunder the bar\b/g, " __bar__ ")
+    .replace(/\bon the bar(?: side)?\b/g, " __bar__ ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function whereOf(after) {
+  if (/__bar__|\bunder the bar\b|\bon the bar\b/.test(after)) return "bar";
+  if (/__under__/.test(after)) return "under";
+  if (/__between__/.test(after)) return "between";
+  if (/__next__|\bnext to\b|\bbeside\b/.test(after)) return "next";
+  if (/__end__|\bend of\b/.test(after)) return "end";
+  if (/\bright side\b|\bon the right\b|\bto the right\b|\bright end\b|\bright\b/.test(after)) return "right";
+  if (/\bleft side\b|\bon the left\b|\bto the left\b|\bleft end\b|\bleft\b/.test(after)) return "left";
+  return "";
+}
+
+function findItemHits(text) {
+  const src = prepareGearText(text);
   const used = [];
   const hits = [];
   for (const [re, id] of ITEM_RES) {
@@ -220,13 +277,39 @@ function findItems(text) {
       const to = from + m[0].length;
       if (used.some(span => from < span.to && to > span.from)) continue;
       used.push({ from, to });
-      hits.push({ index: from, id });
+      hits.push({ index: from, end: to, id, where: "" });
     }
   }
   hits.sort((a, b) => a.index - b.index);
+  for (let i = 0; i < hits.length; i++) {
+    const next = i + 1 < hits.length ? hits[i + 1].index : src.length;
+    hits[i].where = whereOf(src.slice(hits[i].end, next));
+  }
+  /* "doors and drawers under the bar" — the phrase covers the whole list.
+     "on the right" stays on the piece it follows, so a grill named first is not moved. */
+  const tail = hits.length ? whereOf(src.slice(hits[hits.length - 1].end)) : "";
+  if (tail === "bar") {
+    for (const hit of hits) if (!hit.where) hit.where = "bar";
+  }
+  return hits;
+}
+
+function findItems(text) {
   const items = [];
-  for (const hit of hits) if (!items.includes(hit.id)) items.push(hit.id);
+  for (const hit of findItemHits(text)) if (!items.includes(hit.id)) items.push(hit.id);
   return items;
+}
+
+function speechClean(text) {
+  return String(text || "")
+    .replace(/\b(uh+|um+|er+|ah+|hmm+)\b/g, " ")
+    .replace(/\b(basically|actually|kinda|sorta|please|just|like|okay|ok|so|well|yeah|yep|hey)\b/g, " ")
+    .replace(/\b(blaise|blase|blayze|blaze|lynx|coyote|fire magic|firemagic|dcs|alfresco|summerset|hestan|twin eagles|diablo|yoder|rcs)\b/g, " ")
+    .replace(/\bthirty[\s-]*two\b/g, "32")
+    .replace(/\bforty[\s-]*two\b/g, "42")
+    .replace(/\bforty\b/g, "40")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function findStools(text) {
@@ -280,8 +363,10 @@ function blankSpec(over) {
   };
 }
 
-function leg(role, lengthIn, items, stools) {
-  return { role, lengthIn, items: items || [], stools: stools || 0 };
+function leg(role, lengthIn, items, stools, pinEnd, bases) {
+  const out = { role, lengthIn, items: items || [], stools: stools || 0, pinEnd: !!pinEnd };
+  if (bases && Object.keys(bases).length) out.bases = bases;
+  return out;
 }
 
 function withDefaultGrill(items, text) {
@@ -387,16 +472,16 @@ function refine(t, current) {
   const spec = cloneSpec(current);
   if (/\b(stone veneer|ledgestone|stacked stone)\b/.test(t) || /\bswap to stone\b|\bswitch to stone\b/.test(t)) {
     spec.finish = "stack";
-    return { spec, notes: ["Switched the finish to ledgestone veneer. The design prices veneer from its finish list."] };
+    return { spec, brief: true, notes: ["Switched the finish to ledgestone veneer."] };
   }
   if (/\bstucco\b/.test(t) && /\b(swap|switch|make|change|use)\b/.test(t)) {
     spec.finish = "stucco";
-    return { spec, notes: ["Switched the finish back to stucco, which is included in the island build."] };
+    return { spec, brief: true, notes: ["Switched the finish back to stucco."] };
   }
   const fin = finishOf(t);
   if (fin && /\b(swap|switch|make|change|use|finish)\b/.test(t)) {
     spec.finish = fin;
-    return { spec, notes: ["Finish is now " + FINISHES[fin] + "."] };
+    return { spec, brief: true, notes: ["Finish is now " + FINISHES[fin] + "."] };
   }
   if (/\bbar\b/.test(t) && /\b(longer|shorter)\b/.test(t)) {
     const delta = /\bshorter\b/.test(t) ? -24 : 24;
@@ -405,45 +490,436 @@ function refine(t, current) {
       return { clarify: "Which leg should I change? This one doesn't have a separate bar leg yet." };
     }
     bar.lengthIn += delta;
-    return { spec, notes: [delta > 0 ? "Made the bar 2 ft longer." : "Made the bar 2 ft shorter."] };
+    return { spec, brief: true, notes: [delta > 0 ? "Made the bar longer." : "Made the bar shorter."] };
   }
   if (/\bgrill\b/.test(t) && /\b(longer|shorter)\b/.test(t)) {
     const delta = /\bshorter\b/.test(t) ? -24 : 24;
     const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
     if (!grill) return { clarify: "I don't see a grill leg to resize." };
     grill.lengthIn += delta;
-    return { spec, notes: [delta > 0 ? "Made the grill leg 2 ft longer." : "Made the grill leg 2 ft shorter."] };
+    return { spec, brief: true, notes: [delta > 0 ? "Made the grill leg longer." : "Made the grill leg shorter."] };
   }
-  const add = t.match(/\badd (?:a |an )?(sink|fridge|refrigerator|side burner|single side burner|grill|power burner|griddle|trash|cooler)\b/);
-  if (add) {
+  const placed = /\b(left|right side|on the right|on the left|under the bar|under(?:neath)? the grill|under(?:neath)? it|below the grill|beneath the grill|next to|end of)\b/.test(t);
+  const reposition = /\b(move|relocate|swap|put|place)\b/.test(t);
+  const add = !reposition && t.match(/\badd (?:a |an )?(sink|fridge|refrigerator|side burner|single side burner|grill|power burner|griddle|trash|cooler)\b/);
+  if (add && !placed && findItems(t).length < 2) {
     const id = findItems(add[1])[0] || (add[1] === "cooler" || add[1] === "refrigerator" ? "fridge" : "");
     if (!id) return { clarify: "I can add a sink, fridge, side burner, grill, griddle, or trash drawer. That one isn't in the catalog." };
     const dest = spec.legs.find(l => l.role === "bar" && !l.items.includes(id))
       || spec.legs.find(l => !l.items.includes(id))
       || spec.legs[0];
-    if (dest.items.includes(id)) return { spec: current, notes: ["That's already on the " + dest.role + " leg."] };
+    if (dest.items.includes(id)) return { spec: current, brief: true, notes: ["That's already on the " + dest.role + " leg."] };
     dest.items.push(id);
-    return { spec, notes: ["Added " + CATALOG[id].spoken + " on the " + dest.role + " leg."] };
+    return { spec, brief: true, notes: ["Added " + CATALOG[id].spoken + "."] };
   }
-  const remove = t.match(/\bremove (?:the |a )?(sink|fridge|refrigerator|side burner|grill|power burner|griddle|trash|cooler)\b/);
-  if (remove) {
-    const id = findItems(remove[1])[0];
-    if (!id) return { clarify: "Tell me which piece to remove: sink, fridge, side burner, or grill." };
+  if (/\b(remove|delete)\b/.test(t)) {
+    const ids = findItems(t);
+    if (!ids.length) return { clarify: "Tell me which piece to remove: sink, fridge, side burner, grill, or combo." };
     let hit = false;
     spec.legs.forEach(l => {
-      if (l.items.includes(id)) { l.items = l.items.filter(x => x !== id); hit = true; }
+      const next = (l.items || []).filter(id => !ids.includes(id));
+      if (next.length !== (l.items || []).length) hit = true;
+      l.items = next;
     });
-    if (!hit) return { spec: current, notes: ["That piece isn't on the design."] };
-    return { spec, notes: ["Removed " + CATALOG[id].spoken + "."] };
+    if (!hit) return { spec: current, brief: true, notes: ["That piece isn't on the design."] };
+    return { spec, brief: true, notes: ["Removed " + joinSpoken(ids.map(id => CATALOG[id].spoken)) + "."] };
   }
-  if (/^(make|add|remove|swap|change|switch)\b/.test(t) || /\b(longer|shorter)\b/.test(t)) {
+  if (/\b(undo|go back|never mind|nevermind)\b/.test(t)) {
+    return { clarify: "I don't have an earlier version of this design. The island is unchanged. Tell me what to move." };
+  }
+  if (/\b(start over|from scratch|clear the island|clear it)\b/.test(t)) {
+    spec.legs.forEach(l => { l.items = []; delete l.bases; });
+    return { spec, brief: true, notes: ["Cleared the equipment. The run is still here."] };
+  }
+  if (/\bhow long\b/.test(t) && !findItems(t).length) {
+    const bar = spec.legs.find(l => l.role === "bar");
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    const which = /\bbar\b/.test(t) && bar ? bar : main;
+    return { clarify: "The " + which.role + " leg is " + feet(which.lengthIn) + ". I haven't changed the layout." };
+  }
+  if (/\b(how much|what fits|what can i add|whats the price|what is the price)\b/.test(t) || (/\bprice\b/.test(t) && !findItems(t).length)) {
+    if (/\bwhat fits\b|\bwhat can i add\b/.test(t)) {
+      return { clarify: "A grill, fridge, sink, side burner, combo, or trash drawer fit on this run. What should I add?" };
+    }
+    return { clarify: "The price is the one on the design, from the catalog and the build rates. I haven't changed the layout." };
+  }
+  const unknownOnly = findUnknown(t);
+  if (unknownOnly.length && !findItems(t).length) {
+    return { clarify: unknownOnly.join(" ") + " The layout is unchanged." };
+  }
+  if (/\b(?:inches|inch|in)\s*deep\b|\bdeeper\b|\bshallower\b|\bdepth\b/.test(t) && !findItems(t).length) {
+    return { clarify: "This layout stays 32 inches deep. That's the counter depth we build. I left the rest as it is." };
+  }
+  if (/\b(bigger|longer)\b/.test(t) && !/\bbar\b/.test(t) && !/\bgrill leg\b/.test(t) && !findItems(t).length) {
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    main.lengthIn += 24;
+    return { spec, brief: true, notes: ["Made the main run longer."] };
+  }
+  if (/\b(make|change|set)\b/.test(t) && findLengths(t).length === 1 && !findItems(t).length && !detectShape(t)) {
+    const ft = findLengths(t)[0].ft;
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    main.lengthIn = Math.round(ft * 12);
+    return { spec, brief: true, notes: ["Made the main run " + ft + " ft."] };
+  }
+  if (((/\bbar\b/.test(t) && /\boff\b/.test(t)) || /\bno bar\b/.test(t)) && !findItems(t).length) {
+    spec.barOn = false;
+    spec.legs.forEach(l => { l.stools = 0; });
+    return { spec, brief: true, notes: ["Turned the raised bar off."] };
+  }
+  if (/\b(bar on|raised bar|add a bar|turn the bar on)\b/.test(t) && !findItems(t).length) {
+    spec.barOn = true;
+    return { spec, brief: true, notes: ["Turned the raised bar on."] };
+  }
+  if (findStools(t) && !findItems(t).length) {
+    const stools = findStools(t);
+    const legN = spec.legs.find(l => l.role === "bar") || spec.legs[spec.legs.length - 1];
+    legN.stools = stools;
+    spec.barOn = true;
+    return { spec, brief: true, notes: ["Set the bar for " + stools + " stools."] };
+  }
+  const counter = counterOf(t);
+  if (counter && !findItems(t).length) {
+    spec.counter = counter;
+    const named = COUNTERS[counter];
+    const quote = named.quote ? ", which the designer lists as a quote add" : "";
+    return { spec, brief: true, notes: ["Switched the counter to " + named.n + quote + "."] };
+  }
+  if (fin && !findItems(t).length && fin !== spec.finish) {
+    spec.finish = fin;
+    return { spec, brief: true, notes: ["Switched the finish to " + FINISHES[fin] + "."] };
+  }
+  if (detectShape(t) === "straight" && spec.shape !== "straight" && /\b(make|turn|change|straighten)\b/.test(t)) {
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    spec.shape = "straight";
+    spec.legs = [leg("main", main.lengthIn, main.items, 0, main.pinEnd, main.bases)];
+    return { spec, brief: true, notes: ["Made it a straight run."] };
+  }
+  if (detectShape(t) === "ell" && spec.shape !== "ell" && /\b(make|turn|change)\b/.test(t)) {
+    const lens = findLengths(t);
+    if (!lens.length) return { clarify: "How long should the bar leg be? I kept this layout." };
+    const main = spec.legs[0];
+    main.role = "grill";
+    spec.shape = "ell";
+    spec.barOn = true;
+    spec.legs = [main, leg("bar", Math.round(lens[0].ft * 12), [], findStools(t))];
+    return { spec, brief: true, notes: ["Made it an L with a " + lens[0].ft + " ft bar."] };
+  }
+  if (detectShape(t) === "yu" && spec.shape !== "yu" && /\b(make|turn|change)\b/.test(t)) {
+    const lens = findLengths(t);
+    if (!lens.length) return { clarify: "How long should each return be? I kept this layout." };
+    const main = spec.legs[0];
+    main.role = "grill";
+    spec.shape = "yu";
+    const side = Math.round(lens[0].ft * 12);
+    spec.legs = [main, leg("left", side, [], 0), leg("right", side, [], 0)];
+    return { spec, brief: true, notes: ["Made it a U with " + lens[0].ft + " ft returns."] };
+  }
+  if ((/^(make|add|remove|swap|change|switch)\b/.test(t) || /\b(longer|shorter)\b/.test(t)) && !findItems(t).length) {
     return { clarify: "I can make the bar or the grill leg longer or shorter, add or remove a sink, fridge, side burner, or grill, or swap the finish to stone veneer or stucco." };
   }
   return null;
 }
 
-function pack(items, targetIn) {
-  const pieces = items.map(id => CATALOG[id]).filter(Boolean);
+function joinSpoken(parts) {
+  const names = parts.filter(Boolean);
+  if (names.length <= 1) return names[0] || "";
+  if (names.length === 2) return names[0] + " and " + names[1];
+  return names.slice(0, -1).join(", ") + ", and " + names[names.length - 1];
+}
+
+function placePhrase(where) {
+  if (where === "right" || where === "end") return " on the right";
+  if (where === "left") return " on the left";
+  if (where === "bar") return " under the bar";
+  if (where === "under") return " in the base under the grill";
+  if (where === "next") return " next to the grill";
+  return "";
+}
+
+function isBaseCabinet(id) {
+  return id === "combo" || id === "door" || id === "drawer";
+}
+
+function readBases(raw) {
+  if (!raw || typeof raw !== "object") return undefined;
+  const out = {};
+  for (const host of ["grill", "grill-40"]) {
+    if (isBaseCabinet(raw[host])) out[host] = raw[host];
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
+function hostGrill(leg) {
+  if (!leg) return "";
+  if ((leg.items || []).includes("grill-40")) return "grill-40";
+  if ((leg.items || []).includes("grill")) return "grill";
+  if (leg.bases && leg.bases["grill-40"]) return "grill-40";
+  if (leg.bases && leg.bases.grill) return "grill";
+  return "";
+}
+
+/* Drop-in grills do not stack a second module underneath. The 3D view reads
+   the grill's u field and draws that cabinet face in the base opening
+   directly under the cutout (faceSpan → drawFace). */
+function attachUnder(spec, baseId) {
+  const leg = spec.legs.find(l => hostGrill(l));
+  if (!leg) {
+    return { clarify: "There's no grill to put that under. I can put " + CATALOG[baseId].spoken + " on the left or the right." };
+  }
+  const host = hostGrill(leg);
+  const name = CATALOG[baseId].spoken;
+  const sitting = spec.legs.some(l => (l.items || []).includes(baseId));
+  if (leg.bases && leg.bases[host] === baseId && !sitting) {
+    return { clarify: name.replace(/^a /, "The ") + " is already in the base under the grill. I can move it out beside the grill, or leave the fridge at the right end." };
+  }
+  spec.legs.forEach(l => { l.items = (l.items || []).filter(id => id !== baseId); });
+  const prev = leg.bases && leg.bases[host];
+  if (!leg.bases) leg.bases = {};
+  if (prev && prev !== baseId && !leg.items.includes(prev)) {
+    const at = leg.items.indexOf(host);
+    if (at >= 0) leg.items.splice(at + 1, 0, prev);
+    else leg.items.push(prev);
+  }
+  leg.bases[host] = baseId;
+  if (leg.items[leg.items.length - 1] === "fridge" || leg.items[leg.items.length - 1] === "fridge-24") leg.pinEnd = true;
+  return { note: "Moved " + name + " into the base under the grill." };
+}
+
+function layoutKey(spec) {
+  return JSON.stringify((spec.legs || []).map(l => ({
+    items: l.items || [],
+    bases: l.bases || null,
+    pin: !!l.pinEnd
+  })));
+}
+
+function unchangedReply(t, spec) {
+  const hits = findItemHits(t);
+  const id = hits[0] && hits[0].id;
+  const name = id && CATALOG[id] ? CATALOG[id].spoken.replace(/^a /, "The ") : "That piece";
+  if (hits.some(h => h.where === "under")) {
+    return name + " is already in the base under the grill. I can move it out beside the grill, or leave the fridge at the right end.";
+  }
+  if (hits.some(h => h.where === "right" || h.where === "end")) {
+    return name + " is already at the right end. I can move it to the left, or put the combo under the grill.";
+  }
+  if (hits.some(h => h.where === "left")) {
+    return name + " is already on the left. I can move it to the right end, or put a cabinet under the grill.";
+  }
+  const where = spec && spec.legs && spec.legs.some(l => l.bases && Object.values(l.bases).includes(id));
+  if (where) return name + " is in the base under the grill. I can move it out beside the grill, or move the fridge to the right end.";
+  return name + " is already on this island. Say which side, or say under the grill.";
+}
+
+function swapPair(current, a, b) {
+  const spec = cloneSpec(current);
+  const loc = id => {
+    for (const l of spec.legs) {
+      const i = (l.items || []).indexOf(id);
+      if (i >= 0) return { leg: l, i };
+    }
+    return null;
+  };
+  const A = loc(a);
+  const B = loc(b);
+  const underA = spec.legs.some(l => l.bases && Object.values(l.bases).includes(a));
+  const underB = spec.legs.some(l => l.bases && Object.values(l.bases).includes(b));
+  if ((underA || underB) && !(A && B)) {
+    return { clarify: "Those two are not side by side. The cabinet under the grill stays in that base. I can move it out beside the grill, or move the fridge to the right end." };
+  }
+  if (!A || !B) {
+    const missing = !A ? a : b;
+    return { clarify: "I don't see " + CATALOG[missing].spoken + " on this island. I can add it on the left or the right." };
+  }
+  if (A.leg === B.leg && A.i === B.i) {
+    return { clarify: unchangedReply("swap " + a + " and " + b, spec) };
+  }
+  if (A.leg === B.leg) {
+    const items = A.leg.items;
+    const tmp = items[A.i];
+    items[A.i] = items[B.i];
+    items[B.i] = tmp;
+  } else {
+    A.leg.items[A.i] = b;
+    B.leg.items[B.i] = a;
+  }
+  return { spec, brief: true, notes: ["Swapped " + CATALOG[a].spoken + " and " + CATALOG[b].spoken + "."] };
+}
+
+function rearrange(t, current) {
+  if (!current || !current.legs || !current.legs.length) return null;
+  if (!/\bswap\b/.test(t)) return null;
+  if (/\b(stone|stucco|finish|veneer|longer|shorter)\b/.test(t)) return null;
+  const ids = findItems(t);
+  if (ids.length < 2) return { clarify: "Tell me the two pieces to swap, for example the fridge and the combo." };
+  return swapPair(current, ids[0], ids[1]);
+}
+
+function gearCount(spec) {
+  if (!spec || !Array.isArray(spec.legs)) return 0;
+  let n = 0;
+  for (const l of spec.legs) {
+    for (const id of l.items || []) if (CATALOG[id] && id !== "corner") n++;
+  }
+  return n;
+}
+
+function destLeg(spec, where) {
+  const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+  if (where === "bar") return spec.legs.find(l => l.role === "bar") || main;
+  if (where === "left") return spec.legs.find(l => l.role === "left") || main;
+  if (where === "right" && spec.shape === "yu") return spec.legs.find(l => l.role === "right") || main;
+  if (where === "right" && spec.shape === "ell") return spec.legs.find(l => l.role === "bar") || main;
+  return main;
+}
+
+function isFullLayout(t) {
+  return findLengths(t).length > 0;
+}
+
+/* A fridge already on the right stays the right end. Left, right, and
+   "under the grill" insert around it instead of appending past it. */
+function placeOnLeg(leg, id, where) {
+  leg.items = (leg.items || []).filter(x => x !== id);
+  if (where === "right" || where === "end") {
+    leg.items.push(id);
+    leg.pinEnd = true;
+    return;
+  }
+  if (where === "left") {
+    leg.items.unshift(id);
+    return;
+  }
+  if (where === "between") {
+    const g = leg.items.findIndex(x => x === "grill" || x === "grill-40");
+    const f = leg.items.lastIndexOf("fridge");
+    if (g >= 0) leg.items.splice(g + 1, 0, id);
+    else if (f > 0) leg.items.splice(f, 0, id);
+    else leg.items.splice(Math.min(1, leg.items.length), 0, id);
+    if (leg.items[leg.items.length - 1] === "fridge") leg.pinEnd = true;
+    return;
+  }
+  if (where === "next") {
+    const at = leg.items.findIndex(x => x === "grill" || x === "grill-40");
+    if (at >= 0) {
+      leg.items.splice(at + 1, 0, id);
+      if (leg.items[leg.items.length - 1] === "fridge") leg.pinEnd = true;
+      return;
+    }
+  }
+  const last = leg.items[leg.items.length - 1];
+  if ((last === "fridge" || last === "fridge-24") && id !== "fridge" && id !== "fridge-24") {
+    leg.items.splice(leg.items.length - 1, 0, id);
+    leg.pinEnd = true;
+    return;
+  }
+  leg.items.push(id);
+}
+
+/* Equipment with no shape or length is an add. It never starts an empty island. */
+function addEquipment(t, current) {
+  /* "we have the 10 ft bar, now add a grill" is an add, not a new island. */
+  const adding = current && current.legs && current.legs.length && /\b(add|put|place)\b/.test(t);
+  if (/\b(remove|delete)\b/.test(t) || (isFullLayout(t) && !adding)) return null;
+  const hits = [];
+  for (const hit of findItemHits(t)) {
+    if (!hits.some(h => h.id === hit.id)) hits.push(hit);
+  }
+  if (!hits.length) return null;
+
+  const left = hits.filter(h => h.where === "left");
+  const right = hits.filter(h => h.where === "right" || h.where === "end");
+  const mid = hits.filter(h => h.where !== "left" && h.where !== "right" && h.where !== "end");
+  const ordered = [...left, ...mid, ...right];
+  const pin = right.length > 0;
+
+  if (!current || !current.legs || !current.legs.length) {
+    const bay = ordered.filter(h => !(h.where === "under" && isBaseCabinet(h.id)));
+    const ids = bay.map(h => h.id);
+    const width = ids.reduce((sum, id) => sum + (CATALOG[id] ? CATALOG[id].w : 0), 0);
+    const spec = blankSpec({ shape: "straight", barOn: false });
+    spec.legs.push(leg("main", Math.max(120, Math.ceil(width)), ids, 0, pin));
+    const notes = ["I laid this out as a straight run. Say if you wanted an L or a U."];
+    for (const h of ordered) {
+      if (h.where === "under" && isBaseCabinet(h.id)) {
+        const under = attachUnder(spec, h.id);
+        if (under.note) notes.push(under.note);
+        else if (under.clarify) spec.legs[0].items.push(h.id);
+      }
+    }
+    if (pin) notes.push("I put " + joinSpoken(right.map(h => CATALOG[h.id].spoken)) + " on the right.");
+    return { spec, notes };
+  }
+
+  const spec = cloneSpec(current);
+  const before = layoutKey(current);
+  const added = [];
+  const underNotes = [];
+  let changed = false;
+  const queue = [...left].reverse().concat(mid, right);
+  for (const hit of queue) {
+    const dest = destLeg(spec, hit.where);
+    const had = spec.legs.some(l => (l.items || []).includes(hit.id)) || spec.legs.some(l => l.bases && Object.values(l.bases).includes(hit.id));
+    spec.legs.forEach(l => { if (l !== dest) l.items = (l.items || []).filter(id => id !== hit.id); });
+    if (hit.where === "under" && isBaseCabinet(hit.id)) {
+      const under = attachUnder(spec, hit.id);
+      if (under.clarify) return { clarify: under.clarify };
+      changed = true;
+      underNotes.push(under.note);
+      if (!had) added.push(hit);
+      continue;
+    }
+    if (/\b(move|relocate|put|place)\b/.test(t) && had && !hit.where) {
+      return { clarify: "Where should " + CATALOG[hit.id].spoken.replace(/^a /, "the ") + " go? Under the grill, on the left, or on the right." };
+    }
+    placeOnLeg(dest, hit.id, hit.where);
+    if (!had) {
+      changed = true;
+      added.push(hit);
+    } else if (hit.where) changed = true;
+  }
+  if (layoutKey(spec) === before) return { clarify: unchangedReply(t, spec) };
+  const wheres = [...new Set(added.map(h => h.where).filter(Boolean))];
+  let note;
+  if (!added.length) note = underNotes[0] || ("Moved " + joinSpoken(ordered.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".");
+  else if (wheres.length === 1) note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken)) + placePhrase(wheres[0]) + ".";
+  else note = "Added " + joinSpoken(added.map(h => CATALOG[h.id].spoken + placePhrase(h.where))) + ".";
+  const unknown = findUnknown(t);
+  if (unknown.length) note += " " + unknown.join(" ");
+  if (findLengths(t).length === 1 && /\b(make|set)\b/.test(t)) {
+    const main = spec.legs.find(l => l.role === "grill" || l.role === "main") || spec.legs[0];
+    main.lengthIn = Math.round(findLengths(t)[0].ft * 12);
+    note += " The run is " + findLengths(t)[0].ft + " ft.";
+  }
+  if (/\bno bar\b|\bbar off\b|\bturn off the bar\b/.test(t)) {
+    spec.barOn = false;
+    note += " The raised bar is off.";
+  }
+  if (findStools(t)) {
+    const stools = findStools(t);
+    const legN = spec.legs[spec.legs.length - 1];
+    legN.stools = stools;
+    spec.barOn = true;
+    note += " Room for " + stools + " stools.";
+  }
+  return { spec, brief: true, notes: [note] };
+}
+
+function underFor(id, items, bases) {
+  if (bases && isBaseCabinet(bases[id])) return CATALOG[bases[id]].k;
+  const piece = CATALOG[id];
+  if (!piece || !piece.under) return "";
+  if ((id === "grill" || id === "grill-40") && items.some(isBaseCabinet)) return "";
+  return piece.under;
+}
+
+function pack(items, targetIn, pinEnd, bases) {
+  const pieces = [];
+  for (const id of items) {
+    const item = CATALOG[id];
+    if (!item) continue;
+    pieces.push({ k: item.k, w: item.w, u: underFor(id, items, bases) });
+  }
   const base = pieces.reduce((sum, item) => sum + item.w, 0);
   let target = targetIn;
   const notes = [];
@@ -459,15 +935,15 @@ function pack(items, targetIn) {
       remain -= size;
     }
   }
-  const slots = Math.max(1, pieces.length + 1);
+  const slots = pinEnd && pieces.length ? pieces.length : Math.max(1, pieces.length + 1);
   const buckets = Array.from({ length: slots }, () => []);
   fillers.forEach((size, i) => buckets[i % slots].push(size));
   const seq = [];
   for (let i = 0; i < pieces.length; i++) {
     for (const size of buckets[i]) seq.push({ k: "fill" + size, w: size, u: "" });
-    seq.push({ k: pieces[i].k, w: pieces[i].w, u: pieces[i].under || "" });
+    seq.push({ k: pieces[i].k, w: pieces[i].w, u: pieces[i].u || "" });
   }
-  for (const size of buckets[pieces.length] || []) seq.push({ k: "fill" + size, w: size, u: "" });
+  if (!pinEnd) for (const size of buckets[pieces.length] || []) seq.push({ k: "fill" + size, w: size, u: "" });
   if (!seq.length) seq.push({ k: "fill24", w: 24, u: "" });
   const span = seq.reduce((sum, part) => sum + part.w, 0);
   return { seq, span, notes };
@@ -595,7 +1071,9 @@ export function validateSpec(input) {
     ["grill", "bar", "left", "right", "main", "return"].includes(raw && raw.role) ? raw.role : "main",
     Math.round(Number(raw && (raw.lengthIn != null ? raw.lengthIn : raw.lengthFt && raw.lengthFt * 12)) || 0),
     Array.isArray(raw && raw.items) ? raw.items.map(id => String(id)).slice(0, 8) : [],
-    Number(raw && raw.stools) || 0
+    Number(raw && raw.stools) || 0,
+    !!(raw && raw.pinEnd),
+    readBases(raw && raw.bases)
   ));
   return {
     ok: true,
@@ -617,6 +1095,12 @@ function describe(spec, notes) {
     const names = l.items.map(id => CATALOG[id] ? CATALOG[id].spoken : "").filter(Boolean);
     let line = "The " + l.role + " leg is about " + feet(l.lengthIn);
     if (names.length) line += " with " + names.join(", ");
+    if (l.bases) {
+      for (const host of Object.keys(l.bases)) {
+        const cab = CATALOG[l.bases[host]];
+        if (cab) line += ", with " + cab.spoken + " in the base under the grill";
+      }
+    }
     if (l.stools) line += ", with the raised bar on for " + l.stools + (l.stools === 1 ? " stool" : " stools");
     return line;
   });
@@ -634,6 +1118,30 @@ function describe(spec, notes) {
   return text.replace(/\s+/g, " ").trim();
 }
 
+function changeReply(spec, notes) {
+  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece|Cleared |Turned |Set )/ .test(n));
+  const bar = spec.legs.find(l => l.role === "bar");
+  const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
+  let text = "Done";
+  const first = changes[0] || "";
+  if (/^Made the bar/.test(first) && bar) {
+    text = "Done, the bar is now " + feet(bar.lengthIn);
+    if (bar.stools) text += ", room for " + bar.stools + (bar.stools === 1 ? " stool" : " stools");
+  } else if (/^Made the grill/.test(first) && grill) {
+    text = "Done, the grill leg is now " + feet(grill.lengthIn);
+  } else if (first) {
+    text = "Done. " + first.replace(/\.$/, "");
+  }
+  const limit = (notes || []).find(n => /longer than asked|shorter than a leg|longer than a single/.test(n));
+  if (limit) text += ". " + limit.replace(/\.$/, "");
+  return text + ".";
+}
+
+export function summaryReply(spec) {
+  if (!spec) return "";
+  return describe(spec, []);
+}
+
 export function compileSpec(input, extraNotes) {
   const checked = validateSpec(input);
   if (!checked.ok) return { ok: false, reply: checked.message, spec: null, code: "", link: "", warnings: [] };
@@ -643,7 +1151,7 @@ export function compileSpec(input, extraNotes) {
   if (spec.shape === "yu" && spec.legs.length < 3) return { ok: false, reply: "A U needs a back and two returns. How long is each?", spec: null, code: "", link: "", warnings: [] };
   spec.legs.forEach(l => clampLeg(l, notes));
   const packed = spec.legs.map(l => {
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn));
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases);
     if (result.span > l.lengthIn + 0.5) l.lengthIn = Math.round(result.span);
     notes.push(...result.notes);
     const tight = stoolNote(l);
@@ -669,11 +1177,40 @@ export function compileSpec(input, extraNotes) {
   };
 }
 
+function askBit(t) {
+  if (/\b(fridge|refrigerator|cooler)\b/.test(t)) return "Got it, which side should the fridge go on?";
+  if (/\bcombo\b/.test(t)) return "Got it, which side should the combo go on?";
+  if (/\bsink\b/.test(t)) return "Got it, which side should the sink go on?";
+  return "What should I add, and which side?";
+}
+
+function keepResult(current, reply, notes) {
+  const kept = current ? compileSpec(current) : null;
+  return {
+    handled: true,
+    kind: "clarify",
+    reply,
+    spec: current || null,
+    code: kept && kept.ok ? kept.code : "",
+    link: kept && kept.ok ? kept.link : "",
+    warnings: notes || []
+  };
+}
+
+function guardWipe(current, result, t) {
+  if (!current || !gearCount(current)) return result;
+  if (result.kind === "refine" && result.spec) return result;
+  if (result.spec && gearCount(result.spec) > 0) return result;
+  if (/\b(start over|from scratch|clear the island|empty island)\b/.test(t)) return result;
+  return keepResult(current, "I kept this layout. " + askBit(t));
+}
+
 function finishResult(parsed, current) {
   if (parsed.clarify && !parsed.spec) {
     const kept = current ? compileSpec(current) : null;
     return {
       handled: parsed.handled !== false,
+      kind: "clarify",
       reply: [parsed.clarify].concat(parsed.notes || []).join(" "),
       spec: current || null,
       code: kept ? kept.code : "",
@@ -682,9 +1219,11 @@ function finishResult(parsed, current) {
     };
   }
   const built = compileSpec(parsed.spec, parsed.notes || []);
+  const reply = parsed.brief && built.ok ? changeReply(built.spec, parsed.notes || []) : built.reply;
   return {
     handled: true,
-    reply: built.reply,
+    kind: parsed.brief ? "refine" : "draw",
+    reply,
     spec: built.spec,
     code: built.code,
     link: built.link,
@@ -693,23 +1232,71 @@ function finishResult(parsed, current) {
   };
 }
 
+function plainWords(text) {
+  return String(text || "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+/* A turn worth keeping for the training log. Null means the layout landed
+   and there is nothing to learn from. Contact-shaped text is never a miss. */
+export function holdLongEnough(ms) {
+  return Number(ms) >= 300;
+}
+
+/* Bracketed non-speech tags and one-word scraps are not a design request. */
+export function usableTranscript(text) {
+  const raw = String(text || "").replace(/\[[^\]]*\]/g, " ").replace(/\s+/g, " ").trim();
+  if (!raw) return "";
+  const words = raw.split(" ").filter(word => /[a-z0-9]/i.test(word));
+  if (words.length < 2) return "";
+  return words.join(" ");
+}
+
+export function prefersScribe(ua) {
+  const agent = String(ua || "");
+  const iOS = /iPhone|iPad|iPod/.test(agent);
+  const safari = /Safari/.test(agent) && !/CriOS|FxiOS|EdgiOS|Chrome|Android/.test(agent);
+  return iOS && safari;
+}
+
+export function classifyTurn(text, reply, before, after, prevText) {
+  const t = String(text || "").trim();
+  const r = String(reply || "");
+  if (!t || !r) return null;
+  const card = [/\bname\s*:/i, /\bemail\s*:/i, /\bphone\s*:/i].filter(re => re.test(t)).length;
+  if (card >= 2) return null;
+  const prev = plainWords(prevText);
+  const now = plainWords(t);
+  const repeat = prev.length > 8 && (prev === now || now.includes(prev) || prev.includes(now));
+  const changed = JSON.stringify(before || null) !== JSON.stringify(after || null);
+  if (repeat) return "repeat";
+  if (/isn't in the catalog|left it off|didn't add/i.test(r) && changed) return "partial";
+  if (/already|unchanged|haven't changed|left the rest|still there/i.test(r)) return "unchanged";
+  if (/I can make the bar or the grill leg/i.test(r)) return "help";
+  if (/I kept this layout|didn't catch|which side should|How long should|isn't in the catalog|earlier version/i.test(r)) return "miss";
+  return null;
+}
+
 export function interpret(text, current) {
-  const t = normalize(text);
-  if (!t) return finishResult({ handled: true, clarify: CLARIFY }, current);
+  const t = speechClean(normalize(text));
+  if (!t) return keepResult(current, current ? "I kept this layout. What should I change?" : CLARIFY);
   const change = refine(t, current);
-  if (change) return finishResult({ handled: true, ...change }, current);
+  if (change) return guardWipe(current, finishResult({ handled: true, ...change }, current), t);
+  const moved = rearrange(t, current);
+  if (moved) return guardWipe(current, finishResult({ handled: true, ...moved }, current), t);
+  const added = addEquipment(t, current);
+  if (added) {
+    if (added.clarify && !added.spec) return keepResult(current, added.clarify, added.notes);
+    return finishResult({ handled: true, ...added }, current);
+  }
   const parsed = parseNew(t);
   if (!parsed.handled) {
-    return {
-      handled: false,
-      reply: parsed.clarify || CLARIFY,
-      spec: current || null,
-      code: "",
-      link: "",
-      warnings: parsed.notes || []
-    };
+    const reply = current ? "I kept this layout. " + askBit(t) : (parsed.clarify || CLARIFY);
+    return keepResult(current, reply, parsed.notes);
   }
-  return finishResult(parsed, current);
+  if (parsed.clarify && !parsed.spec && current) {
+    return keepResult(current, "I kept this layout. " + askBit(t), parsed.notes);
+  }
+  return guardWipe(current, finishResult(parsed, current), t);
 }
 
 export function applyModelSpec(raw, current) {
@@ -738,8 +1325,17 @@ export function applyModelSpec(raw, current) {
     }));
   }
   const built = compileSpec(specIn);
-  if (!built.ok) {
-    return { handled: true, reply: built.reply, spec: current || null, code: "", link: "", warnings: [] };
+  if (!built.ok || (current && gearCount(current) && !gearCount(built.spec))) {
+    const kept = current ? compileSpec(current) : null;
+    return {
+      handled: true,
+      kind: "clarify",
+      reply: current ? "I kept this layout. " + askBit("") : built.reply,
+      spec: current || null,
+      code: kept && kept.ok ? kept.code : "",
+      link: kept && kept.ok ? kept.link : "",
+      warnings: []
+    };
   }
   return { handled: true, reply: built.reply, spec: built.spec, code: built.code, link: built.link, warnings: built.warnings || [] };
 }

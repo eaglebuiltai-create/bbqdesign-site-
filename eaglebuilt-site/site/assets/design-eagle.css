@@ -14,6 +14,7 @@
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
+body { overflow: hidden; }
 body {
   margin: 0;
   background: var(--bg);
@@ -78,6 +79,7 @@ body[data-embed="1"] .shell { height: 100dvh; }
 }
 .chatHead b { display: block; font-size: 15px; }
 .chatHead span { color: var(--muted); font-size: 12.5px; }
+.thread { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; }
 .log {
   flex: 1;
   overflow: auto;
@@ -103,6 +105,7 @@ body[data-embed="1"] .shell { height: 100dvh; }
 }
 .composer, .save {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 10px;
   border-top: 1px solid var(--line);
@@ -154,19 +157,19 @@ body[data-embed="1"] .shell { height: 100dvh; }
   text-decoration: none;
   font-weight: 750;
 }
-.toggle {
-  display: none;
-  position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: max(10px, env(safe-area-inset-bottom));
-  z-index: 5;
-  border: 0;
-  border-radius: 999px;
-  min-height: 44px;
-  font-weight: 750;
-  color: #fff;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
+.live {
+  flex: 1 0 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.composer input { flex: 1 1 140px; }
+.mic, #mic {
+  min-width: 108px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 .hp {
   position: absolute;
@@ -179,26 +182,56 @@ body[data-embed="1"] .shell { height: 100dvh; }
   border: 0;
 }
 @media (max-width: 860px) {
-  .shell { grid-template-columns: 1fr; height: auto; }
-  .stage { height: 58dvh; }
-  body.chat-open .stage { height: 32dvh; }
+  .shell {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 46px);
+    max-height: calc(100dvh - 46px);
+    overflow: hidden;
+  }
+  .stage {
+    flex: 0 0 55%;
+    min-height: 300px;
+    height: auto;
+    order: 0;
+  }
   .chat {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 4;
-    height: min(70dvh, 560px);
-    overflow: auto;
+    position: relative;
+    flex: 1 1 auto;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    order: 2;
+    overflow: hidden;
     border-left: 0;
     border-top: 1px solid var(--line);
-    border-radius: 16px 16px 0 0;
-    transform: translateY(calc(100% - 0px));
+    border-radius: 0;
+    transform: none;
   }
-  body.chat-open .chat { transform: none; }
-  body:not(.chat-open) .chat { transform: translateY(110%); }
-  .toggle { display: block; }
-  body.chat-open .toggle { display: none; }
+  .composer, .save, .book { flex-shrink: 0; }
+  .book {
+    order: 5;
+    margin: 0;
+    padding: 8px 10px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--bg2);
+  }
+  .book h3, .book p { display: none; }
+  .book a.btn { width: 100%; justify-content: center; min-height: 40px; font-size: 0; }
+  .book a.btn::before { content: "Book a session"; font-size: 14px; }
+  .log { min-height: 0; }
+}
+@media (max-width: 480px) {
+  .composer { flex-wrap: wrap; }
+  .live, .composer input { flex: 1 0 100%; }
+  #mic, #composer > .go, #openSave {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .chat { transition: none; }

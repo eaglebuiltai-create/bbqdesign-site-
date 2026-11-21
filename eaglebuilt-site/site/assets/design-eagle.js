@@ -3,7 +3,8 @@
  * Typed turns and a future voice transcript both call applyTurn(), which
  * runs the same layout engine. The 3D view is the existing designer.
  */
-import { CONFIG, interpret, validateContact, claimsSent } from "./eagle-engine.js";
+import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn, usableTranscript, holdLongEnough, prefersScribe } from "./eagle-engine.js";
+import { HANDOFF, wantsSave } from "./eagle-voice.js";
 
 const state = {
   spec: null,
@@ -12,13 +13,29 @@ const state = {
   openedAt: Date.now(),
   frameReady: false,
   price: null,
-  shotWait: null
+  voiceToken: "",
+  voiceOn: false,
+  pendingRefine: null,
+  heard: "",
+  prevText: "",
+  listening: false
 };
 
 const log = document.getElementById("log");
 const frame = document.getElementById("designer");
 const empty = document.getElementById("empty");
 const book = document.getElementById("book");
+const live = document.getElementById("live");
+const audio = new Audio();
+
+function money(total) {
+  return "$" + Math.round(total).toLocaleString("en-US");
+}
+
+function stopTalking() {
+  audio.pause();
+  try { audio.removeAttribute("src"); } catch (e) {}
+}
 
 function paintBrand() {
   const c = CONFIG.colors;
@@ -41,27 +58,42 @@ function paintBrand() {
   if (location.search.indexOf("embed=1") !== -1) document.body.dataset.embed = "1";
 }
 
+function revealLatest() {
+  log.scrollTop = log.scrollHeight;
+  const thread = log.closest(".thread");
+  if (thread) thread.scrollTop = thread.scrollHeight;
+}
+
 function addMsg(role, text) {
   const el = document.createElement("div");
   el.className = "msg " + role;
   el.textContent = text;
   log.appendChild(el);
-  log.scrollTop = log.scrollHeight;
+  revealLatest();
   return el;
 }
 
 function showPrice(total) {
   if (!total) return;
   state.price = total;
-  let el = document.getElementById("livePrice");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "livePrice";
-    el.className = "price";
-    log.appendChild(el);
+  const label = "Designer price: " + money(total) + ". Budget proposal from the catalog and the build rates, not a quote.";
+  if (state.pendingRefine) {
+    const el = state.pendingRefine;
+    const base = el.dataset.base.endsWith(".") ? el.dataset.base : el.dataset.base + ".";
+    const line = base + " New design price " + money(total) + ".";
+    el.textContent = line;
+    state.pendingRefine = null;
+    speak(line);
   }
-  el.textContent = "Designer price: $" + Math.round(total).toLocaleString("en-US") + ". Budget proposal from the catalog and the build rates, not a quote.";
-  log.scrollTop = log.scrollHeight;
+  let price = document.getElementById("livePrice");
+  if (!price) {
+    price = document.createElement("div");
+    price.id = "livePrice";
+    price.className = "price";
+    log.appendChild(price);
+  }
+  price.textContent = label;
+  revealLatest();
 }
 
 function showDesign(code) {
@@ -76,6 +108,8 @@ function showDesign(code) {
   else frame.contentWindow.postMessage({ source: "design-eagle", type: "load", code }, location.origin);
   try { sessionStorage.setItem("de:" + code, JSON.stringify(state.spec)); } catch (e) {}
   if (location.hash !== "#d=" + code) history.replaceState(null, "", "#d=" + code);
+  const stage = document.querySelector(".stage");
+  if (stage && stage.scrollIntoView) stage.scrollIntoView({ block: "start", inline: "nearest" });
 }
 
 function requestShot() {
@@ -107,34 +141,107 @@ window.addEventListener("message", (e) => {
   }
 });
 
+function gearCount(spec) {
+  if (!spec || !Array.isArray(spec.legs)) return 0;
+  return spec.legs.reduce((n, l) => n + (Array.isArray(l.items) ? l.items.filter(Boolean).length : 0), 0);
+}
+
+function wouldWipe(current, result) {
+  return !!(current && gearCount(current) && result.kind !== "refine" && !gearCount(result.spec));
+}
+
+function noteMiss(body) {
+  try {
+    fetch("/api/design-eagle/miss", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+function clearLive() {
+  if (state.listening) return;
+  live.hidden = true;
+  live.textContent = "";
+}
+
 async function applyTurn(text, source) {
   const clean = String(text || "").trim();
-  if (!clean) return;
-  addMsg("user", clean);
-  let result = interpret(clean, state.spec);
-  if (!result.handled) {
-    try {
-      const res = await fetch("/api/design-eagle", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: clean, spec: state.spec, source: source || "typed" })
+  try {
+    if (!clean) return;
+    addMsg("user", clean);
+    if (state.spec && wantsSave(clean)) {
+      openSaveForm();
+      return;
+    }
+    const before = state.spec ? JSON.parse(JSON.stringify(state.spec)) : null;
+    let result = interpret(clean, state.spec);
+    if (!result.handled) {
+      try {
+        const res = await fetch("/api/design-eagle", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: clean, spec: state.spec, source: source || "typed" })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.reply) result = data;
+        }
+      } catch (e) {}
+    }
+    let reply = String(result.reply || "");
+    if (claimsSent(reply)) {
+      reply = "I'll keep the drawing here. Call " + CONFIG.phoneDisplay + " if you'd rather talk it through.";
+    }
+    if (result.spec && result.code && !wouldWipe(state.spec, result)) {
+      state.link = result.link || state.link;
+      const same = result.code === state.code;
+      state.spec = result.spec;
+      if (!same) showDesign(result.code);
+    }
+    const el = addMsg("bot", reply);
+    if (result.kind === "refine") {
+      el.dataset.base = reply.replace(/\.$/, "");
+      state.pendingRefine = el;
+      setTimeout(() => {
+        if (state.pendingRefine === el) {
+          state.pendingRefine = null;
+          speak(el.textContent);
+        }
+      }, 1800);
+    } else if (source === "voice" || state.voiceOn) {
+      speak(reply);
+    }
+    const kind = classifyTurn(clean, reply, before, state.spec, state.prevText);
+    state.prevText = clean;
+    if (kind) {
+      noteMiss({
+        text: clean,
+        reply,
+        kind,
+        specBefore: before,
+        specAfter: state.spec,
+        source: source === "voice" ? "voice" : "typed",
+        ts: Date.now()
       });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.reply) result = data;
-      }
-    } catch (e) {}
+    }
+  } finally {
+    if (source === "voice") clearLive();
   }
-  let reply = String(result.reply || "");
-  if (claimsSent(reply)) {
-    reply = "I'll keep the drawing here. Call " + CONFIG.phoneDisplay + " if you'd rather talk it through.";
+}
+
+function openSaveForm() {
+  if (!state.spec) {
+    addMsg("bot", "Describe an island first, then you can save it.");
+    return;
   }
-  if (result.spec && result.code) {
-    state.spec = result.spec;
-    state.link = result.link || "";
-    showDesign(result.code);
-  }
-  addMsg("bot", reply);
+  addMsg("bot", summaryReply(state.spec));
+  addMsg("bot", HANDOFF);
+  speak(HANDOFF);
+  document.getElementById("composer").hidden = true;
+  document.getElementById("save").hidden = false;
+  document.getElementById("name").focus();
 }
 
 async function onSave(event) {
@@ -179,17 +286,16 @@ async function onSave(event) {
   button.textContent = "Email me this design";
   const reply = data && data.reply ? data.reply : "That didn't go through. Call " + CONFIG.phoneDisplay + ".";
   addMsg("bot", claimsSent(reply) && !(data && data.emailConfirmed) ? "That didn't go through. Call " + CONFIG.phoneDisplay + "." : reply);
+  if (data && data.emailConfirmed) speak(reply, data.voiceGrant);
+  else speak(claimsSent(reply) ? "" : reply);
   document.getElementById("save").hidden = true;
   document.getElementById("composer").hidden = false;
   book.hidden = false;
-  book.scrollIntoView({ block: "nearest" });
+  revealLatest();
   if (data && data.leadSubmitted && window.ebTrack) {
     window.ebTrack("design_lead", { tool: "Design Eagle" });
   }
 }
-
-function openChat() { document.body.classList.add("chat-open"); }
-function closeChat() { document.body.classList.remove("chat-open"); }
 
 paintBrand();
 const saveBtn = document.createElement("button");
@@ -199,14 +305,8 @@ saveBtn.id = "openSave";
 saveBtn.textContent = "Save";
 saveBtn.hidden = true;
 document.querySelector(".composer").appendChild(saveBtn);
-saveBtn.addEventListener("click", () => {
-  if (!state.spec) { addMsg("bot", "Describe an island first, then you can save it."); return; }
-  document.getElementById("composer").hidden = true;
-  document.getElementById("save").hidden = false;
-  document.getElementById("name").focus();
-});
+saveBtn.addEventListener("click", () => openSaveForm());
 
-openChat();
 addMsg("bot", "Describe the island you want. For example: L-shape, 10 ft grill leg with a side burner and a fridge, 5 ft bar with 3 stools.");
 
 const hash = location.hash.match(/^#d=(.+)$/);
@@ -230,11 +330,211 @@ document.getElementById("saveBack").addEventListener("click", () => {
   document.getElementById("save").hidden = true;
   document.getElementById("composer").hidden = false;
 });
-document.getElementById("showChat").addEventListener("click", openChat);
-document.getElementById("hideChat").addEventListener("click", closeChat);
 
 window.DesignEagle = {
   applyTurn,
   getState: () => ({ spec: state.spec, code: state.code, link: state.link }),
   config: CONFIG
 };
+
+async function ensureVoice() {
+  if (state.voiceToken || state.voiceChecked) return;
+  state.voiceChecked = true;
+  try {
+    const res = await fetch("/api/design-eagle/voice/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: "{}"
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    state.voiceOn = !!data.speak;
+    state.voiceToken = data.token || "";
+    if (!data.speak) live.textContent = "Voice playback isn't set up. You can keep typing, and hold to talk if the mic is allowed.";
+  } catch (e) {}
+}
+
+async function speak(text, grant) {
+  if (state.listening || !state.voiceOn || !state.voiceToken || !text) return;
+  stopTalking();
+  try {
+    const res = await fetch("/api/design-eagle/voice/speak", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: state.voiceToken, text, grant: grant || "" })
+    });
+    const next = res.headers.get("X-Voice-Token");
+    if (next) state.voiceToken = next;
+    if (state.listening) return;
+    if (!res.ok) {
+      if (res.status === 429 || res.status === 401) {
+        state.voiceOn = false;
+        live.hidden = false;
+        live.textContent = "Voice time is up for this visit. You can keep typing.";
+      }
+      return;
+    }
+    const blob = await res.blob();
+    if (state.listening) return;
+    audio.src = URL.createObjectURL(blob);
+    audio.play().catch(() => {});
+  } catch (e) {}
+}
+
+function missHint() {
+  state.listening = false;
+  state.heard = "";
+  live.hidden = false;
+  live.textContent = "Didn't catch that, hold and talk";
+  micLabel("Hold to talk");
+}
+
+function micLabel(text) {
+  const mic = document.getElementById("mic");
+  if (mic) mic.textContent = text;
+}
+
+function wireMic() {
+  const mic = document.getElementById("mic");
+  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let rec = null;
+  let media = null;
+  let stream = null;
+  let chunks = [];
+  let aborted = false;
+  let startedAt = 0;
+  let forceScribe = prefersScribe(navigator.userAgent);
+
+  function useScribe() {
+    return forceScribe || !Rec;
+  }
+
+  function beginRecorder() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      missHint();
+      return;
+    }
+    const pending = navigator.mediaDevices.getUserMedia({ audio: true });
+    pending.then(got => {
+      if (aborted) {
+        got.getTracks().forEach(track => track.stop());
+        state.listening = false;
+        return;
+      }
+      stream = got;
+      chunks = [];
+      media = new MediaRecorder(stream);
+      media.ondataavailable = (ev) => { if (ev.data && ev.data.size) chunks.push(ev.data); };
+      media.onstop = () => {
+        const tracks = stream ? stream.getTracks() : [];
+        tracks.forEach(track => track.stop());
+        stream = null;
+        const recorded = chunks.slice();
+        const type = media && media.mimeType || "audio/webm";
+        media = null;
+        if (aborted || !holdLongEnough(performance.now() - startedAt)) {
+          missHint();
+          return;
+        }
+        finishRecording(recorded, type);
+      };
+      media.start();
+    }).catch(() => missHint());
+  }
+
+  async function finishRecording(recorded, type) {
+    state.listening = false;
+    const blob = new Blob(recorded, { type: type || "audio/webm" });
+    if (!blob.size) { missHint(); return; }
+    const body = new FormData();
+    body.set("audio", blob, prefersScribe(navigator.userAgent) ? "speech.mp4" : "speech.webm");
+    live.textContent = "Hearing that…";
+    try {
+      const res = await fetch("/api/design-eagle/voice/transcribe", { method: "POST", body });
+      const data = await res.json();
+      const said = usableTranscript(data && data.text);
+      if (!said || state.listening) { missHint(); return; }
+      applyTurn(said, "voice");
+    } catch (err) {
+      missHint();
+    }
+  }
+
+  function start(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    aborted = false;
+    startedAt = performance.now();
+    state.listening = true;
+    state.heard = "";
+    stopTalking();
+    try { if (e && mic.setPointerCapture) mic.setPointerCapture(e.pointerId); } catch (err) {}
+    live.hidden = false;
+    live.textContent = "Listening…";
+    mic.textContent = "Listening… release to send";
+    ensureVoice();
+    if (useScribe()) {
+      beginRecorder();
+      return;
+    }
+    try {
+      rec = new Rec();
+      rec.lang = "en-US";
+      rec.interimResults = true;
+      rec.continuous = true;
+      rec.onresult = (ev) => {
+        let said = "";
+        for (let i = 0; i < ev.results.length; i++) said += ev.results[i][0].transcript;
+        live.textContent = said;
+        state.heard = said;
+      };
+      rec.onerror = () => { forceScribe = true; beginRecorder(); };
+      rec.onend = () => {
+        const heard = state.heard;
+        const elapsed = performance.now() - startedAt;
+        rec = null;
+        if (aborted || !holdLongEnough(elapsed)) { missHint(); return; }
+        const said = usableTranscript(heard);
+        if (!said && elapsed < 500) {
+          forceScribe = true;
+          missHint();
+          return;
+        }
+        state.listening = false;
+        if (!said) { missHint(); return; }
+        applyTurn(said, "voice");
+      };
+      rec.start();
+    } catch (err) {
+      forceScribe = true;
+      beginRecorder();
+    }
+  }
+
+  function stop() {
+    const elapsed = performance.now() - startedAt;
+    if (!holdLongEnough(elapsed)) {
+      aborted = true;
+      if (rec) { try { rec.stop(); } catch (e) {} rec = null; }
+      if (media && media.state === "recording") { try { media.stop(); } catch (e) {} }
+      else if (stream) { stream.getTracks().forEach(track => track.stop()); stream = null; }
+      missHint();
+      return;
+    }
+    mic.textContent = "Hold to talk";
+    if (rec) {
+      try { rec.stop(); } catch (e) {}
+    } else if (media && media.state === "recording") {
+      try { media.stop(); } catch (e) {}
+    } else {
+      state.listening = false;
+    }
+  }
+
+  mic.addEventListener("pointerdown", start);
+  mic.addEventListener("pointerup", stop);
+  mic.addEventListener("pointercancel", stop);
+  mic.addEventListener("pointerleave", (e) => { if (e.buttons) stop(); });
+}
+
+ensureVoice();
+wireMic();
