@@ -179,8 +179,16 @@ describe("webgl view fixtures", () => {
     });
     assert.ok(access.some(part => part.mat === "brushed"));
     assert.ok(access.some(part => part.mat === "steel" && part.kind === "box"));
-    assert.ok(access.some(part => part.kind === "tube" && part.mat === "standoff" && part.r >= 0.7));
-    assert.ok(access.some(part => part.kind === "tube" && part.mat === "handle" && part.r >= 1.4));
+    assert.ok(access.some(part => part.kind === "tube" && part.mat === "standoff" && part.r <= 0.3));
+    assert.ok(access.some(part => part.kind === "tube" && part.mat === "handle" && part.r > 0.3 && part.r < 0.5));
+    const pulls = underGrill.filter(part => part.kind === "tube" && part.mat === "handle" && part.a[1] < 37);
+    assert.ok(pulls.length >= 2);
+    for (const pull of pulls) {
+      const span = Math.hypot(pull.b[0] - pull.a[0], pull.b[2] - pull.a[2]);
+      const rise = Math.abs(pull.b[1] - pull.a[1]);
+      assert.ok(span > rise, "drawer pulls lie flat");
+      assert.ok(pull.r * 2 < 1, "drawer pulls stay under an inch across");
+    }
     assert.match(page, /image\/jpeg/);
   });
 });

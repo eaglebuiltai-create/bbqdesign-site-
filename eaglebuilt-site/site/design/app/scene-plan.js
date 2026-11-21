@@ -68,45 +68,48 @@ function bayParts(bay, H, slab) {
     const h = y1 - y0 - 1.2;
     const by = y0 + 0.6;
     ring(w + 0.1, y0, y1, 0.18, 0.5, "steel");
-    boxAt(w * 0.94, by, by + h, 0, -0.25, "cavity");
-    const sheet = (fw, sy0, sy1, off, pullLen, horizontal, pullOff) => {
-      boxAt(fw, sy0, sy1, off, 0.9, "standoff");
-      const inset = Math.min(0.55, Math.max(0.32, (sy1 - sy0) * 0.08));
-      boxAt(Math.max(1.6, fw - inset * 2), sy0 + inset, sy1 - inset, off, 0.48, "brushed");
-      handle(pullLen, (sy0 + sy1) / 2, pullOff == null ? off : pullOff, horizontal);
+    boxAt(w * 0.94, by, by + h, 0, -0.15, "cavity");
+    const sheet = (fw, sy0, sy1, off, horizontal, pullOff) => {
+      const faceH = Math.max(1.2, sy1 - sy0);
+      boxAt(fw, sy0, sy1, off, 0.42, "steel");
+      const lip = 0.28;
+      boxAt(Math.max(1.5, fw - lip * 2), sy0 + lip, sy1 - lip, off, 0.22, "brushed");
+      const pullLen = horizontal ? fw * 0.7 : Math.min(9, faceH * 0.38);
+      const pullY = horizontal ? sy1 - Math.max(0.85, faceH * 0.26) : sy0 + faceH * 0.62;
+      handle(pullLen, pullY, pullOff == null ? off : pullOff, horizontal);
     };
     if (t === "door1" || t === "trash") {
-      if (t === "trash") sheet(w * 0.78, by + 0.45, by + h - 0.45, 0, Math.min(15, iw - 3), true, 0);
-      else sheet(w * 0.82, by + 0.4, by + h - 0.4, 0, Math.min(h - 3, 18), false, iw / 2 - 2.4);
+      if (t === "trash") sheet(w * 0.78, by + 0.45, by + h - 0.45, 0, true, 0);
+      else sheet(w * 0.82, by + 0.4, by + h - 0.4, 0, false, iw / 2 - 2.4);
     } else if (t === "door2") {
       const dw = (iw - gap) / 2;
       [-1, 1].forEach(k => {
         const off = k * (dw + gap) / 2;
-        sheet(dw * 0.9, by + 0.4, by + h - 0.4, off, Math.min(h - 3, 18), false, k * (gap / 2 + 2.4));
+        sheet(dw * 0.9, by + 0.4, by + h - 0.4, off, false, k * (gap / 2 + 2.4));
       });
     } else if (t === "drawer") {
-      const reveal = 1.2;
+      const reveal = 0.38;
       const n = h > 22 ? 3 : 2;
       const dh = (h - reveal * (n - 1)) / n;
       for (let i = 0; i < n; i++) {
         const a0 = by + i * (dh + reveal);
-        sheet(iw * 0.9, a0 + 0.12, a0 + dh - 0.12, 0, Math.min(18, iw - 2), true, 0);
+        sheet(iw * 0.9, a0, a0 + dh, 0, true, 0);
       }
     } else if (t === "combo") {
       const dw = iw * 0.45;
       const dr = iw - dw - gap;
       const lo = -iw / 2 + dw / 2;
       const ro = iw / 2 - dr / 2;
-      const dh = (h - gap) / 2;
+      const dh = (h - 0.38) / 2;
       for (let i = 0; i < 2; i++) {
-        const a0 = by + i * (dh + gap);
-        sheet(dw * 0.88, a0 + 0.2, a0 + dh - 0.2, lo, Math.min(14, dw - 1.5), true, lo);
+        const a0 = by + i * (dh + 0.38);
+        sheet(dw * 0.88, a0, a0 + dh, lo, true, lo);
       }
-      sheet(dr * 0.86, by + 0.4, by + h - 0.4, ro, Math.min(h - 3, 18), false, ro - dr / 2 + 2.4);
+      sheet(dr * 0.86, by + 0.35, by + h - 0.35, ro, false, ro - dr / 2 + 2.4);
     } else if (t === "fridge") {
       boxAt(iw, by, by + h, 0, 0.5, "steel");
       boxAt(iw - 1.7, by + 0.85, by + h - 0.85, 0, 0.72, "glass");
-      handle(Math.min(h - 8, 16), by + h / 2, iw / 2 - 2.8, false);
+      handle(Math.min(9, h * 0.38), by + h * 0.62, iw / 2 - 2.8, false);
     }
   }
 
@@ -135,15 +138,14 @@ function bayParts(bay, H, slab) {
   }
 
   function handle(len, y, off, horizontal) {
-    const a = facePt(off - (horizontal ? len / 2 : 0), y - (horizontal ? 0 : len / 2), 2.35);
-    const b = facePt(off + (horizontal ? len / 2 : 0), y + (horizontal ? 0 : len / 2), 2.35);
-    tube(a, b, 1.85, "handle");
+    const a = facePt(off - (horizontal ? len / 2 : 0), y - (horizontal ? 0 : len / 2), 1.15);
+    const b = facePt(off + (horizontal ? len / 2 : 0), y + (horizontal ? 0 : len / 2), 1.15);
+    tube(a, b, 0.375, "handle");
     const posts = horizontal ? [[-1, 0], [1, 0]] : [[0, -1], [0, 1]];
     posts.forEach(([kx, ky]) => {
-      const p = off + kx * (len / 2 - 1.3);
-      const py = y + ky * (len / 2 - 1.3);
-      tube(facePt(p, py, 0.02), facePt(p, py, 0.5), 1.25, "standoff");
-      tube(facePt(p, py, 0.4), facePt(p, py, 2.55), 0.95, "standoff");
+      const p = off + kx * (len / 2 - 0.55);
+      const py = y + ky * (len / 2 - 0.55);
+      tube(facePt(p, py, 0.15), facePt(p, py, 1.15), 0.22, "standoff");
     });
   }
 
