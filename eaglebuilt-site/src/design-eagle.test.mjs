@@ -2078,6 +2078,32 @@ describe("john's tabletop oven and wok lines", () => {
     assert.equal(spaced.spec.legs[0].items.includes("ctwok"), false);
   });
 
+  test("a spoken walk only means a wok where a piece could be meant", () => {
+    /* Speech-to-text writes "walk" for "wok". But customers also ask to be
+       walked through a design, and a field walk is how we talk about the job.
+       Neither should put a burner on the island. */
+    const built = drawn(JOHN_RUN);
+    const had = built.spec.legs.flatMap(leg => leg.items || []).includes("ctwok");
+    const innocent = [
+      "can you walk me through the design",
+      "walk me through it",
+      "when do you walk the site",
+      "let's walk through the pricing",
+      "I want to walk around the island",
+      "we can go for a walk after"
+    ];
+    for (const line of innocent) {
+      const step = drawn(line, built.spec);
+      const after = step.spec.legs.flatMap(leg => leg.items || []);
+      assert.equal(after.includes("ctwok"), had, line + " added a wok -> " + step.reply);
+    }
+    for (const line of ["add a walk", "add a table top walk", "a walk burner please"]) {
+      const step = drawn(line, built.spec);
+      assert.ok(step.spec.legs.some(leg => (leg.items || []).includes("ctwok")),
+        line + " did not add a wok -> " + step.reply);
+    }
+  });
+
   test("add a walk over the refrigerator places the wok on the fridge and does not move it", () => {
     const built = drawn(JOHN_RUN);
     const fridgeAt = moduleAt(built.code, "BLZ-SSRF20-4.3");
