@@ -78,7 +78,8 @@ const RATE_LIMITS = {
   designs: 60,   // saving and reopening designs, which John does in bursts
   eagle:   30,   // Design Eagle layout turns
   eagleSave: 8,  // Design Eagle save: visitor email plus the lead
-  eagleSpeak: 24, // spoken replies
+  eagleSpeak: EAGLE.voiceLimits.speakPerWindow, // spoken replies, not session mints
+  eagleSession: EAGLE.voiceLimits.sessionPerWindow, // HMAC session mints, separate from speak
   eagleHear: 12,  // server transcription when the browser has no speech API
   eagleMiss: 30   // training notes when a turn does not land
 };
@@ -813,8 +814,10 @@ async function sendVisitorDesign(env, payload) {
 async function voiceSession(request, env) {
   const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
   if (!key) return json({ speak: false, voice: EAGLE.voice.name }, 200);
-  if (await limited(request, env, "eagleSpeak")) {
-    return json({ speak: false, capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
+  /* Minting a token is not speech. It must not spend the speak budget, or a
+     reload during a test session comes back 429 and the page stays mute. */
+  if (await limited(request, env, "eagleSession")) {
+    return json({ speak: false, capped: true, error: "Voice time is up for a few minutes, reply is on screen" }, 429);
   }
   const token = await mintVoiceToken(key, newVoiceSession());
   return json({ speak: true, token, voice: EAGLE.voice.name }, 200);
@@ -824,7 +827,7 @@ async function voiceSpeak(request, env) {
   const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
   if (!key) return json({ speak: false, error: "Voice isn't configured. You can keep typing." }, 503);
   if (await limited(request, env, "eagleSpeak")) {
-    return json({ capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
+    return json({ capped: true, error: "Voice time is up for a few minutes, reply is on screen" }, 429);
   }
   let d;
   try { d = await request.json(); } catch { return json({ error: "bad json" }, 400); }

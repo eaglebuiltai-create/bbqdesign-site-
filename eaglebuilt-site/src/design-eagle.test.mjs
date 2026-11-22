@@ -19,7 +19,7 @@ import {
   summaryReply,
   validateContact
 } from "../site/assets/eagle-engine.js";
-import { guardSpoken, mintVoiceToken, newVoiceSession, readVoiceToken, spendVoiceSession, spokenSummary, wantsSave } from "../site/assets/eagle-voice.js";
+import { guardSpoken, mintVoiceToken, newVoiceSession, readVoiceToken, spendVoiceSession, spokenSummary, voicePlayResult, voiceSessionResult, VOICE_CAPPED, wantsSave } from "../site/assets/eagle-voice.js";
 
 const PHRASES = [
   ["L-shape, 10 ft grill leg with side burner and fridge, 5 ft bar with 3 stools", {
@@ -741,9 +741,35 @@ describe("design eagle voice", () => {
   test("the page says when voice is paused", () => {
     const page = readFileSync(new URL("../site/assets/design-eagle.js", import.meta.url), "utf8");
     assert.match(page, /Voice is paused, reply is on screen/);
+    assert.match(page, /Tap to hear/);
+    assert.match(page, /pointerdown/);
+    const decidedAt = page.indexOf("voiceSessionResult");
+    const checkedAt = page.indexOf("state.voiceChecked = true");
+    assert.ok(decidedAt > 0 && checkedAt > decidedAt);
+    assert.match(page, /state\.voiceChecked = false/);
     assert.match(page, /console\.log\("design-eagle voice:/);
     assert.match(page, /spokenSummary\(text\)/);
-    assert.match(page, /play\(\)\.catch/);
+    assert.match(page, /play\(\)/);
+  });
+
+  test("a failed voice session retries, and a 429 or a blocked play is explicit", () => {
+    const capped = voiceSessionResult(429, { speak: false, capped: true });
+    assert.equal(capped.ok, false);
+    assert.equal(capped.retry, true);
+    assert.equal(capped.banner, VOICE_CAPPED);
+    const down = voiceSessionResult(502, {});
+    assert.equal(down.retry, true);
+    assert.equal(down.ok, false);
+    const ready = voiceSessionResult(200, { speak: true, token: "tok" });
+    assert.equal(ready.ok, true);
+    assert.equal(ready.retry, false);
+    assert.equal(ready.token, "tok");
+    const blocked = voicePlayResult({ name: "NotAllowedError" });
+    assert.equal(blocked.hear, true);
+    assert.equal(blocked.blocked, true);
+    const other = voicePlayResult({ name: "AbortError" });
+    assert.equal(other.hear, true);
+    assert.match(other.banner, /reply is on screen/);
   });
 
   test("a missing ElevenLabs key leaves typing in place and does not pretend to speak", async () => {
@@ -881,7 +907,7 @@ describe("design eagle voice", () => {
     }
   });
 
-  test("session mints share one counter, so a full window is refused", async () => {
+  test("session mints do not spend the speak budget", async () => {
     const objects = new Map();
     function namespace(seed) {
       return {
@@ -906,19 +932,52 @@ describe("design eagle voice", () => {
       assert.equal(last.status, 200, "mint " + (i + 1));
       assert.equal(last.data.speak, true);
     }
-    const capped = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.78");
-    assert.equal(capped.status, 429);
-    assert.equal(capped.data.capped, true);
-    const other = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.79");
-    assert.equal(other.status, 200);
+    const still = await post("/api/design-eagle/voice/session", {}, env, "203.0.113.78");
+    assert.equal(still.status, 200);
+    assert.equal(still.data.speak, true);
+    const orig = globalThis.fetch;
+    globalThis.fetch = async () => new Response(new Uint8Array([1, 2]), { status: 200, headers: { "Content-Type": "audio/mpeg" } });
+    try {
+      const said = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://eaglebuilt.ai", "CF-Connecting-IP": "203.0.113.78" },
+        body: JSON.stringify({ token: still.data.token, text: "Done, the bar is now 7 ft." })
+      }), env);
+      assert.equal(said.status, 200);
+    } finally {
+      globalThis.fetch = orig;
+    }
 
     objects.clear();
-    const primed = {
+    const speakFull = {
       ELEVENLABS_API_KEY: "xi-test-key",
-      EAGLE_LIMITS: namespace([["b:eagleSpeak", { start: Date.now(), n: 24 }]])
+      EAGLE_LIMITS: namespace([["b:eagleSpeak", { start: Date.now(), n: CONFIG.voiceLimits.speakPerWindow }]])
     };
-    const fromElsewhere = await post("/api/design-eagle/voice/session", {}, primed, "203.0.113.80");
-    assert.equal(fromElsewhere.status, 429);
+    const sessionOk = await post("/api/design-eagle/voice/session", {}, speakFull, "203.0.113.80");
+    assert.equal(sessionOk.status, 200, "a full speak window still mints a session");
+    globalThis.fetch = async () => new Response(new Uint8Array([1]), { status: 200, headers: { "Content-Type": "audio/mpeg" } });
+    try {
+      const blocked = await worker.fetch(new Request("https://eaglebuilt.ai/api/design-eagle/voice/speak", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://eaglebuilt.ai", "CF-Connecting-IP": "203.0.113.80" },
+        body: JSON.stringify({ token: sessionOk.data.token, text: "Done, the bar is now 7 ft." })
+      }), speakFull);
+      const data = await blocked.json();
+      assert.equal(blocked.status, 429);
+      assert.equal(data.capped, true);
+      assert.match(data.error, /Voice time is up for a few minutes, reply is on screen/);
+    } finally {
+      globalThis.fetch = orig;
+    }
+
+    objects.clear();
+    const sessionFull = {
+      ELEVENLABS_API_KEY: "xi-test-key",
+      EAGLE_LIMITS: namespace([["b:eagleSession", { start: Date.now(), n: CONFIG.voiceLimits.sessionPerWindow }]])
+    };
+    const mintBlocked = await post("/api/design-eagle/voice/session", {}, sessionFull, "203.0.113.81");
+    assert.equal(mintBlocked.status, 429);
+    assert.match(mintBlocked.data.error, /Voice time is up for a few minutes, reply is on screen/);
   });
 
   test("the first draw still gives the full layout", () => {

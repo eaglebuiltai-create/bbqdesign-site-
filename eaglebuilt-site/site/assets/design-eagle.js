@@ -4,7 +4,7 @@
  * runs the same layout engine. The 3D view is the existing designer.
  */
 import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn, usableTranscript, holdLongEnough, prefersScribe } from "./eagle-engine.js";
-import { HANDOFF, spokenSummary, wantsSave } from "./eagle-voice.js";
+import { HANDOFF, spokenSummary, wantsSave, voiceSessionResult, voicePlayResult, VOICE_CAPPED } from "./eagle-voice.js";
 
 const state = {
   spec: null,
@@ -69,6 +69,7 @@ function addMsg(role, text) {
   el.className = "msg " + role;
   el.textContent = text;
   log.appendChild(el);
+  if (role === "bot") state.lastReply = el;
   revealLatest();
   return el;
 }
@@ -338,32 +339,81 @@ window.DesignEagle = {
   config: CONFIG
 };
 
+const SILENT_WAV = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=";
+
+function primeAudio() {
+  if (state.audioReady) return;
+  const playing = audio.src && !audio.paused && audio.currentTime > 0;
+  if (playing) { state.audioReady = true; return; }
+  audio.src = SILENT_WAV;
+  const started = audio.play();
+  if (started && started.then) {
+    started.then(() => {
+      audio.pause();
+      state.audioReady = true;
+    }).catch(() => {});
+  }
+}
+
+function showBanner(text) {
+  if (!text) return;
+  live.hidden = false;
+  live.textContent = text;
+}
+
+function hearButton(el, url) {
+  if (!el || !url || el.querySelector(".hear")) return;
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "hear";
+  btn.textContent = "Tap to hear";
+  btn.addEventListener("click", () => {
+    audio.src = url;
+    const started = audio.play();
+    if (started && started.then) started.then(() => btn.remove()).catch(() => {});
+  });
+  el.appendChild(btn);
+}
+
 async function ensureVoice() {
-  if (state.voiceToken || state.voiceChecked) return;
-  state.voiceChecked = true;
+  if ((state.voiceToken && state.voiceChecked) || state.voiceChecking) return;
+  state.voiceChecking = true;
   try {
     const res = await fetch("/api/design-eagle/voice/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: "{}"
     });
-    if (!res.ok) return;
-    const data = await res.json();
-    state.voiceOn = !!data.speak;
-    state.voiceToken = data.token || "";
-    if (!data.speak) live.textContent = "Voice playback isn't set up. You can keep typing, and hold to talk if the mic is allowed.";
-  } catch (e) {}
+    let data = {};
+    try { data = await res.json(); } catch (e) {}
+    const decided = voiceSessionResult(res.status, data);
+    if (!decided.ok) {
+      state.voiceChecked = false;
+      if (decided.capped) showBanner(decided.banner || VOICE_CAPPED);
+      else if (!data.speak && res.ok) showBanner("Voice playback isn't set up. You can keep typing, and hold to talk if the mic is allowed.");
+      return;
+    }
+    state.voiceChecked = true;
+    state.voiceOn = !!decided.voiceOn;
+    state.voiceToken = decided.token || "";
+  } catch (e) {
+    state.voiceChecked = false;
+  } finally {
+    state.voiceChecking = false;
+  }
 }
 
-function voicePaused(why) {
+function voicePaused(why, banner) {
   console.log("design-eagle voice: " + why);
-  live.hidden = false;
-  live.textContent = "Voice is paused, reply is on screen";
+  if (banner === false) return;
+  showBanner(banner || "Voice is paused, reply is on screen");
 }
 
 async function speak(text, grant) {
   const summary = spokenSummary(text);
-  if (state.listening || !state.voiceOn || !state.voiceToken || !summary) return;
+  if (state.listening || !summary) return;
+  if (!state.voiceOn || !state.voiceToken) await ensureVoice();
+  if (state.listening || !state.voiceOn || !state.voiceToken) return;
   stopTalking();
   try {
     const res = await fetch("/api/design-eagle/voice/speak", {
@@ -375,14 +425,31 @@ async function speak(text, grant) {
     if (next) state.voiceToken = next;
     if (state.listening) return;
     if (!res.ok) {
-      if (res.status === 429 || res.status === 401) state.voiceOn = false;
+      if (res.status === 429) {
+        voicePaused("speak http 429", VOICE_CAPPED);
+        return;
+      }
+      if (res.status === 401) {
+        state.voiceToken = "";
+        state.voiceChecked = false;
+        state.voiceOn = false;
+      }
       voicePaused("speak http " + res.status);
       return;
     }
     const blob = await res.blob();
     if (state.listening) return;
-    audio.src = URL.createObjectURL(blob);
-    audio.play().catch((err) => voicePaused("play rejected " + (err && err.name || "")));
+    const url = URL.createObjectURL(blob);
+    audio.src = url;
+    const started = audio.play();
+    if (started && started.then) {
+      started.catch((err) => {
+        const decided = voicePlayResult(err);
+        voicePaused("play rejected " + (err && err.name || ""));
+        if (decided.hear) hearButton(state.lastReply, url);
+        if (decided.banner && !decided.blocked) showBanner(decided.banner);
+      });
+    }
   } catch (e) {
     voicePaused("speak failed");
   }
@@ -543,5 +610,6 @@ function wireMic() {
   mic.addEventListener("pointerleave", (e) => { if (e.buttons) stop(); });
 }
 
+document.addEventListener("pointerdown", primeAudio);
 ensureVoice();
 wireMic();

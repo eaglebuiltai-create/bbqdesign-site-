@@ -73,7 +73,10 @@ export const CONFIG = {
     sessionChars: 8000,
     maxChars: 900,
     /* One refresh after the budget runs low. 16k chars a visit stays well under a Creator month. */
-    maxRenew: 1
+    maxRenew: 1,
+    /* Spoken replies per IP per 10 minutes. Session minting uses its own bucket. */
+    speakPerWindow: 60,
+    sessionPerWindow: 40
   }
 };
 

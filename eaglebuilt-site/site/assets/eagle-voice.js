@@ -22,6 +22,32 @@ export function wantsSave(text) {
 
 export const HANDOFF = "I'll use the form for your name, email, and phone so I don't mishear them.";
 
+export const VOICE_CAPPED = "Voice time is up for a few minutes, reply is on screen";
+
+/* A session check that failed is retried on the next turn. Success is the
+   only state that should stick. A 429 is shown; it is not a permanent mute. */
+export function voiceSessionResult(status, data) {
+  const body = data && typeof data === "object" ? data : {};
+  if (status === 429 || body.capped) {
+    return { ok: false, retry: true, capped: true, banner: VOICE_CAPPED };
+  }
+  if (status === 200 && body.speak && body.token) {
+    return { ok: true, retry: false, capped: false, token: body.token, voiceOn: true, banner: "" };
+  }
+  return { ok: false, retry: true, capped: false, token: "", voiceOn: false, banner: "" };
+}
+
+/* play() after an awaited fetch is outside the gesture. NotAllowedError
+   means the clip is ready and a tap can start it. */
+export function voicePlayResult(err) {
+  const name = err && err.name ? err.name : "";
+  return {
+    hear: true,
+    blocked: name === "NotAllowedError",
+    banner: name === "NotAllowedError" ? "" : "Voice is paused, reply is on screen"
+  };
+}
+
 export function guardSpoken(text, allowedSent) {
   const s = String(text || "").trim().slice(0, CONFIG.voiceLimits.maxChars);
   if (!s) return "";
