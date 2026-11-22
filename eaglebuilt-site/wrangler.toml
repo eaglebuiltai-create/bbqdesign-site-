@@ -66,11 +66,10 @@ directory = "./site"
 binding = "ASSETS"
 run_worker_first = true
 
-# Durable copy of chat leads. Replace the id before deploying.
-#   npx wrangler kv namespace create CHAT_LEADS
+# Durable copy of chat leads. Created 2026-11-22.
 [[kv_namespaces]]
 binding = "CHAT_LEADS"
-id = "00000000000000000000000000000000"
+id = "7f4c0642b9574cfb8f1740accdfa54bb"
 
 # Email a chat lead to info@eaglebuilt.ai. The recipient has to be a verified
 # Email Routing destination (or the domain onboarded for Email Sending) or
