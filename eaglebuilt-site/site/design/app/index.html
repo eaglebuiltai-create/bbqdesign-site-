@@ -2753,7 +2753,7 @@ function renderBrand(){
   $("#brandNote").innerHTML = b.k === "structure"
     ? `<div class="bnote">Brand-neutral masonry. Stretchable runs price by the running foot.</div>`
     : `<div class="bnote"><b style="color:#8DA0B8">${b.n}</b> \u00b7 ${b.tier} tier \u00b7 ${b.items.length} components.
-       Prices are dealer street; cutouts are the manufacturer's published framing sizes.</div>`;
+       Blaze prices are manufacturer MSRP. Every other brand is priced by quote. Cutouts are the manufacturer's published framing sizes.</div>`;
 
   $("#catalog").innerHTML = keys.map(g => `
     <div class="grp"><h4>${g}</h4>
