@@ -8802,6 +8802,8 @@ let LOGO_DATA = "";
     };
     const applyCode = (code) => {
       if (!code || !decodeState(code)) return false;
+      const branded = S.mods.map(m => BYKEY[m.k]).find(c => c && c.brand && c.brand !== "structure");
+      if (branded) S.brand = branded.brand;
       S.sel = null;
       syncControls();
       setView("3d");

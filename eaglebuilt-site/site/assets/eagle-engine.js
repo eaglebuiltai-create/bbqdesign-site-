@@ -1638,8 +1638,15 @@ function layoutKey(spec) {
 
 function unchangedReply(t, spec) {
   const hits = findItemHits(t);
-  const id = hits[0] && hits[0].id;
-  const name = id && CATALOG[id] ? CATALOG[id].spoken.replace(/^a /, "The ") : "That piece";
+  let id = hits[0] && hits[0].id;
+  if (id) id = resolvePresent(id, spec);
+  const piece = id && pieceFor(id, spec);
+  const name = piece ? piece.spoken.replace(/^an? /, "The ") : "That piece";
+  if (id && pieceOnSpec(spec, id) && /\b(?:other leg|other side|the return|on the return)\b/.test(t)) {
+    const onReturn = (spec.legs || []).some(l => (l.role === "bar" || l.role === "return" || l.role === "right" || l.role === "left") && (l.items || []).includes(id) && l.role !== "grill" && l.role !== "main");
+    if (onReturn) return name + " is already on the return.";
+  }
+  if (id && !pieceOnSpec(spec, id)) return "I don't see " + (piece ? piece.spoken : "that piece") + " on this island.";
   if (hits.some(h => h.where === "under")) {
     return name + " is already in the base under the grill. I can move it out beside the grill, or leave the fridge at the right end.";
   }
@@ -2281,6 +2288,24 @@ export function decodeDesign(code) {
   return JSON.parse(json);
 }
 
+/* Equipment dollars for the modules actually in the design code. Fillers are
+   zero. This is the same SKU price the designer quotes, recomputed every turn. */
+export function equipmentTotal(code) {
+  const design = decodeDesign(code);
+  const prices = { corner24: 349 };
+  for (const item of Object.values(CATALOG)) if (item && item.k) prices[item.k] = item.p || 0;
+  for (const grill of Object.values(HESTAN_GRILLS)) prices[grill.k] = grill.p;
+  const keys = [];
+  let equipment = 0;
+  for (const row of design.m || []) {
+    const key = row[0];
+    keys.push(key);
+    if (!String(key).startsWith("fill")) equipment += prices[key] || 0;
+    if (row[5]) equipment += prices[row[5]] || 0;
+  }
+  return { keys, equipment };
+}
+
 function clampLeg(legObj, notes) {
   const asked = legObj.lengthIn;
   if (asked < MIN_LEG) {
@@ -2716,6 +2741,7 @@ function defaultShape(t, current) {
 function applyBrand(spec, brand, grillIn, fresh) {
   if (!spec) return;
   if (brand) spec.brand = brand;
+  else if (!spec.brand) spec.brand = "";
   if (grillIn) spec.grillIn = grillIn;
   if (fresh && findLengths && spec.legs && spec.legs.length > 1) {
     spec.holdLengths = true;
@@ -2726,9 +2752,12 @@ function applyBrand(spec, brand, grillIn, fresh) {
 export function interpret(text, current, opts) {
   const heard = hearBrand(normalize(text));
   const t = speechClean(heard.text).replace(/^(?:or|and|so)\b/, "").replace(/\s+/g, " ").trim();
-  const sidebar = opts && opts.brand && opts.brand !== "structure" ? opts.brand : "";
+  const explicit = !!(opts && opts.brandExplicit);
+  const sidebar = explicit && opts.brand && opts.brand !== "structure" ? opts.brand : "";
   const fresh = isFreshBuild(t);
   const prior = fresh ? null : current;
+  /* A brand already on the design sticks. A sidebar value counts only when
+     the user just picked that tab. The iframe's default blaze does not. */
   const brand = heard.brand || sidebar || (!fresh && current && current.brand) || "";
   if (!t) return keepResult(prior, prior ? "I kept this layout. What should I change?" : CLARIFY);
   const change = refine(t, prior);

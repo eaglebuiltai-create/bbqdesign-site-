@@ -10,6 +10,7 @@ import {
   claimsSent,
   classifyTurn,
   decodeDesign,
+  equipmentTotal,
   legChip,
   holdLongEnough,
   prefersScribe,
@@ -1896,7 +1897,7 @@ describe("john's preview lines", () => {
     }
     const sized = interpret("build a 12 ft straight island with a 36 inch Hestan grill", null, { brand: "blaze" });
     assert.ok(decodeDesign(sized.code).m.some(row => row[0] === "GABR36"), sized.reply);
-    const fromSidebar = interpret("build a 10 ft straight island with a grill", null, { brand: "hestan" });
+    const fromSidebar = interpret("build a 10 ft straight island with a grill", null, { brand: "hestan", brandExplicit: true });
     assert.ok(decodeDesign(fromSidebar.code).m.some(row => row[0] === "GABR30"), fromSidebar.reply);
   });
 
@@ -1941,6 +1942,40 @@ describe("john's preview lines", () => {
     assert.equal(removed.spec.legs[0].bases && removed.spec.legs[0].bases.grill, undefined);
     assert.doesNotMatch(removed.reply, /isn't on the design/);
     assert.match(removed.reply, /door/i);
+  });
+
+  test("John's six lines keep Hestan, the tabletop oven, and one price", () => {
+    const iframeDefault = { brand: "blaze" };
+    const line1 = "or build a 14 ft by 8 ft L-shaped Island with a Hesston Grille set of doors underneath it side burner refrigerator three drawer unit a bartending station tabletop pizza oven trash pull out";
+    const prior = drawn("straight 12 ft island with a double drawer and a 26 inch pizza oven").spec;
+    const steps = [
+      interpret(line1, prior, { brand: "hestan", brandExplicit: true }),
+      null, null, null, null, null
+    ];
+    steps[1] = interpret("need to use that other Pizza Oven on the other leg of the L shape", steps[0].spec, iframeDefault);
+    steps[2] = interpret("sad white chalk brick", steps[1].spec, iframeDefault);
+    steps[3] = interpret("add white countertop", steps[2].spec, iframeDefault);
+    steps[4] = interpret("let's put a bartending sink in somewhere", steps[3].spec, iframeDefault);
+    steps[5] = interpret("remove that door it's in the wrong spot", steps[4].spec, iframeDefault);
+    const priced = equipmentTotal(steps[0].code);
+    assert.ok(priced.keys.includes("GABR30"), priced.keys.join(","));
+    assert.equal(priced.keys.includes("BLZ-4LTE3"), false);
+    assert.ok(priced.equipment >= 8099);
+    for (const step of steps) {
+      assert.equal(step.spec.brand, "hestan", step.reply);
+      const quote = equipmentTotal(step.code);
+      assert.ok(quote.keys.includes("GABR30"), step.reply + " " + quote.keys.join(","));
+      assert.equal(quote.keys.includes("BLZ-4LTE3"), false, step.reply);
+      assert.deepEqual(quote.keys, decodeDesign(step.code).m.map(row => row[0]));
+    }
+    assert.equal(equipmentTotal(steps[2].code).equipment, priced.equipment, "finish does not retarget the grill price");
+    assert.match(steps[1].reply, /countertop pizza oven is already on the return/, steps[1].reply);
+    assert.doesNotMatch(steps[1].reply, /26 inch/);
+    assert.match(steps[2].reply, /chalk white brick/);
+    assert.match(steps[3].reply, /white concrete/);
+    assert.match(steps[4].reply, /already/);
+    assert.match(steps[5].reply, /Removed/);
+    assert.equal(steps[5].spec.legs[0].bases && steps[5].spec.legs[0].bases.grill, undefined);
   });
 
   test("moving the pizza oven says to the return", () => {

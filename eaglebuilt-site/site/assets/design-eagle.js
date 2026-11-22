@@ -137,9 +137,12 @@ window.addEventListener("message", (e) => {
   if (e.origin !== location.origin) return;
   const data = e.data;
   if (!data || data.source !== "eagle-app") return;
-  if (data.brand) state.brand = data.brand;
-  if (data.type === "ready" || data.type === "loaded" || data.type === "brand") {
-    state.frameReady = data.type === "brand" ? state.frameReady : true;
+  if (data.type === "brand" && data.brand) {
+    state.brand = data.brand;
+    state.brandExplicit = true;
+  }
+  if (data.type === "ready" || data.type === "loaded") {
+    state.frameReady = true;
     if (data.total) showPrice(data.total);
   }
 });
@@ -179,7 +182,11 @@ async function applyTurn(text, source) {
       return;
     }
     const before = state.spec ? JSON.parse(JSON.stringify(state.spec)) : null;
-    let result = interpret(clean, state.spec, { brand: state.brand || "" });
+    let result = interpret(clean, state.spec, {
+      brand: state.brandExplicit ? state.brand : "",
+      brandExplicit: !!state.brandExplicit
+    });
+    state.brandExplicit = false;
     if (!result.handled) {
       try {
         const res = await fetch("/api/design-eagle", {
