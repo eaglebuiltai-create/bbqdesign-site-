@@ -1878,6 +1878,79 @@ describe("adjacent pieces and nudges", () => {
   });
 });
 
+describe("john's preview lines", () => {
+  const LINE = "or build a 14 ft by 8 ft L-shaped Island with a Hesston Grille set of doors underneath it side burner refrigerator three drawer unit a bartending station tabletop pizza oven trash pull out";
+  const prior = () => drawn("straight 12 ft island with a double drawer and a 26 inch pizza oven").spec;
+
+  test("Hesston Grille with the Hestan sidebar is a Hestan grill, not Blaze", () => {
+    const page = readFileSync(new URL("../site/design/app/index.html", import.meta.url), "utf8");
+    assert.match(page, /\["GABR30",[^\]]+8099/);
+    assert.match(page, /\["GABR36",[^\]]+10299/);
+    assert.match(page, /\["GABR42",[^\]]+11099/);
+    for (const said of ["Hesston Grille", "Heston grill", "Hessten grille", "Hestan grille"]) {
+      const built = interpret("build a 10 ft straight island with a " + said, null, { brand: "hestan" });
+      const keys = decodeDesign(built.code).m.map(row => row[0]);
+      assert.ok(keys.includes("GABR30"), said + " " + keys.join(","));
+      assert.equal(keys.includes("BLZ-4LTE3"), false, said);
+      assert.match(built.reply, /Hestan/i, built.reply);
+    }
+    const sized = interpret("build a 12 ft straight island with a 36 inch Hestan grill", null, { brand: "blaze" });
+    assert.ok(decodeDesign(sized.code).m.some(row => row[0] === "GABR36"), sized.reply);
+    const fromSidebar = interpret("build a 10 ft straight island with a grill", null, { brand: "hestan" });
+    assert.ok(decodeDesign(fromSidebar.code).m.some(row => row[0] === "GABR30"), fromSidebar.reply);
+  });
+
+  test("or build a 14 by 8 L starts fresh and keeps the 14 ft leg", () => {
+    const built = interpret(LINE, prior(), { brand: "hestan" });
+    assert.equal(built.spec.legs[0].lengthIn, 168, built.reply);
+    assert.equal(built.spec.legs[1].lengthIn, 96, built.reply);
+    assert.equal(built.spec.legs[0].bases && built.spec.legs[0].bases.grill, "door");
+    assert.equal((built.spec.legs[0].items || []).includes("door"), false);
+    assert.equal((built.spec.legs[0].items || []).includes("drawer"), false);
+    assert.equal((built.spec.legs[1].items || []).includes("drawer"), false);
+    assert.equal(built.spec.legs.some(leg => (leg.items || []).includes("pizza")), false);
+    assert.ok(built.spec.legs[1].items.includes("bev-sink"), built.reply);
+    assert.ok(built.spec.legs[1].items.includes("ctpizza"), built.reply);
+    assert.ok(built.spec.legs[0].items.includes("grill"));
+    assert.ok(built.spec.legs[0].items.includes("side-burner"));
+    assert.ok(built.spec.legs[0].items.includes("fridge"));
+    assert.ok(built.spec.legs[0].items.includes("drawer-3"));
+    assert.ok(built.spec.legs[0].items.includes("trash") || built.spec.legs[1].items.includes("trash"));
+    const keys = decodeDesign(built.code).m.map(row => row[0]);
+    assert.ok(keys.includes("GABR30"), keys.join(","));
+    assert.equal(keys.includes("BLZ-4LTE3"), false);
+    assert.equal(keys.includes("BLZ-26-PZOVN"), false);
+    assert.doesNotMatch(built.reply, /21\.|17 ft|longer than a single leg/);
+  });
+
+  test("a bartending sink is named, and a second one is not added silently", () => {
+    const first = interpret("let's put a bartending sink in somewhere", prior());
+    assert.match(first.reply, /bartending station/);
+    assert.doesNotMatch(first.reply, /Added \./);
+    assert.equal(first.spec.legs.some(leg => (leg.items || []).includes("bev-sink")), true);
+    const again = interpret("let's put a bartending sink in somewhere", first.spec);
+    assert.match(again.reply, /already|second/i);
+    assert.equal(again.spec.legs.reduce((n, leg) => n + (leg.items || []).filter(id => id === "bev-sink").length, 0), 1);
+    assert.doesNotMatch(again.reply, /Added \./);
+  });
+
+  test("remove that door finds a door in the grill base", () => {
+    const built = interpret(LINE, null, { brand: "hestan" });
+    assert.equal(built.spec.legs[0].bases.grill, "door");
+    const removed = interpret("remove that door it's in the wrong spot", built.spec);
+    assert.equal(removed.spec.legs[0].bases && removed.spec.legs[0].bases.grill, undefined);
+    assert.doesNotMatch(removed.reply, /isn't on the design/);
+    assert.match(removed.reply, /door/i);
+  });
+
+  test("moving the pizza oven says to the return", () => {
+    const built = drawn("L shaped island, 12 ft grill side with a grill and a countertop pizza oven, 8 ft return");
+    const moved = interpret("need to use that other Pizza Oven on the other leg of the L shape", built.spec);
+    assert.match(moved.reply, /to the return/, moved.reply);
+    assert.doesNotMatch(moved.reply, /\bon the return\b/);
+  });
+});
+
 describe("hold to talk", () => {
   test("short holds and junk transcripts are not a design turn", () => {
     assert.equal(holdLongEnough(299), false);

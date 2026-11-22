@@ -295,8 +295,8 @@ const bareL = () => island({
 });
 
 add("build a barbecue island L-shaped 12 ft on one side with an 8-ft return on the other side", raised, {
-  shape: "ell", items: ["grill", "fridge"], lengthIn: 144, returnLen: 96, returnItems: [],
-  reply: /L-shape/, notReply: /kept this layout/
+  shape: "ell", items: ["grill"], lengthIn: 144, returnLen: 96, returnItems: [],
+  reply: /L-shape/, notReply: /kept this layout|fridge/
 });
 add("build an L-shaped Island", raised, {
   shape: "ell", items: ["grill", "fridge"], lengthIn: 120, returnLen: 72,

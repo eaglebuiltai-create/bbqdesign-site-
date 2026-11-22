@@ -137,8 +137,9 @@ window.addEventListener("message", (e) => {
   if (e.origin !== location.origin) return;
   const data = e.data;
   if (!data || data.source !== "eagle-app") return;
-  if (data.type === "ready" || data.type === "loaded") {
-    state.frameReady = true;
+  if (data.brand) state.brand = data.brand;
+  if (data.type === "ready" || data.type === "loaded" || data.type === "brand") {
+    state.frameReady = data.type === "brand" ? state.frameReady : true;
     if (data.total) showPrice(data.total);
   }
 });
@@ -178,7 +179,7 @@ async function applyTurn(text, source) {
       return;
     }
     const before = state.spec ? JSON.parse(JSON.stringify(state.spec)) : null;
-    let result = interpret(clean, state.spec);
+    let result = interpret(clean, state.spec, { brand: state.brand || "" });
     if (!result.handled) {
       try {
         const res = await fetch("/api/design-eagle", {
@@ -445,9 +446,9 @@ async function speak(text, grant) {
     if (started && started.then) {
       started.catch((err) => {
         const decided = voicePlayResult(err);
-        voicePaused("play rejected " + (err && err.name || ""));
+        console.log("design-eagle voice: play rejected " + (err && err.name || ""));
         if (decided.hear) hearButton(state.lastReply, url);
-        if (decided.banner && !decided.blocked) showBanner(decided.banner);
+        if (decided.banner) showBanner(decided.banner);
       });
     }
   } catch (e) {

@@ -8015,6 +8015,7 @@ $("#brandTabs").addEventListener("click", e => {
   S.brand = b.dataset.b;
   $$("#brandTabs button").forEach(x => x.classList.toggle("on", x.dataset.b === S.brand));
   renderBrand();
+  if (window.parent !== window) window.parent.postMessage({ source: "eagle-app", type: "brand", brand: S.brand }, location.origin);
 });
 $("#shapes").addEventListener("click", e => { const b = e.target.closest(".shape"); if (b) applyShape(b.dataset.s); });
 $("#selCounter").onchange = e => { S.counter = e.target.value; refresh(); };
@@ -8790,7 +8791,7 @@ let LOGO_DATA = "";
       let total = 0, image = null;
       try { if (S.mods.length) total = Math.round(priceIt().total); } catch (err) {}
       if (type === "shot") { try { image = designShot(); } catch (err) {} }
-      window.parent.postMessage({ source: "eagle-app", type, total, image }, location.origin);
+      window.parent.postMessage({ source: "eagle-app", type, total, image, brand: S.brand }, location.origin);
     };
     const frameFit = () => {
       fit();

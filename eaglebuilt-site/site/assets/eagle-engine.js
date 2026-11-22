@@ -200,7 +200,7 @@ const ITEM_RES = [
   [/single access doors?|single doors?|one door\b/, "door-v"],
   [/access doors?/, "door"],
   [/\bdoors?\b/, "door"],
-  [/beverage center sink|bar sink|beverage sink|bartending station|bartender station|bar station|cocktail station|bar center/, "bev-sink"],
+  [/beverage center sink|bartending sink|bar sink|beverage sink|bartending station|bartender station|bar station|cocktail station|bar center/, "bev-sink"],
   [/\bsink\b/, "sink"],
   [/beverage refrigerator|beverage fridge|bev fridge/, "bev"],
   [/beverage center|bev center|refrigerator|\bfridge\b|\bcooler\b|kegerator|\bkeg\b/, "fridge"],
@@ -310,6 +310,7 @@ function prepareGearText(text) {
     .replace(/\bin the middle\b|\bin the center\b/g, " __between__ ")
     .replace(/\b(?:under|underneath|below|beneath) the (?:(?:barbecue|barbeque|bbq|blaze)\s+)?(?:grill|bbq|barbecue|barbeque)\b/g, " __under__ ")
     .replace(/\b(?:under|underneath|below|beneath) it\b/g, " __under__ ")
+    .replace(/\bset of doors\b/g, " doors ")
     .replace(/\bend of the grill(?: leg)?\b/g, " __end__ ")
     .replace(/\bunder the bar\b/g, " __bar__ ")
     .replace(/\bon the bar(?: side)?\b/g, " __bar__ ")
@@ -385,13 +386,65 @@ function resolvePresent(id, spec) {
   return id;
 }
 
+/* Designer catalog prices. Hestan grills are GABR30 / GABR36 / GABR42. */
+const HESTAN_GRILLS = {
+  30: { k: "GABR30", w: 31, p: 8099, spoken: "a 30 inch Hestan grill" },
+  36: { k: "GABR36", w: 37, p: 10299, spoken: "a 36 inch Hestan grill" },
+  42: { k: "GABR42", w: 43, p: 11099, spoken: "a 42 inch Hestan grill" }
+};
+
+function hestanGrill(inches) {
+  const want = Number(inches) || 32;
+  let best = 30;
+  for (const size of [30, 36, 42]) if (Math.abs(size - want) < Math.abs(best - want)) best = size;
+  return HESTAN_GRILLS[best];
+}
+
+function pieceFor(id, spec) {
+  const base = CATALOG[id];
+  if (!base) return null;
+  if (spec && spec.brand === "hestan" && (id === "grill" || id === "grill-40")) {
+    return { ...base, ...hestanGrill(id === "grill-40" ? 42 : spec.grillIn) };
+  }
+  return base;
+}
+
+/* Sidebar brands and the mishearings speech turns them into. */
+const BRAND_HEAR = [
+  [/\b(?:hesston|heston|hessten|hestan)\b/, "hestan"],
+  [/\b(?:blaise|blase|blayze|blaze)\b/, "blaze"],
+  [/\blynx\b/, "lynx"],
+  [/\bcoyote\b/, "coyote"],
+  [/\bfire\s*magic\b/, "firemagic"],
+  [/\bdcs\b/, "dcs"],
+  [/\balfresco\b/, "alfresco"],
+  [/\bsummerset\b/, "summerset"],
+  [/\btwin\s+eagles\b/, "twineagles"],
+  [/\bdiablo\b/, "diablo"],
+  [/\byoder\b/, "yoder"],
+  [/\brcs\b/, "rcs"]
+];
+
+function hearBrand(text) {
+  let t = String(text || "").replace(/\bgrille\b/g, "grill");
+  let brand = "";
+  for (const [re, id] of BRAND_HEAR) {
+    if (re.test(t)) {
+      brand = id;
+      t = t.replace(re, " ");
+    }
+  }
+  const sized = t.match(/\b(30|32|34|36|40|42|44|48)\s*(?:inch|in)\s+(?:grill|bbq|barbecue)\b/);
+  return { brand, text: t.replace(/\s+/g, " ").trim(), grillIn: sized ? Number(sized[1]) : 0 };
+}
+
 function speechClean(text) {
   return String(text || "")
     .replace(/\b(uh+|um+|er+|ah+|hmm+)\b/g, " ")
     .replace(/\ball right\b/g, " ")
     .replace(/\b(basically|actually|kinda|sorta|please|just|like|okay|ok|alright|so|well|yeah|yep|hey)\b/g, " ")
-    .replace(/^\s*now\b/, " ")
-    .replace(/\b(blaise|blase|blayze|blaze|lynx|coyote|fire magic|firemagic|dcs|alfresco|summerset|hestan|twin eagles|diablo|yoder|rcs)\b/g, " ")
+    .replace(/^\s*(?:now|or|and|so)\b/, " ")
+    .replace(/\b(blaise|blase|blayze|blaze|lynx|coyote|fire magic|firemagic|dcs|alfresco|summerset|hestan|twin eagles|diablo|yoder|rcs|hesston|heston|hessten)\b/g, " ")
     .replace(/\bthirty[\s-]*two\b/g, "32")
     .replace(/\bforty[\s-]*two\b/g, "42")
     .replace(/\bforty\b/g, "40")
@@ -1365,11 +1418,22 @@ function refine(t, current) {
   if (/\b(remove|delete)\b/.test(t)) {
     const ids = findItems(t);
     if (!ids.length) return { clarify: "Tell me which piece to remove: sink, fridge, side burner, grill, or combo." };
+    const doorWord = ids.includes("door") || ids.includes("door-25") || ids.includes("door-40") || ids.includes("door-v") || ids.includes("door-h");
     let hit = false;
     spec.legs.forEach(l => {
       const next = (l.items || []).filter(id => !ids.includes(id));
       if (next.length !== (l.items || []).length) hit = true;
       l.items = next;
+      if (l.bases) {
+        for (const host of Object.keys(l.bases)) {
+          const cab = l.bases[host];
+          const doorCab = doorWord && /^door/.test(cab);
+          if (ids.includes(cab) || doorCab) {
+            delete l.bases[host];
+            hit = true;
+          }
+        }
+      }
     });
     if (!hit) return { spec: current, brief: true, notes: ["That piece isn't on the design."] };
     return { spec, brief: true, notes: ["Removed " + joinSpoken(ids.map(id => CATALOG[id].spoken)) + "."] };
@@ -1500,7 +1564,7 @@ function placePhrase(where, anchor) {
   const who = anchor && CATALOG[anchor] ? CATALOG[anchor].spoken.replace(/^an? /, "the ") : "the grill";
   if (where === "right" || where === "end") return " on the right";
   if (where === "left") return " on the left";
-  if (where === "return") return " on the return";
+  if (where === "return") return " to the return";
   if (where === "main") return " on the main run";
   if (where === "bar") return " under the bar";
   if (where === "under") return " in the base under the grill";
@@ -1804,6 +1868,9 @@ function addEquipment(t, current) {
   const hits = mentionHits(t);
   if (!hits.length) return null;
   for (const hit of hits) hit.id = resolvePresent(hit.id, current);
+  if (hits.some(hit => hit.id === "bev-sink") && pieceOnSpec(current, "bev-sink") && !/\b(?:another|second|one more)\b/.test(t)) {
+    return { clarify: "The 30 inch bartending station is already on this island. Do you want a second one?" };
+  }
   const have = {};
   for (const legN of (current && current.legs) || []) {
     for (const id of legN.items || []) have[id] = (have[id] || 0) + 1;
@@ -1949,18 +2016,39 @@ function gapWidth(prev, id, requested, grillGap) {
   return want > 0 ? nearestFiller(want) : 0;
 }
 
-function gearSpan(items, gapIn, grillGap) {
+function gearSpan(items, gapIn, grillGap, spec) {
   const requested = gapIn == null ? 6 : gapIn;
   let sum = 0;
   let prev = "";
   for (const id of items || []) {
-    const item = CATALOG[id];
+    const item = pieceFor(id, spec);
     if (!item) continue;
     if (prev) sum += gapWidth(prev, id, requested, grillGap);
     sum += item.w;
     prev = id;
   }
   return sum;
+}
+
+/* A stated 14 ft leg stays 14 ft. The bar station and the pizza oven move to
+   the return before anything else is stretched or dropped. */
+function spillToReturn(spec) {
+  if (!spec || spec.shape !== "ell" || (spec.legs || []).length < 2) return;
+  const main = spec.legs[0];
+  const ret = spec.legs[1];
+  if (gearSpan(main.items, spec.gapIn, spec.grillGap, spec) <= main.lengthIn + 4) return;
+  for (const id of ["bev-sink", "ctpizza", "pizza"]) {
+    const at = (main.items || []).indexOf(id);
+    if (at < 0) continue;
+    const next = (ret.items || []).concat(id);
+    if (gearSpan(next, spec.gapIn, spec.grillGap, spec) > ret.lengthIn + 4) continue;
+    main.items.splice(at, 1);
+    ret.items = next;
+  }
+}
+
+function isFreshBuild(t) {
+  return /\bbuild\b/.test(t) && findLengths(t).length >= 2 && !!detectShape(t);
 }
 
 /* A countertop appliance alone on a return sits in the usable run past a
@@ -1991,12 +2079,12 @@ function takeFillers(want) {
   return { sizes, used: sizes.reduce((sum, size) => sum + size, 0) };
 }
 
-function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerInset, align, panels, shift) {
+function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerInset, align, panels, shift, spec) {
   const requested = gapIn == null ? 6 : gapIn;
   const extras = Array.isArray(panels) ? panels : [];
   const pieces = [];
   for (const id of items) {
-    const item = CATALOG[id];
+    const item = pieceFor(id, spec);
     if (!item) continue;
     pieces.push({ id, k: item.k, w: item.w, u: underFor(id, items, bases) });
   }
@@ -2281,6 +2369,8 @@ export function validateSpec(input) {
       grillGap: src.grillGap ? 24 : 0,
       lastAdded: Array.isArray(src.lastAdded) ? src.lastAdded.filter(id => CATALOG[id]).slice(0, 12) : [],
       lastMentioned: CATALOG[src.lastMentioned] ? src.lastMentioned : "",
+      brand: typeof src.brand === "string" ? src.brand.slice(0, 24) : "",
+      grillIn: [30, 32, 34, 36, 40, 42, 44, 48].includes(Number(src.grillIn)) ? Number(src.grillIn) : 0,
       lastMoved: CATALOG[src.lastMoved] ? src.lastMoved : "",
       lastDir: src.lastDir === 1 || src.lastDir === -1 ? src.lastDir : 0,
       moveHist: cleanHist(src.moveHist),
@@ -2313,7 +2403,8 @@ function stripClaimed(notes, ids) {
     text = text.replace(/,\s*\./g, ".");
     text = text.replace(/,\s*$/g, "");
     text = text.replace(/\s{2,}/g, " ").trim();
-    notes[i] = /^Added\s+\S/.test(text) ? text : "";
+    const rest = text.replace(/^Added\s*/, "").replace(/[.,]/g, "").trim();
+    notes[i] = /[a-z]/i.test(rest) ? text : "";
   }
 }
 
@@ -2329,7 +2420,10 @@ function joinSentences(parts) {
 function describe(spec, notes) {
   const shapeName = spec.shape === "ell" ? "an L-shape" : spec.shape === "yu" ? "a U-shape" : "a straight run";
   const bits = spec.legs.map(l => {
-    const names = l.items.map(id => CATALOG[id] ? CATALOG[id].spoken : "").filter(Boolean);
+    const names = l.items.map(id => {
+      const piece = pieceFor(id, spec);
+      return piece ? piece.spoken : "";
+    }).filter(Boolean);
     let line = "The " + l.role + " leg is about " + feet(l.lengthIn);
     if (names.length) line += " with " + names.join(", ");
     if (l.bases) {
@@ -2394,17 +2488,17 @@ export function compileSpec(input, extraNotes) {
   if (hold) {
     for (const l of spec.legs) {
       if (!l.fixed) continue;
-      const ask = gearSpan(l.items || [], spec.gapIn, spec.grillGap);
+      const ask = gearSpan(l.items || [], spec.gapIn, spec.grillGap, spec);
       if (ask <= l.lengthIn + 4) continue;
       const dropped = [];
-      while ((l.items || []).length && gearSpan(l.items, spec.gapIn, spec.grillGap) > l.lengthIn + 4) dropped.push(l.items.pop());
+      while ((l.items || []).length && gearSpan(l.items, spec.gapIn, spec.grillGap, spec) > l.lengthIn + 4) dropped.push(l.items.pop());
       dropped.reverse();
       const moved = [];
       const pending = [];
       for (const id of dropped) {
         const home = spec.legs.find(o => {
           if (o === l) return false;
-          const span = gearSpan((o.items || []).concat(id), spec.gapIn, spec.grillGap);
+          const span = gearSpan((o.items || []).concat(id), spec.gapIn, spec.grillGap, spec);
           const room = o.fixed ? o.lengthIn : Math.max(o.lengthIn, span);
           return span <= room + 4;
         });
@@ -2431,7 +2525,7 @@ export function compileSpec(input, extraNotes) {
   }
   const packed = spec.legs.map(l => {
     const inset = counterLanding(l);
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap, inset, l.align || "", l.panels || [], l.shift || 0);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap, inset, l.align || "", l.panels || [], l.shift || 0, spec);
     if (inset >= 24 && (l.items || []).includes("ctpizza") && !notes.some(n => /corner before the pizza/.test(n))) {
       notes.push("I left " + feet(inset) + " of counter at the corner before the pizza oven.");
     }
@@ -2619,31 +2713,60 @@ function defaultShape(t, current) {
   };
 }
 
-export function interpret(text, current) {
-  const t = speechClean(normalize(text));
-  if (!t) return keepResult(current, current ? "I kept this layout. What should I change?" : CLARIFY);
-  const change = refine(t, current);
-  if (change) return guardWipe(current, finishResult({ handled: true, ...change }, current), t);
-  const moved = rearrange(t, current);
-  if (moved) return guardWipe(current, finishResult({ handled: true, ...moved }, current), t);
-  const added = addEquipment(t, current);
+function applyBrand(spec, brand, grillIn, fresh) {
+  if (!spec) return;
+  if (brand) spec.brand = brand;
+  if (grillIn) spec.grillIn = grillIn;
+  if (fresh && findLengths && spec.legs && spec.legs.length > 1) {
+    spec.holdLengths = true;
+    spillToReturn(spec);
+  }
+}
+
+export function interpret(text, current, opts) {
+  const heard = hearBrand(normalize(text));
+  const t = speechClean(heard.text).replace(/^(?:or|and|so)\b/, "").replace(/\s+/g, " ").trim();
+  const sidebar = opts && opts.brand && opts.brand !== "structure" ? opts.brand : "";
+  const fresh = isFreshBuild(t);
+  const prior = fresh ? null : current;
+  const brand = heard.brand || sidebar || (!fresh && current && current.brand) || "";
+  if (!t) return keepResult(prior, prior ? "I kept this layout. What should I change?" : CLARIFY);
+  const change = refine(t, prior);
+  if (change) {
+    applyBrand(change.spec, brand, heard.grillIn, false);
+    return guardWipe(prior, finishResult({ handled: true, ...change }, prior), t);
+  }
+  const moved = rearrange(t, prior);
+  if (moved) {
+    applyBrand(moved.spec, brand, heard.grillIn, false);
+    return guardWipe(prior, finishResult({ handled: true, ...moved }, prior), t);
+  }
+  const added = addEquipment(t, prior);
   if (added) {
-    if (added.clarify && !added.spec) return keepResult(current, added.clarify, added.notes);
-    return finishResult({ handled: true, ...added }, current);
+    if (added.clarify && !added.spec) return keepResult(prior, added.clarify, added.notes);
+    applyBrand(added.spec, brand, heard.grillIn, false);
+    return finishResult({ handled: true, ...added }, prior);
   }
   const parsed = parseNew(t);
-  if (parsed.spec && current && detectShape(t) && detectShape(t) !== current.shape) keepUnmentioned(parsed.spec, current, t);
-  if (parsed.spec) return guardWipe(current, finishResult(parsed, current), t);
-  const shaped = defaultShape(t, current);
-  if (shaped) return guardWipe(current, finishResult(shaped, current), t);
+  if (parsed.spec && prior && detectShape(t) && detectShape(t) !== prior.shape) keepUnmentioned(parsed.spec, prior, t);
+  if (parsed.spec) {
+    applyBrand(parsed.spec, brand, heard.grillIn, fresh);
+    return guardWipe(prior, finishResult(parsed, prior), t);
+  }
+  const shaped = defaultShape(t, prior);
+  if (shaped) {
+    applyBrand(shaped.spec, brand, heard.grillIn, false);
+    return guardWipe(prior, finishResult(shaped, prior), t);
+  }
   if (!parsed.handled) {
-    const reply = current ? "I kept this layout. " + askBit(t) : (parsed.clarify || CLARIFY);
-    return keepResult(current, reply, parsed.notes);
+    const reply = prior ? "I kept this layout. " + askBit(t) : (parsed.clarify || CLARIFY);
+    return keepResult(prior, reply, parsed.notes);
   }
-  if (parsed.clarify && !parsed.spec && current) {
-    return keepResult(current, "I kept this layout. " + askBit(t), parsed.notes);
+  if (parsed.clarify && !parsed.spec && prior) {
+    return keepResult(prior, "I kept this layout. " + askBit(t), parsed.notes);
   }
-  return guardWipe(current, finishResult(parsed, current), t);
+  applyBrand(parsed.spec, brand, heard.grillIn, fresh);
+  return guardWipe(prior, finishResult(parsed, prior), t);
 }
 
 export function applyModelSpec(raw, current) {
