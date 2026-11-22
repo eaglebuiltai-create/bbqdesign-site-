@@ -3368,5 +3368,4616 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Height not listed in the guide."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L36TR",
+  "product_name": "Professional 36\" Built-In Grill, Trident & Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 36,
+   "h": 24.75,
+   "d": 25.375
+  },
+  "cutout_in": {
+   "w": 35,
+   "h": 10.125,
+   "d": 22
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14562",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14562",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.13\".",
+  "popular": 1
+ },
+ {
+  "brand": "Lynx",
+  "model": "L36ATR",
+  "product_name": "Professional 36\" Built-In Grill, All Trident, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 36,
+   "h": 24.75,
+   "d": 25.375
+  },
+  "cutout_in": {
+   "w": 35,
+   "h": 10.125,
+   "d": 22
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14560",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14560",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.13\". Same cutout: LF36ATR.",
+  "designer_key": "L36ATR",
+  "also": [
+   "LF36ATR"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "L36R-3",
+  "product_name": "Professional 36\" Built-In Grill, All Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 36,
+   "h": 24.75,
+   "d": 25.375
+  },
+  "cutout_in": {
+   "w": 35,
+   "h": 10.125,
+   "d": 22
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14561",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14561",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.13\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L42TR",
+  "product_name": "Professional 42\" Built-In Grill, Trident & Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 42,
+   "h": 25,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 41,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14565",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14565",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "popular": 3
+ },
+ {
+  "brand": "Lynx",
+  "model": "L42ATR",
+  "product_name": "Professional 42\" Built-In Grill, All Trident, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 42,
+   "h": 25,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 41,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14563",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14563",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "designer_key": "L42ATR"
+ },
+ {
+  "brand": "Lynx",
+  "model": "L42R-3",
+  "product_name": "Professional 42\" Built-In Grill, All Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 42,
+   "h": 25,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 41,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14564",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14564",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L30TR",
+  "product_name": "Professional 30\" Built-In Grill, Trident & Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 30,
+   "h": 25,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 29,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14559",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14559",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "popular": 4
+ },
+ {
+  "brand": "Lynx",
+  "model": "L30ATR",
+  "product_name": "Professional 30\" Built-In Grill, All Trident, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 30,
+   "h": 25,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 29,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14557",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14557",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "designer_key": "L30ATR"
+ },
+ {
+  "brand": "Lynx",
+  "model": "L30R-3",
+  "product_name": "Professional 30\" Built-In Grill, All Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 30,
+   "h": 25,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 29,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14558",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14558",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L54TR",
+  "product_name": "Professional 54\" Built-In Grill, Trident & 3 Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 54,
+   "h": 25.8125,
+   "d": 27.875
+  },
+  "cutout_in": {
+   "w": 53,
+   "h": 10.875,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/14566",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14566",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\" and overall height 25.81\".",
+  "designer_key": "L54TR"
+ },
+ {
+  "brand": "Lynx",
+  "model": "L27TR",
+  "product_name": "Professional 27\" Built-In Grill, Trident & Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 27,
+   "h": 25,
+   "d": 25.375
+  },
+  "cutout_in": {
+   "w": 26,
+   "h": 10.875,
+   "d": 22
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/7229",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/7229",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L27R-3",
+  "product_name": "Professional 27\" Built-In Grill, All Ceramic, Rotisserie",
+  "category": "grill",
+  "overall_in": {
+   "w": 27,
+   "h": 25,
+   "d": 25.375
+  },
+  "cutout_in": {
+   "w": 26,
+   "h": 10.875,
+   "d": 22
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/7228",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/7228",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L601",
+  "product_name": "Sedona 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 35,
+   "h": 10,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/12351",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12351",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Sedona built-in grill spec sheet (lynxgrills.com product documentation). Same cutout: L601PS, L601PSR, L601R, L600, L600PS, L600PSR, L600R.",
+  "popular": 2,
+  "also": [
+   "L601PS",
+   "L601PSR",
+   "L601R",
+   "L600",
+   "L600PS",
+   "L600PSR",
+   "L600R"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "L701",
+  "product_name": "Sedona 42\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 41,
+   "h": 10,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/12355",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12355",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Sedona built-in grill spec sheet (lynxgrills.com product documentation). Same cutout: L701PS, L701PSR, L701R, L700, L700PS, L700PSR, L700R.",
+  "popular": 5,
+  "also": [
+   "L701PS",
+   "L701PSR",
+   "L701R",
+   "L700",
+   "L700PS",
+   "L700PSR",
+   "L700R"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "L501",
+  "product_name": "Sedona 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29,
+   "h": 10,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/12350",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12350",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Sedona built-in grill spec sheet (lynxgrills.com product documentation). Same cutout: L501PS, L501PSR, L501R, L500, L500PS, L500PSR, L500R.",
+  "also": [
+   "L501PS",
+   "L501PSR",
+   "L501R",
+   "L500",
+   "L500PS",
+   "L500PSR",
+   "L500R"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LPB",
+  "product_name": "Professional Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19,
+   "h": 10.625,
+   "d": 22
+  },
+  "fuel_power": "Gas: natural gas or propane; 47,000 BTU/hr",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Side Burner/Power Burner Care & Use Manual (table A/B/C = width/height/depth) (lynxgrills.com product documentation). Manual prints height as 10.63\".",
+  "designer_key": "LPB"
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSB2-2",
+  "product_name": "Professional Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.125,
+   "h": 10.625,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 2 x 15,000 BTU",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Side Burner/Power Burner Care & Use Manual (table A/B/C = width/height/depth) (lynxgrills.com product documentation). Manual prints 12.13\" x 10.63\".",
+  "designer_key": "LSB2-2"
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSB1-3",
+  "product_name": "Professional Single Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.125,
+   "h": 10.625,
+   "d": 12.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 15,000 BTU",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Side Burner/Power Burner Care & Use Manual (table A/B/C = width/height/depth) (lynxgrills.com product documentation). Manual prints 12.13\" x 10.63\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSB2PC-1",
+  "product_name": "Professional Prep Center with Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.25,
+   "h": 10.625,
+   "d": 24.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 2 x 15,000 BTU",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/11502",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Side Burner/Power Burner Care & Use Manual (table A/B/C = width/height/depth) (lynxgrills.com product documentation). Manual prints height as 10.63\"."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L30WD",
+  "product_name": "Professional 30\" Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10,
+   "d": 20.5
+  },
+  "fuel_power": "Electric: 120V",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/10999",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/10999",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Warming Drawer Care & Use Manual (lynxgrills.com product documentation). Same cutout: L30WD-1.",
+  "also": [
+   "L30WD-1"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "L42CC",
+  "product_name": "Professional 42\" Convenience Center & Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 19.375,
+   "d": 24.75
+  },
+  "fuel_power": "Electric: 120V",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/10999",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/10999",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Warming Drawer Care & Use Manual (lynxgrills.com product documentation). Same cutout: L42CC-1.",
+  "also": [
+   "L42CC-1"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LCS30",
+  "product_name": "Professional 30\" Cocktail Station",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 30,
+   "h": null,
+   "d": 25.125
+  },
+  "cutout_in": {
+   "w": 29,
+   "h": 10.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/9797",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/9797",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Cocktail Station Care & Use Manual (lynxgrills.com product documentation). Same cutout: LCS30F.",
+  "also": [
+   "LCS30F"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSK18",
+  "product_name": "Professional 18\" Built-In Sink",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 18,
+   "h": null,
+   "d": 25.125
+  },
+  "cutout_in": {
+   "w": 17,
+   "h": 10.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSK24",
+  "product_name": "Professional 24\" Built-In Sink",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 24,
+   "h": null,
+   "d": 25.125
+  },
+  "cutout_in": {
+   "w": 23,
+   "h": 10.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSK30",
+  "product_name": "Professional 30\" Built-In Sink",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 31,
+   "h": null,
+   "d": 25.125
+  },
+  "cutout_in": {
+   "w": 29,
+   "h": 10.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LN24REF",
+  "product_name": "Professional 24\" Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.875,
+   "h": 33.75,
+   "d": 23.71875
+  },
+  "cutout_in": {
+   "w": 24,
+   "h": 34,
+   "d": null
+  },
+  "fuel_power": "Electric: 115V/60Hz/15A dedicated circuit",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/12678",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12678",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Outdoor Refrigeration Use & Care / Installation Manual (rough-in opening) (lynxgrills.com product documentation). Opening height runs 34\" to 35\" depending on leveling-leg height; depth varies by installation (cabinet depth plus 1\" for the plug to recess the door), so it is left to the manual. Same cutout: LN24REFR, LN24REFL, LN24REFG.",
+  "designer_key": "LN24REFR",
+  "popular": 6,
+  "cutout_max_in": {
+   "h": 35
+  },
+  "also": [
+   "LN24REFR",
+   "LN24REFL",
+   "LN24REFG"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LN15REF",
+  "product_name": "Professional 15\" Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 14.875,
+   "h": 33.75,
+   "d": 23.71875
+  },
+  "cutout_in": {
+   "w": 15,
+   "h": 34,
+   "d": null
+  },
+  "fuel_power": "Electric: 115V/60Hz/15A dedicated circuit",
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/12678",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12678",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Outdoor Refrigeration Use & Care / Installation Manual (rough-in opening) (lynxgrills.com product documentation). Opening height runs 34\" to 35\" depending on leveling-leg height; depth varies by installation (cabinet depth plus 1\" for the plug to recess the door), so it is left to the manual.",
+  "cutout_max_in": {
+   "h": 35
+  }
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR30T-4",
+  "product_name": "Ventana 30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.125,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/322",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/322",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR36T-4",
+  "product_name": "Ventana 36\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.625,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/348",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/348",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR42T-4",
+  "product_name": "Ventana 42\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.4375,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/381",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/381",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR18L-4",
+  "product_name": "Ventana 18\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.625,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/281",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/281",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame. Same cutout: LDR18R-4.",
+  "also": [
+   "LDR18R-4"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR24L-4",
+  "product_name": "Ventana 24\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19.0625,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/294",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/294",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame. Same cutout: LDR24R-4.",
+  "also": [
+   "LDR24R-4"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSA30-4",
+  "product_name": "Ventana 30\" Storage Door & Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.4375,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/310",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/310",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSA36-4",
+  "product_name": "Ventana 36\" Storage Door & Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.4375,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/331",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/331",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSA42-4",
+  "product_name": "Ventana 42\" Storage Door & Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.4375,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/355",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/355",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDW16-4",
+  "product_name": "Ventana 16\" Double Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.25,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/362",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/362",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDW19-4",
+  "product_name": "Ventana 19\" Extra Large Double Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/809",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/809",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LTA30-4",
+  "product_name": "Ventana 30\" Trash Drawers Combo",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.4375,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/303",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/303",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "L20TR-4",
+  "product_name": "Ventana 20\" Trash & Recycle Center",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16.125,
+   "h": 24,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/286",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/286",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LMD-4",
+  "product_name": "Ventana Modular Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21.75,
+   "h": 5.625,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/812",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/812",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Rear support recommended, or use kit LMDKIT."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LTWL",
+  "product_name": "Ventana Paper Towel Drawer",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.625,
+   "h": 7.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/370",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/370",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Depth not shown on the cutout drawing."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR30T",
+  "product_name": "Classic 30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/324",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/324",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; no depth on the drawing. Same cutout: LD30T.",
+  "designer_key": "LDR30T",
+  "also": [
+   "LD30T"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LTA30",
+  "product_name": "Classic 30\" Trash Drawers Combo",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/305",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/305",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Depth not on the cutout drawing.",
+  "designer_key": "LTA30"
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR18L",
+  "product_name": "Classic 18\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.625,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/279",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/279",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; no depth on the drawing. Same cutout: LDR18R.",
+  "also": [
+   "LDR18R"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LDR24L",
+  "product_name": "Classic 24\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/891",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/891",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; no depth on the drawing. Same cutout: LDR24R.",
+  "also": [
+   "LDR24R"
+  ]
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSA30",
+  "product_name": "Classic 30\" Door & Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.25,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.).",
+  "designer_key": "LSA30"
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSA36",
+  "product_name": "Classic 36\" Door & Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.)."
+ },
+ {
+  "brand": "Lynx",
+  "model": "LSA42",
+  "product_name": "Classic 42\" Door & Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 19,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
+  "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2C36",
+  "product_name": "C-Series 36\" Built-In Grill w/ Hood Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 35.5,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 32.5,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 80,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "C2C36",
+  "popular": 1
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2SL36",
+  "product_name": "S-Series 36\" Built-In Grill w/ Hood & LED Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 35.5,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 32.5,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 90,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "popular": 2
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1C28",
+  "product_name": "C-Series 28\" Built-In Grill w/ Hood Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 28,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 25,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 40,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "C1C28",
+  "popular": 3
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2C34",
+  "product_name": "C-Series 34\" Built-In Grill w/ Hood Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 34,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 31,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 60,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "C2C34",
+  "popular": 4
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2C42",
+  "product_name": "C-Series 42\" Built-In Grill w/ Hood Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 42.5,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 39.5,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 100,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "C2C42",
+  "popular": 5
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2SL30",
+  "product_name": "S-Series 30\" Built-In Grill w/ Hood & LED Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 30,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 27,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 70,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2SL42",
+  "product_name": "S-Series 42\" Built-In Grill w/ Hood & LED Lights",
+  "category": "grill",
+  "overall_in": {
+   "w": 42.5,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 39.5,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 110,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1S36",
+  "product_name": "36\" Built-In Grill w/ Hood Lights (C1S36)",
+  "category": "grill",
+  "overall_in": {
+   "w": 35.5,
+   "h": 23,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 32.5,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 90,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1HY50",
+  "product_name": "50\" Hybrid Gas/Charcoal Built-In Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 50,
+   "h": 25.25,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 47.75,
+   "h": 12.5,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane plus charcoal/wood; 40,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1CH36",
+  "product_name": "36\" Built-In Charcoal Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 35.5,
+   "h": 25.25,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 32.5,
+   "h": 12.5,
+   "d": 20.5
+  },
+  "fuel_power": "Charcoal",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1CHCS",
+  "product_name": "Asado Built-In Smoker",
+  "category": "grill",
+  "overall_in": {
+   "w": 22.25,
+   "h": 34,
+   "d": 22.25
+  },
+  "cutout_in": {
+   "w": 22.5,
+   "h": 17,
+   "d": 22.5
+  },
+  "fuel_power": "Charcoal",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). The sheet lists a cutout slightly larger than the overall size; confirm against the unit before cutting."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1EL120SM",
+  "product_name": "Built-In Electric Grill (manual control)",
+  "category": "grill",
+  "overall_in": {
+   "w": 18.125,
+   "h": 11.375,
+   "d": 16.25
+  },
+  "cutout_in": {
+   "w": 16,
+   "h": 3.375,
+   "d": 15
+  },
+  "fuel_power": "Electric: 120V, 1300W, 11A",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1P28",
+  "product_name": "28\" Built-In Pellet Grill",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 28,
+   "h": 31,
+   "d": 27
+  },
+  "cutout_in": {
+   "w": 26.25,
+   "h": 16.5,
+   "d": 23
+  },
+  "fuel_power": "Wood pellets; 120VAC",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1P36",
+  "product_name": "36\" Built-In Pellet Grill",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 36,
+   "h": 31,
+   "d": 27
+  },
+  "cutout_in": {
+   "w": 34.25,
+   "h": 16.5,
+   "d": 23
+  },
+  "fuel_power": "Wood pellets; 120VAC",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1FTG30",
+  "product_name": "30\" Built-In Flat Top Grill (griddle)",
+  "category": "griddle",
+  "overall_in": {
+   "w": 30,
+   "h": 13.5,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 27.25,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 34,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1SB",
+  "product_name": "Single Side Burner",
+  "category": "side burner",
+  "overall_in": {
+   "w": 11.375,
+   "h": 13,
+   "d": 17
+  },
+  "cutout_in": {
+   "w": 10.125,
+   "h": 10.25,
+   "d": 13.625
+  },
+  "fuel_power": "Gas: natural gas or propane; 15,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1DB",
+  "product_name": "Dual Side Burner",
+  "category": "side burner",
+  "overall_in": {
+   "w": 13.125,
+   "h": 13,
+   "d": 23.25
+  },
+  "cutout_in": {
+   "w": 11.875,
+   "h": 10.25,
+   "d": 20.25
+  },
+  "fuel_power": "Gas: natural gas or propane; 30,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Same cutout: C3DB.",
+  "designer_key": "C3DB",
+  "also": [
+   "C3DB"
+  ]
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1PB",
+  "product_name": "Power Burner",
+  "category": "power burner",
+  "overall_in": {
+   "w": 24,
+   "h": 13,
+   "d": 24.25
+  },
+  "cutout_in": {
+   "w": 21,
+   "h": 10.25,
+   "d": 21
+  },
+  "fuel_power": "Gas: natural gas or propane; 60,000 BTU",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "C1PB"
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTCC2",
+  "product_name": "Insulated Jacket for 28\" Grills",
+  "category": "accessory",
+  "overall_in": {
+   "w": 30.125,
+   "h": 11,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 28.25,
+   "h": 11,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTCC3",
+  "product_name": "Insulated Jacket for 34\" Grills",
+  "category": "accessory",
+  "overall_in": {
+   "w": 36.125,
+   "h": 11,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 34.25,
+   "h": 11,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTCS30",
+  "product_name": "Insulated Jacket for 30\" Grills",
+  "category": "accessory",
+  "overall_in": {
+   "w": 32.375,
+   "h": 11,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 30.75,
+   "h": 11,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTCS36",
+  "product_name": "Insulated Jacket for 36\" Grills",
+  "category": "accessory",
+  "overall_in": {
+   "w": 37.625,
+   "h": 11,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 35.75,
+   "h": 11,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTCS42",
+  "product_name": "Insulated Jacket for 42\" Grills",
+  "category": "accessory",
+  "overall_in": {
+   "w": 44.125,
+   "h": 11,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 42.25,
+   "h": 11,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTC1SB",
+  "product_name": "Insulated Jacket for C1SB",
+  "category": "accessory",
+  "overall_in": {
+   "w": 15.25,
+   "h": 11,
+   "d": 16.75
+  },
+  "cutout_in": {
+   "w": 13.75,
+   "h": 11,
+   "d": 16
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTC1DB",
+  "product_name": "Insulated Jacket for C1DB",
+  "category": "accessory",
+  "overall_in": {
+   "w": 17,
+   "h": 11,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 15.5,
+   "h": 11,
+   "d": 22.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTC1PB",
+  "product_name": "Insulated Jacket for C1PB",
+  "category": "accessory",
+  "overall_in": {
+   "w": 24.875,
+   "h": 11,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 22.125,
+   "h": 11,
+   "d": 21.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTC1P28",
+  "product_name": "Insulated Jacket for C1P28",
+  "category": "accessory",
+  "overall_in": {
+   "w": 30,
+   "h": 17.75,
+   "d": 24.75
+  },
+  "cutout_in": {
+   "w": 27.25,
+   "h": 17.25,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CJAKTC1P36",
+  "product_name": "Insulated Jacket for C1P36",
+  "category": "accessory",
+  "overall_in": {
+   "w": 37.75,
+   "h": 17.75,
+   "d": 24.75
+  },
+  "cutout_in": {
+   "w": 35.25,
+   "h": 17.25,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CDA2436",
+  "product_name": "36\" Double Access Door",
+  "category": "access door",
+  "overall_in": {
+   "w": 35.5,
+   "h": 24,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 31.75,
+   "h": 20.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "designer_key": "CDA2436",
+  "popular": 6
+ },
+ {
+  "brand": "Coyote",
+  "model": "CDA2431",
+  "product_name": "31\" Double Access Door",
+  "category": "access door",
+  "overall_in": {
+   "w": 30,
+   "h": 24,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 26.5,
+   "h": 20.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CDA2426",
+  "product_name": "26\" Double Access Door",
+  "category": "access door",
+  "overall_in": {
+   "w": 24.25,
+   "h": 24,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 20.75,
+   "h": 20.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CDA2439",
+  "product_name": "39\" Double Access Door",
+  "category": "access door",
+  "overall_in": {
+   "w": 38,
+   "h": 24,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 34.5,
+   "h": 20.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSA2014",
+  "product_name": "Single Access Door 20\" x 14\"",
+  "category": "access door",
+  "overall_in": {
+   "w": 16,
+   "h": 22,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 14.5,
+   "h": 20.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSA1420",
+  "product_name": "Single Access Door 14\" x 20\"",
+  "category": "access door",
+  "overall_in": {
+   "w": 22,
+   "h": 16,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 20.5,
+   "h": 14.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSA2417",
+  "product_name": "Single Access Door 24\" x 17\"",
+  "category": "access door",
+  "overall_in": {
+   "w": 19,
+   "h": 26,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 17.5,
+   "h": 24.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSA1724",
+  "product_name": "Single Access Door 17\" x 24\"",
+  "category": "access door",
+  "overall_in": {
+   "w": 26,
+   "h": 19,
+   "d": 3
+  },
+  "cutout_in": {
+   "w": 24.5,
+   "h": 17.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C2DC",
+  "product_name": "2-Drawer Cabinet",
+  "category": "drawer",
+  "overall_in": {
+   "w": 16.25,
+   "h": 22,
+   "d": 18
+  },
+  "cutout_in": {
+   "w": 15,
+   "h": 20.5,
+   "d": 17.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "C2DC"
+ },
+ {
+  "brand": "Coyote",
+  "model": "C3DC",
+  "product_name": "3-Drawer Cabinet",
+  "category": "drawer",
+  "overall_in": {
+   "w": 18.5,
+   "h": 26,
+   "d": 18
+  },
+  "cutout_in": {
+   "w": 17.25,
+   "h": 24.5,
+   "d": 17.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSSD",
+  "product_name": "Single Storage Drawer",
+  "category": "drawer",
+  "overall_in": {
+   "w": 32.5,
+   "h": 15,
+   "d": 21.25
+  },
+  "cutout_in": {
+   "w": 32,
+   "h": 13.5,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CDPC31",
+  "product_name": "31\" Dry Pantry",
+  "category": "dry storage",
+  "overall_in": {
+   "w": 30,
+   "h": 24,
+   "d": 24
+  },
+  "cutout_in": {
+   "w": 26.5,
+   "h": 20.5,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CTC",
+  "product_name": "Dual Pull-Out Trash & Recycle",
+  "category": "trash / recycle",
+  "overall_in": {
+   "w": 26.75,
+   "h": 26.25,
+   "d": 19
+  },
+  "cutout_in": {
+   "w": 24,
+   "h": 24,
+   "d": 18
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSTC",
+  "product_name": "Single Pull-Out Trash & Recycle",
+  "category": "trash / recycle",
+  "overall_in": {
+   "w": 14.375,
+   "h": 26.25,
+   "d": 18.875
+  },
+  "cutout_in": {
+   "w": 11.375,
+   "h": 23.875,
+   "d": 18
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CFBTRC",
+  "product_name": "Front-Back Trash & Recycle Combo",
+  "category": "trash / recycle",
+  "overall_in": {
+   "w": 18,
+   "h": 28,
+   "d": 26
+  },
+  "cutout_in": {
+   "w": 16.75,
+   "h": 26.25,
+   "d": 23.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CPOD",
+  "product_name": "LP Tank or Trash Drawer",
+  "category": "trash / propane",
+  "overall_in": {
+   "w": 15.5,
+   "h": 22,
+   "d": 18
+  },
+  "cutout_in": {
+   "w": 14.75,
+   "h": 20.5,
+   "d": 17.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CPTH",
+  "product_name": "Paper Towel Holder",
+  "category": "accessory",
+  "overall_in": {
+   "w": 15,
+   "h": 10,
+   "d": 9
+  },
+  "cutout_in": {
+   "w": 13.5,
+   "h": 8.25,
+   "d": 8
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CSPRK",
+  "product_name": "Spice Rack",
+  "category": "accessory",
+  "overall_in": {
+   "w": 8.75,
+   "h": 26.25,
+   "d": 18
+  },
+  "cutout_in": {
+   "w": 7.5,
+   "h": 25,
+   "d": 17.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CWD",
+  "product_name": "Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": {
+   "w": 29.5,
+   "h": 10.75,
+   "d": 26.75
+  },
+  "cutout_in": {
+   "w": 28.25,
+   "h": 9.5,
+   "d": 23.5
+  },
+  "fuel_power": "Electric: 120VAC",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CCD-2DC",
+  "product_name": "Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": {
+   "w": 45.25,
+   "h": 24.125,
+   "d": 18.375
+  },
+  "cutout_in": {
+   "w": 41.375,
+   "h": 20.25,
+   "d": 17.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CCD-2DC31",
+  "product_name": "31\" Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": {
+   "w": 30,
+   "h": 24,
+   "d": 21.125
+  },
+  "cutout_in": {
+   "w": 26.5,
+   "h": 20.5,
+   "d": 20.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "designer_key": "CCD-2DC31"
+ },
+ {
+  "brand": "Coyote",
+  "model": "CCD-POD",
+  "product_name": "Pull-Out Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": {
+   "w": 45.25,
+   "h": 24.125,
+   "d": 18
+  },
+  "cutout_in": {
+   "w": 41.25,
+   "h": 20.375,
+   "d": 17.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CCD-WD",
+  "product_name": "Warming Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": {
+   "w": 42.125,
+   "h": 20.75,
+   "d": 26.5
+  },
+  "cutout_in": {
+   "w": 40.625,
+   "h": 19.625,
+   "d": 25.25
+  },
+  "fuel_power": "Electric: 120VAC, 450W (one plug)",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1BIR24",
+  "product_name": "24\" 5.5 Cu. Ft. Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.5,
+   "h": 33,
+   "d": 22.5
+  },
+  "cutout_in": {
+   "w": 23.75,
+   "h": 33.25,
+   "d": 22.75
+  },
+  "fuel_power": "Electric: 120VAC (one plug)",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Vented bottom front. Same cutout: C1BIR24-R, C1BIR24-L.",
+  "designer_key": "C1BIR24-R",
+  "popular": 7,
+  "also": [
+   "C1BIR24-R",
+   "C1BIR24-L"
+  ]
+ },
+ {
+  "brand": "Coyote",
+  "model": "CBIR",
+  "product_name": "21\" 4.1 Cu. Ft. Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 20.5,
+   "h": 33.75,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 20.75,
+   "h": 34,
+   "d": 23
+  },
+  "fuel_power": "Electric: 120VAC (one plug)",
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Vented bottom front."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CDIC",
+  "product_name": "Drop-In Cooler",
+  "category": "ice bin",
+  "overall_in": {
+   "w": 24.5,
+   "h": 15,
+   "d": 18
+  },
+  "cutout_in": {
+   "w": 23.25,
+   "h": 12,
+   "d": 17.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Can be turned in either direction."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CPOC",
+  "product_name": "Pull-Out Ice Chest",
+  "category": "ice drawer",
+  "overall_in": {
+   "w": 26.75,
+   "h": 20.5,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 23.75,
+   "h": 17.5,
+   "d": 24.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1SINK1618",
+  "product_name": "Sink - Universal Mount",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 15.75,
+   "h": 13,
+   "d": 17.75
+  },
+  "cutout_in": {
+   "w": 14.75,
+   "h": 13,
+   "d": 17.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Includes drain, no faucet."
+ },
+ {
+  "brand": "Coyote",
+  "model": "C1SINKF21",
+  "product_name": "21\" Sink with Faucet",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 18.25,
+   "h": 13.75,
+   "d": 18.25
+  },
+  "cutout_in": {
+   "w": 21,
+   "h": 14.25,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Includes faucet, drain and soap dispenser. The sheet lists a cutout wider than the overall size; confirm against the unit before cutting."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CRC",
+  "product_name": "Refreshment Center",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 30.25,
+   "h": 10.75,
+   "d": 29
+  },
+  "cutout_in": {
+   "w": 29.25,
+   "h": 10,
+   "d": 22.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Coyote",
+  "model": "CFHSINK",
+  "product_name": "Farmhouse Sink",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 30,
+   "h": 10.875,
+   "d": 25.25
+  },
+  "cutout_in": {
+   "w": 27.5,
+   "h": 10,
+   "d": 20.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "SZRPRO32",
+  "product_name": "Sizzler Pro 32\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SZR32, SIZPRO32, SIZ32.",
+  "designer_key": "SIZPRO32",
+  "popular": 1,
+  "also": [
+   "SZR32",
+   "SIZPRO32",
+   "SIZ32"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TRLPRO32",
+  "product_name": "TRL Pro 32\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 9.375,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: TRL32.",
+  "designer_key": "TRLPRO32",
+  "popular": 2,
+  "also": [
+   "TRL32"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SZRPRO40",
+  "product_name": "Sizzler Pro 40\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.75,
+   "h": 8,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SZR40, SIZPRO40, SIZ40.",
+  "popular": 3,
+  "also": [
+   "SZR40",
+   "SIZPRO40",
+   "SIZ40"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TRLPRO40",
+  "product_name": "TRL Pro 40\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 38.5,
+   "h": 9.375,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: TRL38.",
+  "designer_key": "TRLPRO40",
+  "popular": 4,
+  "also": [
+   "TRL38"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SZR25",
+  "product_name": "Sizzler 25\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.25,
+   "h": 8,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SIZ26.",
+  "designer_key": "SIZ26",
+  "popular": 5,
+  "also": [
+   "SIZ26"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "QST30",
+  "product_name": "Quest 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10.25,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "QST36",
+  "product_name": "Quest 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.5,
+   "h": 10.25,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "QST42",
+  "product_name": "Quest 42\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.5,
+   "h": 10.25,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "SBG30",
+  "product_name": "Resort 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10.25,
+   "d": 23.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "TRLD44",
+  "product_name": "TRL Deluxe 44\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 45,
+   "h": 11,
+   "d": 20
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "designer_key": "TRLD44",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "ALT30",
+  "product_name": "Alturi 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.75,
+   "h": 10.25,
+   "d": 21.625
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "ALT36",
+  "product_name": "Alturi 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.75,
+   "h": 10.25,
+   "d": 21.625
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "ALT42",
+  "product_name": "Alturi 42\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.75,
+   "h": 10.25,
+   "d": 21.625
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GRIDPRO",
+  "product_name": "Griddle Pro 30\" Built-In Griddle",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.25,
+   "h": 10.75,
+   "d": 21.875
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: GRID30.",
+  "also": [
+   "GRID30"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SS-OVBI",
+  "product_name": "The Oven Built-In",
+  "category": "pizza oven",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.5,
+   "h": 6.25,
+   "d": 20
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "SB2PRO",
+  "product_name": "Pro Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 10.75,
+   "h": 8,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SB2, SIZSB2, SIZPROSB2.",
+  "designer_key": "SIZPROSB2",
+  "also": [
+   "SB2",
+   "SIZSB2",
+   "SIZPROSB2"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "PB2PRO",
+  "product_name": "Pro Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.75,
+   "h": 8,
+   "d": 19
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SIZPROPB.",
+  "also": [
+   "SIZPROPB"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SB1",
+  "product_name": "Single Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 8,
+   "h": 2.5,
+   "d": 15.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSSB1.",
+  "also": [
+   "SSSB1"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "ALTSB2",
+  "product_name": "Alturi Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 10.25,
+   "d": 23.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "ALTSS",
+  "product_name": "Alturi Sear Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 10.25,
+   "d": 23.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "ALTPB2",
+  "product_name": "Alturi Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21,
+   "h": 10.25,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "TRLSB2",
+  "product_name": "TRL Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.75,
+   "h": 9,
+   "d": 19
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "TRLSS",
+  "product_name": "TRL Sear Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.75,
+   "h": 9,
+   "d": 19
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "TRLPB2",
+  "product_name": "TRL Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.75,
+   "h": 9.25,
+   "d": 18.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-24D",
+  "product_name": "24\" 5.3 Cu. Ft. Deluxe Outdoor Rated Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.625,
+   "h": 34.625,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). SSRFR-24S is discontinued; same cutout as RFR-24D. Same cutout: SSRFR-24D, SSRFR-24S.",
+  "designer_key": "SSRFR-24S",
+  "popular": 6,
+  "also": [
+   "SSRFR-24D",
+   "SSRFR-24S"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-24S-A",
+  "product_name": "24\" 5 Cu. Ft. Outdoor Rated Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.125,
+   "h": 32.75,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-24S-AR.",
+  "also": [
+   "RFR-24S-AR"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-24G",
+  "product_name": "24\" 5 Cu. Ft. Outdoor Rated Refrigerator w/ Glass Door",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.125,
+   "h": 32.75,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-24DR2-A",
+  "product_name": "24\" 5.3 Cu. Ft. Deluxe Outdoor Rated 2-Drawer Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.125,
+   "h": 32.75,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "SSRFR-24DR2",
+  "product_name": "24\" 5.3 Cu. Ft. Outdoor Rated 2-Drawer Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.25,
+   "h": 34.625,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-24W",
+  "product_name": "24\" Outdoor Rated Wine Cooler",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.125,
+   "h": 32.75,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-24WD, SSRFR-24W, SSRFR-24WD.",
+  "also": [
+   "RFR-24WD",
+   "SSRFR-24W",
+   "SSRFR-24WD"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-24DK1",
+  "product_name": "24\" 6.6 Cu. Ft. Deluxe Outdoor Rated Kegerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.625,
+   "h": 34.625,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-24DK2, SSRFR-24DK1, SSRFR-24DK2.",
+  "also": [
+   "RFR-24DK2",
+   "SSRFR-24DK1",
+   "SSRFR-24DK2"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-22S",
+  "product_name": "22\" 4.1 Cu. Ft. Outdoor Approved Fridge",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22,
+   "h": 33.75,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-22D.",
+  "also": [
+   "RFR-22D"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-15S",
+  "product_name": "15\" 3.2 Cu. Ft. Outdoor Rated Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.625,
+   "h": 34.375,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-15G, SSRFR-15S, SSRFR-15G.",
+  "also": [
+   "RFR-15G",
+   "SSRFR-15S",
+   "SSRFR-15G"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "RFR-15W",
+  "product_name": "15\" 3.2 Cu. Ft. Outdoor Rated Wine Cooler",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.625,
+   "h": 34.375,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-15WD, SSRFR-15W, SSRFR-15WD.",
+  "also": [
+   "RFR-15WD",
+   "SSRFR-15W",
+   "SSRFR-15WD"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "IM-15N",
+  "product_name": "15\" 50 lb. Outdoor Rated Nugget Ice Maker",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.625,
+   "h": 34.375,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "IM-15",
+  "product_name": "15\" 50 lb. Deluxe Outdoor Rated Ice Maker",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.875,
+   "h": 33.375,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSIM-15.",
+  "discontinued": true,
+  "also": [
+   "SSIM-15"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SSRFR-21S",
+  "product_name": "21\" 4.2 Cu. Ft. Compact Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20.5,
+   "h": 33.25,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSRFR-21D.",
+  "discontinued": true,
+  "also": [
+   "SSRFR-21D"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "IC-17",
+  "product_name": "17\" x 24\" Drop-In Cooler (20 lb ice)",
+  "category": "ice bin",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.625,
+   "h": 11.25,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSIC-17.",
+  "also": [
+   "SSIC-17"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "IC-28",
+  "product_name": "28\" x 21\" Drop-In Cooler (40 lb ice)",
+  "category": "ice bin",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26,
+   "h": 12,
+   "d": 18.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSIC-28.",
+  "also": [
+   "SSIC-28"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "BC-30L",
+  "product_name": "30\" Beverage & Prep Station w/ LED",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28,
+   "h": 10.5,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSBC-30L.",
+  "also": [
+   "SSBC-30L"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SNK-15D",
+  "product_name": "15\" x 15\" Drop-In Sink & Hot/Cold Faucet",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 16.5,
+   "d": 14.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). See the sheet's page 2 diagram for the faucet hole. Same cutout: SSNK-15D.",
+  "also": [
+   "SSNK-15D"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SNK-19U",
+  "product_name": "19\" x 15\" Undermount Sink & Hot/Cold Faucet",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17,
+   "h": 7,
+   "d": 13.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSNK-19U.",
+  "also": [
+   "SSNK-19U"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SNK-32FH",
+  "product_name": "32\" Deluxe Outdoor Rated Farmhouse Sink",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.75,
+   "h": 8.5,
+   "d": 17.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSNK-32FH.",
+  "also": [
+   "SSNK-32FH"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DV-16",
+  "product_name": "16\" x 18\" Vertical Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.25,
+   "h": 16.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDV-16, DV-16V.",
+  "also": [
+   "SSDV-16",
+   "DV-16V"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DV-17",
+  "product_name": "17\" x 23\" Vertical Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.25,
+   "h": 20.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "DV-18",
+  "product_name": "18\" x 22\" Vertical Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDV-18, DV-18VL, DV-18VR.",
+  "also": [
+   "SSDV-18",
+   "DV-18VL",
+   "DV-18VR"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DV-20",
+  "product_name": "20\" x 27\" Vertical Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.375,
+   "h": 24.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDV-20.",
+  "also": [
+   "SSDV-20"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DH-27",
+  "product_name": "27\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.375,
+   "h": 17.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDH-27.",
+  "also": [
+   "SSDH-27"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DH-22",
+  "product_name": "22\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19.375,
+   "h": 17.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDH-22.",
+  "discontinued": true,
+  "also": [
+   "SSDH-22"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "SSDH-18",
+  "product_name": "18\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.375,
+   "h": 17.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-26",
+  "product_name": "26\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.375,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-26.",
+  "also": [
+   "SSDD-26"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-30",
+  "product_name": "30\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.375,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-30.",
+  "also": [
+   "SSDD-30"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-32",
+  "product_name": "32\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.75,
+   "h": 18.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-33",
+  "product_name": "33\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-33, DD-33V, SSDD-33V.",
+  "designer_key": "SSDD-33",
+  "popular": 8,
+  "also": [
+   "SSDD-33",
+   "DD-33V",
+   "SSDD-33V"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-36",
+  "product_name": "36\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33.375,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-36.",
+  "also": [
+   "SSDD-36"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-39",
+  "product_name": "39\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.375,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-39.",
+  "also": [
+   "SSDD-39"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-40",
+  "product_name": "40\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 35.75,
+   "h": 18.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-42",
+  "product_name": "42\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.375,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-42.",
+  "also": [
+   "SSDD-42"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-45",
+  "product_name": "45\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.375,
+   "h": 19.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-45.",
+  "also": [
+   "SSDD-45"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DV-20M",
+  "product_name": "20\" x 27\" Masonry Vertical Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.375,
+   "h": 24.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDV-20M.",
+  "also": [
+   "SSDV-20M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-33M",
+  "product_name": "33\" Masonry Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.375,
+   "h": 19.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-33M.",
+  "also": [
+   "SSDD-33M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DD-45M",
+  "product_name": "45\" Masonry Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.375,
+   "h": 19.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-45M.",
+  "also": [
+   "SSDD-45M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DH-27M",
+  "product_name": "27\" Masonry Horizontal Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.375,
+   "h": 17.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDH-27M.",
+  "also": [
+   "SSDH-27M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR2-17",
+  "product_name": "17\" Double Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 19.375,
+   "d": 20.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR2-17.",
+  "designer_key": "SSDR2-17",
+  "also": [
+   "SSDR2-17"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR1-17",
+  "product_name": "17\" Single Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 10,
+   "d": 20.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR1-17.",
+  "also": [
+   "SSDR1-17"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR3-17",
+  "product_name": "17\" Triple Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 27.375,
+   "d": 20.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR3-17.",
+  "also": [
+   "SSDR3-17"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR1-36",
+  "product_name": "36\" Storage Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.625,
+   "h": 18.125,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR2-32H",
+  "product_name": "32\" Double Horizontal Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 6.25,
+   "d": 20.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR2-32H.",
+  "also": [
+   "SSDR2-32H"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR1-26U",
+  "product_name": "26\" Utensil Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.25,
+   "h": 4,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR1-26U.",
+  "also": [
+   "SSDR1-26U"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "WD-36",
+  "product_name": "36\" Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.375,
+   "h": 10,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Electric warming drawer. Same cutout: SSWD-36.",
+  "also": [
+   "SSWD-36"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR2-17M",
+  "product_name": "17\" Masonry Double Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.625,
+   "h": 19.25,
+   "d": 19.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR2-17M.",
+  "also": [
+   "SSDR2-17M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-33",
+  "product_name": "33\" 2-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.75,
+   "h": 19.375,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-33.",
+  "designer_key": "SSDC2-33",
+  "popular": 7,
+  "also": [
+   "SSDC2-33"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC3-33",
+  "product_name": "33\" 3-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.625,
+   "h": 19.5,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC3-33.",
+  "designer_key": "SSDC3-33",
+  "also": [
+   "SSDC3-33"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-30",
+  "product_name": "30\" 2-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.75,
+   "h": 19.375,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-30.",
+  "also": [
+   "SSDC2-30"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-32",
+  "product_name": "32\" 2-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 19.625,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-36",
+  "product_name": "36\" 2-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34,
+   "h": 19.375,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-36.",
+  "also": [
+   "SSDC2-36"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-42",
+  "product_name": "42\" 2-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40,
+   "h": 19.375,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-42.",
+  "also": [
+   "SSDC2-42"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-33LP",
+  "product_name": "33\" 2-Drawer & Vented LP Tank Pullout Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 19.375,
+   "d": 20.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-33LP.",
+  "also": [
+   "SSDC2-33LP"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TDC-17",
+  "product_name": "17\" Vertical 2-Drawer & Paper Towel Holder Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16,
+   "h": 27.75,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTDC-17.",
+  "also": [
+   "SSTDC-17"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DP-36AC",
+  "product_name": "36\" 2-Drawer Dry Storage Pantry & Cabinet Combo",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.375,
+   "h": 19.375,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: DP-36DC, SSDP-36AC, SSDP-36DC.",
+  "also": [
+   "DP-36DC",
+   "SSDP-36AC",
+   "SSDP-36DC"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "DC2-33M",
+  "product_name": "33\" Masonry 2-Drawer & Access Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.75,
+   "h": 19.5,
+   "d": 19.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-33M.",
+  "also": [
+   "SSDC2-33M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TDC-17M",
+  "product_name": "17\" Masonry Vertical 2-Drawer & Towel Holder Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16,
+   "h": 27.75,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTDC-17M.",
+  "also": [
+   "SSTDC-17M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TD1-20",
+  "product_name": "20\" Trash Pullout Drawer (10 gal)",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.25,
+   "h": 24.375,
+   "d": 16
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTD1-20.",
+  "designer_key": "SSTD1-20",
+  "also": [
+   "SSTD1-20"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TD2-20",
+  "product_name": "20\" Trash & Recycling 2-Bin Pullout",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.25,
+   "h": 24.375,
+   "d": 24.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTD2-20.",
+  "also": [
+   "SSTD2-20"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TD1-14",
+  "product_name": "14\" Trash Pullout Drawer",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.375,
+   "h": 23.875,
+   "d": 19.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "DR1-20LP",
+  "product_name": "20\" Vented Propane Tank or Trash Drawer",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18,
+   "h": 24.75,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR1-20LP.",
+  "also": [
+   "SSDR1-20LP"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TD1-14M",
+  "product_name": "14\" Masonry Trash or LP Tank Pullout",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.25,
+   "h": 24,
+   "d": 18.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "TD1-20M",
+  "product_name": "20\" Masonry Trash or LP Tank Pullout",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.25,
+   "h": 24.5,
+   "d": 15.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTD1-20M.",
+  "also": [
+   "SSTD1-20M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TC-14",
+  "product_name": "14\" x 10\" Trash Chute & Cutting Board",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 6.375,
+   "h": 4.25,
+   "d": 8.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTC-14.",
+  "also": [
+   "SSTC-14"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "TH-17",
+  "product_name": "17\" Paper Towel Holder",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 8.625,
+   "d": 8.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTH-17.",
+  "also": [
+   "SSTH-17"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "IV-14",
+  "product_name": "14\" Island Vent Panel",
+  "category": "vent",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.75,
+   "h": 4.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; no depth published."
+ },
+ {
+  "brand": "Summerset",
+  "model": "IV-12M",
+  "product_name": "Masonry Island Vent",
+  "category": "vent",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.125,
+   "h": 6.125,
+   "d": 1.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSIV-12M.",
+  "also": [
+   "SSIV-12M"
+  ]
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-SZR32",
+  "product_name": "Sizzler/Sizzler Pro 32\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33,
+   "h": 9.75,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-SZR40",
+  "product_name": "Sizzler/Sizzler Pro 40\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.375,
+   "h": 9.75,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-SZR25",
+  "product_name": "Sizzler 26\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26,
+   "h": 9.75,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-TRL32",
+  "product_name": "TRL Pro 32\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32.75,
+   "h": 11.125,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-TRL40",
+  "product_name": "TRL Pro 40\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 41,
+   "h": 11.125,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-QST30",
+  "product_name": "Quest 30\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 11.25,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-QST36",
+  "product_name": "Quest 36\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.25,
+   "h": 11.25,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-QST42",
+  "product_name": "Quest 42\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.25,
+   "h": 11.25,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-GRID30",
+  "product_name": "Griddle/Griddle Pro 30\" Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 11.5,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-SBG30",
+  "product_name": "Resort 30\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 11.5,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-SB2",
+  "product_name": "Double Side Burner Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 9.625,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-PB2",
+  "product_name": "Power Burner Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16.25,
+   "h": 9.25,
+   "d": 20.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-TRLSB2",
+  "product_name": "TRL Double/Sear Side Burner Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.375,
+   "h": 10.25,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island)."
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-TRLD44",
+  "product_name": "TRLD 44\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 47.625,
+   "h": 12,
+   "d": 21.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-TRLPB2",
+  "product_name": "TRL Power Burner Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16,
+   "h": 10.75,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-30",
+  "product_name": "Alturi 30\"/Resort 30\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 11.5,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-36",
+  "product_name": "Alturi 36\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37,
+   "h": 11.5,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-42",
+  "product_name": "Alturi 42\" Grill Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 43,
+   "h": 11.5,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-ASB2",
+  "product_name": "Alturi Double/Sear Side Burner Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.625,
+   "h": 11.5,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
+ },
+ {
+  "brand": "Summerset",
+  "model": "GL-APB2",
+  "product_name": "Alturi Power Burner Liner",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.125,
+   "h": 11.25,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
+  "discontinued": true
  }
 ]

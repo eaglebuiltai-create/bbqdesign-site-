@@ -120,8 +120,9 @@ const RECS = DATA.filter(r => !RETIRED[r.model]).map(r => {
    BBQGuys' 2026 top-rated built-in grill picks (Blaze Premium LTE+, Napoleon,
    Bull Outlaw) and each brand's best-selling grill, door, fridge and burner.
    No keyword-volume data was available when this list was written. */
-const POPULAR = ["BLZ-4LTE3", "26038", "BIG38", "BLZ-5LTE3", "A790i", "57568", "BIPRO500", "BLZ-4BCM", "E790i", "87048",
-  "BLZ-SSRF-5.5", "BLZ-AD32-R-SC", "33580", "BLZ-PBLTE3", "E660i", "BLZ-30CKT-SNK"];
+const POPULAR = ["BLZ-4LTE3", "26038", "BIG38", "BLZ-5LTE3", "A790i", "57568", "BIPRO500", "L36TR", "C2C36", "SZRPRO32",
+  "BLZ-4BCM", "E790i", "87048", "BLZ-SSRF-5.5", "L601", "TRLPRO32", "BLZ-AD32-R-SC", "33580", "C1C28", "BLZ-PBLTE3", "E660i",
+  "BLZ-30CKT-SNK"];
 RECS.forEach(r => { const i = POPULAR.indexOf(r.model); if (i > -1) r.popularRank = i + 1; });
 const retiredInfo = DATA.filter(r => RETIRED[r.model]);
 const sortRecs = list => GROUPS.flatMap(g => list.filter(r => r.g === g));
@@ -267,7 +268,7 @@ function specLinks(r) {
 }
 const designHref = r => r.key ? `/design/app/?add=${encodeURIComponent(r.key)}` : "/design/app/";
 function searchText(r) {
-  return [r.model, r.brand, r.b.slug, r.product_name, r.category, r.g[1], SYNONYMS[r.g[0]], r.key || "", ...r.aliases].map(s => s + " " + norm(s)).join(" ").toLowerCase();
+  return [r.model, r.brand, r.b.slug, r.product_name, r.category, r.g[1], SYNONYMS[r.g[0]], r.key || "", ...r.aliases, ...(r.also || [])].map(s => s + " " + norm(s)).join(" ").toLowerCase();
 }
 function statusBadge(r) {
   if (!r.discontinued) return "";
@@ -337,7 +338,7 @@ const HUB_JS = `<script>
   var html=D.g.map(function(g,gi){
     var rows=D.r.filter(function(r){return r[14]===gi;}).map(function(r){
       return '<article class="co" data-q="'+e(r[15])+'"><div class="coHead"><a class="coModel" href="'+r[3]+'">'+e(r[0])+'</a><span class="coBrand">'+e(r[1])+'</span><span class="coName">'+e(r[2])+'</span></div>'+
-        '<div class="coDims">'+cell("Cutout W",r[4],r[7])+cell("Cutout H",r[5],null)+cell("Cutout D",r[6],r[8])+'</div><div class="coOverall">'+ov(r[9],r[10],r[11])+'</div>'+
+        '<div class="coDims">'+cell("Cutout W",r[4],r[7])+cell("Cutout H",r[5],r[17])+cell("Cutout D",r[6],r[8])+'</div><div class="coOverall">'+ov(r[9],r[10],r[11])+'</div>'+
         '<div class="coMeta">'+(r[16]?'<span class="coWarn">Discontinued'+(r[16]!=="-"?" \u2014 replaced by "+e(r[16]):"")+'</span>':'')+(r[12]?'<span class="coOk">&#10003; Verified</span>':'<span class="coWarn">Not fully verified \u2014 check spec sheet</span>')+
         (r[13]?'<a href="'+e(r[13])+'" target="_blank" rel="noopener nofollow">Spec sheet &#8599;</a>':'')+'<a href="'+r[3]+'">Details &rarr;</a></div></article>';
     }).join("");
@@ -418,9 +419,9 @@ const brandNames = list => [...new Set(list.map(r => r.b.name))];
     const c = r.cutout_in || {}, cm = r.cutout_max_in || {}, o = r.overall_in || {};
     return [r.model, r.b.name, r.product_name, r.url, c.w ?? null, c.h ?? null, c.d ?? null, cm.w ?? null, cm.d ?? null,
       o.w ?? null, o.h ?? null, o.d ?? null, r.verified ? 1 : 0, r.spec_sheet_url || "", groupsUsed.indexOf(r.g),
-      searchText(r), r.discontinued ? (r.replaced_by || "-") : ""];
+      searchText(r), r.discontinued ? (r.replaced_by || "-") : "", cm.h ?? null];
   });
-  const popular = recs.filter(r => r.popularRank).sort((a, b) => a.popularRank - b.popularRank).slice(0, 16);
+  const popular = recs.filter(r => r.popularRank).sort((a, b) => a.popularRank - b.popularRank).slice(0, 24);
   const body = `<section class="coGroup" id="popular" style="border-top:0;padding:22px 0 4px" data-popular>
   <h2>Most searched cutouts</h2>
   <p class="coCount" style="margin:-4px 0 10px">The built-ins people look up most — best sellers and most-asked models across the top brands.</p>
