@@ -131,7 +131,17 @@ const sortRecs = list => GROUPS.flatMap(g => list.filter(r => r.g === g));
 
 /* ---------- shared chrome ----------------------------------------------- */
 const tpl = fs.readFileSync(path.join(SITE, "dimensions/clearances/index.html"), "utf8");
-const HEADER = tpl.match(/<header>[\s\S]*?<\/header>/)[0];
+/* The header is lifted whole from the clearances page, including its voice
+   button - which carries that page's path in ?from=. Every page needs its
+   own, or 814 pages would report a lead as having come from the clearances
+   page. The header is otherwise identical everywhere. */
+const HEADER_TPL = tpl.match(/<header>[\s\S]*?<\/header>/)[0];
+if (!/\/design-eagle\/\?from=/.test(HEADER_TPL)) {
+  throw new Error("the clearances header has no Design Eagle button to rewrite - did the markup change?");
+}
+const header = from => HEADER_TPL.replace(
+  /href="\/design-eagle\/\?from=[^"]*"/,
+  'href="/design-eagle/?from=' + encodeURIComponent(from) + '"');
 const FOOTER_COLS = tpl.match(/<footer>[\s\S]*?<div class="legal">/)[0]
   .replace(/href="\/dimensions\/cutouts\/blaze\/">Grill cutouts/g, 'href="/dimensions/cutouts/">Equipment cutouts');
 
@@ -231,7 +241,7 @@ ${CSS}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-${HEADER}
+${header(canonical)}
 `;
 }
 
