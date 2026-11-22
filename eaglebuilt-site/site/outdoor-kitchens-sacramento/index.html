@@ -504,10 +504,15 @@ footer a{color:var(--muted)}
             '<h2>Thanks, ' + esc(name) + ' — we have it.</h2>' +
             '<p>We will call ' + esc(phone) + ' within one business day. If you would rather not ' +
               'wait, call <a href="tel:+19163599692">(916) 359-9692</a>.</p>' +
-            '<p>Want a head start? Lay your island out yourself — it takes about two minutes, ' +
-              'and whatever you build is waiting when we call.</p>' +
-            '<a class="go" href="/design/" style="display:block;text-align:center;text-decoration:none">' +
-              'Open the 3D designer</a>' +
+            '<p>Want a head start? Say what you want out loud and watch it built — about two ' +
+              'minutes, and whatever you build is waiting when we call.</p>' +
+            /* Design Eagle, not /design/. The lead is already captured by this
+               point, so there is nothing left to gate - and /design/ would ask
+               this person for an email they just typed into the form above.
+               ?from= keeps the lead attributable to this landing page. */
+            '<a class="go" href="/design-eagle/?from=%2Foutdoor-kitchens-sacramento%2F" ' +
+              'style="display:block;text-align:center;text-decoration:none">' +
+              'Build it by voice</a>' +
           '</div>';
         box.scrollIntoView({ behavior: "smooth", block: "center" });
       })
