@@ -84,23 +84,23 @@
     {
      "@type": "PropertyValue",
      "name": "Cutout width",
-     "value": 30.75,
      "unitCode": "INH",
-     "unitText": "in"
+     "unitText": "in",
+     "value": 30.75
     },
     {
      "@type": "PropertyValue",
      "name": "Cutout height",
-     "value": 9.5,
      "unitCode": "INH",
-     "unitText": "in"
+     "unitText": "in",
+     "value": 9.5
     },
     {
      "@type": "PropertyValue",
      "name": "Cutout depth",
-     "value": 21.25,
      "unitCode": "INH",
-     "unitText": "in"
+     "unitText": "in",
+     "value": 21.25
     },
     {
      "@type": "PropertyValue",
@@ -151,7 +151,7 @@
 .coBrand{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:800}
 .coName{width:100%;color:var(--muted);font-size:14.5px}
 .coDims{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 8px}
-.coDim{background:#0A121E;border:1px solid var(--line);border-radius:9px;padding:8px 6px 9px;text-align:center}
+.coDim{min-width:0;background:#0A121E;border:1px solid var(--line);border-radius:9px;padding:8px 6px 9px;text-align:center}
 .coDim b{display:block;font-size:clamp(22px,6.4vw,30px);line-height:1.1;font-weight:800;color:var(--txt);
   font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
 .coDim span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:800}
@@ -164,6 +164,7 @@
 .coNote{font-size:13px;color:var(--warn);margin-top:6px}
 .coEmpty{padding:24px 0;color:var(--muted)}
 .coBig .coDim b{font-size:clamp(30px,9vw,46px)}
+.coDim.rng b,.coBig .coDim.rng b{font-size:clamp(17px,4.6vw,30px);white-space:normal}
 .coCta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .coFacts{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;color:var(--muted);font-size:15px}
 .coFacts b{color:var(--txt)}

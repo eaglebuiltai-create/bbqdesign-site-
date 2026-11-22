@@ -28,9 +28,12 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site");
 const ORIGIN = "https://eaglebuilt.ai";
 const PHONE = "(916) 359-9692", TEL = "+19163599692";
+/* A discontinued record with a named replacement and no cutout of its own is
+   not listed; its model number becomes a search alias of the replacement. */
 const RETIRED = { "BLZ-26-PZOVN": "BLZ-LTE3OVN" };
 
 const DATA = JSON.parse(fs.readFileSync(path.join(ROOT, "data/cutouts.json"), "utf8"));
+for (const r of DATA) if (r.discontinued && r.replaced_by && !r.cutout_in) RETIRED[r.model] = r.replaced_by;
 
 /* ---------- designer keys (?add=) ---------------------------------------- */
 const designerHtml = fs.readFileSync(path.join(SITE, "design/app/index.html"), "utf8");
@@ -38,7 +41,7 @@ const DESIGNER_KEYS = new Set([...designerHtml.matchAll(/^\s*\["([A-Za-z0-9_.\-]
 /* The audit names the two Yoder mounts in words; the designer keys them -CM / -NM. */
 const KEY_ALIAS = { "YS640S (center mount)": "YS640S-CM", "YS640S (notch mount)": "YS640S-NM" };
 function designerKey(r) {
-  const k = KEY_ALIAS[r.model] || r.model;
+  const k = r.designer_key || KEY_ALIAS[r.model] || r.model;
   return DESIGNER_KEYS.has(k) ? k : null;
 }
 
@@ -50,7 +53,7 @@ const GROUPS = [
   ["ovens", "Ovens", ["pizza oven"]],
   ["refrigeration", "Refrigeration & ice", ["refrigerator", "ice maker", "ice drawer", "ice bin"]],
   ["doors", "Doors & storage", ["access door", "dry storage"]],
-  ["drawers", "Drawers", ["drawer"]],
+  ["drawers", "Drawers & warming drawers", ["drawer", "warming drawer"]],
   ["combos", "Door & drawer combos", ["door/drawer combo"]],
   ["trash", "Trash & propane pullouts", ["trash / propane", "trash / recycle", "trash"]],
   ["bar", "Bar centers & sinks", ["sink / bar center"]],
@@ -60,7 +63,7 @@ const GROUPS = [
 const SYNONYMS = {
   grills: "grill bbq barbecue smoker kamado", burners: "burner wok", griddles: "griddle flat top flattop plancha",
   ovens: "oven pizza", refrigeration: "fridge refrigerator cooler beverage kegerator ice", doors: "door cabinet storage",
-  drawers: "drawer", combos: "combo door drawer", trash: "trash garbage recycle bin propane tank pullout",
+  drawers: "drawer warming warmer", combos: "combo door drawer", trash: "trash garbage recycle bin propane tank pullout",
   bar: "bar sink cocktail beverage", accessories: "accessory vent towel",
 };
 const groupOf = cat => {
@@ -68,11 +71,14 @@ const groupOf = cat => {
   if (!g) throw new Error("No group for category " + cat);
   return g;
 };
-const BRANDS = {
-  "Blaze": { slug: "blaze", name: "Blaze" },
-  "Hestan": { slug: "hestan", name: "Hestan" },
-  "Yoder Smokers": { slug: "yoder", name: "Yoder Smokers" },
-};
+/* Brand order on the hub: most searched first, then alphabetical. */
+const BRAND_ORDER = ["Blaze", "Bull", "Napoleon", "Fire Magic", "Lynx", "Coyote", "Summerset", "Twin Eagles", "Hestan", "Alfresco", "DCS", "RCS", "Diablo Grills", "Yoder Smokers"];
+const BRAND_SLUG = { "Yoder Smokers": "yoder", "Diablo Grills": "diablo-grills" };
+const BRANDS = {};
+for (const name of [...new Set(DATA.map(r => r.brand))].sort((a, b) => {
+  const ia = BRAND_ORDER.indexOf(a), ib = BRAND_ORDER.indexOf(b);
+  return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib) || a.localeCompare(b);
+})) BRANDS[name] = { slug: BRAND_SLUG[name] || name.toLowerCase().replace(/[^a-z0-9]+/g, "-"), name };
 
 /* ---------- formatting -------------------------------------------------- */
 const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -110,6 +116,13 @@ const RECS = DATA.filter(r => !RETIRED[r.model]).map(r => {
     key: designerKey(r),
   };
 });
+/* "Most searched cutouts" on the hub. Curated, not measured: built from
+   BBQGuys' 2026 top-rated built-in grill picks (Blaze Premium LTE+, Napoleon,
+   Bull Outlaw) and each brand's best-selling grill, door, fridge and burner.
+   No keyword-volume data was available when this list was written. */
+const POPULAR = ["BLZ-4LTE3", "26038", "BIG38", "BLZ-5LTE3", "A790i", "57568", "BIPRO500", "BLZ-4BCM", "E790i", "87048",
+  "BLZ-SSRF-5.5", "BLZ-AD32-R-SC", "33580", "BLZ-PBLTE3", "E660i", "BLZ-30CKT-SNK"];
+RECS.forEach(r => { const i = POPULAR.indexOf(r.model); if (i > -1) r.popularRank = i + 1; });
 const retiredInfo = DATA.filter(r => RETIRED[r.model]);
 const sortRecs = list => GROUPS.flatMap(g => list.filter(r => r.g === g));
 
@@ -149,7 +162,7 @@ const CSS = `<style>
 .coBrand{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:800}
 .coName{width:100%;color:var(--muted);font-size:14.5px}
 .coDims{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 8px}
-.coDim{background:#0A121E;border:1px solid var(--line);border-radius:9px;padding:8px 6px 9px;text-align:center}
+.coDim{min-width:0;background:#0A121E;border:1px solid var(--line);border-radius:9px;padding:8px 6px 9px;text-align:center}
 .coDim b{display:block;font-size:clamp(22px,6.4vw,30px);line-height:1.1;font-weight:800;color:var(--txt);
   font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
 .coDim span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:800}
@@ -162,6 +175,7 @@ const CSS = `<style>
 .coNote{font-size:13px;color:var(--warn);margin-top:6px}
 .coEmpty{padding:24px 0;color:var(--muted)}
 .coBig .coDim b{font-size:clamp(30px,9vw,46px)}
+.coDim.rng b,.coBig .coDim.rng b{font-size:clamp(17px,4.6vw,30px);white-space:normal}
 .coCta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .coFacts{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;color:var(--muted);font-size:15px}
 .coFacts b{color:var(--txt)}
@@ -226,9 +240,11 @@ const crumbsHtml = items => `<div class="wrap">
 </div>`;
 
 /* ---------- row ---------------------------------------------------------- */
-function dimCell(label, v) {
-  const t = inch(v);
-  return t ? `<div class="coDim"><b>${esc(t)}</b><span>${label}</span></div>`
+/* A manufacturer range (Napoleon prints min-max) shows as "30–32\"". */
+const span = (v, vmax) => (inch(v) && inch(vmax) && vmax !== v ? inch(v).replace(/"$/, "") + "–" + inch(vmax) : inch(v));
+function dimCell(label, v, vmax) {
+  const t = span(v, vmax);
+  return t ? `<div class="coDim${vmax != null && vmax !== v ? " rng" : ""}"><b>${esc(t)}</b><span>${label}</span></div>`
            : `<div class="coDim miss"><b>check spec sheet</b><span>${label}</span></div>`;
 }
 function overallLine(r) {
@@ -253,17 +269,21 @@ const designHref = r => r.key ? `/design/app/?add=${encodeURIComponent(r.key)}` 
 function searchText(r) {
   return [r.model, r.brand, r.b.slug, r.product_name, r.category, r.g[1], SYNONYMS[r.g[0]], r.key || "", ...r.aliases].map(s => s + " " + norm(s)).join(" ").toLowerCase();
 }
+function statusBadge(r) {
+  if (!r.discontinued) return "";
+  return `<span class="coWarn">Discontinued${r.replaced_by ? ` — replaced by ${esc(r.replaced_by)}` : ""}</span>`;
+}
 function row(r, { showBrand = true } = {}) {
-  const c = r.cutout_in || {};
+  const c = r.cutout_in || {}, cm = r.cutout_max_in || {};
   const alias = r.aliases.length ? `<div class="coNote" style="color:var(--muted)">Replaces ${r.aliases.map(esc).join(", ")} (previous model).</div>` : "";
   return `<article class="co" data-q="${esc(searchText(r))}" id="m-${r.slug}">
   <div class="coHead">
     <a class="coModel" href="${r.url}">${esc(r.displayModel)}</a>${showBrand ? `<span class="coBrand">${esc(r.b.name)}</span>` : ""}
     <span class="coName">${esc(r.product_name)}</span>
   </div>
-  <div class="coDims" aria-label="Cutout width, height, depth">${dimCell("Cutout W", c.w)}${dimCell("Cutout H", c.h)}${dimCell("Cutout D", c.d)}</div>
+  <div class="coDims" aria-label="Cutout width, height, depth">${dimCell("Cutout W", c.w, cm.w)}${dimCell("Cutout H", c.h, cm.h)}${dimCell("Cutout D", c.d, cm.d)}</div>
   <div class="coOverall">${overallLine(r)}</div>
-  <div class="coMeta">${verifiedBadge(r)}${specLinks(r)}<a href="${r.url}">Details &rarr;</a></div>${r.verified ? "" : `\n  <div class="coNote">${esc(r.notes)}</div>`}${alias}
+  <div class="coMeta">${statusBadge(r)}${verifiedBadge(r)}${specLinks(r)}<a href="${r.url}">Details &rarr;</a></div>${r.verified ? "" : `\n  <div class="coNote">${esc(r.notes)}</div>`}${alias}
 </article>`;
 }
 
@@ -291,6 +311,46 @@ const SEARCH_JS = `<script>
       r.hidden=!ok; if(ok) shown++;
     });
     groups.forEach(function(g){g.hidden=!g.querySelector(".co:not([hidden])");});
+    count.textContent=terms.length?(shown+" of "+total+" match"):(total+" models");
+    empty.hidden=shown>0;
+    var intro=document.getElementById("coIntro"); if(intro) intro.hidden=terms.length>0;
+  }
+  q.addEventListener("input",run);
+  var p=new URLSearchParams(location.search).get("q"); if(p){q.value=p;}
+  run();
+})();
+</script>`;
+
+/* Hub renderer: builds the grouped rows from the compact index, then the same
+   instant filter as the brand pages. Popular rows hide while searching so a
+   model never shows twice. */
+const HUB_JS = `<script>
+(function(){
+  var D=JSON.parse(document.getElementById("coData").textContent), all=document.getElementById("coAll");
+  function e(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+  function inch(v){if(v===null||v===undefined)return null;var s=Math.round(v*16);if(Math.abs(v*16-s)>1e-6)return (+v.toFixed(3))+'"';
+    var w=Math.floor(s/16),r=s%16;if(!r)return w+'"';var g=r%8===0?8:r%4===0?4:r%2===0?2:1;return (w?w+" ":"")+(r/g)+"/"+(16/g)+'"';}
+  function span(v,m){var a=inch(v),b=inch(m);return a&&b&&m!==v?a.replace(/"$/,"")+"\u2013"+b:a;}
+  function cell(l,v,m){var t=span(v,m);return t?'<div class="coDim'+(m!=null&&m!==v?' rng':'')+'"><b>'+e(t)+'</b><span>'+l+'</span></div>':'<div class="coDim miss"><b>check spec sheet</b><span>'+l+'</span></div>';}
+  function ov(w,h,d){if(w===null&&h===null&&d===null)return 'Overall size: <i>check spec sheet</i>';
+    function p(v,l){var t=inch(v);return t?e(t)+" "+l:"<i>check spec sheet</i> "+l;}return "Overall: "+p(w,"W")+" &times; "+p(h,"H")+" &times; "+p(d,"D");}
+  var html=D.g.map(function(g,gi){
+    var rows=D.r.filter(function(r){return r[14]===gi;}).map(function(r){
+      return '<article class="co" data-q="'+e(r[15])+'"><div class="coHead"><a class="coModel" href="'+r[3]+'">'+e(r[0])+'</a><span class="coBrand">'+e(r[1])+'</span><span class="coName">'+e(r[2])+'</span></div>'+
+        '<div class="coDims">'+cell("Cutout W",r[4],r[7])+cell("Cutout H",r[5],null)+cell("Cutout D",r[6],r[8])+'</div><div class="coOverall">'+ov(r[9],r[10],r[11])+'</div>'+
+        '<div class="coMeta">'+(r[16]?'<span class="coWarn">Discontinued'+(r[16]!=="-"?" \u2014 replaced by "+e(r[16]):"")+'</span>':'')+(r[12]?'<span class="coOk">&#10003; Verified</span>':'<span class="coWarn">Not fully verified \u2014 check spec sheet</span>')+
+        (r[13]?'<a href="'+e(r[13])+'" target="_blank" rel="noopener nofollow">Spec sheet &#8599;</a>':'')+'<a href="'+r[3]+'">Details &rarr;</a></div></article>';
+    }).join("");
+    return '<div class="coGroup" data-group><h2 id="'+g[0]+'">'+e(g[1])+'</h2><div class="coList">'+rows+'</div></div>';
+  }).join("");
+  all.innerHTML=html;
+  var q=document.getElementById("coQ"), rows=[].slice.call(all.querySelectorAll(".co[data-q]")), groups=[].slice.call(all.querySelectorAll("[data-group]")),
+      pop=document.querySelector("[data-popular]"), count=document.getElementById("coCount"), empty=document.getElementById("coEmpty"), total=rows.length;
+  function run(){
+    var terms=q.value.trim().toLowerCase().split(/\\s+/).filter(Boolean), shown=0;
+    rows.forEach(function(r){var t=r.getAttribute("data-q"),ok=terms.every(function(w){var n=w.replace(/[^a-z0-9]+/g,"");return t.indexOf(w)>-1||(n&&t.indexOf(n)>-1);});r.hidden=!ok;if(ok)shown++;});
+    groups.forEach(function(g){g.hidden=!g.querySelector(".co:not([hidden])");});
+    if(pop) pop.hidden=terms.length>0;
     count.textContent=terms.length?(shown+" of "+total+" match"):(total+" models");
     empty.hidden=shown>0;
     var intro=document.getElementById("coIntro"); if(intro) intro.hidden=terms.length>0;
@@ -349,9 +409,31 @@ const brandNames = list => [...new Set(list.map(r => r.b.name))];
 (function hub() {
   const recs = sortRecs(RECS);
   const url = "/dimensions/cutouts/";
-  const { jump, body } = listing(recs, { showBrand: true });
+  const groupsUsed = GROUPS.filter(g => recs.some(r => r.g === g));
+  const jump = groupsUsed.map(g => `<a href="#${g[0]}">${esc(g[1])}</a>`).join("");
+  /* Compact index: one short array per model, rendered by HUB_JS. Keeps the
+     hub small and fast with hundreds of models; brand and model pages carry
+     the full server-rendered rows for search engines. */
+  const idx = recs.map(r => {
+    const c = r.cutout_in || {}, cm = r.cutout_max_in || {}, o = r.overall_in || {};
+    return [r.model, r.b.name, r.product_name, r.url, c.w ?? null, c.h ?? null, c.d ?? null, cm.w ?? null, cm.d ?? null,
+      o.w ?? null, o.h ?? null, o.d ?? null, r.verified ? 1 : 0, r.spec_sheet_url || "", groupsUsed.indexOf(r.g),
+      searchText(r), r.discontinued ? (r.replaced_by || "-") : ""];
+  });
+  const popular = recs.filter(r => r.popularRank).sort((a, b) => a.popularRank - b.popularRank).slice(0, 16);
+  const body = `<section class="coGroup" id="popular" style="border-top:0;padding:22px 0 4px" data-popular>
+  <h2>Most searched cutouts</h2>
+  <p class="coCount" style="margin:-4px 0 10px">The built-ins people look up most — best sellers and most-asked models across the top brands.</p>
+  <div class="coList">
+${popular.map(r => row(r, { showBrand: true }).replace('class="co"', 'class="co" data-pop')).join("\n")}
+  </div>
+</section>
+<div id="coAll"></div>
+<noscript><p>Browse by brand: ${Object.values(BRANDS).map(b => `<a href="/dimensions/cutouts/${b.slug}/">${esc(b.name)}</a>`).join(" &middot; ")}</p></noscript>
+<script type="application/json" id="coData">${JSON.stringify({ g: groupsUsed.map(g => [g[0], g[1]]), r: idx }).replace(/</g, "\\u003c")}</script>`;
   const title = "BBQ Equipment Cutout Dimensions — Grills, Fridges, Doors | EagleBuilt";
-  const desc = `Cutout width, height and depth for ${recs.length} built-in grills, burners, griddles, refrigeration, doors and drawers from Blaze, Hestan and Yoder, checked against manufacturer spec sheets.`;
+  const bl = Object.keys(BRANDS);
+  const desc = `Cutout width, height and depth for ${recs.length} built-in grills, burners, griddles, refrigeration, doors and drawers from ${bl.slice(0, 5).join(", ")} and more, checked against manufacturer spec sheets.`;
   const brandCards = Object.values(BRANDS).map(b => {
     const n = RECS.filter(r => r.b === b).length;
     return `<a href="/dimensions/cutouts/${b.slug}/"><b>${esc(b.name)}</b> &middot; ${n} model${n > 1 ? "s" : ""}</a>`;
@@ -360,7 +442,7 @@ const brandNames = list => [...new Set(list.map(r => r.b.name))];
     crumbsLd([["Home", "/"], ["Dimensions", "/dimensions/"], ["Equipment cutouts", url]]),
     { "@type": "CollectionPage", "@id": ORIGIN + url, url: ORIGIN + url, name: "BBQ equipment cutout dimensions",
       description: desc, dateModified: DATA.map(r => r.verified_date).sort().pop(), mainEntity: { "@id": ORIGIN + url + "#models" } },
-    itemListLd(recs, "Built-in outdoor kitchen equipment cutouts", url),
+    itemListLd(popular, "Most searched built-in equipment cutouts", url),
   ] };
   write("dimensions/cutouts/index.html", head({ title, desc, canonical: url, ogType: "website", jsonld: ld }) + `
 <main id="main">
@@ -383,11 +465,11 @@ ${emptyMsg}
   <p class="heroNote" style="margin:18px 0 0">${nVerified} of ${recs.length} models verified against the manufacturer's spec sheet or product page on ${AUDIT_DATE}. A blank field means the sources disagree or don't publish it — it says <i>check spec sheet</i> instead of a guess.</p>
 </div>
 
-${ctaBand("Design an island with this", "Every Blaze, Hestan and Yoder model above is loaded into the designer. Drop one in and it checks the fit against the island depth and the pieces around it.", "/design/app/", "Design an island with this")}
+${ctaBand("Design an island with this", "Pick a layout in the designer and drop in the grill, doors and fridge you looked up here. It checks the fit against the island depth and the pieces around it.", "/design/app/", "Design an island with this")}
 </main>
 
 ${footer(brandNames(recs))}
-${SEARCH_JS}
+${HUB_JS}
 </body>
 </html>
 `);
@@ -488,13 +570,16 @@ for (const r of RECS) {
   const c = r.cutout_in || {};
   const nameModel = r.model.replace(/\s*\((.+)\)/, (_, x) => " " + x.replace(/\b\w/g, m => m.toUpperCase()));
   const title = `${r.b.name} ${nameModel} Cutout Dimensions | EagleBuilt`;
-  const dimTxt = ["w", "h", "d"].map((k, i) => (inch(c[k]) || "check spec sheet") + " " + "WHD"[i]).join(" × ");
+  const cm = r.cutout_max_in || {};
+  const dimTxt = ["w", "h", "d"].map((k, i) => (span(c[k], cm[k]) || "check spec sheet") + " " + "WHD"[i]).join(" × ");
   const desc = `${r.b.name} ${r.model} (${r.product_name}) cutout: ${dimTxt}. Overall size, spec sheet link${r.verified ? `, verified ${fmtDate(r.verified_date)}` : ""}.`;
   const siblings = RECS.filter(x => x !== r && x.b === r.b && x.g === r.g).slice(0, 6);
   const deep = c.d && c.d > 23.5 && r.g[0] !== "doors";
   const add = [];
-  const pv = (name, v) => v === null || v === undefined ? null : { "@type": "PropertyValue", name, value: v, unitCode: "INH", unitText: "in" };
-  if (r.cutout_in) add.push(pv("Cutout width", c.w), pv("Cutout height", c.h), pv("Cutout depth", c.d));
+  const pv = (name, v, vmax) => v === null || v === undefined ? null
+    : Object.assign({ "@type": "PropertyValue", name, unitCode: "INH", unitText: "in" },
+        vmax && vmax !== v ? { minValue: v, maxValue: vmax } : { value: v });
+  if (r.cutout_in) add.push(pv("Cutout width", c.w, cm.w), pv("Cutout height", c.h, cm.h), pv("Cutout depth", c.d, cm.d));
   if (r.fuel_power) add.push({ "@type": "PropertyValue", name: "Fuel / power", value: r.fuel_power });
   const product = {
     "@type": "Product", "@id": ORIGIN + r.url + "#product", name: `${r.b.name} ${r.model} ${r.product_name}`,
@@ -533,9 +618,9 @@ ${crumbsHtml(crumbs)}
   <div class="wrap narrow">
     <div class="co coBig" data-q="${esc(searchText(r))}">
       <div class="coHead"><span class="coModel">${esc(r.displayModel)}</span><span class="coBrand">Cutout (W &times; H &times; D)</span></div>
-      <div class="coDims">${dimCell("Width", c.w)}${dimCell("Height", c.h)}${dimCell("Depth", c.d)}</div>
+      <div class="coDims">${dimCell("Width", c.w, cm.w)}${dimCell("Height", c.h, cm.h)}${dimCell("Depth", c.d, cm.d)}</div>
       <div class="coOverall">${overallLine(r)}</div>
-      <div class="coMeta">${verifiedBadge(r)}${specLinks(r)}</div>${r.verified ? "" : `\n      <div class="coNote">${esc(r.notes)}</div>`}
+      <div class="coMeta">${statusBadge(r)}${verifiedBadge(r)}${specLinks(r)}</div>${r.verified ? "" : `\n      <div class="coNote">${esc(r.notes)}</div>`}
     </div>
 ${deep ? `    <div class="note warn"><p><b>Plan a 30-inch-deep island.</b> This cutout is ${esc(inch(c.d))} deep; anything past about 23 1/2&quot; leaves no workable structure in a 24-inch island.</p></div>\n` : ""}    <ul class="coFacts">
       ${facts}
@@ -570,6 +655,20 @@ ${footer([r.b.name])}
 </html>
 `);
 }
+
+/* ---------- /dimensions/ counts ----------------------------------------- */
+(function dimensionsCounts() {
+  const f = path.join(SITE, "dimensions/index.html");
+  if (!fs.existsSync(f)) return;
+  const words = ["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve"];
+  const nb = Object.keys(BRANDS).length;
+  let h = fs.readFileSync(f, "utf8");
+  h = h.replace(/<!--cutout-count-->[\s\S]*?<!--\/cutout-count-->/, `<!--cutout-count-->${RECS.length} models across ${words[nb] || nb} manufacturers<!--/cutout-count-->`);
+  /* The meta description cannot hold a marker; keep its count in step by pattern. */
+  h = h.replace(/real cutout sizes for \d+ built-in models/, `real cutout sizes for ${RECS.length} built-in models`);
+  h = h.replace(/real manufacturer cutouts for \d+ built-in (components|models)/g, `real manufacturer cutouts for ${RECS.length} built-in models`);
+  fs.writeFileSync(f, h);
+})();
 
 /* ---------- sitemap ------------------------------------------------------ */
 (function sitemap() {

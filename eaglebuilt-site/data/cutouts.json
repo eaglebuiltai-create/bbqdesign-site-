@@ -1045,7 +1045,9 @@
   "source_url": "https://www.garcogrillsandmore.com/Blaze-BLZ-26-PZOVN-p/blz-26-pzovn.htm",
   "verified_date": "2026-11-21",
   "status": "unverified",
-  "notes": "No longer on blazegrills.com or in the Sept 2026 catalog (replaced by BLZ-LTE3OVN); still sold by dealers. Cutout not re-verified from a Blaze document."
+  "notes": "No longer on blazegrills.com or in the Sept 2026 catalog (replaced by BLZ-LTE3OVN); still sold by dealers. Cutout not re-verified from a Blaze document.",
+  "discontinued": true,
+  "replaced_by": "BLZ-LTE3OVN"
  },
  {
   "brand": "Hestan",
@@ -1144,5 +1146,2227 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Structure must support at least 350 lb."
+ },
+ {
+  "brand": "Bull",
+  "model": "26038",
+  "product_name": "Outlaw 30\" 4-Burner Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 9.5,
+   "d": 21
+  },
+  "fuel_power": "Gas: propane (LP) or natural gas (NG) item numbers",
+  "spec_sheet_url": "https://upload.bullbbq.com/files/8122_1748987300_0303b3da221e8188dedfef84e3b7cbceaf3ebf86997cfce9df80d24fc407858d.pdf",
+  "source_url": "https://upload.bullbbq.com/files/8122_1748987300_0303b3da221e8188dedfef84e3b7cbceaf3ebf86997cfce9df80d24fc407858d.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull spec sheet (v2024.05.21). 26038 LP / 26039 NG.",
+  "popular": 1
+ },
+ {
+  "brand": "Bull",
+  "model": "87048",
+  "product_name": "Lonestar Select 30\" 4-Burner Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 9.5,
+   "d": 21
+  },
+  "fuel_power": "Gas: propane (LP) or natural gas (NG) item numbers",
+  "spec_sheet_url": "https://upload.bullbbq.com/files/8136_1748973068_624ef30e4409f5134c46403177ee449a92cf65d24564923938dd1883d92f707d.pdf",
+  "source_url": "https://upload.bullbbq.com/files/8136_1748973068_624ef30e4409f5134c46403177ee449a92cf65d24564923938dd1883d92f707d.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull spec sheet (v2024.05.21). 87048 LP / 87049 NG.",
+  "popular": 2
+ },
+ {
+  "brand": "Bull",
+  "model": "47628",
+  "product_name": "Angus 30\" 4-Burner Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 9.5,
+   "d": 21
+  },
+  "fuel_power": "Gas: propane (LP) or natural gas (NG) item numbers",
+  "spec_sheet_url": "https://upload.bullbbq.com/files/8125_1748552702_991eb2ddda611822120b531c9be18855280068c6273c3a63a4cb2f6a8b622fb5.pdf",
+  "source_url": "https://upload.bullbbq.com/files/8125_1748552702_991eb2ddda611822120b531c9be18855280068c6273c3a63a4cb2f6a8b622fb5.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull spec sheet (v2024.05.20). 47628 LP / 47629 NG.",
+  "popular": 4
+ },
+ {
+  "brand": "Bull",
+  "model": "57568",
+  "product_name": "Brahma 38\" 5-Burner Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 38.5,
+   "h": 9.5,
+   "d": 21
+  },
+  "fuel_power": "Gas: propane (LP) or natural gas (NG) item numbers",
+  "spec_sheet_url": "https://upload.bullbbq.com/files/8131_1748971697_59e5eaca2b32d678bb3c4269eba9475f66764bb31b1d43972e35bd6478dfa2cf.pdf",
+  "source_url": "https://upload.bullbbq.com/files/8131_1748971697_59e5eaca2b32d678bb3c4269eba9475f66764bb31b1d43972e35bd6478dfa2cf.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull spec sheet (v2024.05.23). 57568 LP / 57569 NG. Some retailers list 21 1/2\" depth; Bull's sheet shows 21\".",
+  "popular": 3
+ },
+ {
+  "brand": "Bull",
+  "model": "69008",
+  "product_name": "Steer 24\" 3-Burner Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.625,
+   "h": 9.5,
+   "d": 21
+  },
+  "fuel_power": "Gas: propane (LP) or natural gas (NG) item numbers",
+  "spec_sheet_url": "https://upload.bullbbq.com/files/8135_1748987841_89652d0f6a168569f62d491ec081209b29bb59fd255ae48e47c9b3f5419ec77b.pdf",
+  "source_url": "https://upload.bullbbq.com/files/8135_1748987841_89652d0f6a168569f62d491ec081209b29bb59fd255ae48e47c9b3f5419ec77b.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull spec sheet (v2024.05.21). 69008 LP / 69009 NG."
+ },
+ {
+  "brand": "Bull",
+  "model": "92008",
+  "product_name": "30\" Commercial Griddle (drop-in)",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 9.5,
+   "d": null
+  },
+  "fuel_power": "Gas: propane (LP) or natural gas (NG) item numbers",
+  "spec_sheet_url": "https://upload.bullbbq.com/files/8177_1748967289_5b4a2f2df7fb31267e3fbb4b1ba7f8951ed634df1b24f7873bdfd3317772fe65.pdf",
+  "source_url": "https://upload.bullbbq.com/files/8177_1748967289_5b4a2f2df7fb31267e3fbb4b1ba7f8951ed634df1b24f7873bdfd3317772fe65.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull spec sheet (v2024.08.05). 92008 LP / 92009 NG. Depth is not legible as a single cutout figure on the sheet."
+ },
+ {
+  "brand": "Bull",
+  "model": "65790",
+  "product_name": "Door / Propane Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.125,
+   "h": 19.625,
+   "d": 16.5625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "25890",
+  "product_name": "30\" Door / Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 19.625,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "55890",
+  "product_name": "38\" Door / Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 38.625,
+   "h": 19.625,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "25900",
+  "product_name": "30\" Door / Triple Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 19.625,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "19970",
+  "product_name": "Single Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.625,
+   "h": 4.125,
+   "d": 20.3125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "56990",
+  "product_name": "Double Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.875,
+   "h": 19.75,
+   "d": 20.4375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "85747",
+  "product_name": "Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.625,
+   "h": 10.125,
+   "d": 20.9375
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "56830",
+  "product_name": "Propane Drawer",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.625,
+   "h": 19.75,
+   "d": 16.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "89995",
+  "product_name": "Vertical Access Door (right swing)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.75,
+   "h": 19.625,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). Left swing is item 98560."
+ },
+ {
+  "brand": "Bull",
+  "model": "33590",
+  "product_name": "25\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.5,
+   "h": 19.625,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "33580",
+  "product_name": "30\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 19.625,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog).",
+  "popular": 5
+ },
+ {
+  "brand": "Bull",
+  "model": "34020",
+  "product_name": "38\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 38.5,
+   "h": 19.5625,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "19980",
+  "product_name": "Large Single Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.875,
+   "h": 10.25,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "58120",
+  "product_name": "Triple Drawer System",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.5,
+   "h": 24.625,
+   "d": 15.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "89990",
+  "product_name": "Single Horizontal Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.125,
+   "h": 15.75,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "89998",
+  "product_name": "XL Vertical Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21,
+   "h": 32.5,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "45580",
+  "product_name": "30\" Vented Double Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 19.625,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "90000",
+  "product_name": "Vented Vertical Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.75,
+   "h": 19.625,
+   "d": 2
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "56950",
+  "product_name": "Double Trash / Recycling Drawer",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.5,
+   "h": 24.625,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "56960",
+  "product_name": "Slim Trash Drawer",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.3125,
+   "h": 24.625,
+   "d": 19.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "60018",
+  "product_name": "Single Slide-In Pro Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.1875,
+   "h": 9.5,
+   "d": 12
+  },
+  "fuel_power": "Gas: LP / NG item numbers",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). 60018 LP / 60019 NG."
+ },
+ {
+  "brand": "Bull",
+  "model": "60008",
+  "product_name": "Single Side Burner (drop-in)",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.25,
+   "h": 3.25,
+   "d": 17.5
+  },
+  "fuel_power": "Gas: LP / NG item numbers",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). 60008 LP / 60009 NG."
+ },
+ {
+  "brand": "Bull",
+  "model": "30008",
+  "product_name": "Double Slide-In Side Burner with Cover",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.1875,
+   "h": 9.5,
+   "d": 20.625
+  },
+  "fuel_power": "Gas: LP / NG item numbers",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). 30008 LP / 30009 NG."
+ },
+ {
+  "brand": "Bull",
+  "model": "96000",
+  "product_name": "Power Burner with Cover",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21,
+   "h": 9.5,
+   "d": 21
+  },
+  "fuel_power": "Gas: LP / NG item numbers",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). 96000 LP / 96001 NG."
+ },
+ {
+  "brand": "Bull",
+  "model": "13700",
+  "product_name": "Premium 4.9 cu ft Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.375,
+   "h": 33.25,
+   "d": 24.25
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "13100",
+  "product_name": "Premium 4.9 cu ft Glass Door Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.375,
+   "h": 33.25,
+   "d": 24.25
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "11520",
+  "product_name": "Contemporary 4.5 cu ft Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20.75,
+   "h": 33.25,
+   "d": 21.25
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "13200",
+  "product_name": "Pro Ice Maker",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.5,
+   "h": 34.25,
+   "d": 23
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "17900",
+  "product_name": "Outdoor Kegerator (single tap)",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 35,
+   "d": 25.75
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). Double tap is item 17950."
+ },
+ {
+  "brand": "Bull",
+  "model": "97623",
+  "product_name": "30\" Bar Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29,
+   "h": 9.75,
+   "d": 22.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "00002",
+  "product_name": "Ice Chest",
+  "category": "ice bin",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.75,
+   "h": 15.5,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "12515",
+  "product_name": "18\" Sink & Faucet (dual mount)",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16.03125,
+   "h": null,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). Catalog lists undermount 16 1/32\" W x 14 1/32\" and top-mount 17 23/32\" W x 14 1/32\" (second figure labelled H); confirm the front-to-back size in the manual."
+ },
+ {
+  "brand": "Bull",
+  "model": "47800",
+  "product_name": "Insulated Grill Jacket 30\"",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.875,
+   "h": 10,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Bull",
+  "model": "47900",
+  "product_name": "Insulated Grill Jacket 38\"",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 45.375,
+   "h": 10,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIG32",
+  "product_name": "Built-In 700 Series 32\" Gas Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 10.25,
+   "d": 19.4
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "source_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon Built-In Series owner's manual N415-0601 Rev H (cut-out dimensions table). Napoleon gives a min-max range; build within it. Non-combustible enclosure unless the matching zero clearance liner is used. Also BIG32-1 and BI32 (Australia).",
+  "popular": 2,
+  "cutout_max_in": {
+   "w": 32,
+   "d": 19.75
+  }
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIG38",
+  "product_name": "Built-In 700 Series 38\" Gas Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36,
+   "h": 10.25,
+   "d": 19.4
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "source_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon Built-In Series owner's manual N415-0601 Rev H (cut-out dimensions table). Napoleon gives a min-max range; build within it. Non-combustible enclosure unless the matching zero clearance liner is used. Also BIG38-1.",
+  "popular": 1,
+  "cutout_max_in": {
+   "w": 38,
+   "d": 19.75
+  }
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIG44",
+  "product_name": "Built-In 700 Series 44\" Gas Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42,
+   "h": 10.25,
+   "d": 19.4
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "source_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon Built-In Series owner's manual N415-0601 Rev H (cut-out dimensions table). Napoleon gives a min-max range; build within it. Non-combustible enclosure unless the matching zero clearance liner is used. Also BIG44-1.",
+  "popular": 3,
+  "cutout_max_in": {
+   "w": 44,
+   "d": 19.75
+  }
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIB18",
+  "product_name": "Built-In 700 Series 18\" Dual Range Top Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18,
+   "h": 10.25,
+   "d": 19.4
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "source_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon Built-In Series owner's manual N415-0601 Rev H (cut-out dimensions table). Napoleon gives a min-max range; build within it. Non-combustible enclosure unless the matching zero clearance liner is used.",
+  "cutout_max_in": {
+   "w": 20,
+   "d": 19.75
+  }
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIB12",
+  "product_name": "Built-In 700 Series 12\" Range Top Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12,
+   "h": 10.25,
+   "d": 19.4
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "source_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon Built-In Series owner's manual N415-0601 Rev H (cut-out dimensions table). Napoleon gives a min-max range; build within it. Non-combustible enclosure unless the matching zero clearance liner is used. Also BI12.",
+  "cutout_max_in": {
+   "w": 14,
+   "d": 19.75
+  }
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIB10",
+  "product_name": "Built-In 700 Series 10\" Drop-In Range Top Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 10,
+   "h": 6,
+   "d": 18.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "source_url": "https://www.napoleon.com/sites/default/files/products/N415-0601-Built-In-Series-Manual-RevH.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon Built-In Series owner's manual N415-0601 Rev H (cut-out dimensions table). Napoleon gives a min-max range; build within it. Non-combustible enclosure unless the matching zero clearance liner is used. Also BI10.",
+  "cutout_max_in": {
+   "w": 12,
+   "d": 20.75
+  }
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIPRO500",
+  "product_name": "Built-In Prestige PRO 500 Gas Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.75,
+   "h": 8.875,
+   "d": 20.625
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleonproducts.com/downloads/grills/grill-manuals-north-america/N415-0251.pdf",
+  "source_url": "https://www.napoleonproducts.com/downloads/grills/grill-manuals-north-america/N415-0251.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon BIPRO 500 manual N415-0251 (built-in unit opening dimensions). Current model BIPRO500RBNSS-3 / -PSS-3: confirm against its manual N415-0541.",
+  "popular": 4
+ },
+ {
+  "brand": "Napoleon",
+  "model": "BIPRO500 Side Burner",
+  "product_name": "Built-In Side Burner (Prestige PRO series)",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.75,
+   "h": 4.5,
+   "d": 16.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://www.napoleonproducts.com/downloads/grills/grill-manuals-north-america/N415-0251.pdf",
+  "source_url": "https://www.napoleonproducts.com/downloads/grills/grill-manuals-north-america/N415-0251.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Opening per Napoleon manual N415-0251. Height is a minimum. Side burners N370-0504 (LP) / N370-0505 (NG)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "E1060i",
+  "product_name": "Echelon E1060i 48\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 50,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Grill heads 52\" wide overall.",
+  "designer_key": "E1060I-9E1N",
+  "popular": 3
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "E790i",
+  "product_name": "Echelon E790i 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025).",
+  "designer_key": "E790I-9E1N",
+  "popular": 2
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "E660i",
+  "product_name": "Echelon E660i 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.25,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025).",
+  "designer_key": "E660I-9EAN",
+  "popular": 4
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "A790i",
+  "product_name": "Aurora A790i 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025).",
+  "designer_key": "A790I-8EAN",
+  "popular": 1
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "A660i",
+  "product_name": "Aurora A660i 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.25,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025).",
+  "popular": 5
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "A540i",
+  "product_name": "Aurora A540i 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32,
+   "h": 11.5,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "A430i",
+  "product_name": "Aurora A430i 24\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.5,
+   "h": 11.5,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "A830i",
+  "product_name": "Aurora A830i Gas/Charcoal Combo Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 50.25,
+   "h": 11.5,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "C650i",
+  "product_name": "Choice C650i 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.75,
+   "h": 11.5,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Also sold as CM650i."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "C540i",
+  "product_name": "Choice C540i 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32,
+   "h": 11.5,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Also sold as CM540i."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "C430i",
+  "product_name": "Choice C430i 24\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.5,
+   "h": 11.5,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Also sold as CM430i."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "11-S1S1N-A",
+  "product_name": "Legacy Deluxe 24\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.75,
+   "h": 12,
+   "d": 17.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Propane version 11-S1S1P-A."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "14-SC01C-A",
+  "product_name": "Stainless 30\" Built-In Charcoal Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32.25,
+   "h": 12,
+   "d": 19.75
+  },
+  "fuel_power": "Charcoal",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "12-SC01C-A",
+  "product_name": "Stainless 24\" Built-In Charcoal Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25.75,
+   "h": 12,
+   "d": 19.75
+  },
+  "fuel_power": "Charcoal",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "EL500i",
+  "product_name": "EL500i 30\" Electric Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33,
+   "h": 7.25,
+   "d": 17.5
+  },
+  "fuel_power": "Electric, 240V / 30A",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Requires a 240VAC / 30 amp circuit."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "E251i",
+  "product_name": "E251i Electric Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 7.875,
+   "d": 17.5
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "E540d",
+  "product_name": "Echelon E540d Drop-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 41.75,
+   "h": 18,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Drop-in; E540d-6TAN with hood, E540d-0T0N without."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "E660i Griddle",
+  "product_name": "Echelon E660i Gourmet Griddle",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.25,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "A660i Griddle",
+  "product_name": "Aurora A660i Gourmet Griddle",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.25,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "5660",
+  "product_name": "Echelon Outdoor Pizza Oven (built-in)",
+  "category": "pizza oven",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.25,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Propane version 5660P."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "4600",
+  "product_name": "Aurora Outdoor Pizza Oven (built-in)",
+  "category": "pizza oven",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31.25,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Propane version 4600P."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3280",
+  "product_name": "Drop-In Single Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 8.75,
+   "h": 6,
+   "d": 14.25
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025).",
+  "designer_key": "3280"
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "32816",
+  "product_name": "Echelon Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.5,
+   "h": 11.5,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "32817",
+  "product_name": "Aurora Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.5,
+   "h": 11.5,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3281R",
+  "product_name": "Choice Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.5,
+   "h": 11.5,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "EL3285",
+  "product_name": "Induction Cooktop (built-in)",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.25,
+   "h": 6,
+   "d": 13
+  },
+  "fuel_power": "Electric, 120V / 20A",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Requires a 120VAC / 20 amp circuit."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "19-5B1N-0",
+  "product_name": "Echelon Diamond Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19,
+   "h": 11.75,
+   "d": 18.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). The 2026 price list prints 11 1/2\" height; the spec guide (used here) says 11 3/4\"."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "19-7B1N-0",
+  "product_name": "Aurora Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19,
+   "h": 11.75,
+   "d": 18.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "19-KB1N-0",
+  "product_name": "Choice Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19,
+   "h": 11.75,
+   "d": 18.75
+  },
+  "fuel_power": "Gas: natural gas or propane (N/P in the model number)",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53914SC",
+  "product_name": "Premium Flush 20\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20.5,
+   "h": 15,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53917SC",
+  "product_name": "Premium Flush 24\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 18,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53920SC",
+  "product_name": "Premium Flush Vertical Access Door (21 x 14)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 21,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout. -L / -R hinge."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53924SC",
+  "product_name": "Premium Flush Vertical Access Door (25 x 17)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53930SC",
+  "product_name": "Premium Flush 30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 21,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53934SC",
+  "product_name": "Premium Flush 30\" Double Doors, reduced height",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 15,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53938SC",
+  "product_name": "Premium Flush 39\" Double Doors, reduced height",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39,
+   "h": 16,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53820SC-TL",
+  "product_name": "Premium Flush Door with Tank Tray & Louvers",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 21,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout. -TR for right hinge."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53816SC",
+  "product_name": "Premium Flush Door/Drawer Combo with Platter Storage",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.5,
+   "h": 18.5,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53810SC",
+  "product_name": "Premium Flush 30\" Door/Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 18.5,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53830-SW",
+  "product_name": "Premium Flush Electric Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32.25,
+   "h": 14.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53830SC",
+  "product_name": "Premium Flush Large Utility Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32.25,
+   "h": 14.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53801SC",
+  "product_name": "Premium Flush Single Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 5.25,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53802SC",
+  "product_name": "Premium Flush Double Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 16,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53803SC",
+  "product_name": "Premium Flush Triple Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 26.25,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53811SC",
+  "product_name": "Premium Flush Utility Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 5.25,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "54018S",
+  "product_name": "Medium Pantry",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 25,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "54020S",
+  "product_name": "Large Pantry",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20,
+   "h": 33.5,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53930SC-12",
+  "product_name": "Double Doors with Trash Tray & Dual Drawers",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 21,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53930SC-22",
+  "product_name": "Double Doors with 2 Dual Drawers",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 21,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "53820DSC",
+  "product_name": "Premium Flush Double Trash Cabinet",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 25,
+   "d": 25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Premium Flush (5-Series). Lock (K) and black Echelon (B) versions share the cutout."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33914-SL",
+  "product_name": "Select 20\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20.5,
+   "h": 15,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series). -SR right hinge."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33917-SL",
+  "product_name": "Select 24\" Horizontal Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 18,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33920-SL",
+  "product_name": "Select Vertical Access Door (21 x 14)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 21,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33924-SL",
+  "product_name": "Select Vertical Access Door (25 x 17)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33930S",
+  "product_name": "Select 30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 21,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33938S",
+  "product_name": "Select 39\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39,
+   "h": 16,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33810S",
+  "product_name": "Select 30\" Door/Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 18.5,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33816S",
+  "product_name": "Select Door/Drawer Combo with Platter Storage",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.5,
+   "h": 18.5,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33830-SW",
+  "product_name": "Select Electric Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 31,
+   "h": 13,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33801",
+  "product_name": "Select Single Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 5.25,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33802",
+  "product_name": "Select Double Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 16,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33803",
+  "product_name": "Select Triple Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 26.25,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Select (3-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "23930-S",
+  "product_name": "Legacy 30\" Double Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30,
+   "h": 20.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Legacy (2-Series)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3589-DR",
+  "product_name": "24\" Outdoor Rated Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 35,
+   "d": 25
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). -DL for left hinge."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3594-DR",
+  "product_name": "24\" Outdoor Rated Kegerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 35,
+   "d": 25
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). -DL for left hinge."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3598",
+  "product_name": "20\" Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20,
+   "h": 34.125,
+   "d": 21.75
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Also 3598-DR / -DL with stainless door.",
+  "designer_key": "3598"
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "5597",
+  "product_name": "15\" Outdoor Ice Maker",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 34,
+   "d": 25.25
+  },
+  "fuel_power": "Electric, 120V",
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3596A",
+  "product_name": "Built-In Refreshment Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25,
+   "h": 12,
+   "d": 25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Hanger is 2 1/2\" all around. Drain clearance required."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "33596",
+  "product_name": "Drop-In Refreshment Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25,
+   "h": 12.75,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Drain clearance required."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3835",
+  "product_name": "Beverage Butler",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32.5,
+   "h": 12,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Hanger is 2 1/2\" all around. Drain clearance required."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "1D-SO",
+  "product_name": "Bar Caddy",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.25,
+   "h": 12,
+   "d": 22.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3837",
+  "product_name": "Double Under-Mount Sink",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 12,
+   "d": 16.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Drain clearance required."
+ },
+ {
+  "brand": "Fire Magic",
+  "model": "3587",
+  "product_name": "Stainless Steel Sink",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14,
+   "h": null,
+   "d": 14
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Height not listed in the guide."
  }
 ]

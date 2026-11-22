@@ -426,7 +426,7 @@
 .coBrand{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:800}
 .coName{width:100%;color:var(--muted);font-size:14.5px}
 .coDims{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 8px}
-.coDim{background:#0A121E;border:1px solid var(--line);border-radius:9px;padding:8px 6px 9px;text-align:center}
+.coDim{min-width:0;background:#0A121E;border:1px solid var(--line);border-radius:9px;padding:8px 6px 9px;text-align:center}
 .coDim b{display:block;font-size:clamp(22px,6.4vw,30px);line-height:1.1;font-weight:800;color:var(--txt);
   font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
 .coDim span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:800}
@@ -439,6 +439,7 @@
 .coNote{font-size:13px;color:var(--warn);margin-top:6px}
 .coEmpty{padding:24px 0;color:var(--muted)}
 .coBig .coDim b{font-size:clamp(30px,9vw,46px)}
+.coDim.rng b,.coBig .coDim.rng b{font-size:clamp(17px,4.6vw,30px);white-space:normal}
 .coCta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .coFacts{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;color:var(--muted);font-size:15px}
 .coFacts b{color:var(--txt)}
@@ -509,12 +510,12 @@
       <input id="coQ" type="search" inputmode="search" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Search Blaze — model or type" enterkeyhint="search">
     </label>
     <div class="coCount" id="coCount" aria-live="polite"></div>
-    <nav class="coJump" aria-label="Categories"><a href="#grills">Grills, kamados &amp; smokers</a><a href="#burners">Side &amp; power burners</a><a href="#griddles">Griddles</a><a href="#ovens">Ovens</a><a href="#refrigeration">Refrigeration &amp; ice</a><a href="#doors">Doors &amp; storage</a><a href="#drawers">Drawers</a><a href="#combos">Door &amp; drawer combos</a><a href="#trash">Trash &amp; propane pullouts</a><a href="#bar">Bar centers &amp; sinks</a><a href="#accessories">Accessories &amp; vents</a></nav>
+    <nav class="coJump" aria-label="Categories"><a href="#grills">Grills, kamados &amp; smokers</a><a href="#burners">Side &amp; power burners</a><a href="#griddles">Griddles</a><a href="#ovens">Ovens</a><a href="#refrigeration">Refrigeration &amp; ice</a><a href="#doors">Doors &amp; storage</a><a href="#drawers">Drawers &amp; warming drawers</a><a href="#combos">Door &amp; drawer combos</a><a href="#trash">Trash &amp; propane pullouts</a><a href="#bar">Bar centers &amp; sinks</a><a href="#accessories">Accessories &amp; vents</a></nav>
   </div>
 </div>
 
 <div class="wrap">
-  <div id="coIntro"><div class="brands" style="margin-top:16px"><a href="/dimensions/cutouts/">All brands</a><a href="/dimensions/cutouts/hestan/">Hestan cutouts</a><a href="/dimensions/cutouts/yoder/">Yoder Smokers cutouts</a></div>
+  <div id="coIntro"><div class="brands" style="margin-top:16px"><a href="/dimensions/cutouts/">All brands</a><a href="/dimensions/cutouts/bull/">Bull cutouts</a><a href="/dimensions/cutouts/napoleon/">Napoleon cutouts</a><a href="/dimensions/cutouts/fire-magic/">Fire Magic cutouts</a><a href="/dimensions/cutouts/hestan/">Hestan cutouts</a><a href="/dimensions/cutouts/yoder/">Yoder Smokers cutouts</a></div>
 <div class="note" style="margin-top:18px"><p><b>Read the cutout, not the model name.</b> A &quot;32 inch&quot; Blaze grill needs a 30 5/8&quot; opening, and the LTE PRO version of the same size needs a taller one. The number in the product name is the grill; the number you frame to is below.</p></div></div>
 <div class="coGroup" data-group>
   <h2 id="grills">Grills, kamados &amp; smokers</h2>
@@ -872,9 +873,9 @@
   </div>
 </div>
 <div class="coGroup" data-group>
-  <h2 id="drawers">Drawers</h2>
+  <h2 id="drawers">Drawers &amp; warming drawers</h2>
   <div class="coList">
-<article class="co" data-q="blz-drw2-r-lt blzdrw2rlt blaze blaze blaze blaze 16&quot; double access drawer 16doubleaccessdrawer drawer drawer drawers drawers drawer drawer blz-drw2-r-lt blzdrw2rlt" id="m-blz-drw2-r-lt">
+<article class="co" data-q="blz-drw2-r-lt blzdrw2rlt blaze blaze blaze blaze 16&quot; double access drawer 16doubleaccessdrawer drawer drawer drawers &amp; warming drawers drawerswarmingdrawers drawer warming warmer drawerwarmingwarmer blz-drw2-r-lt blzdrw2rlt" id="m-blz-drw2-r-lt">
   <div class="coHead">
     <a class="coModel" href="/dimensions/cutouts/blaze/blz-drw2-r-lt/">BLZ-DRW2-R-LT</a>
     <span class="coName">16&quot; Double Access Drawer</span>
@@ -883,7 +884,7 @@
   <div class="coOverall">Overall: 17 3/8&quot; W &times; 21 5/8&quot; H &times; 22 3/4&quot; D</div>
   <div class="coMeta"><span class="coOk">&#10003; Verified Nov 21, 2026</span><a href="https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf" target="_blank" rel="noopener nofollow">Spec sheet &#8599;</a><a href="https://www.blazegrills.com/product/blaze-16-inch-double-access-drawer-2/" target="_blank" rel="noopener nofollow">Product page &#8599;</a><a href="/dimensions/cutouts/blaze/blz-drw2-r-lt/">Details &rarr;</a></div>
 </article>
-<article class="co" data-q="blz-drw3-r-lt blzdrw3rlt blaze blaze blaze blaze 16&quot; triple access drawer 16tripleaccessdrawer drawer drawer drawers drawers drawer drawer blz-drw3-r-lt blzdrw3rlt" id="m-blz-drw3-r-lt">
+<article class="co" data-q="blz-drw3-r-lt blzdrw3rlt blaze blaze blaze blaze 16&quot; triple access drawer 16tripleaccessdrawer drawer drawer drawers &amp; warming drawers drawerswarmingdrawers drawer warming warmer drawerwarmingwarmer blz-drw3-r-lt blzdrw3rlt" id="m-blz-drw3-r-lt">
   <div class="coHead">
     <a class="coModel" href="/dimensions/cutouts/blaze/blz-drw3-r-lt/">BLZ-DRW3-R-LT</a>
     <span class="coName">16&quot; Triple Access Drawer</span>
@@ -892,7 +893,7 @@
   <div class="coOverall">Overall: 17 3/8&quot; W &times; 29 3/4&quot; H &times; 22 3/4&quot; D</div>
   <div class="coMeta"><span class="coOk">&#10003; Verified Nov 21, 2026</span><a href="https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf" target="_blank" rel="noopener nofollow">Spec sheet &#8599;</a><a href="https://www.blazegrills.com/product/blaze-16-inch-triple-access-drawer-2/" target="_blank" rel="noopener nofollow">Product page &#8599;</a><a href="/dimensions/cutouts/blaze/blz-drw3-r-lt/">Details &rarr;</a></div>
 </article>
-<article class="co" data-q="blz-30w-3drw-lt blz30w3drwlt blaze blaze blaze blaze 30&quot; triple access drawer 30tripleaccessdrawer drawer drawer drawers drawers drawer drawer blz-30w-3drw-lt blz30w3drwlt" id="m-blz-30w-3drw-lt">
+<article class="co" data-q="blz-30w-3drw-lt blz30w3drwlt blaze blaze blaze blaze 30&quot; triple access drawer 30tripleaccessdrawer drawer drawer drawers &amp; warming drawers drawerswarmingdrawers drawer warming warmer drawerwarmingwarmer blz-30w-3drw-lt blz30w3drwlt" id="m-blz-30w-3drw-lt">
   <div class="coHead">
     <a class="coModel" href="/dimensions/cutouts/blaze/blz-30w-3drw-lt/">BLZ-30W-3DRW-LT</a>
     <span class="coName">30&quot; Triple Access Drawer</span>
