@@ -100,11 +100,12 @@ test("manufacturer ranges print as a range, not one number", () => {
   }
 });
 
-test("hub carries every live model in its index and a most-searched list", () => {
+test("hub carries every live model in its index and a popular-models list", () => {
   const hub = read(path.join(SITE, "dimensions/cutouts/index.html"));
   const data = JSON.parse(hub.match(/<script type="application\/json" id="coData">([\s\S]*?)<\/script>/)[1]);
   assert.equal(data.r.length, live.length);
-  assert.match(hub, /Most searched cutouts/);
+  assert.match(hub, /Popular models/);
+  assert.doesNotMatch(hub, /most searched|most-searched|look up most/i);
   assert.ok(hub.length < 400000, "hub should stay light: " + hub.length);
 });
 
@@ -122,4 +123,21 @@ test("batch 4: DCS and Hestan records cite the manufacturer's own documents", ()
   const be36 = live.find(r => r.model === "BE1-36RC");
   assert.deepEqual(be36.cutout_in, { w: 34.5, h: 10.125, d: 22.75 });
   assert.equal(be36.designer_key, "BE1-36RC-N");
+});
+
+test("batch 5: refrigeration, Napoleon and Blaze jackets cite manufacturer documents", () => {
+  const hosts = { "Perlick": ["api.perlick.com"], "True Residential": ["true-caliber.com"], "U-Line": ["www.u-line.com"], "Napoleon": ["www.napoleon.com", "www.napoleonproducts.com"], "Blaze": ["www.blazegrills.com"] };
+  for (const [brand, ok] of Object.entries(hosts)) {
+    for (const r of live.filter(x => x.brand === brand && x.source_url)) {
+      assert.ok(ok.includes(new URL(r.source_url).host), `${r.model} source ${r.source_url}`);
+    }
+  }
+  for (const m of ["GABR30", "GABR36", "GABR42"]) {
+    const r = live.find(x => x.model === m);
+    assert.match(r.source_url, /cdn\.brandfolder\.io\/W2HABDQZ\/.*008980_RevG\.pdf$/);
+  }
+  const ore = live.find(r => r.model === "ORE124");
+  assert.deepEqual(ore.cutout_in, { w: 24.25, h: 34.125, d: 24 });
+  assert.equal(ore.cutout_max_in.h, 35.125);
+  assert.ok(live.filter(r => r.brand === "Napoleon").length >= 16);
 });

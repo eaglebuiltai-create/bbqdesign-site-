@@ -71,8 +71,8 @@ const groupOf = cat => {
   if (!g) throw new Error("No group for category " + cat);
   return g;
 };
-/* Brand order on the hub: most searched first, then alphabetical. */
-const BRAND_ORDER = ["Blaze", "Bull", "Napoleon", "Fire Magic", "Lynx", "Coyote", "Summerset", "Twin Eagles", "Hestan", "Alfresco", "DCS", "RCS", "Diablo Grills", "Delta Heat", "Dometic", "Yoder Smokers"];
+/* Brand order on the hub (editorial; not search-volume ranked), then alphabetical. */
+const BRAND_ORDER = ["Blaze", "Bull", "Napoleon", "Fire Magic", "Lynx", "Coyote", "Summerset", "Twin Eagles", "Hestan", "Alfresco", "DCS", "RCS", "Diablo Grills", "Delta Heat", "Dometic", "Perlick", "True Residential", "U-Line", "Yoder Smokers"];
 const BRAND_SLUG = { "Yoder Smokers": "yoder", "Diablo Grills": "diablo-grills" };
 const BRANDS = {};
 for (const name of [...new Set(DATA.map(r => r.brand))].sort((a, b) => {
@@ -116,7 +116,9 @@ const RECS = DATA.filter(r => !RETIRED[r.model]).map(r => {
     key: designerKey(r),
   };
 });
-/* "Most searched cutouts" on the hub. Curated, not measured: built from
+/* "Popular models" on the hub. Curated, not measured (no claim about search
+   volume): BBQGuys blocks automated reads of its best-seller sort and Google
+   autocomplete returns no model-level "cutout" queries. Built from
    BBQGuys' 2026 top-rated built-in grill picks (Blaze Premium LTE+, Napoleon,
    Bull Outlaw) and each brand's best-selling grill, door, fridge and burner.
    No keyword-volume data was available when this list was written. */
@@ -433,8 +435,8 @@ const brandNames = list => [...new Set(list.map(r => r.b.name))];
   });
   const popular = recs.filter(r => r.popularRank).sort((a, b) => a.popularRank - b.popularRank).slice(0, 24);
   const body = `<section class="coGroup" id="popular" style="border-top:0;padding:22px 0 4px" data-popular>
-  <h2>Most searched cutouts</h2>
-  <p class="coCount" style="margin:-4px 0 10px">The built-ins people look up most — best sellers and most-asked models across the top brands.</p>
+  <h2>Popular models</h2>
+  <p class="coCount" style="margin:-4px 0 10px">A starting point: common built-in grills, burners, doors and fridges from the major brands. Search above for any model.</p>
   <div class="coList">
 ${popular.map(r => row(r, { showBrand: true }).replace('class="co"', 'class="co" data-pop')).join("\n")}
   </div>
@@ -453,7 +455,7 @@ ${popular.map(r => row(r, { showBrand: true }).replace('class="co"', 'class="co"
     crumbsLd([["Home", "/"], ["Dimensions", "/dimensions/"], ["Equipment cutouts", url]]),
     { "@type": "CollectionPage", "@id": ORIGIN + url, url: ORIGIN + url, name: "BBQ equipment cutout dimensions",
       description: desc, dateModified: DATA.map(r => r.verified_date).sort().pop(), mainEntity: { "@id": ORIGIN + url + "#models" } },
-    itemListLd(popular, "Most searched built-in equipment cutouts", url),
+    itemListLd(popular, "Popular built-in equipment cutouts", url),
   ] };
   write("dimensions/cutouts/index.html", head({ title, desc, canonical: url, ogType: "website", jsonld: ld }) + `
 <main id="main">
