@@ -54,6 +54,9 @@ rather than industry averages.
   down. Works out around $550/lf on a 12-foot island and nearer $690/lf on an
   8-foot one. Equipment is quoted separately.
 - [Dimensions](https://eaglebuilt.ai/dimensions/): cutout dimensions by brand.
+- [Equipment cutouts](https://eaglebuilt.ai/dimensions/cutouts/): searchable
+  cutout width, height and depth for Blaze, Hestan and Yoder built-ins, one page
+  per model, each with its spec sheet link and verification date.
 - [Blaze grill cutouts](https://eaglebuilt.ai/dimensions/cutouts/blaze/):
   published framing sizes for Blaze equipment.
 - [Permits](https://eaglebuilt.ai/guides/permits/): when an outdoor kitchen
