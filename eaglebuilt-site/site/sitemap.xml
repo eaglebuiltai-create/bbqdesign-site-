@@ -22,6 +22,7 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/twin-eagles/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/alfresco/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/delta-heat/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dometic/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -134,6 +135,9 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rjc32al/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rjc32a/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rjc26a/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/be1-48rc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/be1-36rc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/be1-30ag/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-sb1-lte3/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-sb2-lteplus/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-pblte3/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -188,6 +192,11 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rjcssbl/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rjcssb/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rdb1el/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/pbe1-24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/sbe1-142/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agb122/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agb121/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agpb24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-griddle-lte3/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-griddle40/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/bull/92008/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -198,6 +207,8 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/twin-eagles/tetg30-c/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/twin-eagles/tebc30-c/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/delta-heat/dhtg32/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/gde1-30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/gdsbe1-302/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-lte3ovn/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/fire-magic/5660/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/fire-magic/4600/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -259,6 +270,20 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/refr4/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/refr3/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/refr1a/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/rf24re/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/rf24bt/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/rf15i/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agib/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grsr24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grgr24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grr24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grfr24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grwsr24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grwgr24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/gfdsr241/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/gfdsr242/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/gimr15/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/ers24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-sv-1420-r-sc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-single-2417-r-sc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-sh-2417-r-sc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -358,6 +383,25 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vdp1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vdh1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vdd2/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adn1-20x48/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adn1-20x36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adn1-20x30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adn1-20x24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/dp1-42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agad18/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agad24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agad30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agad36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agad42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsd30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsd36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsd42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aglp36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aead18/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aead24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aead30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aead36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aead42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-drw2-r-lt/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-drw3-r-lt/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-30w-3drw-lt/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -414,6 +458,19 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vtd3/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vdr1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rwd1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adr2-48/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adr2-36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adr2-30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/adr2-24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/tds1-20/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/tdd1-20/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/tdt1-20/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/wd1-30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsr30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsr36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agdr16/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aedr16/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/gwd30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-ddc-r-ltsc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-ddc-r-39-ltsc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/bull/65790/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -453,6 +510,12 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/alfresco/axe-ddr-l-sc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vdc2sc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vdc1sc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsdr30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsdr36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agsdr42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aesdr30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aesdr36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aesdr42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-trlp-drw-h/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-trec-drw-h/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-trnw-drw-h/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -483,6 +546,10 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vtc1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vtd2/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/vtd1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/tb1-20/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agtrc20/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agtc/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aetrc20/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-30ckt-snk/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/bull/97623/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/bull/12515/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -517,6 +584,11 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rsnk3a/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rsnk2/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/rsnk1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/bc25/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grc30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/grchs30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/gis30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/gishs30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-pth-r-h/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/blaze/blz-island-vent/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/bull/47800/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -593,6 +665,16 @@
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/ljrjc32/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/ljrjc26/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/dimensions/cutouts/rcs/ljrdb1/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/bga48-ijs/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/bga36-ijs/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/bgb30-ijs/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/dcs/bga24-ijs/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agij30/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agij36/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agij42/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/agptd16/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/aeptd16/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://eaglebuilt.ai/dimensions/cutouts/hestan/edc24/</loc><lastmod>2026-11-21</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://eaglebuilt.ai/guides/permits/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://eaglebuilt.ai/guides/cmu-vs-steel-stud/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://eaglebuilt.ai/newsletter/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>

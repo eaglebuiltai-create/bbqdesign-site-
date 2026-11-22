@@ -107,3 +107,19 @@ test("hub carries every live model in its index and a most-searched list", () =>
   assert.match(hub, /Most searched cutouts/);
   assert.ok(hub.length < 400000, "hub should stay light: " + hub.length);
 });
+
+test("batch 4: DCS and Hestan records cite the manufacturer's own documents", () => {
+  const hosts = { DCS: ["dam.fisherpaykel.com"], Hestan: ["cdn.brandfolder.io", "hestanappliances.com"] };
+  for (const [brand, ok] of Object.entries(hosts)) {
+    const rs = live.filter(r => r.brand === brand);
+    assert.ok(rs.length >= (brand === "DCS" ? 25 : 50), `${brand} has ${rs.length} records`);
+    for (const r of rs) {
+      if (!r.source_url) continue;
+      assert.ok(ok.includes(new URL(r.source_url).host), `${r.model} source ${r.source_url}`);
+      assert.ok(fs.existsSync(pageOf(r)), `${r.model} page`);
+    }
+  }
+  const be36 = live.find(r => r.model === "BE1-36RC");
+  assert.deepEqual(be36.cutout_in, { w: 34.5, h: 10.125, d: 22.75 });
+  assert.equal(be36.designer_key, "BE1-36RC-N");
+});

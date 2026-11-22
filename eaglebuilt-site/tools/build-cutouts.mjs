@@ -176,6 +176,8 @@ const CSS = `<style>
 .coNote{font-size:13px;color:var(--warn);margin-top:6px}
 .coEmpty{padding:24px 0;color:var(--muted)}
 .coBig .coDim b{font-size:clamp(30px,9vw,46px)}
+.coDim.lg b{font-size:clamp(18px,4.9vw,30px)}
+.coBig .coDim.lg b{font-size:clamp(21px,5.6vw,46px)}
 .coDim.rng b,.coBig .coDim.rng b{font-size:clamp(17px,4.6vw,30px);white-space:normal}
 .coCta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .coFacts{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:6px;color:var(--muted);font-size:15px}
@@ -245,7 +247,7 @@ const crumbsHtml = items => `<div class="wrap">
 const span = (v, vmax) => (inch(v) && inch(vmax) && vmax !== v ? inch(v).replace(/"$/, "") + "–" + inch(vmax) : inch(v));
 function dimCell(label, v, vmax) {
   const t = span(v, vmax);
-  return t ? `<div class="coDim${vmax != null && vmax !== v ? " rng" : ""}"><b>${esc(t)}</b><span>${label}</span></div>`
+  return t ? `<div class="coDim${vmax != null && vmax !== v ? " rng" : (t.length >= 6 ? " lg" : "")}"><b>${esc(t)}</b><span>${label}</span></div>`
            : `<div class="coDim miss"><b>check spec sheet</b><span>${label}</span></div>`;
 }
 function overallLine(r) {
@@ -339,7 +341,7 @@ const HUB_JS = `<script>
   function inch(v){if(v===null||v===undefined)return null;var s=Math.round(v*16);if(Math.abs(v*16-s)>1e-6)return (+v.toFixed(3))+'"';
     var w=Math.floor(s/16),r=s%16;if(!r)return w+'"';var g=r%8===0?8:r%4===0?4:r%2===0?2:1;return (w?w+" ":"")+(r/g)+"/"+(16/g)+'"';}
   function span(v,m){var a=inch(v),b=inch(m);return a&&b&&m!==v?a.replace(/"$/,"")+"\u2013"+b:a;}
-  function cell(l,v,m){var t=span(v,m);return t?'<div class="coDim'+(m!=null&&m!==v?' rng':'')+'"><b>'+e(t)+'</b><span>'+l+'</span></div>':'<div class="coDim miss"><b>check spec sheet</b><span>'+l+'</span></div>';}
+  function cell(l,v,m){var t=span(v,m);return t?'<div class="coDim'+(m!=null&&m!==v?' rng':(t.length>=6?' lg':''))+'"><b>'+e(t)+'</b><span>'+l+'</span></div>':'<div class="coDim miss"><b>check spec sheet</b><span>'+l+'</span></div>';}
   function ov(w,h,d){if(w===null&&h===null&&d===null)return 'Overall size: <i>check spec sheet</i>';
     function p(v,l){var t=inch(v);return t?e(t)+" "+l:"<i>check spec sheet</i> "+l;}return "Overall: "+p(w,"W")+" &times; "+p(h,"H")+" &times; "+p(d,"D");}
   var html=D.g.map(function(g,gi){

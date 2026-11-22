@@ -11304,5 +11304,1639 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-3/8\" W X 20-1/4\" D X 9-1/4\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "DCS",
+  "model": "BE1-48RC",
+  "product_name": "Series 9 48\" Grill with Rotisserie & Charcoal",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 45.75,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Non-combustible cavity per DCS Series 9 Planning Guide (rev. E). Combustible islands need the insulation jacket cavity. Same cutout: BE1-48RC-N, BE1-48RC-L, BE1-48RCI-N, BE1-48RCI-L, BE1-48C-N, BE1-48C-L.",
+  "designer_key": "BE1-48RC-N",
+  "popular": 2,
+  "also": [
+   "BE1-48RC-N",
+   "BE1-48RC-L",
+   "BE1-48RCI-N",
+   "BE1-48RCI-L",
+   "BE1-48C-N",
+   "BE1-48C-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "BE1-36RC",
+  "product_name": "Series 9 36\" Grill with Rotisserie & Charcoal",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.5,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Non-combustible cavity per DCS Series 9 Planning Guide (rev. E). Combustible islands need the insulation jacket cavity. Same cutout: BE1-36RC-N, BE1-36RC-L, BE1-36RCI-N, BE1-36RCI-L, BE1-36C-N, BE1-36C-L.",
+  "designer_key": "BE1-36RC-N",
+  "popular": 1,
+  "also": [
+   "BE1-36RC-N",
+   "BE1-36RC-L",
+   "BE1-36RCI-N",
+   "BE1-36RCI-L",
+   "BE1-36C-N",
+   "BE1-36C-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "BE1-30AG",
+  "product_name": "Series 9 30\" All Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Non-combustible cavity per DCS Series 9 Planning Guide (rev. E). Combustible islands need the insulation jacket cavity. Same cutout: BE1-30AG-N, BE1-30AG-L.",
+  "designer_key": "BE1-30AG-N",
+  "also": [
+   "BE1-30AG-N",
+   "BE1-30AG-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "GDE1-30",
+  "product_name": "Series 9 30\" Griddle",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Non-combustible cavity per DCS Series 9 Planning Guide (rev. E). Combustible islands need the insulation jacket cavity. Same cutout: GDE1-30-N, GDE1-30-L.",
+  "also": [
+   "GDE1-30-N",
+   "GDE1-30-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "GDSBE1-302",
+  "product_name": "Series 9 30\" Griddle / Side Burner",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Non-combustible cavity per DCS Series 9 Planning Guide (rev. E). Combustible islands need the insulation jacket cavity. Same cutout: GDSBE1-302-N, GDSBE1-302-L.",
+  "designer_key": "GDSBE1-302-N",
+  "also": [
+   "GDSBE1-302-N",
+   "GDSBE1-302-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "PBE1-24",
+  "product_name": "Series 9 24\" Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.5,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Non-combustible cavity per DCS Series 9 Planning Guide (rev. E). Combustible islands need the insulation jacket cavity. Same cutout: PBE1-24-N, PBE1-24-L.",
+  "also": [
+   "PBE1-24-N",
+   "PBE1-24-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "SBE1-142",
+  "product_name": "Series 9 14\" Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.125,
+   "h": 10.125,
+   "d": 22.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cavity per DCS Series 9 Planning Guide (rev. E). Same cutout: SBE1-142-N, SBE1-142-L.",
+  "designer_key": "SBE1-142-N",
+  "also": [
+   "SBE1-142-N",
+   "SBE1-142-L"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "BGA48-IJS",
+  "product_name": "48\" Grill Insulation Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 51.875,
+   "h": 11.125,
+   "d": 23.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cavity with the DCS insulation jacket (combustible cabinet), per Series 9 Planning Guide (rev. E). Fits BE1-48 grills."
+ },
+ {
+  "brand": "DCS",
+  "model": "BGA36-IJS",
+  "product_name": "36\" Grill Insulation Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.5,
+   "h": 11.125,
+   "d": 23.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cavity with the DCS insulation jacket (combustible cabinet), per Series 9 Planning Guide (rev. E). Fits BE1-36 grills."
+ },
+ {
+  "brand": "DCS",
+  "model": "BGB30-IJS",
+  "product_name": "30\" Insulation Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.875,
+   "h": 11.125,
+   "d": 23.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cavity with the DCS insulation jacket (combustible cabinet), per Series 9 Planning Guide (rev. E). Fits BE1-30AG, GDE1-30, GDSBE1-302."
+ },
+ {
+  "brand": "DCS",
+  "model": "BGA24-IJS",
+  "product_name": "24\" Insulation Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.875,
+   "h": 11.125,
+   "d": 23.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cavity with the DCS insulation jacket (combustible cabinet), per Series 9 Planning Guide (rev. E). Fits PBE1-24."
+ },
+ {
+  "brand": "DCS",
+  "model": "ADR2-48",
+  "product_name": "48\" Access Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 46,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\"."
+ },
+ {
+  "brand": "DCS",
+  "model": "ADR2-36",
+  "product_name": "36\" Access Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\".",
+  "designer_key": "ADR2-36"
+ },
+ {
+  "brand": "DCS",
+  "model": "ADR2-30",
+  "product_name": "30\" Access Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\"."
+ },
+ {
+  "brand": "DCS",
+  "model": "ADR2-24",
+  "product_name": "24\" Access Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\"."
+ },
+ {
+  "brand": "DCS",
+  "model": "ADN1-20X48",
+  "product_name": "48\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 46,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X48.",
+  "also": [
+   "ADN20X48"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "ADN1-20X36",
+  "product_name": "36\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X36.",
+  "also": [
+   "ADN20X36"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "ADN1-20X30",
+  "product_name": "30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X30.",
+  "designer_key": "ADN1-20X30",
+  "also": [
+   "ADN20X30"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "ADN1-20X24",
+  "product_name": "24\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22,
+   "h": 20,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X24.",
+  "also": [
+   "ADN20X24"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "TDS1-20",
+  "product_name": "20\" Single Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.875,
+   "h": 8.4375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 9-13/16\" H."
+ },
+ {
+  "brand": "DCS",
+  "model": "TDD1-20",
+  "product_name": "20\" Double Drawer Tower",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.875,
+   "h": 20.6875,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 22-1/16\" H."
+ },
+ {
+  "brand": "DCS",
+  "model": "TDT1-20",
+  "product_name": "20\" Triple Drawer Tower",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.875,
+   "h": 28,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 29-5/16\" H.",
+  "designer_key": "TDT1-20"
+ },
+ {
+  "brand": "DCS",
+  "model": "TB1-20",
+  "product_name": "20\" Trash Bin",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.875,
+   "h": 28,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 29-5/16\" H.",
+  "designer_key": "TB1-20"
+ },
+ {
+  "brand": "DCS",
+  "model": "DP1-42",
+  "product_name": "42\" Dry Pantry",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.4375,
+   "h": 29.1875,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 42-3/16\" W \u00d7 30-11/16\" H."
+ },
+ {
+  "brand": "DCS",
+  "model": "WD1-30",
+  "product_name": "30\" Outdoor Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.375,
+   "h": 14.6875,
+   "d": 24.1875
+  },
+  "fuel_power": "Electric: 120VAC, 15A GFI",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/xtv6r4zgv7t4h3vrrxhmfp6/DCS_User_Install_Guide_WD1-30-SSOD_Warming_Drawer_590833C.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/xtv6r4zgv7t4h3vrrxhmfp6/DCS_User_Install_Guide_WD1-30-SSOD_Warming_Drawer_590833C.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Proud install per DCS WD1-30 install guide; depth is the minimum cabinet depth. Flush install: 30-3/16\" W \u00d7 16-3/16\" H, 26-3/16\" min. depth. Same cutout: WD1-30-SSOD.",
+  "also": [
+   "WD1-30-SSOD"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "BC25",
+  "product_name": "25\" Beverage Chiller / Sink",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.1875,
+   "h": 9.875,
+   "d": 21.0625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/7hwn5v5c9bkc4qrsxwkxcmsb/DCS-DataSheet-en-BC25-BeverageChillerSink-0-90000029-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/7hwn5v5c9bkc4qrsxwkxcmsb/DCS-DataSheet-en-BC25-BeverageChillerSink-0-90000029-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cavity per DCS BC25 data sheet; min. 5/8\" from countertop front to cutout. Depth 21-11/16\" with bottle holder accessory."
+ },
+ {
+  "brand": "DCS",
+  "model": "RF24RE",
+  "product_name": "24\" Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34,
+   "d": null
+  },
+  "fuel_power": "Electric: 115V, 15A dedicated",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/w9fnmfr8kg68nhxn7hrk/DCS_UserInstallGuide_RD24_OutdoorRefrigerator_US-CA_592494A.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/w9fnmfr8kg68nhxn7hrk/DCS_UserInstallGuide_RD24_OutdoorRefrigerator_US-CA_592494A.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough-in opening per DCS install guide. Depth varies by installation (cabinet depth 23-23/32\" plus 1\" for the plug to recess the door); check spec sheet. Width 24-1/2\" with optional DCS side trim kit. Same cutout: RF24RE4, RF24LE, RF24LE4.",
+  "designer_key": "RF24RE4",
+  "cutout_max_in": {
+   "h": 35
+  },
+  "also": [
+   "RF24RE4",
+   "RF24LE",
+   "RF24LE4"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "RF24BT",
+  "product_name": "24\" Outdoor Beer Dispenser",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34,
+   "d": null
+  },
+  "fuel_power": "Electric: 115V, 15A dedicated",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/pmvz5cq59mjrq8p6rfw96cp/DCS_UserInstallGuide_RF24-T-B_OutdoorBeerDispenser_US-CA_592495A.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/pmvz5cq59mjrq8p6rfw96cp/DCS_UserInstallGuide_RF24-T-B_OutdoorBeerDispenser_US-CA_592495A.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough-in opening per DCS install guide. Depth varies by installation (cabinet depth 23-23/32\" plus 1\" for the plug to recess the door); check spec sheet. Width 24-1/2\" with optional DCS side trim kit. Same cutout: RF24T, RF24BTR2, RF24BTL2, RF24TR2.",
+  "cutout_max_in": {
+   "h": 35
+  },
+  "also": [
+   "RF24T",
+   "RF24BTR2",
+   "RF24BTL2",
+   "RF24TR2"
+  ]
+ },
+ {
+  "brand": "DCS",
+  "model": "RF15I",
+  "product_name": "15\" Outdoor Ice Machine",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15,
+   "h": 34,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 15A dedicated",
+  "spec_sheet_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/pnkz8w9zbsn8nbcpb8rt6pmq/DCS-UserInstall-en-RF15I-OutdoorIceMaker-0-90002319A-US-CA.pdf",
+  "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/pnkz8w9zbsn8nbcpb8rt6pmq/DCS-UserInstall-en-RF15I-OutdoorIceMaker-0-90002319A-US-CA.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough-in opening per DCS RF15I install guide; height 34\"\u201335\". Same cutout: RF15IR3, RF15IL3.",
+  "cutout_max_in": {
+   "h": 35
+  },
+  "also": [
+   "RF15IR3",
+   "RF15IL3"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGIJ30",
+  "product_name": "30\" Grill Insulated Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 35,
+   "h": 12.8,
+   "d": 25.1
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/q5shjbvzfhtg3t83pvcr7brx/008980_RevG.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/q5shjbvzfhtg3t83pvcr7brx/008980_RevG.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout with the AGIJ insulated jacket for combustible enclosures, per Hestan grill installation manual (008980 Rev G). Fits GABR30/GSBR30/GMBR30."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGIJ36",
+  "product_name": "36\" Grill Insulated Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 41,
+   "h": 12.8,
+   "d": 25.1
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/q5shjbvzfhtg3t83pvcr7brx/008980_RevG.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/q5shjbvzfhtg3t83pvcr7brx/008980_RevG.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout with the AGIJ insulated jacket for combustible enclosures, per Hestan grill installation manual (008980 Rev G). Fits GABR36/GSBR36/GMBR36."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGIJ42",
+  "product_name": "42\" Grill Insulated Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 47,
+   "h": 12.8,
+   "d": 25.1
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/q5shjbvzfhtg3t83pvcr7brx/008980_RevG.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/q5shjbvzfhtg3t83pvcr7brx/008980_RevG.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout with the AGIJ insulated jacket for combustible enclosures, per Hestan grill installation manual (008980 Rev G). Fits GABR42/GSBR42/GMBR42."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGB122",
+  "product_name": "12\" Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11,
+   "h": 11.5,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/vtcvtrbpwxg273vnft3mb25/Side_Burner_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/vtcvtrbpwxg273vnft3mb25/Side_Burner_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Side Burner spec sheet (011024 Rev C). Same cutout: AGB122-NG, AGB122-LP.",
+  "designer_key": "AGB122",
+  "popular": 3,
+  "also": [
+   "AGB122-NG",
+   "AGB122-LP"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGB121",
+  "product_name": "12\" Single Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11,
+   "h": 11.5,
+   "d": 13.875
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/vtcvtrbpwxg273vnft3mb25/Side_Burner_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/vtcvtrbpwxg273vnft3mb25/Side_Burner_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Side Burner spec sheet (011024 Rev C). Same cutout: AGB121-NG, AGB121-LP.",
+  "also": [
+   "AGB121-NG",
+   "AGB121-LP"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGPB24",
+  "product_name": "24\" Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.25,
+   "h": 11.125,
+   "d": 22.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 70,000 BTU",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/rvs8qt78c536j7pkbrs42rbg/Power_Burner_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/rvs8qt78c536j7pkbrs42rbg/Power_Burner_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Power Burner spec sheet (011033 Rev D). Same cutout: AGPB24-NG, AGPB24-LP.",
+  "designer_key": "AGPB24",
+  "also": [
+   "AGPB24-NG",
+   "AGPB24-LP"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGAD18",
+  "product_name": "18\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Depth listed as n/a for access doors; check spec sheet. Same cutout: AGADR18, AGADL18.",
+  "also": [
+   "AGADR18",
+   "AGADL18"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGAD24",
+  "product_name": "24\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Depth listed as n/a for access doors; check spec sheet. Same cutout: AGADR24, AGADL24.",
+  "also": [
+   "AGADR24",
+   "AGADL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGAD30",
+  "product_name": "30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Depth listed as n/a for access doors; check spec sheet."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGAD36",
+  "product_name": "36\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Depth listed as n/a for access doors; check spec sheet.",
+  "designer_key": "AGAD36",
+  "popular": 4
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGAD42",
+  "product_name": "42\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Depth listed as n/a for access doors; check spec sheet."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSD30",
+  "product_name": "30\" Double Storage Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSDR30",
+  "product_name": "30\" Double Drawer & Storage Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Same cutout: AGSDRR30, AGSDRL30.",
+  "also": [
+   "AGSDRR30",
+   "AGSDRL30"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSD36",
+  "product_name": "36\" Double Storage Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSDR36",
+  "product_name": "36\" Double Drawer & Storage Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Same cutout: AGSDRR36, AGSDRL36.",
+  "designer_key": "AGSDR36",
+  "also": [
+   "AGSDRR36",
+   "AGSDRL36"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSD42",
+  "product_name": "42\" Double Storage Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSDR42",
+  "product_name": "42\" Double Drawer & Storage Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Same cutout: AGSDRR42, AGSDRL42.",
+  "also": [
+   "AGSDRR42",
+   "AGSDRL42"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSR30",
+  "product_name": "30\" Single Storage Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.125,
+   "h": 9.125,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGSR36",
+  "product_name": "36\" Single Storage Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.125,
+   "h": 9.125,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E).",
+  "designer_key": "AGSR36"
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGDR16",
+  "product_name": "16\" Double Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.9375,
+   "h": 19.25,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGLP36",
+  "product_name": "36\" Double Sealed Pantry",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.125,
+   "h": 19.25,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGTRC20",
+  "product_name": "20\" Trash & Recycle Center",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.625,
+   "h": 26.25,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGTC",
+  "product_name": "Countertop Trash Chute",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 6.125,
+   "h": null,
+   "d": 8.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Top-down countertop cutout (W \u00d7 D); exact cutout depends on countertop type, see installation instructions."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGPTD16",
+  "product_name": "16\" Paper Towel Dispenser",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.125,
+   "h": 15,
+   "d": 10.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/nb7zsj555444h8sgf2nsjhn/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Storage and Clean Up spec sheet (011025 Rev E). Can mount in 3 orientations."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRC30",
+  "product_name": "30\" Refreshment Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29.25,
+   "h": 11.375,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Refreshment Center / Insulated Sink spec sheet (011035 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRCHS30",
+  "product_name": "30\" Refreshment Center with High Shelf",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29.25,
+   "h": 11.375,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Refreshment Center / Insulated Sink spec sheet (011035 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GIS30",
+  "product_name": "30\" Insulated Sink",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29.25,
+   "h": 11.375,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Refreshment Center / Insulated Sink spec sheet (011035 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GISHS30",
+  "product_name": "30\" Insulated Sink with High Shelf",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29.25,
+   "h": 11.375,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Refreshment Center / Insulated Sink spec sheet (011035 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AGIB",
+  "product_name": "16\" Ice Bin",
+  "category": "ice bin",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.25,
+   "h": 10,
+   "d": 21.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/pbtc8z6srt8rckp4kpb64qn/Refreshment_Center__Insulated_Sink_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Hestan Refreshment Center / Insulated Sink spec sheet (011035 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRSR24",
+  "product_name": "24\" Refrigerator, Solid Door",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRSL24.",
+  "designer_key": "GRSR24",
+  "popular": 5,
+  "also": [
+   "GRSL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRGR24",
+  "product_name": "24\" Refrigerator, Glass Door",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRGL24.",
+  "also": [
+   "GRGL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRR24",
+  "product_name": "24\" Refrigerator Drawers",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRFR24",
+  "product_name": "24\" Refrigerator & Freezer Drawers",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRWSR24",
+  "product_name": "24\" Dual Zone Refrigerator with Wine, Solid Door",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRWSL24.",
+  "also": [
+   "GRWSL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "GRWGR24",
+  "product_name": "24\" Dual Zone Refrigerator with Wine, Glass Door",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRWGL24.",
+  "also": [
+   "GRWGL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "GFDSR241",
+  "product_name": "24\" Single Faucet Beer Dispenser",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. See the beer dispenser manual for the faucet-tower countertop cutout. Same cutout: GFDSL241.",
+  "also": [
+   "GFDSL241"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "GFDSR242",
+  "product_name": "24\" Double Faucet Beer Dispenser",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.375,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 2.3A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. See the beer dispenser manual for the faucet-tower countertop cutout. Same cutout: GFDSL242.",
+  "also": [
+   "GFDSL242"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "GIMR15",
+  "product_name": "15\" Ice Machine",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15,
+   "h": 34,
+   "d": 24
+  },
+  "fuel_power": "Electric: 120V, 60Hz, 3.8A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GIML15.",
+  "also": [
+   "GIML15"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEAD18",
+  "product_name": "Aspire 18\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Depth n/a; check spec sheet. Same cutout: AEADR18, AEADL18.",
+  "also": [
+   "AEADR18",
+   "AEADL18"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEAD24",
+  "product_name": "Aspire 24\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Depth n/a; check spec sheet. Same cutout: AEADR24, AEADL24.",
+  "also": [
+   "AEADR24",
+   "AEADL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEAD30",
+  "product_name": "Aspire 30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Depth n/a; check spec sheet."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEAD36",
+  "product_name": "Aspire 36\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Depth n/a; check spec sheet."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEAD42",
+  "product_name": "Aspire 42\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.875,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Depth n/a; check spec sheet."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AESDR30",
+  "product_name": "Aspire 30\" Double Drawer & Storage Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Same cutout: AESDRR30, AESDRL30.",
+  "also": [
+   "AESDRR30",
+   "AESDRL30"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AESDR36",
+  "product_name": "Aspire 36\" Double Drawer & Storage Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Same cutout: AESDRR36, AESDRL36.",
+  "also": [
+   "AESDRR36",
+   "AESDRL36"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AESDR42",
+  "product_name": "Aspire 42\" Double Drawer & Storage Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.125,
+   "h": 19.25,
+   "d": 23.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E). Same cutout: AESDRR42, AESDRL42.",
+  "also": [
+   "AESDRR42",
+   "AESDRL42"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEDR16",
+  "product_name": "Aspire 16\" Double Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.9375,
+   "h": 19.25,
+   "d": 23.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AETRC20",
+  "product_name": "Aspire 20\" Trash Storage Drawer",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.625,
+   "h": 26.25,
+   "d": 18
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "AEPTD16",
+  "product_name": "Aspire 16\" Paper Towel Dispenser",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.125,
+   "h": 15,
+   "d": 10.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kgj9pvnjn92ff3w868hrk6vm/Storage_and_Clean_Up_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Cutout per Aspire Storage and Clean Up spec sheet (015813 Rev E)."
+ },
+ {
+  "brand": "Hestan",
+  "model": "ERS24",
+  "product_name": "Aspire 24\" Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 33.75,
+   "d": 24
+  },
+  "fuel_power": "Electric: 115V, 60Hz, 1.1A",
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/f3pwvrrqhk9jjp4stjsgqtc/Cooling_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/f3pwvrrqhk9jjp4stjsgqtc/Cooling_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Island opening per Cooling Products spec sheet (015810 Rev H); height 33-3/4\" to 34-1/2\" (legs add 3/4\"). Same cutout: ERSR24, ERSL24.",
+  "cutout_max_in": {
+   "h": 34.5
+  },
+  "also": [
+   "ERSR24",
+   "ERSL24"
+  ]
+ },
+ {
+  "brand": "Hestan",
+  "model": "EDC24",
+  "product_name": "Aspire 24\" Drop-In Cooler",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.6875,
+   "h": 16.25,
+   "d": 23.6875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/f3pwvrrqhk9jjp4stjsgqtc/Cooling_Products_-_Specs.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/f3pwvrrqhk9jjp4stjsgqtc/Cooling_Products_-_Specs.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Aspire by Hestan. Countertop cutout 23-11/16\" \u00d7 23-11/16\" per Cooling Products spec sheet (015810 Rev H); height is the 16-1/4\" drop below the countertop; drain required."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GWD30",
+  "product_name": "30\" Outdoor Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.4375,
+   "h": 9.25,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.brandfolder.io/W2HABDQZ/as/brb9b82sf6sfnxgnxs83xp/Warming_Drawer__Use_and_Care_Manual_Installation_Instructions.pdf",
+  "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/brb9b82sf6sfnxgnxs83xp/Warming_Drawer__Use_and_Care_Manual_Installation_Instructions.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cabinet cutout per Hestan warming drawer use & care / installation manual."
  }
 ]
