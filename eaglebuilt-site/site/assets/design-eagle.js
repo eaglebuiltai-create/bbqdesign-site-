@@ -335,10 +335,23 @@ if (hash) {
     : "This link reopened the design. Tell me the change in a full sentence if you want me to redraw a leg.");
 }
 
+const EMPTY_DRAW = "Tell me what you want and I'll draw it. Or hold the mic and say it.";
+
 document.getElementById("composer").addEventListener("submit", (e) => {
   e.preventDefault();
   const input = document.getElementById("text");
   const text = input.value;
+  /* An empty box used to submit nothing and say nothing, so Draw read as a
+     dead button. That is exactly what someone sees after talking, because the
+     box is empty by definition then - press Draw expecting your words to be
+     drawn and the app appears broken. Point at the mic instead of sitting
+     there, and focus the input, which raises the keyboard on a phone. */
+  if (!text.trim()) {
+    input.focus();
+    const last = log.lastElementChild;
+    if (!last || last.textContent.trim() !== EMPTY_DRAW) addMsg("bot", EMPTY_DRAW);
+    return;
+  }
   input.value = "";
   applyTurn(text, "typed");
 });
