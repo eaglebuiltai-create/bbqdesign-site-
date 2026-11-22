@@ -7979,5 +7979,3330 @@
   "status": "verified",
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Cutout for the insulating liner (use when the grill goes into a combustible island).",
   "discontinued": true
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEBQ36R-C",
+  "product_name": "C-Series 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 11.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq36-specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq36-specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 3.25\" to the countertop notch for hood opening (C-Series). Same cutout: TEBQ36G-C, TEBQ36RS-C.",
+  "designer_key": "TEBQ36R-C",
+  "popular": 1,
+  "also": [
+   "TEBQ36G-C",
+   "TEBQ36RS-C"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEBQ42R-C",
+  "product_name": "C-Series 42\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 11.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq42-specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq42-specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 3.25\" to the countertop notch for hood opening (C-Series). Same cutout: TEBQ42G-C, TEBQ42RS-C.",
+  "designer_key": "TEBQ42R-C",
+  "popular": 2,
+  "also": [
+   "TEBQ42G-C",
+   "TEBQ42RS-C"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEBQ30R-C",
+  "product_name": "C-Series 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.25,
+   "h": 11.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TEBQ30_Specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TEBQ30_Specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 3.25\" to the countertop notch for hood opening (C-Series). Same cutout: TEBQ30G-C, TEBQ30RS-C.",
+  "designer_key": "TEBQ30R-C",
+  "popular": 3,
+  "also": [
+   "TEBQ30G-C",
+   "TEBQ30RS-C"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEBQ54RS-C",
+  "product_name": "C-Series 54\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 52.25,
+   "h": 11.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq54-specifications-1.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq54-specifications-1.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 3.25\" to the countertop notch for hood opening (C-Series).",
+  "designer_key": "TEBQ54RS-C"
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TE1BQ42RS",
+  "product_name": "Eagle One 42\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 11.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq42-specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq42-specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 5\" to the countertop notch for hood opening (Eagle One)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TE1BQ54RS",
+  "product_name": "Eagle One 54\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 52.25,
+   "h": 11.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq54-specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq54-specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 5\" to the countertop notch for hood opening (Eagle One)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEPG36G",
+  "product_name": "36\" Built-In Pellet Grill & Smoker",
+  "category": "pellet smoker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 16.75,
+   "d": 24.25
+  },
+  "fuel_power": "Wood pellets; 120V",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tepg36-specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tepg36-specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: TEPG36R.",
+  "also": [
+   "TEPG36R"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TETG30-C",
+  "product_name": "30\" Teppanyaki Griddle",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 11.5,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TETG30_Specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TETG30_Specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEBC30-C",
+  "product_name": "30\" Side Burner Combo (flat top with dual burners)",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 11.5,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebc30-specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebc30-specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TESB132-C",
+  "product_name": "Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.5,
+   "h": 9.75,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tesb13-specifications_1.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tesb13-specifications_1.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: TESB131-C.",
+  "designer_key": "TESB132-C",
+  "also": [
+   "TESB131-C"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEPB24HG-C",
+  "product_name": "24\" Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22,
+   "h": 11.5,
+   "d": 20.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tepb24-specifications_ceb9f178-b77f-43d8-92a6-7f198207b4ed.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tepb24-specifications_ceb9f178-b77f-43d8-92a6-7f198207b4ed.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "designer_key": "TEPB24HG-C"
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEIJ24",
+  "product_name": "24\" Insulating Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26.875,
+   "h": 12.625,
+   "d": 22.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050790A_-_TEIJ24_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050790A_-_TEIJ24_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Cutout for the insulating jacket (combustible construction). Sheet prints 26.88 x 12.63."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEIJ30",
+  "product_name": "30\" Insulating Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33.5,
+   "h": 12.625,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050791A_-_TEIJ30_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050791A_-_TEIJ30_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Cutout for the insulating jacket (combustible construction). Sheet prints height 12.63."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEIJ36",
+  "product_name": "36\" Insulating Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.5,
+   "h": 12.625,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050792A_-_TEIJ36_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050792A_-_TEIJ36_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Cutout for the insulating jacket (combustible construction). Sheet prints height 12.63."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEIJ42",
+  "product_name": "42\" Insulating Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 45.5,
+   "h": 12.625,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050793A_-_TEIJ42_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050793A_-_TEIJ42_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Cutout for the insulating jacket (combustible construction). The sheet's table prints width 33.50, but its cutout drawing and the Twin Eagles collection cutout chart both give 45.50; confirm before cutting."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEIJ54",
+  "product_name": "54\" Insulating Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 57.5,
+   "h": 12.625,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050794A_-_TEIJ54_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050794A_-_TEIJ54_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Cutout for the insulating jacket (combustible construction). Sheet prints height 12.63."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEPIJ36",
+  "product_name": "36\" Pellet Grill Insulating Jacket",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39,
+   "h": 17.5,
+   "d": 26
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050813A_-_TEPIJ36_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050813A_-_TEPIJ36_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Cutout for the insulating jacket (combustible construction)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEAD36-C",
+  "product_name": "36\" Double Access Doors (soft close)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050776A_-_TEAD36-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050776A_-_TEAD36-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet.",
+  "designer_key": "TEAD36-C",
+  "popular": 5
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEAD30-C",
+  "product_name": "30\" Double Access Doors (soft close)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050775A_-_TEAD30-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050775A_-_TEAD30-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEAD42-C",
+  "product_name": "42\" Double Access Doors (soft close)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050777A_-_TEAD42-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050777A_-_TEAD42-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEAD18L-C",
+  "product_name": "18\" Single Access Door (soft close)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050773A_-_TEAD18_L_R_-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050773A_-_TEAD18_L_R_-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet. Same cutout: TEAD18R-C.",
+  "also": [
+   "TEAD18R-C"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEAD24L-C",
+  "product_name": "24\" Single Access Door (soft close)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.25,
+   "h": 19,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050774A_-_TEAD24_L_R_-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050774A_-_TEAD24_L_R_-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet. Same cutout: TEAD24R-C.",
+  "also": [
+   "TEAD24R-C"
+  ]
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEDD362-B",
+  "product_name": "36\" 2-Drawer & Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 35.25,
+   "h": 19,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050779A_-_TEDD362-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050779A_-_TEDD362-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "designer_key": "TEDD362-B",
+  "popular": 4
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEDD302-B",
+  "product_name": "30\" 2-Drawer & Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29.25,
+   "h": 19,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050778A_-_TEDD302-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050778A_-_TEDD302-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEDD422-B",
+  "product_name": "42\" 2-Drawer & Door Combo",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 19,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050780A_-_TEDD422-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050780A_-_TEDD422-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEDS36-B",
+  "product_name": "36\" Dry Storage",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 19,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050781A_-_TEDS36-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050781A_-_TEDS36-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEDS36T-B",
+  "product_name": "36\" Tall Dry Storage",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 32.25,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050782A_-_TEDS36T-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050782A_-_TEDS36T-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TESD132-B",
+  "product_name": "13\" Double Storage Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.125,
+   "h": 19,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050801A_-_TESD132-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050801A_-_TESD132-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints width 12.13.",
+  "designer_key": "TESD132-B"
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TESD192-B",
+  "product_name": "19\" Double Storage Drawers",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 18.125,
+   "h": 19,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050802A_-_TESD192-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050802A_-_TESD192-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints width 18.13."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TESD301-B",
+  "product_name": "30\" Single Storage Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.25,
+   "h": 9.75,
+   "d": 27
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050803A_-_TESD301-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050803A_-_TESD301-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TESD361-B",
+  "product_name": "36\" Pellet Storage Drawer",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 14.375,
+   "d": 26.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050804A_-_TESD361-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050804A_-_TESD361-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints 14.38 x 26.63."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEWD30-C",
+  "product_name": "30\" Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10,
+   "d": 21.25
+  },
+  "fuel_power": "Electric: 120V, 4A",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050811A_-_TEWD30-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050811A_-_TEWD30-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEWD42C-C",
+  "product_name": "42\" Warming Drawer Combo",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.25,
+   "h": 19.375,
+   "d": 25
+  },
+  "fuel_power": "Electric: 120V, 4A",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050812A_-_TEWD42C-C_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050812A_-_TEWD42C-C_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints height 19.38."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEOB30-B",
+  "product_name": "30\" Outdoor Bar",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 9.75,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050796A_-_TEOB30-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050796A_-_TEOB30-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEOB18-B",
+  "product_name": "18\" Outdoor Bar",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 9.75,
+   "d": 24.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050795A_-_TEOB18-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050795A_-_TEOB18-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEOS24-B",
+  "product_name": "24\" Outdoor Sink with Cover",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.75,
+   "h": 11.5,
+   "d": 21.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050798A_-_TEOS24-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050798A_-_TEOS24-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Faucet not included."
+ },
+ {
+  "brand": "Twin Eagles",
+  "model": "TEOC24D-B",
+  "product_name": "Outdoor Drop-In Cooler",
+  "category": "ice bin",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.75,
+   "h": 12.125,
+   "d": 22.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050797A_-_TEOC24D-B_SPEC_SHEET.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050797A_-_TEOC24D-B_SPEC_SHEET.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet title reads '30 Inch Outdoor Cooler, Drop-in'; prints height 12.13."
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHBQ38",
+  "product_name": "Delta Heat 38\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.5,
+   "h": 9.5,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ38_Specifications_107c2d5f-70a0-401d-937b-8da343b65f03.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ38_Specifications_107c2d5f-70a0-401d-937b-8da343b65f03.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: DHBQ38G-D, DHBQ38R-D, DHBQ38RS-D.",
+  "popular": 1,
+  "also": [
+   "DHBQ38G-D",
+   "DHBQ38R-D",
+   "DHBQ38RS-D"
+  ]
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHBQ32",
+  "product_name": "Delta Heat 32\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 9.5,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ32_Specifications_f2b48c21-a897-4805-8d67-155c64825f8c.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ32_Specifications_f2b48c21-a897-4805-8d67-155c64825f8c.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: DHBQ32G-D, DHBQ32R-D, DHBQ32RS-D.",
+  "popular": 2,
+  "also": [
+   "DHBQ32G-D",
+   "DHBQ32R-D",
+   "DHBQ32RS-D"
+  ]
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHBQ26",
+  "product_name": "Delta Heat 26\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 9.5,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ26_Specifications_98ec2643-467d-4ef3-8179-d665247c2c1e.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ26_Specifications_98ec2643-467d-4ef3-8179-d665247c2c1e.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: DHBQ26G-D.",
+  "also": [
+   "DHBQ26G-D"
+  ]
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHTG32",
+  "product_name": "Delta Heat 32\" Teppanyaki Griddle",
+  "category": "griddle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 9.5,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHTG32_Specifications_0457ed0d-62cb-42d9-accd-7b28f6788870.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHTG32_Specifications_0457ed0d-62cb-42d9-accd-7b28f6788870.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHPW22",
+  "product_name": "Delta Heat 22\" Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19.5,
+   "h": 11.5,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHPW22_Specifications_6c7c1525-158f-4264-ab4c-d21d186d0cde.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHPW22_Specifications_6c7c1525-158f-4264-ab4c-d21d186d0cde.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHSB2-C",
+  "product_name": "Delta Heat Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 10.625,
+   "h": 7.25,
+   "d": 19.75
+  },
+  "fuel_power": "Gas: natural gas or propane; 27,000 BTU",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHSB2_Specifications_1.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHSB2_Specifications_1.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications)."
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHSB1D-C",
+  "product_name": "Delta Heat Drop-In Single Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 10.625,
+   "h": null,
+   "d": 16.25
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHSB1_Specifications_1.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHSB1_Specifications_1.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications). Opening height N/A on the sheet (drop-in)."
+ },
+ {
+  "brand": "Delta Heat",
+  "model": "DHPO30BI",
+  "product_name": "Delta Heat 30\" Built-In Pizza Oven",
+  "category": "pizza oven",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 32.5,
+   "h": 28.1875,
+   "d": 28.5
+  },
+  "fuel_power": "Gas: natural gas or propane; 120VAC",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050746A_-_DHPO30BI_SPEC_SHEET_30.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050746A_-_DHPO30BI_SPEC_SHEET_30.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications). All three are minimums (sheet prints 32.5 x 28.19 x 28.50 min)."
+ },
+ {
+  "brand": "Dometic",
+  "model": "EA24F",
+  "product_name": "Dometic 24\" Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.25,
+   "d": 26
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/EA24_Specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/EA24_Specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Dometic specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: EA24B, EA24D.",
+  "cutout_max_in": {
+   "h": 35.25
+  },
+  "also": [
+   "EA24B",
+   "EA24D"
+  ]
+ },
+ {
+  "brand": "Dometic",
+  "model": "EA15F",
+  "product_name": "Dometic 15\" Outdoor Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 34.25,
+   "d": 26
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/EA15F_DE15F_Specifications.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/EA15F_DE15F_Specifications.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Dometic specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: DE15F.",
+  "cutout_max_in": {
+   "h": 35.25
+  },
+  "also": [
+   "DE15F"
+  ]
+ },
+ {
+  "brand": "Dometic",
+  "model": "DE24F",
+  "product_name": "Dometic 24\" Outdoor Refrigerator (DE24F)",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 32.75,
+   "d": 26
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DE24F_Specifications_1.pdf",
+  "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DE24F_Specifications_1.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the Dometic specification sheet (twineagles.dometic.com/pages/specifications).",
+  "cutout_max_in": {
+   "h": 33.75
+  }
+ },
+ {
+  "brand": "Alfresco",
+  "model": "ALXE-36",
+  "product_name": "ALXE 36\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.5,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": "Gas: natural gas or propane; 115VAC outlet required",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Countertop notch 7/8\". Same cutout: ALXE-36-NG, ALXE-36-LP, ALXE-36C.",
+  "designer_key": "ALXE-36-NG",
+  "popular": 1,
+  "also": [
+   "ALXE-36-NG",
+   "ALXE-36-LP",
+   "ALXE-36C"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "ALXE-42",
+  "product_name": "ALXE 42\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.5,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": "Gas: natural gas or propane; 115VAC outlet required",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Countertop notch 7/8\". Same cutout: ALXE-42-NG, ALXE-42-LP.",
+  "designer_key": "ALXE-42-NG",
+  "popular": 2,
+  "also": [
+   "ALXE-42-NG",
+   "ALXE-42-LP"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "ALXE-30",
+  "product_name": "ALXE 30\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": "Gas: natural gas or propane; 115VAC outlet required",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Countertop notch 7/8\". Same cutout: ALXE-30-NG, ALXE-30-LP, ALXE-30C.",
+  "designer_key": "ALXE-30-NG",
+  "popular": 3,
+  "also": [
+   "ALXE-30-NG",
+   "ALXE-30-LP",
+   "ALXE-30C"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "ALXE-56",
+  "product_name": "ALXE 56\" Built-In Grill",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 54.5,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": "Gas: natural gas or propane; 115VAC outlet required",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Countertop notch 7/8\". Same cutout: ALXE-56BFG, ALXE-56SZ, ALXE-56SZ-NG.",
+  "designer_key": "ALXE-56SZ-NG",
+  "also": [
+   "ALXE-56BFG",
+   "ALXE-56SZ",
+   "ALXE-56SZ-NG"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AIJ-30",
+  "product_name": "AIJ Insulated Jacket for 30\" ALXE Grill",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33.25,
+   "h": 11.25,
+   "d": 24.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Cutout for the AIJ insulated jacket (combustible enclosures). Countertop notch 7/8\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AIJ-36",
+  "product_name": "AIJ Insulated Jacket for 36\" ALXE Grill",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.25,
+   "h": 11.25,
+   "d": 24.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Cutout for the AIJ insulated jacket (combustible enclosures). Countertop notch 7/8\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AIJ-42",
+  "product_name": "AIJ Insulated Jacket for 42\" ALXE Grill",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 45.25,
+   "h": 11.25,
+   "d": 24.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Cutout for the AIJ insulated jacket (combustible enclosures). Countertop notch 7/8\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AIJ-56",
+  "product_name": "AIJ Insulated Jacket for 56\" ALXE Grill",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 59.25,
+   "h": 11.25,
+   "d": 24.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Cutout for the AIJ insulated jacket (combustible enclosures). Countertop notch 7/8\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEVP",
+  "product_name": "Versa Power Burner",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21.5,
+   "h": 10.25,
+   "d": 22.5
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1-3/8\". Same cutout: AXEVP-NG, AXEVP-LP, AXEVP-C.",
+  "designer_key": "AXEVP-NG",
+  "also": [
+   "AXEVP-NG",
+   "AXEVP-LP",
+   "AXEVP-C"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXESB-2",
+  "product_name": "Double Side Burner",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 10,
+   "d": 23
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1/2\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXESZ",
+  "product_name": "Searing Side Burner (Sear Zone)",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": "Gas: natural gas or propane",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1/2\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEFW",
+  "product_name": "Built-In Food Warmer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Drop-in warmer; notch 1/2\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AGBC-30",
+  "product_name": "30\" Bartender & Sink Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 9,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 7/8\"; 1-1/2\" drain."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AGBC-24",
+  "product_name": "24\" Bartender & Sink Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.5,
+   "h": 9,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 7/8\"; 1-1/2\" drain."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AGBC-14",
+  "product_name": "14\" Bartender Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 9.25,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1/2\"; 1-1/2\" drain."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "ASK-T",
+  "product_name": "Built-In Sink with Faucet",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.25,
+   "h": 10.25,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1/2\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "APS-30P",
+  "product_name": "30\" Pantry Sink",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26.875,
+   "h": 9,
+   "d": 15.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1-7/8\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "APS-30PPC",
+  "product_name": "30\" Pantry Sink with Prep Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26.875,
+   "h": 9,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 1-7/8\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-30",
+  "product_name": "30\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.25,
+   "h": 18.5,
+   "d": 21.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). The sheet lists this depth with the door/drawer cutouts. Same cutout: AXE-30E.",
+  "designer_key": "AXE-30",
+  "also": [
+   "AXE-30E"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-36",
+  "product_name": "36\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33.25,
+   "h": 18.5,
+   "d": 21.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). The sheet lists this depth with the door/drawer cutouts. Same cutout: AXE-36E.",
+  "also": [
+   "AXE-36E"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-42",
+  "product_name": "42\" Double Access Doors",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.25,
+   "h": 18.5,
+   "d": 21.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). The sheet lists this depth with the door/drawer cutouts. Same cutout: AXE-42E.",
+  "also": [
+   "AXE-42E"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-17L",
+  "product_name": "17\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.875,
+   "h": 18.5,
+   "d": 21.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). The sheet lists this depth with the door/drawer cutouts. Same cutout: AXE-17R, AXE-17E.",
+  "also": [
+   "AXE-17R",
+   "AXE-17E"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-23L",
+  "product_name": "23\" Single Access Door",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 19.875,
+   "h": 18.5,
+   "d": 21.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). The sheet lists this depth with the door/drawer cutouts. Same cutout: AXE-23R, AXE-23E.",
+  "also": [
+   "AXE-23R",
+   "AXE-23E"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-DDC-L-SC",
+  "product_name": "32\" Door & Drawer Combo (soft close)",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29.375,
+   "h": 18.625,
+   "d": 19.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Same cutout: AXE-DDC-R-SC.",
+  "designer_key": "AXE-DDC-L-SC",
+  "popular": 4,
+  "also": [
+   "AXE-DDC-R-SC"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-DDR-L-SC",
+  "product_name": "Door & 2-Drawer Vertical Combo (soft close)",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 26.25,
+   "d": 19.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Same cutout: AXE-DDR-R-SC.",
+  "also": [
+   "AXE-DDR-R-SC"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-3DRTH-SC",
+  "product_name": "3-Drawer & Towel Holder (soft close)",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 26.25,
+   "d": 19.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-DTH-L",
+  "product_name": "Door & Towel Holder",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 26.25,
+   "d": 8.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Same cutout: AXE-DTH-R.",
+  "also": [
+   "AXE-DTH-R"
+  ]
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-2DR-SC",
+  "product_name": "2-Drawer (soft close)",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.625,
+   "h": 12.25,
+   "d": 19.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-3DR-SC",
+  "product_name": "3-Drawer (soft close)",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.625,
+   "h": 18.625,
+   "d": 19.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019).",
+  "designer_key": "AXE-3DR-SC"
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-30DR-SC",
+  "product_name": "30\" Storage Drawer (soft close)",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.75,
+   "h": 14,
+   "d": 23.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEWD-30",
+  "product_name": "30\" Warming Drawer",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 10,
+   "d": 20.625
+  },
+  "fuel_power": "Electric: 115VAC, 3.9A",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-ID",
+  "product_name": "Built-In Ice Drawer",
+  "category": "ice drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 17.75,
+   "d": 25.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). 5/8\" drain."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-TC-SC",
+  "product_name": "Trash Center (soft close)",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.5,
+   "h": 26.25,
+   "d": 18.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-TC2-SC",
+  "product_name": "Trash & Recycle Center (soft close)",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.875,
+   "h": 26.25,
+   "d": 18.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-TC2D-SC",
+  "product_name": "Trash & Recycle Center, deep (soft close)",
+  "category": "trash / recycle",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.25,
+   "h": 26.25,
+   "d": 24.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-TH",
+  "product_name": "Towel Holder",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 8.5,
+   "d": 7.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEDSP-30H",
+  "product_name": "30\" Dry Storage Pantry, tall",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.375,
+   "h": 31.75,
+   "d": 23.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEDSP-30L",
+  "product_name": "30\" Dry Storage Pantry, low",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.375,
+   "h": 19.375,
+   "d": 23.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEDSP-36L",
+  "product_name": "36\" Dry Storage Pantry, low",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.375,
+   "h": 19.375,
+   "d": 23.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEDSP-42H",
+  "product_name": "42\" Dry Storage Pantry, tall",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.375,
+   "h": 31.75,
+   "d": 23.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXEDSP-42L",
+  "product_name": "42\" Dry Storage Pantry, low",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.375,
+   "h": 19.375,
+   "d": 23.875
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019)."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "URS-1XE",
+  "product_name": "28\" Under-Counter Refrigerator",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.5,
+   "h": 35,
+   "d": 23.375
+  },
+  "fuel_power": "Electric: 115VAC, 2.8A",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019).",
+  "designer_key": "URS-1XE"
+ },
+ {
+  "brand": "Alfresco",
+  "model": "ARXE-42",
+  "product_name": "42\" Refreshment Center",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.5,
+   "h": 21.75,
+   "d": 23.25
+  },
+  "fuel_power": "Electric: 115VAC, 2.9A",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Notch 2\"."
+ },
+ {
+  "brand": "Alfresco",
+  "model": "AXE-PZA-BI",
+  "product_name": "30\" Built-In Pizza Oven",
+  "category": "pizza oven",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 33,
+   "d": 27
+  },
+  "fuel_power": "Gas: natural gas or propane; 115VAC",
+  "spec_sheet_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019). Front-opening dimensions; needs a 2\" ledge each side and combustion air from below."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDV1",
+  "product_name": "Vertical Door - 19H x 14W - VDV1",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/vertical-door-vdv1",
+  "source_url": "https://rcsgasgrills.com/products/vertical-door-vdv1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-1/2\" Wide x 19-1/2\" High\").",
+  "discontinued": true,
+  "replaced_by": "VDV1SC"
+ },
+ {
+  "brand": "RCS",
+  "model": "VDD1",
+  "product_name": "Double Doors 33W X 22H- VDD1",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-door-vdd1",
+  "source_url": "https://rcsgasgrills.com/products/double-door-vdd1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" Wide x 19 1/2\" High\").",
+  "discontinued": true,
+  "replaced_by": "VDD1SC"
+ },
+ {
+  "brand": "RCS",
+  "model": "RCG32",
+  "product_name": "32\" Classic Built-In Grill - RCG32",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.25,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/32-classic-built-in-grill-rcg32",
+  "source_url": "https://rcsgasgrills.com/products/32-classic-built-in-grill-rcg32",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" W x 8-1/4\" H x 21\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJCSB3",
+  "product_name": "Power Burner Insulating Liner for CSB3",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.875,
+   "h": 10.25,
+   "d": 18.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/cutlass-elite-power-burner-insulating-liner-for-csb3",
+  "source_url": "https://rcsgasgrills.com/products/cutlass-elite-power-burner-insulating-liner-for-csb3",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-7/8\" Wide X 18-3/4\" Deep X 10-1/4\" High\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "CSB3",
+  "product_name": "Cutlass Elite Pro Burner - CSB3",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13.75,
+   "h": 9.125,
+   "d": 17.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/cutlass-elite-pro-burner-csb3",
+  "source_url": "https://rcsgasgrills.com/products/cutlass-elite-pro-burner-csb3",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"13 3/4\" Wide x 17 5/8\" Deep x 9 1/8\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "CDB1EL",
+  "product_name": "Cutlass Elite Double Side Burner - CDB1EL",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.75,
+   "h": 9,
+   "d": 18.625
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/cutlass-elite-double-side-burner-cdb1el",
+  "source_url": "https://rcsgasgrills.com/products/cutlass-elite-double-side-burner-cdb1el",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-3/4\" Wide x 18-5/8\" Deep x 9\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "CEG30",
+  "product_name": "30\" Cutlass Elite Built-In Gas Grill - CEG30",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33,
+   "h": 11,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/30inch-cutlass-elite-built-in-gas-grill-geg30",
+  "source_url": "https://rcsgasgrills.com/products/30inch-cutlass-elite-built-in-gas-grill-geg30",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"33\" Wide x 20\" Deep x 11\" High\").",
+  "popular": 4
+ },
+ {
+  "brand": "RCS",
+  "model": "CEG38",
+  "product_name": "38\" Cutlass Elite Built-In Gas Grill - CEG38",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 41.25,
+   "h": 11,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/38inch-cutlass-elite-built-in-gas-grill-ceg38",
+  "source_url": "https://rcsgasgrills.com/products/38inch-cutlass-elite-built-in-gas-grill-ceg38",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"41-1/4\" Wide X 20\" Deep X 11\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "REFR2C",
+  "product_name": "Refrigerator - REFR2C",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.625,
+   "h": 32.5,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refrigerator-refr2c",
+  "source_url": "https://rcsgasgrills.com/products/refrigerator-refr2c",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-5/8\" W x 32-1/2\" H x 23\" D\").",
+  "designer_key": "REFR2",
+  "popular": 6
+ },
+ {
+  "brand": "RCS",
+  "model": "REFR2D",
+  "product_name": "Refrigerator - REFR2D",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.625,
+   "h": 32.5,
+   "d": 23
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refrigerator-with-glass-door-refr2d",
+  "source_url": "https://rcsgasgrills.com/products/refrigerator-with-glass-door-refr2d",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-5/8\" W x 32-1/2\" H x 23\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RTR5",
+  "product_name": "Refrigerator Trim Kit for REFR5 - RTR5",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.75,
+   "h": 34.75,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/trim-kit-for-refr5-rwc1-rtr5",
+  "source_url": "https://rcsgasgrills.com/products/trim-kit-for-refr5-rwc1-rtr5",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 3/4\" Wide x 34 3/4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDV2SC",
+  "product_name": "Vertical Door 20\"w X 27\"h - VDV2SC",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.5,
+   "h": 24.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/vertical-door-20inch-wide-27inch-high-vdv2sc",
+  "source_url": "https://rcsgasgrills.com/products/vertical-door-20inch-wide-27inch-high-vdv2sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17-1/2\" Wide x 24-1/2\" High\"). Same cutout: VDV2SCL, VDV2SCR.",
+  "also": [
+   "VDV2SCL",
+   "VDV2SCR"
+  ]
+ },
+ {
+  "brand": "RCS",
+  "model": "VDV1SC",
+  "product_name": "Vertical Door 17\"W x 22\"H - VDV1SC",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/vertical-door-17inch-wide-22inch-high-vdv1sc",
+  "source_url": "https://rcsgasgrills.com/products/vertical-door-17inch-wide-22inch-high-vdv1sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-1/2\" Wide x 19-1/2\" High\"). Same cutout: VDV1SCL, VDV1SCR.",
+  "also": [
+   "VDV1SCL",
+   "VDV1SCR"
+  ]
+ },
+ {
+  "brand": "RCS",
+  "model": "VDU2",
+  "product_name": "Accessory & Tool Drawer - Large - VDU2",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.875,
+   "h": 12.5,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/accessory-tool-drawer-vdu2",
+  "source_url": "https://rcsgasgrills.com/products/accessory-tool-drawer-vdu2",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"27-7/8\" W x 12-1/2\" H x 21\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDH1SC",
+  "product_name": "Horizontal Door 27\"W x 20\"H - VDH1SC",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 17.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/horizontal-door-27inch-wide-20inch-high-vdh1sc",
+  "source_url": "https://rcsgasgrills.com/products/horizontal-door-27inch-wide-20inch-high-vdh1sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24 1/2\" Wide x 17 1/2\" High\"). Same cutout: VDH1SCL, VDH1SCR.",
+  "also": [
+   "VDH1SCL",
+   "VDH1SCR"
+  ]
+ },
+ {
+  "brand": "RCS",
+  "model": "VDC2SC",
+  "product_name": "Triple Drawers w/ Single Door - VDC2SC",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 19.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/triple-drawer-single-door-combo-vdc2sc",
+  "source_url": "https://rcsgasgrills.com/products/triple-drawer-single-door-combo-vdc2sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/2\" Wide x 19-1/2\" High x 22\" Deep\"). Same cutout: VDC2SCL, VDC2SCR.",
+  "also": [
+   "VDC2SCL",
+   "VDC2SCR"
+  ]
+ },
+ {
+  "brand": "RCS",
+  "model": "VDD2SC",
+  "product_name": "Double Doors 45\"W x 22\"H - VDD2SC",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.5,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-doors-45inch-wide-by-22inch-high-vdd2sc",
+  "source_url": "https://rcsgasgrills.com/products/double-doors-45inch-wide-by-22inch-high-vdd2sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42-1/2\" Wide x 19-1/2\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDD1SC",
+  "product_name": "Double Doors 33\"W x 22\"H - VDD1SC",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-doors-33w-x-22h-vdd1sc",
+  "source_url": "https://rcsgasgrills.com/products/double-doors-33w-x-22h-vdd1sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/2\" Wide x 19-1/2\" High\").",
+  "designer_key": "VDD1",
+  "popular": 5
+ },
+ {
+  "brand": "RCS",
+  "model": "VDD3SC",
+  "product_name": "Double Doors 33\"W x 16\"H - VDD3SC",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 13.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-doors-33-inch-by-16-inch-vdd3sc",
+  "source_url": "https://rcsgasgrills.com/products/double-doors-33-inch-by-16-inch-vdd3sc",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/4\" Wide x 13-1/4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDC1SC",
+  "product_name": "Double Drawers w/ Single Door - VDC1SC",
+  "category": "door/drawer combo",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 19.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-drawer-single-door-combo-vdc1scl-vdc1scr",
+  "source_url": "https://rcsgasgrills.com/products/double-drawer-single-door-combo-vdc1scl-vdc1scr",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/2\" Wide x 22\" Deep x 19-1/2\" High\"). Same cutout: VDC1SCL, VDC1SCR.",
+  "designer_key": "VDC1",
+  "also": [
+   "VDC1SCL",
+   "VDC1SCR"
+  ]
+ },
+ {
+  "brand": "RCS",
+  "model": "RCBH",
+  "product_name": "Cutting Board & Trim Kit - RCBH",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.125,
+   "h": null,
+   "d": 27.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/cutting-board-and-trim-kit-rcbh",
+  "source_url": "https://rcsgasgrills.com/products/cutting-board-and-trim-kit-rcbh",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"27 1/8\" W x 27 1/8\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RJCC32A",
+  "product_name": "32\" Premier Built-In Charcoal Grill - RJCC32A",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.25,
+   "d": 20.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/32inch-premier-series-charcoal-built-in-grill-head-rjcc32a",
+  "source_url": "https://rcsgasgrills.com/products/32inch-premier-series-charcoal-built-in-grill-head-rjcc32a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" Wide x 20-1/2\" Deep x 8-1/4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "REFR3A",
+  "product_name": "Nugget Ice Maker - REFR3A",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 34.25,
+   "d": 22.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/nugget-ice-maker-refr3a",
+  "source_url": "https://rcsgasgrills.com/products/nugget-ice-maker-refr3a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-1/4\" Wide X 34-1/4\" High X 22-1/2\" Deep\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRJCSB3A",
+  "product_name": "Side Burner Insulating Liner for RJCSB3A & RJCSB3AL",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16,
+   "h": 9,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rjcsb3a-rjcsb3al-insulating-liner-ljrjcsb3a",
+  "source_url": "https://rcsgasgrills.com/products/rjcsb3a-rjcsb3al-insulating-liner-ljrjcsb3a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"16\" Wide x 20\" Deep x 9\" High\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "RJCSB3AL",
+  "product_name": "Premier Pro Burner w/ LED Lights - RJCSB3AL",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14,
+   "h": 8,
+   "d": 19
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-with-blue-led-lights-rjcsb3al",
+  "source_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-with-blue-led-lights-rjcsb3al",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14\" Wide x 19\" Deep x 8\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RJCSB3A",
+  "product_name": "Premier Pro Burner - RJCSB3A",
+  "category": "power burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14,
+   "h": 8,
+   "d": 19
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-rjcsb3a",
+  "source_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-rjcsb3a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14\" Wide x 19\" Deep x 8\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RSNK3A",
+  "product_name": "32\" Outdoor Farm House Sink - RSNK3A",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.75,
+   "h": 8,
+   "d": 17.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/32inch-stainless-steel-outdoor-farm-house-sink-and-faucet-rsnk3a",
+  "source_url": "https://rcsgasgrills.com/products/32inch-stainless-steel-outdoor-farm-house-sink-and-faucet-rsnk3a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-3/4\" W x 17-3/8\" D x 8\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RTB1",
+  "product_name": "Timer Mounting Box Kit for RGT1 Gas Timer - RTB1",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 6.5,
+   "h": 6.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/timer-mounting-box-for-gas-timer-rtb1",
+  "source_url": "https://rcsgasgrills.com/products/timer-mounting-box-for-gas-timer-rtb1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6-1/2\" Wide x 6-1/2\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VSD1",
+  "product_name": "Spice Rack Drawer - VSD1",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.5,
+   "h": 24,
+   "d": 19.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/outdoor-kitchen-spice-rack-drawer-vsd1",
+  "source_url": "https://rcsgasgrills.com/products/outdoor-kitchen-spice-rack-drawer-vsd1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-1/2\" Wide x 19-1/2\" Deep x 24\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDD4",
+  "product_name": "Double Doors 45W x 16H - VDD4",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.25,
+   "h": 13.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/low-profile-double-door-vdd4",
+  "source_url": "https://rcsgasgrills.com/products/low-profile-double-door-vdd4",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42-1/4\" Wide x 13-1/4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VTH1",
+  "product_name": "Paper Towel Holder Drawer - VTH1",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.5,
+   "h": 8.5,
+   "d": 8.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/single-paper-towel-holder-vth1",
+  "source_url": "https://rcsgasgrills.com/products/single-paper-towel-holder-vth1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-1/2\" Wide x 8-1/2\" Deep x 8-1/2\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDP1",
+  "product_name": "Double Door with Pantry Shelves - Fully Enclosed - VDP1",
+  "category": "dry storage",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 19.5,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/dry-pantry-vdp1",
+  "source_url": "https://rcsgasgrills.com/products/dry-pantry-vdp1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" W x 21\" D x 19 1/2\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RWC1",
+  "product_name": "Wine Cooler - RWC1",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.25,
+   "h": 34.25,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/15inch-dual-zone-wine-cooler-rwc1",
+  "source_url": "https://rcsgasgrills.com/products/15inch-dual-zone-wine-cooler-rwc1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-1/4\" wide x 24\" deep x 34-1/4\" high\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJASBSSB",
+  "product_name": "Side Burner Insulating Liner for ASBSSB",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.5,
+   "h": 11.25,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/arg-asbssb-insulating-liner-ljasbssb",
+  "source_url": "https://rcsgasgrills.com/products/arg-asbssb-insulating-liner-ljasbssb",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 24\" Deep x 11 1/4\" High\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "ASBSSB",
+  "product_name": "ARG Double Side Burner - ASBSSB",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": null,
+   "h": 10.25,
+   "d": 23.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/arg-double-side-burner-asbssb",
+  "source_url": "https://rcsgasgrills.com/products/arg-double-side-burner-asbssb",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"13 1/5\" Wide x 23 1/4\" Deep x 10 1/4\" High\"). The page prints the width as 13 1/5\", which looks like a typo, so it is left to the spec sheet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJARG36",
+  "product_name": "Grill Insulating Liner for 36\" ARG Grill Head - LJARG36",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 36.625,
+   "h": 11.375,
+   "d": 24.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/arg36-insulating-liner-ljarg36",
+  "source_url": "https://rcsgasgrills.com/products/arg36-insulating-liner-ljarg36",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"36 5/8\" Wide x 24 3/8\" Deep x 11 3/8\" High\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJARG30",
+  "product_name": "Grill Insulating Liner for 30\" ARG Grill Head - LJARG30",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.75,
+   "h": 11.375,
+   "d": 24.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/arg30-insulating-liner-ljarg30",
+  "source_url": "https://rcsgasgrills.com/products/arg30-insulating-liner-ljarg30",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 3/4\" Wide x 24 3/8\" Deep x 11 3/8\" High\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRSB3A",
+  "product_name": "Side Burner Insulating Liner for RSB3A",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16,
+   "h": 10.625,
+   "d": 20.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rsb3a-insulating-liner-ljrsb3a",
+  "source_url": "https://rcsgasgrills.com/products/rsb3a-insulating-liner-ljrsb3a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"16\" W x 20 1/8\" D x 10 5/8\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDCL1",
+  "product_name": "Double Drawers with Propane Drawer - VDCL1",
+  "category": "trash / propane",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.5,
+   "h": 19.5,
+   "d": 20.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-drawer-lp-drawer-combo-vdcl1",
+  "source_url": "https://rcsgasgrills.com/products/double-drawer-lp-drawer-combo-vdcl1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" Wide x 20 3/4\" Deep x 19 1/2\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VTD4",
+  "product_name": "Narrow Trash Drawer - VTD4",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.75,
+   "h": 24,
+   "d": 19.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/narrow-trash-drawer-vtd4",
+  "source_url": "https://rcsgasgrills.com/products/narrow-trash-drawer-vtd4",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-3/4\" Wide x 19-1/2\" Deep x 24\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VLSD1",
+  "product_name": "Kamado Shelf and Storage Drawer - VLSD1",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.25,
+   "h": 19,
+   "d": 27.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/kamado-shelf-drawer-vlsd1",
+  "source_url": "https://rcsgasgrills.com/products/kamado-shelf-drawer-vlsd1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/4\" W x 27-1/2\" D x 19\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VIC2",
+  "product_name": "Drop-In Cooler - VIC2",
+  "category": "ice bin",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.25,
+   "h": 13,
+   "d": 17.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/drop-in-ice-chest-vic2",
+  "source_url": "https://rcsgasgrills.com/products/drop-in-ice-chest-vic2",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23 1/4\" W x 17 1/4\" D x 13\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDCP1",
+  "product_name": "Charcoal / Pellet Storage Drawer - VDCP1",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 11.5,
+   "h": 24,
+   "d": 25.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/charcoal-pellet-storage-drawer-vdcp1",
+  "source_url": "https://rcsgasgrills.com/products/charcoal-pellet-storage-drawer-vdcp1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11 1/2\" Wide x 25 1/4\" Deep x 24\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VTC1",
+  "product_name": "Trash Chute - VTC1",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 6.5,
+   "h": 4,
+   "d": 8
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/trash-chute-vtc1",
+  "source_url": "https://rcsgasgrills.com/products/trash-chute-vtc1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6 1/2\" Wide x 8\" Deep x 4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RTR1A",
+  "product_name": "Trim Kit for REFR1A - RTR1A",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21.25,
+   "h": 33,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refr1a-refrigerator-trim-rtr1a",
+  "source_url": "https://rcsgasgrills.com/products/refr1a-refrigerator-trim-rtr1a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"21 - 1/4\" Wide x 33\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDU1",
+  "product_name": "Accessory & Tool Drawer - VDU1",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 4,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/accessory-tool-drawer-vdu1",
+  "source_url": "https://rcsgasgrills.com/products/accessory-tool-drawer-vdu1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24\" Wide x 21\" Deep x 4\" High\").",
+  "designer_key": "RDU1"
+ },
+ {
+  "brand": "RCS",
+  "model": "VTHC1",
+  "product_name": "Double Drawers with Paper Towel Holder - VTHC1",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.5,
+   "h": 27.75,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-drawer-paper-towel-holder-vthc1",
+  "source_url": "https://rcsgasgrills.com/products/double-drawer-paper-towel-holder-vthc1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 22\" Deep x 27 3/4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VTD3",
+  "product_name": "Triple Drawer - VTD3",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15.5,
+   "h": 27.75,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/triple-drawer-vtd3",
+  "source_url": "https://rcsgasgrills.com/products/triple-drawer-vtd3",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 22\" Deep x 27 3/4\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VTD2",
+  "product_name": "Double Trash Drawer - VTD2",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.625,
+   "h": 24.625,
+   "d": 27.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-trash-drawer-vtd2",
+  "source_url": "https://rcsgasgrills.com/products/double-trash-drawer-vtd2",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17 5/8\" Wide x 27 1/2\" Deep x 24 5/8\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VTD1",
+  "product_name": "Single Trash Drawer - VTD1",
+  "category": "trash",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 17.875,
+   "h": 25,
+   "d": 17.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/trash-drawer-vtd1",
+  "source_url": "https://rcsgasgrills.com/products/trash-drawer-vtd1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17 7/8\" Wide x 17 1/2\" Deep x 25\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDR1",
+  "product_name": "Double Drawers- VDR1",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15,
+   "h": 19.5,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/double-drawer-vdr1",
+  "source_url": "https://rcsgasgrills.com/products/double-drawer-vdr1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15\" Wide x 22\" Deep x 19 1/2\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDH1",
+  "product_name": "Horizontal Door - VDH1",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 17.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/horizontal-door-vdh1",
+  "source_url": "https://rcsgasgrills.com/products/horizontal-door-vdh1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24 1/2\" Wide x 17 1/2\" High\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "VDD2",
+  "product_name": "Double Doors 45W X 22H - VDD2",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 42.5,
+   "h": 19.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/large-double-door-vdd2",
+  "source_url": "https://rcsgasgrills.com/products/large-double-door-vdd2",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42 1/2\" Wide x 19 1/2\" High\").",
+  "discontinued": true,
+  "replaced_by": "VDD2SC"
+ },
+ {
+  "brand": "RCS",
+  "model": "RWD1",
+  "product_name": "Warming Drawer - RWD1",
+  "category": "warming drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 34.25,
+   "h": 10.125,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/electic-warming-drawer-rwd1",
+  "source_url": "https://rcsgasgrills.com/products/electic-warming-drawer-rwd1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"34 1/4\" W x 21\" D x 10 1/8\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RVNT1",
+  "product_name": "Outdoor Kitchen Ventilation Panel - RVNT1",
+  "category": "vent",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 13,
+   "h": 4,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/outdoor-kitchen-ventilation-panel-rvnt1",
+  "source_url": "https://rcsgasgrills.com/products/outdoor-kitchen-ventilation-panel-rvnt1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"13\" W x 4\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RTR4",
+  "product_name": "Trim Kit for REFR4 - RTR4",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 25,
+   "h": 34.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refr4-refrigerator-trim-kit-rtr4",
+  "source_url": "https://rcsgasgrills.com/products/refr4-refrigerator-trim-kit-rtr4",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"25\" W x 34 1/2\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RTR3",
+  "product_name": "Trim Kit for REFR3 - RTR3",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 16,
+   "h": 34,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refr3-ice-maker-trim-kit-rtr3",
+  "source_url": "https://rcsgasgrills.com/products/refr3-ice-maker-trim-kit-rtr3",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"16\" W x 34\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RTR2",
+  "product_name": "Trim Kit for REFR2 - RTR2",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24.5,
+   "h": 33.25,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refr2a-refrigerator-trim-rtr2",
+  "source_url": "https://rcsgasgrills.com/products/refr2a-refrigerator-trim-rtr2",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24-1/2\" W x 33-1/4\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RSNK2",
+  "product_name": "Stainless Undermount Sink - RSNK2",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21,
+   "h": null,
+   "d": 15.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/stainless-undermount-sink-rsnk2",
+  "source_url": "https://rcsgasgrills.com/products/stainless-undermount-sink-rsnk2",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"21\" W x 15 3/4\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RSNK1",
+  "product_name": "Stainless Sink & Faucet - RSNK1",
+  "category": "sink / bar center",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": null,
+   "d": 14.375
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/stainless-sink-rsnk1",
+  "source_url": "https://rcsgasgrills.com/products/stainless-sink-rsnk1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14 3/8\" W x 14 3/8\" D with 1\" x 1\" angle cuts in the corners.\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RSB1",
+  "product_name": "Single Side Burner - RSB1",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 7.75,
+   "h": null,
+   "d": 15.5
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/single-side-burner-rsb1",
+  "source_url": "https://rcsgasgrills.com/products/single-side-burner-rsb1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"7 3/4\" W x 15 1/2\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RON30B",
+  "product_name": "30\" Cutlass Pro Built-In Grill - RON30B",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33,
+   "h": 11,
+   "d": 20
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/30inch-cutlass-pro-built-in-grill-head-ron30b",
+  "source_url": "https://rcsgasgrills.com/products/30inch-cutlass-pro-built-in-grill-head-ron30b",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"33\" W x 20\" D x 11\" H\"). Same cutout: RON30A.",
+  "designer_key": "RON30A",
+  "popular": 2,
+  "also": [
+   "RON30A"
+  ]
+ },
+ {
+  "brand": "RCS",
+  "model": "RJCSSBL",
+  "product_name": "Premier Double Side Burner w/ LED Lights - RJCSSBL",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 10.75,
+   "h": 8,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-double-side-burner-with-blue-led-lights-rjcssbl",
+  "source_url": "https://rcsgasgrills.com/products/premier-double-side-burner-with-blue-led-lights-rjcssbl",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"10 3/4\" W x 8\" H x 21\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RJCSSB",
+  "product_name": "Premier Double Side Burner - RJCSSB",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 10.75,
+   "h": 8,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-double-side-burner-rjcssb",
+  "source_url": "https://rcsgasgrills.com/products/premier-double-side-burner-rjcssb",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"10 3/4\" W x 8\" H x 21\" D\").",
+  "designer_key": "RJCSSB"
+ },
+ {
+  "brand": "RCS",
+  "model": "RJC40AL",
+  "product_name": "40\" Premier Built-In Grill w/ LED Lights - RJC40AL",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.75,
+   "h": 8.25,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-40-inch-grill-with-blue-led-lights-rjc40al",
+  "source_url": "https://rcsgasgrills.com/products/premier-40-inch-grill-with-blue-led-lights-rjc40al",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"37-3/4\" W x 8-1/4\" H x 21\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RJC40A",
+  "product_name": "40\" Premier Built-In Grill - RJC40A",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 37.75,
+   "h": 8.25,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/40-inch-premier-grill-rjc40a",
+  "source_url": "https://rcsgasgrills.com/products/40-inch-premier-grill-rjc40a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"37-3/4\" W x 8-1/4\" H x 21\" D\").",
+  "designer_key": "RJC40A",
+  "popular": 3
+ },
+ {
+  "brand": "RCS",
+  "model": "RJC32AL",
+  "product_name": "32\" Premier Built-In Grill w/ LED Lights - RJC32AL",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.25,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-32-inch-grill-with-blue-led-lights-rjc32al",
+  "source_url": "https://rcsgasgrills.com/products/premier-32-inch-grill-with-blue-led-lights-rjc32al",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" W x 8-\u00bc\" H x 21\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RJC32A",
+  "product_name": "32\" Premier Built-In Grill - RJC32A",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.25,
+   "d": 21
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/32-inch-premier-built-in-grill-rjc32a",
+  "source_url": "https://rcsgasgrills.com/products/32-inch-premier-built-in-grill-rjc32a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" W x 8-1/4\" H x 21\" D\").",
+  "designer_key": "RJC32A",
+  "popular": 1
+ },
+ {
+  "brand": "RCS",
+  "model": "RJC26A",
+  "product_name": "26\" Premier Built-In Grill - RJC26A",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 23.5,
+   "h": 8.25,
+   "d": 21.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/premier-grill-rjc26a",
+  "source_url": "https://rcsgasgrills.com/products/premier-grill-rjc26a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-1/2\" Wide x 21-1/4\" Deep x 8-1/4\" Height\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "REFR4",
+  "product_name": "Double Drawer Refrigerator - REFR4",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 24,
+   "h": 34.25,
+   "d": 23.75
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refr4-dual-drawer-refrigerator",
+  "source_url": "https://rcsgasgrills.com/products/refr4-dual-drawer-refrigerator",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24\" W x 34-1/4\" H x 23-3/4\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "REFR3",
+  "product_name": "Ice Maker - REFR3",
+  "category": "ice maker",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 15,
+   "h": 33.5,
+   "d": 24
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/ul-rated-ice-maker-refr3",
+  "source_url": "https://rcsgasgrills.com/products/ul-rated-ice-maker-refr3",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15\" W x 33 1/2\" H x 24\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "REFR1A",
+  "product_name": "Refrigerator - REFR1A",
+  "category": "refrigerator",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 20.25,
+   "h": 33,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/refrigerator-304-ss-reversible-door-w-lock-refr1a",
+  "source_url": "https://rcsgasgrills.com/products/refrigerator-304-ss-reversible-door-w-lock-refr1a",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"20 1/4\" W x 33\" H x 22\" D\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RDB1EL",
+  "product_name": "Cutlass Pro Double Side Burner - RDB1EL",
+  "category": "side burner",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12,
+   "h": 8,
+   "d": 19
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/cutlass-pro-double-side-burner-rdb1el",
+  "source_url": "https://rcsgasgrills.com/products/cutlass-pro-double-side-burner-rdb1el",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"12\" W x 19\" D x 8\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RAD88",
+  "product_name": "8\" x 8\" Recessed Access Panel - RAD88",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 8.625,
+   "h": 8.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rcs-8x8-inch-recessed-access-panel-rad88",
+  "source_url": "https://rcsgasgrills.com/products/rcs-8x8-inch-recessed-access-panel-rad88",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"8 5/8\" W x 8 3/8\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "RAD66",
+  "product_name": "6\" x 6\" Recessed Access Panel - RAD66",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 6.5,
+   "h": 6.375,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rcs-6x6-inch-recessed-access-panel",
+  "source_url": "https://rcsgasgrills.com/products/rcs-6x6-inch-recessed-access-panel",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6 1/2\" W x 6 3/8\" H\")."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRON42",
+  "product_name": "Grill Insulating Liner for 42\" Cutlass Pro Grill Head",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 47.5,
+   "h": 11.75,
+   "d": 21.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/ron42a-ron42b-insulating-liner-ljron42",
+  "source_url": "https://rcsgasgrills.com/products/ron42a-ron42b-insulating-liner-ljron42",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"47 1/2\" W X 21 1/4\" D X 11 3/4\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRON38",
+  "product_name": "Grill Insulating Liner for 38\" Cutlass Elite & Pro Grill Head",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 43.625,
+   "h": 12.25,
+   "d": 21.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/ron38a-ron38b-insulating-liner-ljron38",
+  "source_url": "https://rcsgasgrills.com/products/ron38a-ron38b-insulating-liner-ljron38",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"43 5/8\" W x 21 1/4\" D x 12 1/4\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRON30",
+  "product_name": "Grill Insulating Liner for 30\" Cutlass Elite & Pro Grill Heads",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 35.5,
+   "h": 11.75,
+   "d": 21.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/ron30a-ron30b-insulating-liner-ljron30",
+  "source_url": "https://rcsgasgrills.com/products/ron30a-ron30b-insulating-liner-ljron30",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"35 1/2\" W X 21 1/4\" D X 11 3/4\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRJCSSB",
+  "product_name": "Side Burner Insulating Liner for RJCSSB/RJCSSBL",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 12.875,
+   "h": 9.625,
+   "d": 22.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rjcssb-rjcssbl-insulating-liner-ljrjcssb",
+  "source_url": "https://rcsgasgrills.com/products/rjcssb-rjcssbl-insulating-liner-ljrjcssb",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"12 7/8\" W x 22 1/8\" D x 9 5/8\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRJC40",
+  "product_name": "Grill Insulating Liner for 40\" Premier Grill Heads",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.5,
+   "h": 9.25,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rjc40a-rjc40al-insulating-liner-ljrjc40",
+  "source_url": "https://rcsgasgrills.com/products/rjc40a-rjc40al-insulating-liner-ljrjc40",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"40 1/2\" W x 22\" D x 9 1/4\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRJC32",
+  "product_name": "Grill Insulating Liner 32\" Premier & Classic Series Grills",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 33,
+   "h": 9.625,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rjc32a-rjc32al-insulating-liner-ljrjc32",
+  "source_url": "https://rcsgasgrills.com/products/rjc32a-rjc32al-insulating-liner-ljrjc32",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"33\" W x 22\" D x 9 5/8\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRJC26",
+  "product_name": "Grill Insulating Liner for 26\" Premier Grill Head",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26,
+   "h": 9.625,
+   "d": 22
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rjc26a-insulating-liner-ljrjc26",
+  "source_url": "https://rcsgasgrills.com/products/rjc26a-insulating-liner-ljrjc26",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"26\" W x 22\" D X 9 5/8\" H\"). Required when the unit goes into a combustible cabinet."
+ },
+ {
+  "brand": "RCS",
+  "model": "LJRDB1",
+  "product_name": "Side Burner Insulating Liner for RDB1EL & CDB1EL",
+  "category": "accessory",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 14.375,
+   "h": 9.25,
+   "d": 20.25
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://rcsgasgrills.com/products/rdb1-rdb1el-insulating-liner-ljrdb1",
+  "source_url": "https://rcsgasgrills.com/products/rdb1-rdb1el-insulating-liner-ljrdb1",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-3/8\" W X 20-1/4\" D X 9-1/4\" H\"). Required when the unit goes into a combustible cabinet."
  }
 ]
