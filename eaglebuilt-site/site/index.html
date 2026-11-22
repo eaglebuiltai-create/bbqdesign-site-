@@ -31,6 +31,23 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <script src="/assets/install.js" defer></script>
 <link rel="stylesheet" href="/assets/site.css">
+<style>
+/* The voice button goes full width on a phone. Measured on this page at
+   375px: the hero buttons otherwise take about 168px each and sit one per
+   row, and any label past roughly fifteen characters wraps inside its own
+   button - "Build your island by voice" became three lines, 102px tall.
+   Given the whole row it is 335px wide and the same label fits on one line
+   at 61px. Scoped here rather than in site.css because .heroCta is shared
+   with pages that should keep their ordinary buttons. */
+@media (max-width: 700px) {
+  .heroCta .btnVoice {
+    width: 100%;
+    justify-content: center;
+    font-size: 17px;
+    padding: 16px;
+  }
+}
+</style>
 <!-- Preload the WebP the <picture> below will actually pick, not the JPEG
      fallback: preloading the JPEG made the browser fetch both. A browser
      without WebP support skips this on the type mismatch and loads the
@@ -123,22 +140,19 @@
         Real cutout dimensions from ten manufacturers, a price that updates as you build, and drawings
         good enough to hand a mason.
       </p>
-      <!-- Design Eagle sits second, not first. The 814 cutout pages lead with
-           it because search traffic arrives cold on a phone, where talking
-           beats tapping. Traffic that reaches the front door already knows who
-           we are, so the gated designer keeps the lead until the lead data
-           says otherwise. ?from=/ marks these as homepage-originated, the same
-           way each cutout page marks its own.
+      <!-- Voice leads here, as it does on all 814 cutout pages. Most visitors
+           arrive on a phone, where talking beats tapping, and it is the thing
+           nobody else offers - so it says what it does rather than naming
+           itself. The gated designer stays one tap below for anyone who would
+           rather lay it out by hand.
 
-           The label is short on purpose. Measured on the live page at 375px,
-           the buttons already take one row each; "Talk it through with Design
-           Eagle" wrapped to three lines inside its own button, 102px tall and
-           114px added to the stack. At fourteen characters this sits at 52px,
-           the same height as its neighbours. It also reads as the contrast to
-           "Start designing" next to it: talk, rather than tap. -->
+           ?from=/ marks these leads as homepage-originated, so they stay
+           distinguishable from the cutout pages and from cold arrivals. That
+           distinction is the whole point of the attribution: it is what lets
+           the gated and ungated funnels be compared rather than argued about. -->
       <div class="heroCta">
-        <a href="/design/" class="btn">Start designing</a>
-        <a href="/design-eagle/?from=%2F" class="btn ghost">Talk it through</a>
+        <a href="/design-eagle/?from=%2F" class="btn btnVoice">Build your island by voice</a>
+        <a href="/design/" class="btn ghost">Start designing</a>
         <a href="/consultation/" class="btn ghost">Free design consultation</a>
         <a href="/cost/" class="btn ghost">See what it costs</a>
       </div>
