@@ -22,6 +22,24 @@ works as a fallback.
 
 ---
 
+## Unreleased — 2026-11-21 (preview): equipment cutout reference
+
+`/dimensions/cutouts/` is now a searchable hub, with brand pages for Blaze,
+Hestan and Yoder and one page per model (`/dimensions/cutouts/<brand>/<model>/`).
+Built for someone standing at the slab: a search box at the top filters by
+model, brand or type as you type; cutout W × H × D in big fractions; overall
+size, spec sheet link and "verified" date on every row; a missing dimension
+says "check spec sheet", never a guess. No prices, ratings or reviews.
+
+Generated from `data/cutouts.json` (the 2026-11-21 equipment audit) by
+`node tools/build-cutouts.mjs`, which also refreshes the cutout URLs in
+`sitemap.xml`. "Design an island with this" opens the designer with the piece
+placed (`/design/app/?add=<key>`) when the designer carries the model.
+BLZ-26-PZOVN is not listed; BLZ-LTE3OVN replaces it and answers a search for
+the old number. `src/cutouts.test.mjs` holds the page rules.
+
+---
+
 ## Build 102 — 2026-11-04 (live): the plan prints to scale
 
 The title block has said **NTS** since it was built. A plan checker scales

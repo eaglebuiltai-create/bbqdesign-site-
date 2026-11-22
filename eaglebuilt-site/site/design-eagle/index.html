@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Eagle — Describe your BBQ island | EagleBuilt AI</title>
+<meta name="description" content="Describe an outdoor kitchen in plain English. Design Eagle lays it out in the EagleBuilt 3D designer, then emails you the design when you ask.">
+<link rel="canonical" href="https://eaglebuilt.ai/design-eagle/">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/assets/eaglebuilt-emblem.png">
+<link rel="stylesheet" href="/assets/design-eagle.css">
+<script src="/assets/track.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">EAGLEBUILT<i> AI</i><span>Design Eagle</span></div>
+  <a class="phone" id="phoneLink" href="tel:+19163599692">(916) 359-9692</a>
+</header>
+<main class="shell">
+  <section class="stage" aria-label="3D designer">
+    <div class="empty" id="empty">Describe an island and it shows up here, in the same 3D designer.</div>
+    <iframe id="designer" title="EagleBuilt 3D island designer" hidden></iframe>
+  </section>
+  <section class="chat" id="chat" aria-label="Design Eagle">
+    <div class="chatHead">
+      <b>Design Eagle</b>
+      <span>Type a layout. Voice uses this same thread later.</span>
+    </div>
+    <div class="thread">
+    <div class="log" id="log" role="log" aria-live="polite"></div>
+    </div>
+    <form class="composer" id="composer">
+      <p class="live" id="live" hidden></p>
+      <input id="text" type="text" maxlength="2000" autocomplete="off" aria-label="Describe your island" placeholder="L-shape, 10 ft grill leg with a side burner and fridge, 5 ft bar with 3 stools">
+      <button type="button" class="secondary mic" id="mic">Hold to talk</button>
+      <button class="go" type="submit">Draw</button>
+    </form>
+    <div class="book" id="book" hidden>
+      <h3 id="bookTitle">Book a live design session with John</h3>
+      <p id="bookPending">Live booking isn't connected yet.</p>
+      <a class="btn" id="bookPhone" href="tel:+19163599692">(916) 359-9692</a>
+    </div>
+    <form class="save" id="save" hidden>
+      <p class="err" id="saveErr" hidden></p>
+      <label>Name <input id="name" name="name" autocomplete="name" required></label>
+      <label>Email <input id="email" name="email" type="email" autocomplete="email" required></label>
+      <label>Phone <input id="phone" name="phone" type="tel" autocomplete="tel" required></label>
+      <div class="row">
+        <label>ZIP <em>optional</em><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code"></label>
+        <label>City <em>optional</em><input id="city" name="city" autocomplete="address-level2"></label>
+      </div>
+      <label>Notes <em>optional</em><textarea id="notes" name="notes" maxlength="400"></textarea></label>
+      <input class="hp" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="row">
+        <button class="secondary" type="button" id="saveBack">Back</button>
+        <button class="go" type="submit" id="saveGo">Email me this design</button>
+      </div>
+    </form>
+  </section>
+</main>
+<script type="module" src="/assets/design-eagle.js"></script>
+</body>
+</html>

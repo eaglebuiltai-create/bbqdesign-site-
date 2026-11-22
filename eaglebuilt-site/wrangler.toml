@@ -11,14 +11,30 @@
 # Run from:      C:\Users\johns\Eaglebuilt AI. Claude\eaglebuilt-site
 #
 # The site is static files in ./site. src/worker.js serves /api/confirm (the
-# customer design email), /api/leads (CRM proxy), and /api/chat (site widget).
-# Cloudflare serves matching files from ./site BEFORE the script runs, so a
-# fault in the worker cannot take the website down.
+# customer design email), /api/leads (CRM proxy), /api/chat (site widget),
+# and /api/chat-lead (a confirmed chat lead). run_worker_first is on so the
+# www redirect runs first; every other request is an API route or env.ASSETS.
 #
 # API keys are NOT here. They live in Cloudflare's secret store:
 #   npx wrangler secret put RESEND_API_KEY
 #   npx wrangler secret put XAI_API_KEY
-# Do not put either key in this file or in client JavaScript.
+#   npx wrangler secret put LEAD_SLACK_WEBHOOK_URL
+#   npx wrangler secret put ELEVENLABS_API_KEY
+# Do not put a key or a webhook URL in this file or in client JavaScript.
+#
+# EAGLE_LIMITS is the shared per-IP counter for chat, leads, and Design Eagle
+# voice. One Durable Object per address. KV cannot do this: one key accepts
+# one write per second and reads stay cached, so a burst of session mints
+# all see zero. Deploying this file creates the class (migration
+# v1-eagle-limits). A preview Worker that uses a different config needs the
+# same binding and migration copied in before that deploy. Until the binding
+# is present, the worker logs once and falls back to a per-isolate counter.
+#
+# CHAT_LEADS is the durable copy of each chat lead. Create it once, paste the
+# id below, then deploy. Until that id is real, `npx wrangler deploy` will
+# refuse to publish — the code itself treats a missing binding as "log and
+# continue", but a placeholder id must not be deployed.
+#   npx wrangler kv namespace create CHAT_LEADS
 
 name = "fragrant-butterfly-5c92"
 main = "src/worker.js"
@@ -49,3 +65,33 @@ preview_urls = true
 directory = "./site"
 binding = "ASSETS"
 run_worker_first = true
+
+# Durable copy of chat leads. Created 2026-11-22.
+[[kv_namespaces]]
+binding = "CHAT_LEADS"
+id = "7f4c0642b9574cfb8f1740accdfa54bb"
+
+# Email a chat lead to info@eaglebuilt.ai. The recipient has to be a verified
+# Email Routing destination (or the domain onboarded for Email Sending) or
+# send() fails at runtime. Slack and KV still run. See the pull request.
+[[send_email]]
+name = "EMAIL"
+destination_address = "info@eaglebuilt.ai"
+
+# Optional training log of turns that did not land. Unbound, the worker
+# ignores them, so production stays off until you create the namespace,
+# paste the id, and set the read token:
+#   npx wrangler kv namespace create EAGLE_MISSES
+#   npx wrangler secret put MISS_LOG_TOKEN
+# [[kv_namespaces]]
+# binding = "EAGLE_MISSES"
+# id = "<paste>"
+
+# Shared rate-limit counter. See the comment at the top of this file.
+[[durable_objects.bindings]]
+name = "EAGLE_LIMITS"
+class_name = "EagleRateLimit"
+
+[[migrations]]
+tag = "v1-eagle-limits"
+new_sqlite_classes = [ "EagleRateLimit" ]
