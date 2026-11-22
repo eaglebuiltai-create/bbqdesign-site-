@@ -35,9 +35,12 @@ if ($SkipTests) {
   Push-Location $site
   try {
     $out = & npm test 2>&1 | Out-String
-    $line = ($out -split "`n" | Where-Object { $_ -match '^\s*.\s*(pass|fail)\s+\d+' }) -join '  '
-    if ($line) { "  $($line.Trim())" }
-    if ($out -match '^\s*.\s*fail\s+([1-9]\d*)' ) {
+    # Not anchored to the leading glyph: node prints "i tests 296" with a
+    # character the console re-encodes into mojibake, which ate the match.
+    foreach ($k in 'tests', 'pass', 'fail') {
+      if ($out -match "(?m)\b$k\s+(\d+)\s*$") { "  $k : $($Matches[1])" }
+    }
+    if ($out -match '(?m)\bfail\s+([1-9]\d*)\s*$') {
       throw "Tests failed - not deploying. Run 'npm test' in $site to see which."
     }
   } finally { Pop-Location }
@@ -84,22 +87,33 @@ $checks = @(
   @{ path = 'site/design/app/index.html'; url = 'https://eaglebuilt.ai/design/app/' },
   @{ path = 'site/assets/eagle-engine.js'; url = 'https://eaglebuilt.ai/assets/eagle-engine.js' }
 )
+# Cloudflare Web Analytics injects a beacon script into HTML responses, so
+# the bytes on the wire are legitimately not the bytes on disk. Strip that
+# one line before comparing, or every HTML check reports a false DIFFERS.
+function Get-Body([string]$path) {
+  $t = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::UTF8)
+  $t = [regex]::Replace($t, '(?m)^[^\r\n]*cloudflareinsights\.com[^\r\n]*\r?\n?', '')
+  $sha = [System.Security.Cryptography.SHA256]::Create()
+  try {
+    $h = $sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($t))
+    return @{ hash = [BitConverter]::ToString($h).Replace('-', ''); len = $t.Length }
+  } finally { $sha.Dispose() }
+}
+
 $bad = 0
 foreach ($c in $checks) {
   $local = Join-Path $site $c.path
   if (-not (Test-Path $local)) { continue }
-  $localHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $local).Hash
   $tmp = [System.IO.Path]::GetTempFileName()
   try {
     $u = $c.url + '?cb=' + [guid]::NewGuid().ToString('N')
-    Invoke-WebRequest -Uri $u -OutFile $tmp -UseBasicParsing -TimeoutSec 90 | Out-Null
-    $liveHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $tmp).Hash
-    $lb = (Get-Item $local).Length
-    $vb = (Get-Item $tmp).Length
-    if ($localHash -eq $liveHash) {
-      "  MATCH    $($c.path)  ($lb bytes)"
+    (New-Object System.Net.WebClient).DownloadFile($u, $tmp)
+    $l = Get-Body $local
+    $v = Get-Body $tmp
+    if ($l.hash -eq $v.hash) {
+      "  MATCH    $($c.path)  ($($l.len) chars)"
     } else {
-      "  DIFFERS  $($c.path)  local $lb bytes, live $vb bytes"
+      "  DIFFERS  $($c.path)  local $($l.len) chars, live $($v.len)"
       "           the deploy did not ship this file - do not trust the upload log"
       $bad++
     }
