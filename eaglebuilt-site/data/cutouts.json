@@ -5841,7 +5841,15 @@
   "designer_key": "LDR30T",
   "also": [
    "LD30T"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx LDR30T drawing \"w/ dimensions\", front view: 29 11/16\" W x 23 3/8\" H",
+   "w": 29.6875,
+   "h": 23.375,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/324"
+  }
  },
  {
   "brand": "Lynx",
@@ -5860,7 +5868,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Depth not on the cutout drawing.",
-  "designer_key": "LTA30"
+  "designer_key": "LTA30",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx LTA30 drawing, front view: 30\" W x 23\" H",
+   "w": 30,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/305"
+  }
  },
  {
   "brand": "Lynx",
@@ -5881,7 +5897,15 @@
   "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; no depth on the drawing. Same cutout: LDR18R.",
   "also": [
    "LDR18R"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx LDR18L drawing \"w/ dimensions\", front view: 18\" W x 23 3/8\" H",
+   "w": 18,
+   "h": 23.375,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/279"
+  }
  },
  {
   "brand": "Lynx",
@@ -5902,7 +5926,15 @@
   "notes": "Cutout per Lynx Classic dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; no depth on the drawing. Same cutout: LDR24R.",
   "also": [
    "LDR24R"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx LDR24L drawing \"w/ dimensions\", front view: 23 5/8\" W x 23 3/8\" H",
+   "w": 23.625,
+   "h": 23.375,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/891"
+  }
  },
  {
   "brand": "Lynx",
@@ -5921,7 +5953,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.).",
-  "designer_key": "LSA30"
+  "designer_key": "LSA30",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Storage Accessory P/N 33707, LSA30 front view: 30\" W x 23\" H",
+   "w": 30,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311"
+  }
  },
  {
   "brand": "Lynx",
@@ -5939,7 +5979,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.)."
+  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Storage Accessory P/N 33707, LSA36 front view: 36\" W x 23\" H",
+   "w": 36,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311"
+  }
  },
  {
   "brand": "Lynx",
@@ -5957,7 +6005,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.)."
+  "notes": "Cutout per Lynx Storage Accessory Care & Use (LSA30 / LSA36 / LSA42) (lynxgrills.com product documentation). Depth is a minimum (24 1/2\" min.).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Storage Accessory P/N 33707, LSA42 front view: 42\" W x 23\" H",
+   "w": 42,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/311"
+  }
  },
  {
   "brand": "Coyote",
@@ -13593,7 +13649,15 @@
   "source_url": "https://rcsgasgrills.com/products/double-drawer-lp-drawer-combo-vdcl1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" Wide x 20 3/4\" Deep x 19 1/2\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" Wide x 20 3/4\" Deep x 19 1/2\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS line drawing (front view): 32.87\" x 21.97\"",
+   "w": 32.87,
+   "h": 21.97,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Double_Drawer_and_LP_Bottle_Storage_-_VDCL1.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -13689,7 +13753,15 @@
   "source_url": "https://rcsgasgrills.com/products/charcoal-pellet-storage-drawer-vdcp1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11 1/2\" Wide x 25 1/4\" Deep x 24\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11 1/2\" Wide x 25 1/4\" Deep x 24\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS line drawing (front view): 13.88\" x 26.38\"",
+   "w": 13.88,
+   "h": 26.38,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Charcoal_and_Pellet_Storage_Drawer_-_VDCP1.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -13760,7 +13832,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24\" Wide x 21\" Deep x 4\" High\").",
-  "designer_key": "RDU1"
+  "designer_key": "RDU1",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS line drawing (front view): 25.59\" x 5.98\"",
+   "w": 25.59,
+   "h": 5.98,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Accessory_And_Tool_Drawer_-_VDU1.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -13778,7 +13858,15 @@
   "source_url": "https://rcsgasgrills.com/products/double-drawer-paper-towel-holder-vthc1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 22\" Deep x 27 3/4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 22\" Deep x 27 3/4\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS line drawing (front view): 16.97\" x 30.04\"",
+   "w": 16.97,
+   "h": 30.04,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Double_Drawer_and_Paper_Towel_Holder_-_VTHC1.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -13874,7 +13962,15 @@
   "source_url": "https://rcsgasgrills.com/products/double-drawer-vdr1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15\" Wide x 22\" Deep x 19 1/2\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15\" Wide x 22\" Deep x 19 1/2\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS line drawing (front view): 16.97\" x 21.97\"",
+   "w": 16.97,
+   "h": 21.97,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Double_Drawer_-_VDR1.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -13946,7 +14042,15 @@
   "source_url": "https://rcsgasgrills.com/products/electic-warming-drawer-rwd1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"34 1/4\" W x 21\" D x 10 1/8\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"34 1/4\" W x 21\" D x 10 1/8\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS line drawing (front view): 35.93\" x 11.44\"",
+   "w": 35.93,
+   "h": 11.44,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Warming_Drawer_-_RWD1.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14151,7 +14255,15 @@
   "source_url": "https://rcsgasgrills.com/products/premier-double-side-burner-with-blue-led-lights-rjcssbl",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"10 3/4\" W x 8\" H x 21\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"10 3/4\" W x 8\" H x 21\" D\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 12.625\" x 25.375\"",
+   "w": 12.625,
+   "d": 25.375,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Double_Side_Burner_-_RJCSSB_RJCSSBL.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14170,7 +14282,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"10 3/4\" W x 8\" H x 21\" D\").",
-  "designer_key": "RJCSSB"
+  "designer_key": "RJCSSB",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 12.625\" x 25.375\"",
+   "w": 12.625,
+   "d": 25.375,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Double_Side_Burner_-_RJCSSB_RJCSSBL.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14188,7 +14308,15 @@
   "source_url": "https://rcsgasgrills.com/products/premier-40-inch-grill-with-blue-led-lights-rjc40al",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"37-3/4\" W x 8-1/4\" H x 21\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"37-3/4\" W x 8-1/4\" H x 21\" D\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 39.75\" x 25.25\"",
+   "w": 39.75,
+   "d": 25.25,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Series_Grills_-_RJC26A_RJC32A_RJC40A.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14208,7 +14336,15 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"37-3/4\" W x 8-1/4\" H x 21\" D\").",
   "designer_key": "RJC40A",
-  "popular": 3
+  "popular": 3,
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 39.625\" x 25.25\"",
+   "w": 39.625,
+   "d": 25.25,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Series_Grills_-_RJC26A_RJC32A_RJC40A.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14226,7 +14362,15 @@
   "source_url": "https://rcsgasgrills.com/products/premier-32-inch-grill-with-blue-led-lights-rjc32al",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" W x 8-\u00bc\" H x 21\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" W x 8-\u00bc\" H x 21\" D\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 32.5\" x 25.25\"",
+   "w": 32.5,
+   "d": 25.25,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Series_Grills_-_RJC32AL_RJC40AL.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14246,7 +14390,15 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" W x 8-1/4\" H x 21\" D\").",
   "designer_key": "RJC32A",
-  "popular": 1
+  "popular": 1,
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 32.5\" x 25.25\"",
+   "w": 32.5,
+   "d": 25.25,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Series_Grills_-_RJC26A_RJC32A_RJC40A.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14264,7 +14416,15 @@
   "source_url": "https://rcsgasgrills.com/products/premier-grill-rjc26a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-1/2\" Wide x 21-1/4\" Deep x 8-1/4\" Height\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-1/2\" Wide x 21-1/4\" Deep x 8-1/4\" Height\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 25\" x 25.25\"",
+   "w": 25,
+   "d": 25.25,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Premier_Series_Grills_-_RJC26A_RJC32A_RJC40A.pdf"
+  }
  },
  {
   "brand": "RCS",
@@ -14354,7 +14514,15 @@
   "source_url": "https://rcsgasgrills.com/products/cutlass-pro-double-side-burner-rdb1el",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"12\" W x 19\" D x 8\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"12\" W x 19\" D x 8\" H\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS line drawing (overall W x D): 12.75\" x 23.75\"",
+   "w": 12.75,
+   "d": 23.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0040/9233/0082/files/RCS_Gas_Grills_-_Double_Side_Burner_-_RDB1_RDB1EL.pdf"
+  }
  },
  {
   "brand": "RCS",
