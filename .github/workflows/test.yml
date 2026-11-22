@@ -1,0 +1,61 @@
+# The site has no build step and no deploy pipeline — Wrangler ships whatever
+# is in site/. So the only thing between a bad edit and production is whether
+# someone remembered to run `npm test`. This runs it for them.
+#
+# No install step: package.json declares no dependencies. The suite runs on
+# node:test and the generator imports only node builtins.
+name: test
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: eaglebuilt-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm test
+
+  # 814 cutout pages are committed HTML generated from data/cutouts.json. Edit
+  # the JSON, forget to regenerate, and the published dimensions stop matching
+  # the data they claim to come from, with nothing to notice. So: regenerate
+  # and fail if anything moved.
+  #
+  # Safe to assert because the generator is deterministic — regenerating from
+  # unchanged data produces byte-identical pages. (Verified: zero content
+  # change across all 815 files. On a Windows checkout git reports them as
+  # modified anyway, because core.autocrlf rewrites the line endings the
+  # generator writes. That does not happen on this runner.)
+  cutouts-in-sync:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: eaglebuilt-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: node tools/build-cutouts.mjs
+
+      - name: Fail if the committed pages are stale
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::Committed cutout pages do not match data/cutouts.json."
+            echo "Fix: cd eaglebuilt-site && node tools/build-cutouts.mjs, then commit the result."
+            git diff --stat
+            exit 1
+          fi
+          echo "Committed pages match the data."
