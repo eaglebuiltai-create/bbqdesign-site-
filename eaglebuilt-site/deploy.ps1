@@ -83,9 +83,23 @@ try {
 
 # ---------------------------------------------------------------- verify
 Step "verify against the live site"
+
+# Check the Worker's own hostname, not eaglebuilt.ai. The custom domain sits
+# behind Cloudflare's edge cache, which once returned CF-Cache-Status: HIT on
+# 814 stale pages while this script happily printed "Deployed and verified" -
+# it only looked at two files that happened to be current. The Worker
+# hostname is the origin, so it cannot give a false MATCH.
+$ORIGIN = 'https://fragrant-butterfly-5c92.eaglebuilt.workers.dev'
+$PUBLIC = 'https://eaglebuilt.ai'
+
+# A cutout page is in the list because those 814 generated files are the
+# largest block of output and the easiest to leave stale: they are rebuilt
+# from the designer catalogue, so a catalogue edit silently invalidates them.
 $checks = @(
-  @{ path = 'site/design/app/index.html'; url = 'https://eaglebuilt.ai/design/app/' },
-  @{ path = 'site/assets/eagle-engine.js'; url = 'https://eaglebuilt.ai/assets/eagle-engine.js' }
+  @{ path = 'site/design/app/index.html';                              route = '/design/app/' },
+  @{ path = 'site/assets/eagle-engine.js';                             route = '/assets/eagle-engine.js' },
+  @{ path = 'site/dimensions/cutouts/alfresco/agbc-14/index.html';     route = '/dimensions/cutouts/alfresco/agbc-14/' },
+  @{ path = 'site/dimensions/cutouts/index.html';                      route = '/dimensions/cutouts/' }
 )
 # Cloudflare Web Analytics injects a beacon script into HTML responses, so
 # the bytes on the wire are legitimately not the bytes on disk. Strip that
@@ -101,29 +115,61 @@ function Get-Body([string]$path) {
 }
 
 $bad = 0
+$stale = 0
 foreach ($c in $checks) {
   $local = Join-Path $site $c.path
-  if (-not (Test-Path $local)) { continue }
+  if (-not (Test-Path $local)) { "  SKIP     $($c.path) (not on disk)"; continue }
   $tmp = [System.IO.Path]::GetTempFileName()
   try {
-    $u = $c.url + '?cb=' + [guid]::NewGuid().ToString('N')
-    (New-Object System.Net.WebClient).DownloadFile($u, $tmp)
+    (New-Object System.Net.WebClient).DownloadFile($ORIGIN + $c.route, $tmp)
     $l = Get-Body $local
     $v = Get-Body $tmp
     if ($l.hash -eq $v.hash) {
       "  MATCH    $($c.path)  ($($l.len) chars)"
     } else {
-      "  DIFFERS  $($c.path)  local $($l.len) chars, live $($v.len)"
+      "  DIFFERS  $($c.path)  local $($l.len) chars, origin $($v.len)"
       "           the deploy did not ship this file - do not trust the upload log"
       $bad++
+      continue
+    }
+
+    # Shipped correctly. Now ask whether the public domain is still serving an
+    # older copy from cache - a separate problem with a separate fix, and one
+    # that reads as "working fine" from the origin's point of view.
+    try {
+      $req = [System.Net.HttpWebRequest]::Create($PUBLIC + $c.route)
+      $req.Method = 'GET'
+      $req.Timeout = 60000
+      $res = $req.GetResponse()
+      try {
+        $cf = $res.Headers['CF-Cache-Status']
+        $sr = New-Object System.IO.StreamReader($res.GetResponseStream())
+        $txt = $sr.ReadToEnd(); $sr.Close()
+        $txt = [regex]::Replace($txt, '(?m)^[^\r\n]*cloudflareinsights\.com[^\r\n]*\r?\n?', '')
+        $sha = [System.Security.Cryptography.SHA256]::Create()
+        try { $ph = [BitConverter]::ToString($sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($txt))).Replace('-', '') }
+        finally { $sha.Dispose() }
+        if ($ph -ne $l.hash) {
+          "           ...but eaglebuilt.ai is serving an older copy (CF-Cache-Status: $cf)"
+          $stale++
+        }
+      } finally { $res.Close() }
+    } catch {
+      "           (could not check the public domain: $($_.Exception.Message))"
     }
   } finally { Remove-Item $tmp -ErrorAction SilentlyContinue }
 }
 
 ""
-if ($bad -eq 0) {
-  "Deployed and verified. Version $version"
-} else {
-  "Version $version deployed, but $bad file(s) do not match the live site."
+if ($bad -gt 0) {
+  "Version $version deployed, but $bad file(s) never reached the origin."
+  "Do not trust the upload log - look at what wrangler actually uploaded."
   exit 1
+} elseif ($stale -gt 0) {
+  "Version $version is live at the origin, but $stale file(s) are still"
+  "cached at eaglebuilt.ai. The deploy worked; the edge has not caught up."
+  "Purge it: Cloudflare dashboard -> Caching -> Configuration -> Purge Everything."
+  exit 2
+} else {
+  "Deployed and verified, origin and eaglebuilt.ai agree. Version $version"
 }
