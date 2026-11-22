@@ -46,6 +46,13 @@ import {
   validateContact,
   claimsSent
 } from "../site/assets/eagle-engine.js";
+import {
+  guardSpoken,
+  mintVoiceToken,
+  newVoiceSession,
+  readVoiceToken,
+  spendVoiceSession
+} from "../site/assets/eagle-voice.js";
 
 const FROM = "EagleBuilt AI <info@eaglebuilt.ai>";
 const ALLOWED = ["https://eaglebuilt.ai", "https://www.eaglebuilt.ai"];
@@ -60,7 +67,9 @@ const CHAT_MAX_CHARS = 2000;
    curl ignores it - so every endpoint that spends money or writes somewhere
    needs its own cap. /api/confirm mails through Resend and /api/leads writes
    to the CRM, so both are capped alongside chat. Buckets are separate on
-   purpose: someone who sends two designs must not lose the chat widget. */
+   purpose: someone who sends two designs must not lose the chat widget.
+   The shared count lives on EAGLE_LIMITS (one Durable Object per address).
+   The Map below is only the fallback when that binding is missing. */
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMITS = {
   chat:    20,   // widget messages
@@ -68,7 +77,11 @@ const RATE_LIMITS = {
   leads:   12,   // gate signups forwarded to the CRM
   designs: 60,   // saving and reopening designs, which John does in bursts
   eagle:   30,   // Design Eagle layout turns
-  eagleSave: 8   // Design Eagle save: visitor email plus the lead
+  eagleSave: 8,  // Design Eagle save: visitor email plus the lead
+  eagleSpeak: EAGLE.voiceLimits.speakPerWindow, // spoken replies, not session mints
+  eagleSession: EAGLE.voiceLimits.sessionPerWindow, // HMAC session mints, separate from speak
+  eagleHear: 12,  // server transcription when the browser has no speech API
+  eagleMiss: 30   // training notes when a turn does not land
 };
 const hits = new Map();
 
@@ -161,12 +174,128 @@ export default {
       if (request.method !== "POST") return cors(json({ ok: false, error: "POST only" }, 405), request, true);
       return cors(await designEagleSave(request, env), request, true);
     }
+    if (url.pathname === "/api/design-eagle/voice/session") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await voiceSession(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/voice/speak") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await voiceSpeak(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/voice/transcribe") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await voiceTranscribe(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/miss") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "POST") return cors(json({ error: "POST only" }, 405), request, true);
+      return cors(await recordMiss(request, env), request, true);
+    }
+    if (url.pathname === "/api/design-eagle/misses") {
+      if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request, true);
+      if (request.method !== "GET") return cors(json({ error: "GET only" }, 405), request, true);
+      return cors(await listMisses(request, env), request, true);
+    }
 
     // Anything else with no matching file. Hand back to assets so 404s still
     // look like the site rather than a bare worker error.
     return env.ASSETS ? env.ASSETS.fetch(request) : new Response("Not found", { status: 404 });
   }
 };
+
+const MISS_TTL = 30 * 24 * 60 * 60;
+
+function stripPII(text) {
+  return String(text || "")
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[email]")
+    .replace(/(?:\+?1[\s.-]*)?\(?\d{3}\)?[\s.-]*\d{3}[\s.-]*\d{4}\b/g, "[phone]")
+    .replace(/[ \t]+\n/g, "\n")
+    .trim()
+    .slice(0, 500);
+}
+
+function contactCard(text) {
+  const s = String(text || "");
+  return [/\bname\s*:/i, /\bemail\s*:/i, /\bphone\s*:/i].filter(re => re.test(s)).length >= 2;
+}
+
+function cleanSpec(spec) {
+  if (!spec || typeof spec !== "object") return null;
+  try {
+    const copy = JSON.parse(stripPII(JSON.stringify(spec)));
+    delete copy.name;
+    delete copy.email;
+    delete copy.phone;
+    return copy;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function recordMiss(request, env) {
+  const kv = env && env.EAGLE_MISSES;
+  if (!kv || typeof kv.put !== "function") return new Response(null, { status: 204 });
+  if (await limited(request, env, "eagleMiss")) {
+    return json({ error: "Too many notes." }, 429);
+  }
+  let body;
+  try { body = await request.json(); } catch { return new Response(null, { status: 204 }); }
+  if (!body || typeof body !== "object") return new Response(null, { status: 204 });
+  if (body.name || body.email || body.phone) return new Response(null, { status: 204 });
+  const text = stripPII(body.text);
+  const reply = stripPII(body.reply);
+  if (!text || contactCard(text) || contactCard(reply)) return new Response(null, { status: 204 });
+  const ts = Number(body.ts) || Date.now();
+  const kind = String(body.kind || "miss").slice(0, 20);
+  const source = body.source === "voice" ? "voice" : "typed";
+  const entry = {
+    text,
+    reply,
+    kind,
+    specBefore: cleanSpec(body.specBefore),
+    specAfter: cleanSpec(body.specAfter),
+    source,
+    ts
+  };
+  const key = "miss:" + String(ts).padStart(13, "0") + ":" + Math.random().toString(36).slice(2, 8);
+  await kv.put(key, JSON.stringify(entry), { expirationTtl: MISS_TTL });
+  let index = [];
+  try {
+    const raw = await kv.get("miss-index");
+    if (raw) index = JSON.parse(raw);
+  } catch (e) { index = []; }
+  if (!Array.isArray(index)) index = [];
+  index.unshift(key);
+  await kv.put("miss-index", JSON.stringify(index.slice(0, 500)));
+  return new Response(null, { status: 204 });
+}
+
+async function listMisses(request, env) {
+  const token = String(env && env.MISS_LOG_TOKEN || "");
+  const sent = request.headers.get("X-Miss-Token") || "";
+  if (!token || sent !== token) return json({ error: "Forbidden." }, 403);
+  const kv = env && env.EAGLE_MISSES;
+  if (!kv || typeof kv.get !== "function") return json({ misses: [] }, 200);
+  const limit = Math.max(1, Math.min(200, Number(new URL(request.url).searchParams.get("limit")) || 200));
+  let keys = [];
+  try {
+    const raw = await kv.get("miss-index");
+    if (raw) keys = JSON.parse(raw);
+  } catch (e) { keys = []; }
+  if (!Array.isArray(keys)) keys = [];
+  const misses = [];
+  for (const key of keys) {
+    if (misses.length >= limit) break;
+    if (!String(key).startsWith("miss:")) continue;
+    const raw = await kv.get(key);
+    if (!raw) continue;
+    try { misses.push(JSON.parse(raw)); } catch (e) {}
+  }
+  return json({ misses }, 200);
+}
 
 async function confirm(request, env) {
   /* Trim defensively. Piping the key in from a shell can append CR/LF, which
@@ -183,7 +312,7 @@ async function confirm(request, env) {
   /* 429 rather than the usual soft 200. The lead itself already went out via
      Web3Forms before this runs, so refusing a customer copy loses nothing -
      and only an abuser ever gets here. */
-  if (limited(request, "confirm")) {
+  if (await limited(request, env, "confirm")) {
     return json({ ok: false, error: "rate limited" }, 429);
   }
 
@@ -331,7 +460,7 @@ async function designs(request, env, url) {
     return json({ ok: false, error: "bad designer key" }, 401);
   }
 
-  if (limited(request, "designs")) return json({ ok: false, error: "rate limited" }, 429);
+  if (await limited(request, env, "designs")) return json({ ok: false, error: "rate limited" }, 429);
 
   const len = Number(request.headers.get("Content-Length") || 0);
   if (len > 96_000) return json({ ok: false, error: "too large" }, 413);
@@ -375,7 +504,7 @@ async function leads(request, env) {
 
   /* Keeps junk out of the CRM. This is a background capture, so a throttled
      caller loses nothing a real visitor would notice. */
-  if (limited(request, "leads")) {
+  if (await limited(request, env, "leads")) {
     return json({ ok: false, error: "rate limited" }, 429);
   }
 
@@ -457,7 +586,7 @@ function publicLead(result) {
 }
 
 async function designEagleTurn(request, env) {
-  if (limited(request, "eagle")) {
+  if (await limited(request, env, "eagle")) {
     return json({ error: "Too many messages. Call " + EAGLE.phoneDisplay + "." }, 429);
   }
   const len = Number(request.headers.get("Content-Length") || 0);
@@ -478,6 +607,7 @@ async function designEagleTurn(request, env) {
   }
   return json({
     reply,
+    kind: result.kind || "draw",
     spec: result.spec || null,
     code: result.code || "",
     link: result.link || "",
@@ -530,7 +660,7 @@ async function designEagleSave(request, env) {
     ...extra
   }, status || 400);
 
-  if (limited(request, "eagleSave")) return fail({}, 429);
+  if (await limited(request, env, "eagleSave")) return fail({}, 429);
   const len = Number(request.headers.get("Content-Length") || 0);
   if (len > 4_000_000) return fail({}, 413);
   let d;
@@ -599,19 +729,27 @@ async function designEagleSave(request, env) {
   const emailConfirmed = !!mailed.confirmed;
   const leadSubmitted = !!(stored && stored.leadSubmitted);
   const teamHasIt = leadSubmitted || !!(stored && stored.duplicate);
+  const reply = saveReply({
+    emailConfirmed,
+    leadSubmitted: teamHasIt,
+    email: person.email,
+    link: built.link,
+    imageAttached: !!(emailConfirmed && image)
+  });
+  const voiceKey = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  const voiceGrant = voiceKey && emailConfirmed ? await mintVoiceToken(voiceKey, {
+    exp: Date.now() + 2 * 60 * 1000,
+    left: reply.length,
+    say: reply
+  }) : "";
   return json({
     ok: true,
     emailConfirmed,
     leadSubmitted,
     duplicate: !!(stored && stored.duplicate),
     link: built.link,
-    reply: saveReply({
-      emailConfirmed,
-      leadSubmitted: teamHasIt,
-      email: person.email,
-      link: built.link,
-      imageAttached: !!(emailConfirmed && image)
-    })
+    reply,
+    voiceGrant
   }, 200);
 }
 
@@ -673,12 +811,145 @@ async function sendVisitorDesign(env, payload) {
   }
 }
 
+async function voiceSession(request, env) {
+  const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  if (!key) return json({ speak: false, voice: EAGLE.voice.name }, 200);
+  /* Minting a token is not speech. It must not spend the speak budget, or a
+     reload during a test session comes back 429 and the page stays mute. */
+  if (await limited(request, env, "eagleSession")) {
+    return json({ speak: false, capped: true, error: "Voice time is up for a few minutes, reply is on screen" }, 429);
+  }
+  const token = await mintVoiceToken(key, newVoiceSession());
+  return json({ speak: true, token, voice: EAGLE.voice.name }, 200);
+}
+
+async function voiceSpeak(request, env) {
+  const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  if (!key) return json({ speak: false, error: "Voice isn't configured. You can keep typing." }, 503);
+  if (await limited(request, env, "eagleSpeak")) {
+    return json({ capped: true, error: "Voice time is up for a few minutes, reply is on screen" }, 429);
+  }
+  let d;
+  try { d = await request.json(); } catch { return json({ error: "bad json" }, 400); }
+  const session = await readVoiceToken(key, d && d.token);
+  /* Address is not part of the check. A phone moves between IPv4 and IPv6
+     and between cell and Wi-Fi, and some networks give each connection a
+     new egress address. The signature, expiry, and character budget are
+     what keep the token honest. limited() above is the shared per-IP cap. */
+  if (!session || session.say) {
+    return json({ capped: true, error: "Voice session expired. You can keep typing." }, 401);
+  }
+  const grant = d.grant ? await readVoiceToken(key, d.grant) : null;
+  const raw = String(d.text || "");
+  const allowedSent = !!(grant && grant.say && grant.say === raw.trim());
+  const text = guardSpoken(raw, allowedSent);
+  if (!text) return json({ error: "Nothing to say." }, 400);
+  let budget = session;
+  let next = spendVoiceSession(budget, text.length);
+  if (!next && (budget.gen || 0) < EAGLE.voiceLimits.maxRenew) {
+    budget = {
+      exp: Date.now() + EAGLE.voiceLimits.sessionMs,
+      left: EAGLE.voiceLimits.sessionChars,
+      gen: (budget.gen || 0) + 1
+    };
+    next = spendVoiceSession(budget, text.length);
+  }
+  if (!next) return json({ capped: true, error: "Voice time is up for this visit. You can keep typing." }, 429);
+  let audio;
+  try {
+    const r = await fetch("https://api.elevenlabs.io/v1/text-to-speech/" + encodeURIComponent(EAGLE.voice.voiceId), {
+      method: "POST",
+      headers: {
+        "xi-api-key": key,
+        "Content-Type": "application/json",
+        "Accept": "audio/mpeg"
+      },
+      body: JSON.stringify({ text, model_id: EAGLE.voice.modelId }),
+      signal: AbortSignal.timeout(15000)
+    });
+    /* A key limited to speech_to_text still returns 200 from transcribe and
+       401/403 here. The code is missing_permissions. quota_exceeded and
+       voice_not_found fail the same way. The log line is the only place
+       that code is kept. */
+    if (!r.ok) {
+      const upstream = await r.text();
+      logEleven("tts", r.status, upstream, key, "model=" + EAGLE.voice.modelId + " voice=" + EAGLE.voice.voiceId);
+      return json({ speak: false, error: voiceError("Voice playback", r.status, upstream, key) }, 502);
+    }
+    audio = await r.arrayBuffer();
+  } catch (err) {
+    console.log("design-eagle: tts threw " + redact(err && err.message, key));
+    return json({ speak: false, error: "Voice playback didn't start. You can keep typing." }, 502);
+  }
+  const token = await mintVoiceToken(key, next);
+  const res = new Response(audio, {
+    status: 200,
+    headers: {
+      "Content-Type": "audio/mpeg",
+      "Cache-Control": "no-store",
+      "X-Voice-Token": token,
+      "Access-Control-Expose-Headers": "X-Voice-Token"
+    }
+  });
+  return res;
+}
+
+async function voiceTranscribe(request, env) {
+  const key = String(env && env.ELEVENLABS_API_KEY || "").trim();
+  if (!key) return json({ text: "", error: "Voice isn't configured. You can keep typing." }, 503);
+  if (await limited(request, env, "eagleHear")) {
+    return json({ text: "", error: "Too many recordings. You can keep typing." }, 429);
+  }
+  const len = Number(request.headers.get("Content-Length") || 0);
+  if (len > 2_000_000) return json({ text: "", error: "Recording is too long." }, 413);
+  let file;
+  const type = request.headers.get("Content-Type") || "";
+  try {
+    if (type.includes("multipart/form-data")) {
+      const form = await request.formData();
+      file = form.get("audio");
+    } else {
+      const buf = await request.arrayBuffer();
+      file = new Blob([buf], { type: type || "audio/webm" });
+    }
+  } catch {
+    return json({ text: "", error: "bad audio" }, 400);
+  }
+  if (!file || typeof file === "string") return json({ text: "", error: "bad audio" }, 400);
+  const upload = audioFile(file, type);
+  if (!upload.size) return json({ text: "", error: "The recording was empty. You can type it." }, 400);
+  /* POST /v1/speech-to-text is multipart. The file field is "file" and the
+     current batch model is scribe_v2. scribe_v1 is rejected before any audio
+     is read. The part filename has to match the bytes (mp3 stays .mp3). */
+  try {
+    const body = new FormData();
+    body.set("model_id", EAGLE.voice.sttModelId);
+    body.set("file", upload, upload.name);
+    const r = await fetch("https://api.elevenlabs.io/v1/speech-to-text", {
+      method: "POST",
+      headers: { "xi-api-key": key },
+      body,
+      signal: AbortSignal.timeout(20000)
+    });
+    if (!r.ok) {
+      const upstream = await r.text();
+      logEleven("scribe", r.status, upstream, key, "model=" + EAGLE.voice.sttModelId + " bytes=" + upload.size + " type=" + upload.type);
+      return json({ text: "", error: voiceError("Transcription", r.status, upstream, key) }, 502);
+    }
+    const data = await r.json();
+    return json({ text: String(data.text || "").trim().slice(0, 2000) }, 200);
+  } catch (err) {
+    console.log("design-eagle: scribe threw " + redact(err && err.message, key));
+    return json({ text: "", error: "Transcription didn't start. You can type it." }, 502);
+  }
+}
+
 async function chat(request, env) {
   const KEY = String(env.XAI_API_KEY || "").trim();
   if (!KEY) {
     return json({ error: "Chat is not configured. Set the XAI_API_KEY Cloudflare secret, then redeploy." }, 503);
   }
-  if (limited(request, "chat")) {
+  if (await limited(request, env, "chat")) {
     return json({ error: "Too many messages. Try again in a few minutes, or email info@eaglebuilt.ai." }, 429);
   }
 
@@ -955,12 +1226,55 @@ function normalizeChat(d) {
   return out.slice(-CHAT_MAX_MESSAGES);
 }
 
-/* Best-effort. Worker isolates do not share memory, so this only slows a
-   burst against one instance. Enough to stop a stuck tab or a cheap script,
-   not a distributed flood - that wants Cloudflare's own WAF rate limiting in
-   front of the Worker. */
-function limited(request, bucket) {
-  const ip = request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "unknown";
+/* One Durable Object per address, so every isolate shares the count.
+   KV is the wrong store here: a key accepts one write per second and reads
+   are cached, so a burst of session mints would all see a stale zero.
+   Without the binding, the Map below only slows the isolate that handled
+   the request. */
+let warnedLimits = false;
+
+export class EagleRateLimit {
+  constructor(ctx) {
+    this.ctx = ctx;
+  }
+
+  async fetch(request) {
+    const url = new URL(request.url);
+    const bucket = String(url.searchParams.get("bucket") || "default").slice(0, 40);
+    const limit = Number(url.searchParams.get("limit") || 20);
+    const windowMs = Number(url.searchParams.get("window") || RATE_WINDOW_MS);
+    const now = Date.now();
+    const key = "b:" + bucket;
+    let rec = await this.ctx.storage.get(key);
+    if (!rec || typeof rec.n !== "number" || now - rec.start > windowMs) rec = { start: now, n: 0 };
+    rec.n += 1;
+    await this.ctx.storage.put(key, rec);
+    return Response.json({ limited: rec.n > limit, n: rec.n });
+  }
+}
+
+async function limited(request, env, bucket) {
+  const ip = clientIp(request) || "unknown";
+  const limit = RATE_LIMITS[bucket] || 20;
+  const ns = env && env.EAGLE_LIMITS;
+  if (ns && typeof ns.getByName === "function") {
+    try {
+      const stub = ns.getByName(ip.slice(0, 200));
+      const url = "https://limits.internal/?bucket=" + encodeURIComponent(bucket) + "&limit=" + limit + "&window=" + RATE_WINDOW_MS;
+      const res = await stub.fetch(url);
+      const data = await res.json();
+      return !!data.limited;
+    } catch (err) {
+      console.log("design-eagle: EAGLE_LIMITS failed, using isolate memory");
+    }
+  } else if (!warnedLimits) {
+    warnedLimits = true;
+    console.log("design-eagle: EAGLE_LIMITS binding is not set, so the rate limit only applies inside this isolate");
+  }
+  return memoryLimited(ip, bucket);
+}
+
+function memoryLimited(ip, bucket) {
   const now = Date.now();
   const key = bucket + "|" + ip;
   let rec = hits.get(key);
@@ -975,6 +1289,72 @@ function limited(request, bucket) {
     while (hits.size > 5000) hits.delete(hits.keys().next().value);
   }
   return rec.n > (RATE_LIMITS[bucket] || 20);
+}
+
+function audioName(type) {
+  const t = String(type || "").toLowerCase();
+  if (t.includes("webm")) return "speech.webm";
+  if (t.includes("mpeg") || t.includes("mp3")) return "speech.mp3";
+  if (t.includes("wav")) return "speech.wav";
+  if (t.includes("ogg") || t.includes("opus")) return "speech.ogg";
+  if (t.includes("mp4") || t.includes("m4a") || t.includes("aac")) return "speech.m4a";
+  return "speech.webm";
+}
+
+function audioFile(file, fallbackType) {
+  const mime = (file && file.type) || String(fallbackType || "").split(";")[0] || "audio/webm";
+  const given = file && file.name;
+  const name = given && /\.[a-z0-9]{2,4}$/i.test(given) ? given : audioName(mime);
+  return new File([file], name, { type: mime });
+}
+
+function redact(text, key) {
+  let s = String(text || "");
+  if (key) s = s.split(key).join("[redacted]");
+  return s.replace(/xi-[A-Za-z0-9_-]{8,}/g, "[redacted]").slice(0, 500);
+}
+
+/* ElevenLabs puts the machine code on detail.status (missing_permissions,
+   quota_exceeded, voice_not_found) and the sentence on detail.message. */
+function elevenFault(body) {
+  let code = "";
+  let detail = "";
+  try {
+    const parsed = JSON.parse(body);
+    const msg = parsed.detail != null ? parsed.detail : (parsed.message || parsed.error);
+    if (typeof msg === "string") detail = msg;
+    else if (Array.isArray(msg) && msg[0]) {
+      code = String(msg[0].type || msg[0].code || "");
+      detail = String(msg[0].msg || msg[0].message || "");
+    } else if (msg && typeof msg === "object") {
+      code = String(msg.status || msg.code || msg.type || "");
+      detail = String(msg.message || "");
+    }
+  } catch {
+    detail = String(body || "");
+  }
+  return {
+    code: code.replace(/[^a-z0-9_]/gi, "").slice(0, 64),
+    detail: detail.replace(/\s+/g, " ").trim()
+  };
+}
+
+function logEleven(kind, status, body, key, extra) {
+  const fault = elevenFault(redact(body, key));
+  const bits = ["design-eagle:", kind, String(status), "code=" + (fault.code || "none")];
+  if (extra) bits.push(extra);
+  if (fault.detail) bits.push("detail=" + redact(fault.detail, key).slice(0, 300));
+  console.log(bits.join(" "));
+}
+
+function voiceError(what, status, body, key) {
+  const fault = elevenFault(redact(body, key));
+  const code = fault.code ? " " + fault.code : "";
+  const detail = redact(fault.detail, key).slice(0, 160);
+  const tail = what === "Transcription" ? " You can type it." : " You can keep typing.";
+  if (status === 401 && !fault.code) return "The " + what.toLowerCase() + " key was rejected." + tail;
+  if (detail) return what + " was rejected (" + status + code + "): " + detail + tail;
+  return what + " was rejected (" + status + code + ")." + tail;
 }
 
 function clean(v, max) {

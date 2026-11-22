@@ -19,7 +19,16 @@
 #   npx wrangler secret put RESEND_API_KEY
 #   npx wrangler secret put XAI_API_KEY
 #   npx wrangler secret put LEAD_SLACK_WEBHOOK_URL
+#   npx wrangler secret put ELEVENLABS_API_KEY
 # Do not put a key or a webhook URL in this file or in client JavaScript.
+#
+# EAGLE_LIMITS is the shared per-IP counter for chat, leads, and Design Eagle
+# voice. One Durable Object per address. KV cannot do this: one key accepts
+# one write per second and reads stay cached, so a burst of session mints
+# all see zero. Deploying this file creates the class (migration
+# v1-eagle-limits). A preview Worker that uses a different config needs the
+# same binding and migration copied in before that deploy. Until the binding
+# is present, the worker logs once and falls back to a per-isolate counter.
 #
 # CHAT_LEADS is the durable copy of each chat lead. Create it once, paste the
 # id below, then deploy. Until that id is real, `npx wrangler deploy` will
@@ -69,3 +78,21 @@ id = "00000000000000000000000000000000"
 [[send_email]]
 name = "EMAIL"
 destination_address = "info@eaglebuilt.ai"
+
+# Optional training log of turns that did not land. Unbound, the worker
+# ignores them, so production stays off until you create the namespace,
+# paste the id, and set the read token:
+#   npx wrangler kv namespace create EAGLE_MISSES
+#   npx wrangler secret put MISS_LOG_TOKEN
+# [[kv_namespaces]]
+# binding = "EAGLE_MISSES"
+# id = "<paste>"
+
+# Shared rate-limit counter. See the comment at the top of this file.
+[[durable_objects.bindings]]
+name = "EAGLE_LIMITS"
+class_name = "EagleRateLimit"
+
+[[migrations]]
+tag = "v1-eagle-limits"
+new_sqlite_classes = [ "EagleRateLimit" ]
