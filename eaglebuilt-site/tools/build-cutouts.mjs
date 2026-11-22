@@ -172,6 +172,7 @@ const CSS = `<style>
 .coDim.miss b{font-size:13px;color:var(--warn);white-space:normal;line-height:1.3;padding:5px 0}
 .coOverall{font-size:13.5px;color:var(--muted)}
 .coOverall i{font-style:normal;color:var(--warn)}
+.coFlange{color:var(--txt);font-weight:600;margin-bottom:2px}
 .coMeta{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:8px;font-size:13.5px}
 .coOk{color:var(--good);font-weight:700}
 .coWarn{color:var(--warn);font-weight:700}
@@ -258,6 +259,15 @@ function overallLine(r) {
   const p = (v, l) => (inch(v) ? `${esc(inch(v))} ${l}` : `<i>check spec sheet</i> ${l}`);
   return `Overall: ${p(o.w, "W")} &times; ${p(o.h, "H")} &times; ${p(o.d, "D")}`;
 }
+function flangeLine(r) {
+  const f = r.flange;
+  if (!f) return `Flange: <i>check spec sheet</i>`;
+  if (f.kind === "none") return `Flange: none &mdash; fits inside the opening`;
+  const p = v => (inch(v) ? esc(inch(v)) : `<i>check spec sheet</i>`);
+  const dims = f.kind === "rim" ? `${p(f.w)} W &times; ${p(f.d)} D (top rim)` : `${p(f.w)} W &times; ${p(f.h)} H`;
+  const lap = f.overlap != null ? ` &middot; overlaps the cutout ${esc(inch(f.overlap))} per side` : "";
+  return (f.w == null && (f.h ?? f.d) == null && f.overlap != null) ? `Flange: <i>check spec sheet</i>${lap}` : `Flange: ${dims}${lap}`;
+}
 function verifiedBadge(r) {
   return r.verified
     ? `<span class="coOk">&#10003; Verified ${fmtDate(r.verified_date)}</span>`
@@ -294,6 +304,7 @@ function row(r, { showBrand = true } = {}) {
     <span class="coName">${esc(r.product_name)}</span>
   </div>
   <div class="coDims" aria-label="Cutout width, height, depth">${dimCell("Cutout W", c.w, cm.w)}${dimCell("Cutout H", c.h, cm.h)}${dimCell("Cutout D", c.d, cm.d)}</div>
+  <div class="coOverall coFlange">${flangeLine(r)}</div>
   <div class="coOverall">${overallLine(r)}</div>
   <div class="coMeta">${statusBadge(r)}${verifiedBadge(r)}${specLinks(r)}<a href="${r.url}">Details &rarr;</a></div>${r.verified ? "" : `\n  <div class="coNote">${esc(r.notes)}</div>`}${alias}
 </article>`;
@@ -346,11 +357,15 @@ const HUB_JS = `<script>
   function cell(l,v,m){var t=span(v,m);return t?'<div class="coDim'+(m!=null&&m!==v?' rng':(t.length>=6?' lg':''))+'"><b>'+e(t)+'</b><span>'+l+'</span></div>':'<div class="coDim miss"><b>check spec sheet</b><span>'+l+'</span></div>';}
   function ov(w,h,d){if(w===null&&h===null&&d===null)return 'Overall size: <i>check spec sheet</i>';
     function p(v,l){var t=inch(v);return t?e(t)+" "+l:"<i>check spec sheet</i> "+l;}return "Overall: "+p(w,"W")+" &times; "+p(h,"H")+" &times; "+p(d,"D");}
+  function fl(f){if(!f)return 'Flange: <i>check spec sheet</i>';if(f[0]===0)return 'Flange: none &mdash; fits inside the opening';
+    function p(v){var t=inch(v);return t?e(t):'<i>check spec sheet</i>';}var lap=f[3]!==null?' &middot; overlaps the cutout '+e(inch(f[3]))+' per side':'';
+    if(f[1]===null&&f[2]===null)return 'Flange: <i>check spec sheet</i>'+lap;
+    return 'Flange: '+p(f[1])+' W &times; '+p(f[2])+(f[0]===2?' D (top rim)':' H')+lap;}
   var html=D.g.map(function(g,gi){
     var rows=D.r.filter(function(r){return r[14]===gi;}).map(function(r){
       var bq=r[1].toLowerCase();bq+=" "+bq.replace(/[^a-z0-9]+/g,"")+" "+bq.replace(/[^a-z0-9]+/g,"-");
       return '<article class="co" data-q="'+e(r[15]+" "+bq+" "+g[2])+'"><div class="coHead"><a class="coModel" href="'+r[3]+'">'+e(r[0])+'</a><span class="coBrand">'+e(r[1])+'</span><span class="coName">'+e(r[2])+'</span></div>'+
-        '<div class="coDims">'+cell("Cutout W",r[4],r[7])+cell("Cutout H",r[5],r[17])+cell("Cutout D",r[6],r[8])+'</div><div class="coOverall">'+ov(r[9],r[10],r[11])+'</div>'+
+        '<div class="coDims">'+cell("Cutout W",r[4],r[7])+cell("Cutout H",r[5],r[17])+cell("Cutout D",r[6],r[8])+'</div><div class="coOverall coFlange">'+fl(r[18])+'</div><div class="coOverall">'+ov(r[9],r[10],r[11])+'</div>'+
         '<div class="coMeta">'+(r[16]?'<span class="coWarn">Discontinued'+(r[16]!=="-"?" \u2014 replaced by "+e(r[16]):"")+'</span>':'')+(r[12]?'<span class="coOk">&#10003; Verified</span>':'<span class="coWarn">Not fully verified \u2014 check spec sheet</span>')+
         (r[13]?'<a href="'+e(r[13])+'" target="_blank" rel="noopener nofollow">Spec sheet &#8599;</a>':'')+'<a href="'+r[3]+'">Details &rarr;</a></div></article>';
     }).join("");
@@ -431,7 +446,8 @@ const brandNames = list => [...new Set(list.map(r => r.b.name))];
     const c = r.cutout_in || {}, cm = r.cutout_max_in || {}, o = r.overall_in || {};
     return [r.model, r.b.name, r.product_name, r.url, c.w ?? null, c.h ?? null, c.d ?? null, cm.w ?? null, cm.d ?? null,
       o.w ?? null, o.h ?? null, o.d ?? null, r.verified ? 1 : 0, r.spec_sheet_url || "", groupsUsed.indexOf(r.g),
-      hubSearchText(r), r.discontinued ? (r.replaced_by || "-") : "", cm.h ?? null];
+      hubSearchText(r), r.discontinued ? (r.replaced_by || "-") : "", cm.h ?? null,
+      r.flange ? [r.flange.kind === "none" ? 0 : r.flange.kind === "rim" ? 2 : 1, r.flange.w ?? null, (r.flange.kind === "rim" ? r.flange.d : r.flange.h) ?? null, r.flange.overlap ?? null] : null];
   });
   const popular = recs.filter(r => r.popularRank).sort((a, b) => a.popularRank - b.popularRank).slice(0, 24);
   const body = `<section class="coGroup" id="popular" style="border-top:0;padding:22px 0 4px" data-popular>
@@ -593,6 +609,9 @@ for (const r of RECS) {
     : Object.assign({ "@type": "PropertyValue", name, unitCode: "INH", unitText: "in" },
         vmax && vmax !== v ? { minValue: v, maxValue: vmax } : { value: v });
   if (r.cutout_in) add.push(pv("Cutout width", c.w, cm.w), pv("Cutout height", c.h, cm.h), pv("Cutout depth", c.d, cm.d));
+  const f = r.flange;
+  if (f && f.kind === "none") add.push({ "@type": "PropertyValue", name: "Flange", value: "none (fits inside the opening)" });
+  else if (f) add.push(pv("Flange width", f.w), f.kind === "rim" ? pv("Flange depth (top rim)", f.d) : pv("Flange height", f.h), pv("Flange overlap per side", f.overlap));
   if (r.fuel_power) add.push({ "@type": "PropertyValue", name: "Fuel / power", value: r.fuel_power });
   const product = {
     "@type": "Product", "@id": ORIGIN + r.url + "#product", name: `${r.b.name} ${r.model} ${r.product_name}`,
@@ -611,6 +630,7 @@ for (const r of RECS) {
   const facts = [
     `<li><b>Category:</b> ${esc(CAT_LABEL[r.category] || r.category)}</li>`,
     r.fuel_power ? `<li><b>Fuel / power:</b> ${esc(r.fuel_power)}</li>` : "",
+    `<li><b>Flange:</b> ${flangeLine(r).replace(/^Flange: /, "")}${r.flange && r.flange.source ? ` <span style="color:var(--muted)">(${esc(r.flange.source)})</span>` : ""}</li>`,
     `<li><b>Overall size:</b> ${overallLine(r).replace(/^Overall(?: size)?: /, "")}</li>`,
     `<li><b>Source:</b> ${esc(r.notes)}</li>`,
     r.aliases.length ? `<li><b>Replaces:</b> ${r.aliases.map(a => esc(a)).join(", ")} (previous model, no longer in Blaze's catalog). ${retiredInfo.filter(x => r.aliases.includes(x.model)).some(x => !x.cutout_in) ? "The older unit's cutout was not re-verified from a Blaze document — if you are fitting one, check its own manual." : ""}</li>` : "",
@@ -632,6 +652,7 @@ ${crumbsHtml(crumbs)}
     <div class="co coBig" data-q="${esc(searchText(r))}">
       <div class="coHead"><span class="coModel">${esc(r.displayModel)}</span><span class="coBrand">Cutout (W &times; H &times; D)</span></div>
       <div class="coDims">${dimCell("Width", c.w, cm.w)}${dimCell("Height", c.h, cm.h)}${dimCell("Depth", c.d, cm.d)}</div>
+      <div class="coOverall coFlange">${flangeLine(r)}</div>
       <div class="coOverall">${overallLine(r)}</div>
       <div class="coMeta">${statusBadge(r)}${verifiedBadge(r)}${specLinks(r)}</div>${r.verified ? "" : `\n      <div class="coNote">${esc(r.notes)}</div>`}
     </div>

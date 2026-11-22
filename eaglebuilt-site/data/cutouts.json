@@ -19,7 +19,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-bcm-25-inch-3-burner-gas-grill/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 25,
+   "d": 25.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -41,7 +49,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-bcm-32-inch-4-burner-gas-grill/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.5,
+   "d": 25.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -63,7 +79,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-32-inch-4-burner-premium-lte-gas-grill-with-rear-burner-and-built-in-lighting-system/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.5,
+   "d": 25.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -85,7 +109,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-40-inch-5-burner-premium-lte-gas-grill-with-rear-burner-and-built-in-lighting-system/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 39.5,
+   "d": 25.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -107,7 +139,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-4-burner-marine-grade-premium-lte/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "316L marine grade; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "316L marine grade; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.5,
+   "d": 25.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -129,7 +169,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-32-inch-4-burner-gas-grill/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.5,
+   "d": 27,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -151,7 +199,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-40-inch-5-burner-gas-grill/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 40.5,
+   "d": 27,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -173,7 +229,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-professional-34-inch-built-gas-grill-rear-infrared-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 34,
+   "d": 28.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -195,7 +259,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-professional-44-inch-4-burner-built-gas-grill-rear-infrared-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 44.125,
+   "d": 28.375,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -217,7 +289,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-32-charcoal-grill/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "On blazegrills.com product page; not in the Sept 2026 catalog PDF; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "On blazegrills.com product page; not in the Sept 2026 catalog PDF; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.5,
+   "d": 25.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -239,7 +319,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-drop-in-single-side-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 12.5,
+   "d": 19.5,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -261,7 +349,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-double-side-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 12.5,
+   "d": 25,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -283,7 +379,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-premium-lte-power-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 15.75,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -305,7 +409,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-power-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 15.75,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -327,7 +439,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-professional-built-in-power-burner/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 15.75,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -349,7 +469,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-30-inch-gas-griddle/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 30.125,
+   "d": 28.25,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -371,7 +499,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-40-inch-gas-griddle/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 40,
+   "d": 29,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -393,7 +529,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-26-inch-outdoor-oven-w-meat-probes/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Current 26\" oven; replaces BLZ-26-PZOVN on blazegrills.com; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Current 26\" oven; replaces BLZ-26-PZOVN on blazegrills.com; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 26,
+   "d": 29.1875,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -415,7 +559,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-kamado-island-sleeve-2/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall depth conflicts between catalog (32 1/2) and product page (35 1/2); left null; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall depth conflicts between catalog (32 1/2) and product page (35 1/2); left null; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "face",
+   "w": 34,
+   "h": 33.875,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -437,7 +589,13 @@
   "source_url": "https://www.blazegrills.com/product/15-outdoor-refrigerator/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -459,7 +617,13 @@
   "source_url": "https://www.blazegrills.com/product/20-outdoor-compact-refrigerator/",
   "verified_date": "2026-11-21",
   "status": "unverified",
-  "notes": "Cutout depth conflicts: catalog 22 3/4 vs product page 23 3/4; left null; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Cutout depth conflicts: catalog 22 3/4 vs product page 23 3/4; left null; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -481,7 +645,13 @@
   "source_url": "https://www.blazegrills.com/product/double-drawer-refrigerator/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -503,7 +673,13 @@
   "source_url": "https://www.blazegrills.com/product/blaze-20-in-4-3-cu-ft-compact-fridge/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -525,7 +701,13 @@
   "source_url": "https://www.blazegrills.com/product/blaze-20-in-4-5-cu-ft-beverage-cooler/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -547,7 +729,13 @@
   "source_url": "https://www.blazegrills.com/product/24-outdoor-refrigerator/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -569,7 +757,13 @@
   "source_url": "https://www.blazegrills.com/product/glass-front-outdoor-beverage-cooler/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -591,7 +785,13 @@
   "source_url": "https://www.blazegrills.com/product/blaze-50-lb-15-inch-outdoor-ice-maker-gravity-drain/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "On blazegrills.com product page; not in the Sept 2026 catalog PDF; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "On blazegrills.com product page; not in the Sept 2026 catalog PDF; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -616,7 +816,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-ICE-DRW-H-MG uses the same cutout.",
   "also": [
    "BLZ-ICE-DRW-H-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 27.75,
+   "h": 21.5,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -638,7 +846,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-22-inch-ice-bin-cooler-wine-chiller/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 21.75,
+   "d": 21.75,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -660,7 +876,15 @@
   "source_url": "https://www.blazegrills.com/product/blaze-beverage-center/",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them.",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 29,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -685,7 +909,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-TRLP-DRW-H-MG uses the same cutout.",
   "also": [
    "BLZ-TRLP-DRW-H-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 20,
+   "h": 26.5,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -710,7 +942,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-TREC-DRW-H-MG uses the same cutout.",
   "also": [
    "BLZ-TREC-DRW-H-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 19.875,
+   "h": 26.5,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -735,7 +975,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-TRNW-DRW-MG uses the same cutout.",
   "also": [
    "BLZ-TRNW-DRW-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 14,
+   "h": 26.5,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -760,7 +1008,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-SV-1420-R-SC-MG uses the same cutout.",
   "also": [
    "BLZ-SV-1420-R-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 16.375,
+   "h": 22.5,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -785,7 +1041,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-SINGLE-2417-R-SC-MG uses the same cutout.",
   "also": [
    "BLZ-SINGLE-2417-R-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 19.375,
+   "h": 26.5,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -810,7 +1074,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-SH-2417-R-SC-MG uses the same cutout.",
   "also": [
    "BLZ-SH-2417-R-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 26.5,
+   "h": 19.375,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -835,7 +1107,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-AD25-R-SC-MG uses the same cutout.",
   "also": [
    "BLZ-AD25-R-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 23.5,
+   "h": 20.375,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -860,7 +1140,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-AD32-R-SC-MG uses the same cutout.",
   "also": [
    "BLZ-AD32-R-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 30.875,
+   "h": 20.375,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -885,7 +1173,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-AD40-R-SC-MG uses the same cutout.",
   "also": [
    "BLZ-AD40-R-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 37.875,
+   "h": 20.375,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -910,7 +1206,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-DRW2-R-LT-MG uses the same cutout.",
   "also": [
    "BLZ-DRW2-R-LT-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 17.375,
+   "h": 21.625,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -935,7 +1239,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-DRW3-R-LT-MG uses the same cutout.",
   "also": [
    "BLZ-DRW3-R-LT-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 17.375,
+   "h": 29.75,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -960,7 +1272,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-30W-3DRW-LT-MG uses the same cutout.",
   "also": [
    "BLZ-30W-3DRW-LT-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 30.125,
+   "h": 29.75,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -985,7 +1305,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-DDC-R-LTSC-MG uses the same cutout.",
   "also": [
    "BLZ-DDC-R-LTSC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 32.375,
+   "h": 21.25,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -1010,7 +1338,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-DDC-R-39-LTSC-MG uses the same cutout.",
   "also": [
    "BLZ-DDC-R-39-LTSC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 39.25,
+   "h": 21.375,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -1035,7 +1371,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-DRY-STG2-SC-MG uses the same cutout.",
   "also": [
    "BLZ-DRY-STG2-SC-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 32.25,
+   "h": 21.25,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -1060,7 +1404,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-PTH-R-H-MG uses the same cutout.",
   "also": [
    "BLZ-PTH-R-H-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 16,
+   "h": 9.75,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -1085,7 +1437,15 @@
   "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them. Marine-grade 316L version BLZ-ISLAND-VENT-MG uses the same cutout.",
   "also": [
    "BLZ-ISLAND-VENT-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "w": 14,
+   "h": 6,
+   "source": "Overall front size (W \u00d7 H) in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -1774,7 +2134,13 @@
   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf"
+  }
  },
  {
   "brand": "Bull",
@@ -1792,7 +2158,13 @@
   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf"
+  }
  },
  {
   "brand": "Bull",
@@ -1810,7 +2182,13 @@
   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf"
+  }
  },
  {
   "brand": "Bull",
@@ -1828,7 +2206,13 @@
   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog)."
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf"
+  }
  },
  {
   "brand": "Bull",
@@ -1846,7 +2230,13 @@
   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). Double tap is item 17950."
+  "notes": "Cutout per Bull Full Product Catalog (\u00a92026 Bull Outdoor Products; dealer-hosted copy of the manufacturer catalog). Double tap is item 17950.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://grillio.com/pub/media/documents/Bull%20Full%20Product%20Catalog.pdf"
+  }
  },
  {
   "brand": "Bull",
@@ -3427,7 +3817,13 @@
   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). -DL for left hinge."
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). -DL for left hinge.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
+  }
  },
  {
   "brand": "Fire Magic",
@@ -3445,7 +3841,13 @@
   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). -DL for left hinge."
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). -DL for left hinge.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
+  }
  },
  {
   "brand": "Fire Magic",
@@ -3464,7 +3866,13 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025). Also 3598-DR / -DL with stainless door.",
-  "designer_key": "3598"
+  "designer_key": "3598",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
+  }
  },
  {
   "brand": "Fire Magic",
@@ -3482,7 +3890,13 @@
   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025)."
+  "notes": "Cutout per Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0, Oct 2025).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
+  }
  },
  {
   "brand": "Fire Magic",
@@ -3613,7 +4027,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.13\".",
-  "popular": 1
+  "popular": 1,
+  "flange": {
+   "kind": "rim",
+   "w": 36,
+   "d": 25.375,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14562"
+  }
  },
  {
   "brand": "Lynx",
@@ -3639,7 +4061,15 @@
   "designer_key": "L36ATR",
   "also": [
    "LF36ATR"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "w": 36,
+   "d": 25.375,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14560"
+  }
  },
  {
   "brand": "Lynx",
@@ -3661,7 +4091,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14561",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.13\"."
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.13\".",
+  "flange": {
+   "kind": "rim",
+   "w": 36,
+   "d": 25.375,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14561"
+  }
  },
  {
   "brand": "Lynx",
@@ -3684,7 +4122,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
-  "popular": 3
+  "popular": 3,
+  "flange": {
+   "kind": "rim",
+   "w": 42,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14565"
+  }
  },
  {
   "brand": "Lynx",
@@ -3707,7 +4153,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
-  "designer_key": "L42ATR"
+  "designer_key": "L42ATR",
+  "flange": {
+   "kind": "rim",
+   "w": 42,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14563"
+  }
  },
  {
   "brand": "Lynx",
@@ -3729,7 +4183,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14564",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "flange": {
+   "kind": "rim",
+   "w": 42,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14564"
+  }
  },
  {
   "brand": "Lynx",
@@ -3752,7 +4214,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
-  "popular": 4
+  "popular": 4,
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14559"
+  }
  },
  {
   "brand": "Lynx",
@@ -3775,7 +4245,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
-  "designer_key": "L30ATR"
+  "designer_key": "L30ATR",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14557"
+  }
  },
  {
   "brand": "Lynx",
@@ -3797,7 +4275,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14558",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14558"
+  }
  },
  {
   "brand": "Lynx",
@@ -3820,7 +4306,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\" and overall height 25.81\".",
-  "designer_key": "L54TR"
+  "designer_key": "L54TR",
+  "flange": {
+   "kind": "rim",
+   "w": 54,
+   "d": 27.875,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/14566"
+  }
  },
  {
   "brand": "Lynx",
@@ -3842,7 +4336,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/7229",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "flange": {
+   "kind": "rim",
+   "w": 27,
+   "d": 25.375,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/7229"
+  }
  },
  {
   "brand": "Lynx",
@@ -3864,7 +4366,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/7228",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\"."
+  "notes": "Cutout per Lynx Professional built-in grill spec sheet (lynxgrills.com product documentation). Sheet prints height as 10.88\".",
+  "flange": {
+   "kind": "rim",
+   "w": 27,
+   "d": 25.375,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/7228"
+  }
  },
  {
   "brand": "Lynx",
@@ -4042,7 +4552,15 @@
   "notes": "Cutout per Lynx Warming Drawer Care & Use Manual (lynxgrills.com product documentation). Same cutout: L30WD-1.",
   "also": [
    "L30WD-1"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx L30WD/L42CC Use/Install Manual p.6, front view: 30\" x 11-1/2\"",
+   "w": 30,
+   "h": 11.5,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/10999"
+  }
  },
  {
   "brand": "Lynx",
@@ -4063,7 +4581,15 @@
   "notes": "Cutout per Lynx Warming Drawer Care & Use Manual (lynxgrills.com product documentation). Same cutout: L42CC-1.",
   "also": [
    "L42CC-1"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx L30WD/L42CC Use/Install Manual p.8, front view: 41-3/4\" x 21\"",
+   "w": 41.75,
+   "h": 21,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/10999"
+  }
  },
  {
   "brand": "Lynx",
@@ -4088,7 +4614,15 @@
   "notes": "Cutout per Lynx Cocktail Station Care & Use Manual (lynxgrills.com product documentation). Same cutout: LCS30F.",
   "also": [
    "LCS30F"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 25.125,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/9797"
+  }
  },
  {
   "brand": "Lynx",
@@ -4110,7 +4644,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "rim",
+   "w": 18,
+   "d": 25.125,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855"
+  }
  },
  {
   "brand": "Lynx",
@@ -4132,7 +4674,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "rim",
+   "w": 24,
+   "d": 25.125,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855"
+  }
  },
  {
   "brand": "Lynx",
@@ -4154,7 +4704,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Sinks Care & Use Manual (PN 34685 Rev. A) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "rim",
+   "w": 31,
+   "d": 25.125,
+   "source": "Overall W \u00d7 D in the Lynx spec sheet",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/3855"
+  }
  },
  {
   "brand": "Lynx",
@@ -4186,7 +4744,13 @@
    "LN24REFR",
    "LN24REFL",
    "LN24REFG"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12678"
+  }
  },
  {
   "brand": "Lynx",
@@ -4211,6 +4775,12 @@
   "notes": "Cutout per Lynx Outdoor Refrigeration Use & Care / Installation Manual (rough-in opening) (lynxgrills.com product documentation). Opening height runs 34\" to 35\" depending on leveling-leg height; depth varies by installation (cabinet depth plus 1\" for the plug to recess the door), so it is left to the manual.",
   "cutout_max_in": {
    "h": 35
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/12678"
   }
  },
  {
@@ -4229,7 +4799,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/322",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 29.6875,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/322"
+  }
  },
  {
   "brand": "Lynx",
@@ -4247,7 +4825,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/348",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 36,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/348"
+  }
  },
  {
   "brand": "Lynx",
@@ -4265,7 +4851,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/381",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 42,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/381"
+  }
  },
  {
   "brand": "Lynx",
@@ -4286,7 +4880,15 @@
   "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame. Same cutout: LDR18R-4.",
   "also": [
    "LDR18R-4"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 18,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/281"
+  }
  },
  {
   "brand": "Lynx",
@@ -4307,7 +4909,15 @@
   "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Front opening; the drawing calls for 2 1/2\" behind the face frame. Same cutout: LDR24R-4.",
   "also": [
    "LDR24R-4"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 23.625,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/294"
+  }
  },
  {
   "brand": "Lynx",
@@ -4325,7 +4935,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/310",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 30,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/310"
+  }
  },
  {
   "brand": "Lynx",
@@ -4343,7 +4961,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/331",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 36,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/331"
+  }
  },
  {
   "brand": "Lynx",
@@ -4361,7 +4987,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/355",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 42,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/355"
+  }
  },
  {
   "brand": "Lynx",
@@ -4379,7 +5013,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/362",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 16.25,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/362"
+  }
  },
  {
   "brand": "Lynx",
@@ -4397,7 +5039,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/809",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 19.25,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/809"
+  }
  },
  {
   "brand": "Lynx",
@@ -4415,7 +5065,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/303",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 30,
+   "h": 23,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/303"
+  }
  },
  {
   "brand": "Lynx",
@@ -4433,7 +5091,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/286",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation)."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 19.875,
+   "h": 28,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/286"
+  }
  },
  {
   "brand": "Lynx",
@@ -4451,7 +5117,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/812",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Rear support recommended, or use kit LMDKIT."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Rear support recommended, or use kit LMDKIT.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 23.625,
+   "h": 7.625,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/812"
+  }
  },
  {
   "brand": "Lynx",
@@ -4469,7 +5143,15 @@
   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/370",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Depth not shown on the cutout drawing."
+  "notes": "Cutout per Lynx Ventana dimension sheet (cutout drawing) (lynxgrills.com product documentation). Depth not shown on the cutout drawing.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Lynx Ventana dimension sheet, front view (product dimensions)",
+   "w": 18.875,
+   "h": 11.125,
+   "source_url": "https://du2gj1v5rko5e.cloudfront.net/file/370"
+  }
  },
  {
   "brand": "Lynx",
@@ -4631,7 +5313,15 @@
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
   "designer_key": "C2C36",
-  "popular": 1
+  "popular": 1,
+  "flange": {
+   "kind": "rim",
+   "w": 35.5,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4654,7 +5344,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
-  "popular": 2
+  "popular": 2,
+  "flange": {
+   "kind": "rim",
+   "w": 35.5,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4678,7 +5376,15 @@
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
   "designer_key": "C1C28",
-  "popular": 3
+  "popular": 3,
+  "flange": {
+   "kind": "rim",
+   "w": 28,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4702,7 +5408,15 @@
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
   "designer_key": "C2C34",
-  "popular": 4
+  "popular": 4,
+  "flange": {
+   "kind": "rim",
+   "w": 34,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4726,7 +5440,15 @@
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
   "designer_key": "C2C42",
-  "popular": 5
+  "popular": 5,
+  "flange": {
+   "kind": "rim",
+   "w": 42.5,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4748,7 +5470,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4770,7 +5500,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 42.5,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4792,7 +5530,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 35.5,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4814,7 +5560,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 50,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4836,7 +5590,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 35.5,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4880,7 +5642,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 18.125,
+   "d": 16.25,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4902,7 +5672,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 28,
+   "d": 27,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4924,7 +5702,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 36,
+   "d": 27,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4946,7 +5732,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 25.5,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4968,7 +5762,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 11.375,
+   "d": 17,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -4994,7 +5796,15 @@
   "designer_key": "C3DB",
   "also": [
    "C3DB"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "w": 13.125,
+   "d": 23.25,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5017,7 +5827,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
-  "designer_key": "C1PB"
+  "designer_key": "C1PB",
+  "flange": {
+   "kind": "rim",
+   "w": 24,
+   "d": 24.25,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5039,7 +5857,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 30.125,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5061,7 +5887,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 36.125,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5083,7 +5917,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.375,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5105,7 +5947,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 37.625,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5127,7 +5977,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 44.125,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5149,7 +6007,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 15.25,
+   "d": 16.75,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5171,7 +6037,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 17,
+   "d": 23,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5193,7 +6067,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 24.875,
+   "d": 22.75,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5215,7 +6097,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 24.75,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5237,7 +6127,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Cutout for the insulated jacket, required when combustible material is within 24\" of the grill frame.",
+  "flange": {
+   "kind": "rim",
+   "w": 37.75,
+   "d": 24.75,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5261,7 +6159,15 @@
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
   "designer_key": "CDA2436",
-  "popular": 6
+  "popular": 6,
+  "flange": {
+   "kind": "face",
+   "w": 35.5,
+   "h": 24,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5283,7 +6189,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 30,
+   "h": 24,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5305,7 +6219,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 24.25,
+   "h": 24,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5327,7 +6249,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 38,
+   "h": 24,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5349,7 +6279,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 16,
+   "h": 22,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5371,7 +6309,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 22,
+   "h": 16,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5393,7 +6339,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 19,
+   "h": 26,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5415,7 +6369,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Front opening; the 1\" depth on the sheet is the door frame, not a cutout depth.",
+  "flange": {
+   "kind": "face",
+   "w": 26,
+   "h": 19,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5438,7 +6400,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
-  "designer_key": "C2DC"
+  "designer_key": "C2DC",
+  "flange": {
+   "kind": "face",
+   "w": 16.25,
+   "h": 22,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5460,7 +6430,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 18.5,
+   "h": 26,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5482,7 +6460,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 32.5,
+   "h": 15,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5504,7 +6490,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 30,
+   "h": 24,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5526,7 +6520,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 26.75,
+   "h": 26.25,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5548,7 +6550,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 14.375,
+   "h": 26.25,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5570,7 +6580,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 18,
+   "h": 28,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5592,7 +6610,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 15.5,
+   "h": 22,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5614,7 +6640,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 15,
+   "h": 10,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5636,7 +6670,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 8.75,
+   "h": 26.25,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5658,7 +6700,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 29.5,
+   "h": 10.75,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5680,7 +6730,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 45.25,
+   "h": 24.125,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5703,7 +6761,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
-  "designer_key": "CCD-2DC31"
+  "designer_key": "CCD-2DC31",
+  "flange": {
+   "kind": "face",
+   "w": 30,
+   "h": 24,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5725,7 +6791,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 45.25,
+   "h": 24.125,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5747,7 +6821,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 42.125,
+   "h": 20.75,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5775,7 +6857,13 @@
   "also": [
    "C1BIR24-R",
    "C1BIR24-L"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5797,7 +6885,13 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Vented bottom front."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Vented bottom front.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5819,7 +6913,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Can be turned in either direction."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Can be turned in either direction.",
+  "flange": {
+   "kind": "rim",
+   "w": 24.5,
+   "d": 18,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5841,7 +6943,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "face",
+   "w": 26.75,
+   "h": 20.5,
+   "source": "Overall front size (W \u00d7 H) in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5863,7 +6973,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Includes drain, no faucet."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3). Includes drain, no faucet.",
+  "flange": {
+   "kind": "rim",
+   "w": 15.75,
+   "d": 17.75,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5907,7 +7025,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 30.25,
+   "d": 29,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Coyote",
@@ -5929,7 +7055,15 @@
   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3)."
+  "notes": "Cutout per Coyote Outdoor Living Product & Installation Specifications (2024 Full Line Dimension Sheet v3).",
+  "flange": {
+   "kind": "rim",
+   "w": 30,
+   "d": 25.25,
+   "source": "Overall W \u00d7 D in the Coyote 2024 Full Line Dimension Sheet",
+   "overlap": null,
+   "source_url": "https://coyotegrill.com/cdn/shop/files/Coyote-2024-Full-Line-Dimension-Sheet-v3.pdf?v=14543489214180862659"
+  }
  },
  {
   "brand": "Summerset",
@@ -6439,7 +7573,13 @@
   "also": [
    "SSRFR-24D",
    "SSRFR-24S"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6460,7 +7600,13 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-24S-AR.",
   "also": [
    "RFR-24S-AR"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6478,7 +7624,13 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6496,7 +7648,13 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6515,7 +7673,13 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
-  "discontinued": true
+  "discontinued": true,
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6538,7 +7702,13 @@
    "RFR-24WD",
    "SSRFR-24W",
    "SSRFR-24WD"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6561,7 +7731,13 @@
    "RFR-24DK2",
    "SSRFR-24DK1",
    "SSRFR-24DK2"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6582,7 +7758,13 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: RFR-22D.",
   "also": [
    "RFR-22D"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6605,7 +7787,13 @@
    "RFR-15G",
    "SSRFR-15S",
    "SSRFR-15G"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6628,7 +7816,13 @@
    "RFR-15WD",
    "SSRFR-15W",
    "SSRFR-15WD"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6646,7 +7840,13 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6668,7 +7868,13 @@
   "discontinued": true,
   "also": [
    "SSIM-15"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -6690,7 +7896,13 @@
   "discontinued": true,
   "also": [
    "SSRFR-21D"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -9089,7 +10301,13 @@
   "also": [
    "EA24B",
    "EA24D"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/EA24_Specifications.pdf"
+  }
  },
  {
   "brand": "Dometic",
@@ -9113,7 +10331,13 @@
   },
   "also": [
    "DE15F"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/EA15F_DE15F_Specifications.pdf"
+  }
  },
  {
   "brand": "Dometic",
@@ -9134,6 +10358,12 @@
   "notes": "Cutout per the Dometic specification sheet (twineagles.dometic.com/pages/specifications).",
   "cutout_max_in": {
    "h": 33.75
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DE24F_Specifications_1.pdf"
   }
  },
  {
@@ -9953,7 +11183,13 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per Alfresco 'AXE Counter Cutouts for all Alfresco units' (rev. 10/31/2019).",
-  "designer_key": "URS-1XE"
+  "designer_key": "URS-1XE",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://alfrescogrills.com/wp-content/uploads/2019/10/191031-AXE-COUNTER-CUTOUTS.pdf"
+  }
  },
  {
   "brand": "Alfresco",
@@ -10009,7 +11245,15 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-1/2\" Wide x 19-1/2\" High\").",
   "discontinued": true,
-  "replaced_by": "VDV1SC"
+  "replaced_by": "VDV1SC",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 17\" Wide x 22\" High",
+   "w": 17,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/vertical-door-vdv1"
+  }
  },
  {
   "brand": "RCS",
@@ -10029,7 +11273,15 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" Wide x 19 1/2\" High\").",
   "discontinued": true,
-  "replaced_by": "VDD1SC"
+  "replaced_by": "VDD1SC",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 33\" Wide x 22\" High",
+   "w": 33,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/double-door-vdd1"
+  }
  },
  {
   "brand": "RCS",
@@ -10065,7 +11317,15 @@
   "source_url": "https://rcsgasgrills.com/products/cutlass-elite-power-burner-insulating-liner-for-csb3",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-7/8\" Wide X 18-3/4\" Deep X 10-1/4\" High\"). Required when the unit goes into a combustible cabinet."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-7/8\" Wide X 18-3/4\" Deep X 10-1/4\" High\"). Required when the unit goes into a combustible cabinet.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 17-11/16\" Wide X 19-9/16\" Deep X 10-1/4\" High",
+   "w": 17.6875,
+   "d": 19.5625,
+   "source_url": "https://rcsgasgrills.com/products/cutlass-elite-power-burner-insulating-liner-for-csb3"
+  }
  },
  {
   "brand": "RCS",
@@ -10158,7 +11418,13 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-5/8\" W x 32-1/2\" H x 23\" D\").",
   "designer_key": "REFR2",
-  "popular": 6
+  "popular": 6,
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/refrigerator-refr2c"
+  }
  },
  {
   "brand": "RCS",
@@ -10176,7 +11442,13 @@
   "source_url": "https://rcsgasgrills.com/products/refrigerator-with-glass-door-refr2d",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-5/8\" W x 32-1/2\" H x 23\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23-5/8\" W x 32-1/2\" H x 23\" D\").",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/refrigerator-with-glass-door-refr2d"
+  }
  },
  {
   "brand": "RCS",
@@ -10194,7 +11466,15 @@
   "source_url": "https://rcsgasgrills.com/products/trim-kit-for-refr5-rwc1-rtr5",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 3/4\" Wide x 34 3/4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 3/4\" Wide x 34 3/4\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Frame Size: 17 3/4\" Wide x 35 1/2\" High",
+   "w": 17.75,
+   "h": 35.5,
+   "source_url": "https://rcsgasgrills.com/products/trim-kit-for-refr5-rwc1-rtr5"
+  }
  },
  {
   "brand": "RCS",
@@ -10216,7 +11496,15 @@
   "also": [
    "VDV2SCL",
    "VDV2SCR"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 20\" Wide x 27\" High",
+   "w": 20,
+   "h": 27,
+   "source_url": "https://rcsgasgrills.com/products/vertical-door-20inch-wide-27inch-high-vdv2sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10238,7 +11526,15 @@
   "also": [
    "VDV1SCL",
    "VDV1SCR"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 17\" Wide x 22\" High",
+   "w": 17,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/vertical-door-17inch-wide-22inch-high-vdv1sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10256,7 +11552,15 @@
   "source_url": "https://rcsgasgrills.com/products/accessory-tool-drawer-vdu2",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"27-7/8\" W x 12-1/2\" H x 21\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"27-7/8\" W x 12-1/2\" H x 21\" D\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 30\" W x 15\" H x 21-1/4\" D",
+   "w": 30,
+   "h": 15,
+   "source_url": "https://rcsgasgrills.com/products/accessory-tool-drawer-vdu2"
+  }
  },
  {
   "brand": "RCS",
@@ -10278,7 +11582,15 @@
   "also": [
    "VDH1SCL",
    "VDH1SCR"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 27\" Wide x 20\" High",
+   "w": 27,
+   "h": 20,
+   "source_url": "https://rcsgasgrills.com/products/horizontal-door-27inch-wide-20inch-high-vdh1sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10300,7 +11612,15 @@
   "also": [
    "VDC2SCL",
    "VDC2SCR"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Finishing Lip Overall Size: 32-3/4\" Wide x 22\" High",
+   "w": 32.75,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/triple-drawer-single-door-combo-vdc2sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10318,7 +11638,15 @@
   "source_url": "https://rcsgasgrills.com/products/double-doors-45inch-wide-by-22inch-high-vdd2sc",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42-1/2\" Wide x 19-1/2\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42-1/2\" Wide x 19-1/2\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 44-7/8\" Wide x 22\" High",
+   "w": 44.875,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/double-doors-45inch-wide-by-22inch-high-vdd2sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10338,7 +11666,15 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/2\" Wide x 19-1/2\" High\").",
   "designer_key": "VDD1",
-  "popular": 5
+  "popular": 5,
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 33\" Wide x 22\" High",
+   "w": 33,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/double-doors-33w-x-22h-vdd1sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10356,7 +11692,15 @@
   "source_url": "https://rcsgasgrills.com/products/double-doors-33-inch-by-16-inch-vdd3sc",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/4\" Wide x 13-1/4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/4\" Wide x 13-1/4\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 32-3/4\" Wide x 16\" High",
+   "w": 32.75,
+   "h": 16,
+   "source_url": "https://rcsgasgrills.com/products/double-doors-33-inch-by-16-inch-vdd3sc"
+  }
  },
  {
   "brand": "RCS",
@@ -10379,7 +11723,15 @@
   "also": [
    "VDC1SCL",
    "VDC1SCR"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 32-3/4\" Wide X 22\" High",
+   "w": 32.75,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/double-drawer-single-door-combo-vdc1scl-vdc1scr"
+  }
  },
  {
   "brand": "RCS",
@@ -10415,7 +11767,15 @@
   "source_url": "https://rcsgasgrills.com/products/32inch-premier-series-charcoal-built-in-grill-head-rjcc32a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" Wide x 20-1/2\" Deep x 8-1/4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-5/8\" Wide x 20-1/2\" Deep x 8-1/4\" High\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall: 32-7/8\" Wide x 24\" Deep x 9-1/8\" High",
+   "w": 32.875,
+   "d": 24,
+   "source_url": "https://rcsgasgrills.com/products/32inch-premier-series-charcoal-built-in-grill-head-rjcc32a"
+  }
  },
  {
   "brand": "RCS",
@@ -10433,7 +11793,13 @@
   "source_url": "https://rcsgasgrills.com/products/nugget-ice-maker-refr3a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-1/4\" Wide X 34-1/4\" High X 22-1/2\" Deep\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-1/4\" Wide X 34-1/4\" High X 22-1/2\" Deep\").",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/nugget-ice-maker-refr3a"
+  }
  },
  {
   "brand": "RCS",
@@ -10469,7 +11835,15 @@
   "source_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-with-blue-led-lights-rjcsb3al",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14\" Wide x 19\" Deep x 8\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14\" Wide x 19\" Deep x 8\" High\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall: 15-3/4\" Wide x 23-1/8\" Deep x 8-1/2\" High",
+   "w": 15.75,
+   "d": 23.125,
+   "source_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-with-blue-led-lights-rjcsb3al"
+  }
  },
  {
   "brand": "RCS",
@@ -10487,7 +11861,15 @@
   "source_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-rjcsb3a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14\" Wide x 19\" Deep x 8\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14\" Wide x 19\" Deep x 8\" High\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall: 15-3/4\" Wide x 23-1/8\" Deep x 8-1/2\" High",
+   "w": 15.75,
+   "d": 23.125,
+   "source_url": "https://rcsgasgrills.com/products/premier-series-pro-burner-sideburner-rjcsb3a"
+  }
  },
  {
   "brand": "RCS",
@@ -10505,7 +11887,15 @@
   "source_url": "https://rcsgasgrills.com/products/32inch-stainless-steel-outdoor-farm-house-sink-and-faucet-rsnk3a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-3/4\" W x 17-3/8\" D x 8\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-3/4\" W x 17-3/8\" D x 8\" H\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall: 32-1/4\" W x 20-3/4\" D",
+   "w": 32.25,
+   "d": 20.75,
+   "source_url": "https://rcsgasgrills.com/products/32inch-stainless-steel-outdoor-farm-house-sink-and-faucet-rsnk3a"
+  }
  },
  {
   "brand": "RCS",
@@ -10523,7 +11913,15 @@
   "source_url": "https://rcsgasgrills.com/products/timer-mounting-box-for-gas-timer-rtb1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6-1/2\" Wide x 6-1/2\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6-1/2\" Wide x 6-1/2\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Outside Lip Overall Size: 8-3/4\" Wide x 8-3/4\" High",
+   "w": 8.75,
+   "h": 8.75,
+   "source_url": "https://rcsgasgrills.com/products/timer-mounting-box-for-gas-timer-rtb1"
+  }
  },
  {
   "brand": "RCS",
@@ -10541,7 +11939,15 @@
   "source_url": "https://rcsgasgrills.com/products/outdoor-kitchen-spice-rack-drawer-vsd1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-1/2\" Wide x 19-1/2\" Deep x 24\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-1/2\" Wide x 19-1/2\" Deep x 24\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Finished Lip Overall Size: 13-7/8\" Wide x 26-1/2\" High",
+   "w": 13.875,
+   "h": 26.5,
+   "source_url": "https://rcsgasgrills.com/products/outdoor-kitchen-spice-rack-drawer-vsd1"
+  }
  },
  {
   "brand": "RCS",
@@ -10559,7 +11965,15 @@
   "source_url": "https://rcsgasgrills.com/products/low-profile-double-door-vdd4",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42-1/4\" Wide x 13-1/4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42-1/4\" Wide x 13-1/4\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 44-3/4\" Wide x 16\" High",
+   "w": 44.75,
+   "h": 16,
+   "source_url": "https://rcsgasgrills.com/products/low-profile-double-door-vdd4"
+  }
  },
  {
   "brand": "RCS",
@@ -10577,7 +11991,15 @@
   "source_url": "https://rcsgasgrills.com/products/single-paper-towel-holder-vth1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-1/2\" Wide x 8-1/2\" Deep x 8-1/2\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"14-1/2\" Wide x 8-1/2\" Deep x 8-1/2\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 16-15/16\" Wide X 11-1/8\" High",
+   "w": 16.9375,
+   "h": 11.125,
+   "source_url": "https://rcsgasgrills.com/products/single-paper-towel-holder-vth1"
+  }
  },
  {
   "brand": "RCS",
@@ -10595,7 +12017,15 @@
   "source_url": "https://rcsgasgrills.com/products/dry-pantry-vdp1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" W x 21\" D x 19 1/2\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30 1/2\" W x 21\" D x 19 1/2\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Lip: 32-13/16\" W X 22\" H",
+   "w": 32.8125,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/dry-pantry-vdp1"
+  }
  },
  {
   "brand": "RCS",
@@ -10613,7 +12043,13 @@
   "source_url": "https://rcsgasgrills.com/products/15inch-dual-zone-wine-cooler-rwc1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-1/4\" wide x 24\" deep x 34-1/4\" high\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15-1/4\" wide x 24\" deep x 34-1/4\" high\").",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/15inch-dual-zone-wine-cooler-rwc1"
+  }
  },
  {
   "brand": "RCS",
@@ -10667,7 +12103,15 @@
   "source_url": "https://rcsgasgrills.com/products/arg36-insulating-liner-ljarg36",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"36 5/8\" Wide x 24 3/8\" Deep x 11 3/8\" High\"). Required when the unit goes into a combustible cabinet."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"36 5/8\" Wide x 24 3/8\" Deep x 11 3/8\" High\"). Required when the unit goes into a combustible cabinet.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 38-5/8\" wide X 25-1/4\" deep X 11-3/8\" high",
+   "w": 38.625,
+   "d": 25.25,
+   "source_url": "https://rcsgasgrills.com/products/arg36-insulating-liner-ljarg36"
+  }
  },
  {
   "brand": "RCS",
@@ -10703,7 +12147,15 @@
   "source_url": "https://rcsgasgrills.com/products/rsb3a-insulating-liner-ljrsb3a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"16\" W x 20 1/8\" D x 10 5/8\" H\"). Required when the unit goes into a combustible cabinet."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"16\" W x 20 1/8\" D x 10 5/8\" H\"). Required when the unit goes into a combustible cabinet.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 17-11/16\" W X 20-5/8\" D X 10-1/2\" H",
+   "w": 17.6875,
+   "d": 20.625,
+   "source_url": "https://rcsgasgrills.com/products/rsb3a-insulating-liner-ljrsb3a"
+  }
  },
  {
   "brand": "RCS",
@@ -10739,7 +12191,15 @@
   "source_url": "https://rcsgasgrills.com/products/narrow-trash-drawer-vtd4",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-3/4\" Wide x 19-1/2\" Deep x 24\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"11-3/4\" Wide x 19-1/2\" Deep x 24\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 13-7/8\" Wide X 26-5/16\" High",
+   "w": 13.875,
+   "h": 26.3125,
+   "source_url": "https://rcsgasgrills.com/products/narrow-trash-drawer-vtd4"
+  }
  },
  {
   "brand": "RCS",
@@ -10757,7 +12217,15 @@
   "source_url": "https://rcsgasgrills.com/products/kamado-shelf-drawer-vlsd1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/4\" W x 27-1/2\" D x 19\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"30-1/4\" W x 27-1/2\" D x 19\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 31\" W x 27-1/2\" D x 19\" H",
+   "w": 31,
+   "h": 19,
+   "source_url": "https://rcsgasgrills.com/products/kamado-shelf-drawer-vlsd1"
+  }
  },
  {
   "brand": "RCS",
@@ -10775,7 +12243,15 @@
   "source_url": "https://rcsgasgrills.com/products/drop-in-ice-chest-vic2",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23 1/4\" W x 17 1/4\" D x 13\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"23 1/4\" W x 17 1/4\" D x 13\" H\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Lip: 24 1/8\" Wide x 18 3/16\" Deep",
+   "w": 24.125,
+   "d": 18.1875,
+   "source_url": "https://rcsgasgrills.com/products/drop-in-ice-chest-vic2"
+  }
  },
  {
   "brand": "RCS",
@@ -10811,7 +12287,15 @@
   "source_url": "https://rcsgasgrills.com/products/trash-chute-vtc1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6 1/2\" Wide x 8\" Deep x 4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6 1/2\" Wide x 8\" Deep x 4\" High\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 10 1/4\" Wide x 15 1/4\" Deep x 4 1/8\" High",
+   "w": 10.25,
+   "d": 15.25,
+   "source_url": "https://rcsgasgrills.com/products/trash-chute-vtc1"
+  }
  },
  {
   "brand": "RCS",
@@ -10829,7 +12313,15 @@
   "source_url": "https://rcsgasgrills.com/products/refr1a-refrigerator-trim-rtr1a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"21 - 1/4\" Wide x 33\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"21 - 1/4\" Wide x 33\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 22\" W x 34\" H",
+   "w": 22,
+   "h": 34,
+   "source_url": "https://rcsgasgrills.com/products/refr1a-refrigerator-trim-rtr1a"
+  }
  },
  {
   "brand": "RCS",
@@ -10884,7 +12376,15 @@
   "source_url": "https://rcsgasgrills.com/products/triple-drawer-vtd3",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 22\" Deep x 27 3/4\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15 1/2\" Wide x 22\" Deep x 27 3/4\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimension: 17\" Wide X 30\" High",
+   "w": 17,
+   "h": 30,
+   "source_url": "https://rcsgasgrills.com/products/triple-drawer-vtd3"
+  }
  },
  {
   "brand": "RCS",
@@ -10902,7 +12402,15 @@
   "source_url": "https://rcsgasgrills.com/products/double-trash-drawer-vtd2",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17 5/8\" Wide x 27 1/2\" Deep x 24 5/8\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17 5/8\" Wide x 27 1/2\" Deep x 24 5/8\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall: 20\" Wide X 27\" High X 28-1/8\" Deep",
+   "w": 20,
+   "h": 27,
+   "source_url": "https://rcsgasgrills.com/products/double-trash-drawer-vtd2"
+  }
  },
  {
   "brand": "RCS",
@@ -10920,7 +12428,15 @@
   "source_url": "https://rcsgasgrills.com/products/trash-drawer-vtd1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17 7/8\" Wide x 17 1/2\" Deep x 25\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"17 7/8\" Wide x 17 1/2\" Deep x 25\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 20\" wide X 27\" high",
+   "w": 20,
+   "h": 27,
+   "source_url": "https://rcsgasgrills.com/products/trash-drawer-vtd1"
+  }
  },
  {
   "brand": "RCS",
@@ -10956,7 +12472,15 @@
   "source_url": "https://rcsgasgrills.com/products/horizontal-door-vdh1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24 1/2\" Wide x 17 1/2\" High\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24 1/2\" Wide x 17 1/2\" High\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 27\" Wide x 20\" High",
+   "w": 27,
+   "h": 20,
+   "source_url": "https://rcsgasgrills.com/products/horizontal-door-vdh1"
+  }
  },
  {
   "brand": "RCS",
@@ -10976,7 +12500,15 @@
   "status": "verified",
   "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"42 1/2\" Wide x 19 1/2\" High\").",
   "discontinued": true,
-  "replaced_by": "VDD2SC"
+  "replaced_by": "VDD2SC",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Dimensions: 44 7/8\" Wide x 22\" High",
+   "w": 44.875,
+   "h": 22,
+   "source_url": "https://rcsgasgrills.com/products/large-double-door-vdd2"
+  }
  },
  {
   "brand": "RCS",
@@ -11012,7 +12544,15 @@
   "source_url": "https://rcsgasgrills.com/products/outdoor-kitchen-ventilation-panel-rvnt1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"13\" W x 4\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"13\" W x 4\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 14\" W x 4-1/2\" H",
+   "w": 14,
+   "h": 4.5,
+   "source_url": "https://rcsgasgrills.com/products/outdoor-kitchen-ventilation-panel-rvnt1"
+  }
  },
  {
   "brand": "RCS",
@@ -11030,7 +12570,15 @@
   "source_url": "https://rcsgasgrills.com/products/refr4-refrigerator-trim-kit-rtr4",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"25\" W x 34 1/2\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"25\" W x 34 1/2\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Outer Frame Dimension: 35-3/4\" H x 27-1/4\" W",
+   "w": 27.25,
+   "h": 35.75,
+   "source_url": "https://rcsgasgrills.com/products/refr4-refrigerator-trim-kit-rtr4"
+  }
  },
  {
   "brand": "RCS",
@@ -11066,7 +12614,15 @@
   "source_url": "https://rcsgasgrills.com/products/refr2a-refrigerator-trim-rtr2",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24-1/2\" W x 33-1/4\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24-1/2\" W x 33-1/4\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 26-1/2\" W x 34-1/4\" H",
+   "w": 26.5,
+   "h": 34.25,
+   "source_url": "https://rcsgasgrills.com/products/refr2a-refrigerator-trim-rtr2"
+  }
  },
  {
   "brand": "RCS",
@@ -11084,7 +12640,13 @@
   "source_url": "https://rcsgasgrills.com/products/stainless-undermount-sink-rsnk2",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"21\" W x 15 3/4\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"21\" W x 15 3/4\" D\").",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): undermount sink (mounts below the counter; cutout 21\" W x 15 3/4\" D), so there is no top flange",
+   "source_url": "https://rcsgasgrills.com/products/stainless-undermount-sink-rsnk2"
+  }
  },
  {
   "brand": "RCS",
@@ -11120,7 +12682,15 @@
   "source_url": "https://rcsgasgrills.com/products/single-side-burner-rsb1",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"7 3/4\" W x 15 1/2\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"7 3/4\" W x 15 1/2\" D\").",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 14\" W x 19 1/2\" D",
+   "w": 14,
+   "d": 19.5,
+   "source_url": "https://rcsgasgrills.com/products/single-side-burner-rsb1"
+  }
  },
  {
   "brand": "RCS",
@@ -11292,7 +12862,13 @@
   "source_url": "https://rcsgasgrills.com/products/refr4-dual-drawer-refrigerator",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24\" W x 34-1/4\" H x 23-3/4\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"24\" W x 34-1/4\" H x 23-3/4\" D\").",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/refr4-dual-drawer-refrigerator"
+  }
  },
  {
   "brand": "RCS",
@@ -11310,7 +12886,13 @@
   "source_url": "https://rcsgasgrills.com/products/ul-rated-ice-maker-refr3",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15\" W x 33 1/2\" H x 24\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"15\" W x 33 1/2\" H x 24\" D\").",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/ul-rated-ice-maker-refr3"
+  }
  },
  {
   "brand": "RCS",
@@ -11328,7 +12910,13 @@
   "source_url": "https://rcsgasgrills.com/products/refrigerator-304-ss-reversible-door-w-lock-refr1a",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"20 1/4\" W x 33\" H x 22\" D\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"20 1/4\" W x 33\" H x 22\" D\").",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://rcsgasgrills.com/products/refrigerator-304-ss-reversible-door-w-lock-refr1a"
+  }
  },
  {
   "brand": "RCS",
@@ -11364,7 +12952,15 @@
   "source_url": "https://rcsgasgrills.com/products/rcs-8x8-inch-recessed-access-panel-rad88",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"8 5/8\" W x 8 3/8\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"8 5/8\" W x 8 3/8\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 9 5/8\" W x 9 5/8\" H x 2\" D",
+   "w": 9.625,
+   "h": 9.625,
+   "source_url": "https://rcsgasgrills.com/products/rcs-8x8-inch-recessed-access-panel-rad88"
+  }
  },
  {
   "brand": "RCS",
@@ -11382,7 +12978,15 @@
   "source_url": "https://rcsgasgrills.com/products/rcs-6x6-inch-recessed-access-panel",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6 1/2\" W x 6 3/8\" H\")."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"6 1/2\" W x 6 3/8\" H\").",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall: 7 5/8\" W x 7 5/8\" H x 2\" D",
+   "w": 7.625,
+   "h": 7.625,
+   "source_url": "https://rcsgasgrills.com/products/rcs-6x6-inch-recessed-access-panel"
+  }
  },
  {
   "brand": "RCS",
@@ -11490,7 +13094,15 @@
   "source_url": "https://rcsgasgrills.com/products/rjc32a-rjc32al-insulating-liner-ljrjc32",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"33\" W x 22\" D x 9 5/8\" H\"). Required when the unit goes into a combustible cabinet."
+  "notes": "Cutout per the RCS product page on rcsgasgrills.com (\"33\" W x 22\" D x 9 5/8\" H\"). Required when the unit goes into a combustible cabinet.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "RCS product page (rcsgasgrills.com): Overall Size: 34-3/4\" W X 22-3/4\" D X 9-9/16\" H",
+   "w": 34.75,
+   "d": 22.75,
+   "source_url": "https://rcsgasgrills.com/products/rjc32a-rjc32al-insulating-liner-ljrjc32"
+  }
  },
  {
   "brand": "RCS",
@@ -12083,7 +13695,13 @@
    "RF24RE4",
    "RF24LE",
    "RF24LE4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/w9fnmfr8kg68nhxn7hrk/DCS_UserInstallGuide_RD24_OutdoorRefrigerator_US-CA_592494A.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -12110,7 +13728,13 @@
    "RF24BTR2",
    "RF24BTL2",
    "RF24TR2"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/pmvz5cq59mjrq8p6rfw96cp/DCS_UserInstallGuide_RF24-T-B_OutdoorBeerDispenser_US-CA_592495A.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -12135,7 +13759,13 @@
   "also": [
    "RF15IR3",
    "RF15IL3"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/pnkz8w9zbsn8nbcpb8rt6pmq/DCS-UserInstall-en-RF15I-OutdoorIceMaker-0-90002319A-US-CA.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12719,7 +14349,13 @@
   "popular": 5,
   "also": [
    "GRSL24"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12740,7 +14376,13 @@
   "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRGL24.",
   "also": [
    "GRGL24"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12758,7 +14400,13 @@
   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing."
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12776,7 +14424,13 @@
   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing."
+  "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12797,7 +14451,13 @@
   "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRWSL24.",
   "also": [
    "GRWSL24"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12818,7 +14478,13 @@
   "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GRWGL24.",
   "also": [
    "GRWGL24"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12839,7 +14505,13 @@
   "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. See the beer dispenser manual for the faucet-tower countertop cutout. Same cutout: GFDSL241.",
   "also": [
    "GFDSL241"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12860,7 +14532,13 @@
   "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. See the beer dispenser manual for the faucet-tower countertop cutout. Same cutout: GFDSL242.",
   "also": [
    "GFDSL242"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -12881,7 +14559,13 @@
   "notes": "Island cutout per Hestan Refrigeration Products spec sheet (011023 Rev F) drawing. Same cutout: GIML15.",
   "also": [
    "GIML15"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/kv4mx7khvjcrh4ssprkjsss/Refrigeration_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -13124,7 +14808,13 @@
   "also": [
    "ERSR24",
    "ERSL24"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://cdn.brandfolder.io/W2HABDQZ/as/f3pwvrrqhk9jjp4stjsgqtc/Cooling_Products_-_Specs.pdf"
+  }
  },
  {
   "brand": "Hestan",
@@ -13182,7 +14872,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-3BCM."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-3BCM.",
+  "flange": {
+   "kind": "rim",
+   "w": 27.25,
+   "d": 23.125,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13204,7 +14902,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-4BCM / BLZ-4LTE3."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-4BCM / BLZ-4LTE3.",
+  "flange": {
+   "kind": "rim",
+   "w": 34.875,
+   "d": 23.125,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13226,7 +14932,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-5LTE3."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-5LTE3.",
+  "flange": {
+   "kind": "rim",
+   "w": 42.375,
+   "d": 23.125,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13248,7 +14962,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-3PRO."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-3PRO.",
+  "flange": {
+   "kind": "rim",
+   "w": 36.75,
+   "d": 25.5625,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13270,7 +14992,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-4PRO."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-4PRO.",
+  "flange": {
+   "kind": "rim",
+   "w": 46.5,
+   "d": 25.875,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13295,7 +15025,15 @@
   "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-4LTEPRO. Same cutout: BLZ-4-IJ2-MG.",
   "also": [
    "BLZ-4-IJ2-MG"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "w": 34.75,
+   "d": 22.5,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13317,7 +15055,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-5LTEPRO."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-5LTEPRO.",
+  "flange": {
+   "kind": "rim",
+   "w": 42,
+   "d": 22.625,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13339,7 +15085,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits Blaze double side burner."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits Blaze double side burner.",
+  "flange": {
+   "kind": "rim",
+   "w": 14.75,
+   "d": 23.125,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13361,7 +15115,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-PBLTE3."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-PBLTE3.",
+  "flange": {
+   "kind": "rim",
+   "w": 18.125,
+   "d": 21.375,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13383,7 +15145,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-PROPB."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-PROPB.",
+  "flange": {
+   "kind": "rim",
+   "w": 18.125,
+   "d": 21.375,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13405,7 +15175,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits Blaze LTE griddle."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits Blaze LTE griddle.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.375,
+   "d": 26.375,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13427,7 +15205,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-GRIDDLE-LTE3."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-GRIDDLE-LTE3.",
+  "flange": {
+   "kind": "rim",
+   "w": 32.5,
+   "d": 26.5,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13449,7 +15235,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-GRIDDLE40."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits BLZ-GRIDDLE40.",
+  "flange": {
+   "kind": "rim",
+   "w": 41.75,
+   "d": 26.5,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Blaze",
@@ -13471,7 +15265,15 @@
   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits the Blaze 26\" outdoor oven (catalog lists it for the oven; confirm fit with BLZ-LTE3OVN)."
+  "notes": "Insulated jacket cutout per Blaze Sept 2026 Product Catalog, p. 35 (combustible islands). Fits the Blaze 26\" outdoor oven (catalog lists it for the oven; confirm fit with BLZ-LTE3OVN).",
+  "flange": {
+   "kind": "rim",
+   "w": 28.5,
+   "d": 26.375,
+   "source": "Overall W \u00d7 D in the Blaze Sept 2026 Product Catalog",
+   "overlap": null,
+   "source_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13493,7 +15295,13 @@
   "popular": 1,
   "also": [
    "HP24RO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13514,7 +15322,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP15RO-4.",
   "also": [
    "HP15RO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13535,7 +15349,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP24ZO-4.",
   "also": [
    "HP24ZO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13556,7 +15376,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP24CO-4.",
   "also": [
    "HP24CO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13577,7 +15403,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP24FO-4.",
   "also": [
    "HP24FO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13598,7 +15430,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP24BO-4.",
   "also": [
    "HP24BO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13619,7 +15457,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP15BO-4.",
   "also": [
    "HP15BO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13640,7 +15484,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP24WO-4.",
   "also": [
    "HP24WO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13661,7 +15511,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP15WO-4.",
   "also": [
    "HP15WO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13682,7 +15538,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HP24DO-4.",
   "also": [
    "HP24DO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13703,7 +15565,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. The tap tower needs its own countertop hole; see the beer dispenser spec sheet. Same cutout: HP24TO-4.",
   "also": [
    "HP24TO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13724,7 +15592,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. Same cutout: HC24RO-4.",
   "also": [
    "HC24RO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13745,7 +15619,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54. Depth is 24-7/8\"; 24\" works if the electrical outlet is in the adjacent cabinet. The tap tower needs its own countertop hole; see the beer dispenser spec sheet. Same cutout: HC24TO-4.",
   "also": [
    "HC24TO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13766,7 +15646,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54: Signature Series shallow depth, ADA height (recessed plug for a true 18\" depth). Same cutout: HH24RO-4.",
   "also": [
    "HH24RO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13787,7 +15673,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54: Signature Series shallow depth, ADA height (recessed plug for a true 18\" depth). Same cutout: HH24BO-4.",
   "also": [
    "HH24BO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "Perlick",
@@ -13808,7 +15700,13 @@
   "notes": "Rough cutout per Perlick Residential Design Guide (2023), p. 54: Signature Series shallow depth, ADA height (recessed plug for a true 18\" depth). Same cutout: HH24WO-4.",
   "also": [
    "HH24WO-4"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://api.perlick.com/Data/PDFFiles/HC24TB-4ece735606ae722bffa035f7d0cead2b09b8e684a_67721P_2023_Perlick_Design_Guide_09_11_23.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13837,7 +15735,13 @@
    "TUR-24-L-OP-C",
    "TUR-24-R-OG-C",
    "TUR-24-L-OG-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13859,7 +15763,13 @@
   "also": [
    "TUR-24-D-SS-C",
    "TUR-24-D-OP-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13883,7 +15793,13 @@
    "TUF-24-L-SS-C",
    "TUF-24-R-OP-C",
    "TUF-24-L-OP-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13907,7 +15823,13 @@
    "TBC-24-L-SG-C",
    "TBC-24-R-OG-C",
    "TBC-24-L-OG-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13933,7 +15855,13 @@
    "TWC-24-L-OP-C",
    "TWC-24-R-OG-C",
    "TWC-24-L-OG-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13959,7 +15887,13 @@
    "TWC-24DZ-L-OP-C",
    "TWC-24DZ-R-OG-C",
    "TWC-24DZ-L-OG-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -13983,7 +15917,13 @@
    "TUR-24BD-L-SS-C",
    "TUR-24BD-R-OP-C",
    "TUR-24BD-L-OP-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -14007,7 +15947,13 @@
    "TUR-24DD-L-SS-C",
    "TUR-24DD-R-OP-C",
    "TUR-24DD-L-OP-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -14035,7 +15981,13 @@
    "TUR-15-L-OP-C",
    "TUR-15-R-OG-C",
    "TUR-15-L-OG-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -14061,7 +16013,13 @@
    "TWC-15-L-OP-C",
    "TWC-15-R-OG-C",
    "TWC-15-L-OG-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "True Residential",
@@ -14085,7 +16043,13 @@
    "TUR-15BD-L-SS-C",
    "TUR-15BD-R-OP-C",
    "TUR-15BD-L-OP-C"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://true-caliber.com/wp-content/uploads/2022/06/838155-TRL_15_24-Install_REV_H_EN.pdf"
+  }
  },
  {
   "brand": "U-Line",
@@ -14111,7 +16075,13 @@
   "also": [
    "UORE124-SS01A",
    "UORE124-SS31A"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/ORE124.PDF"
+  }
  },
  {
   "brand": "U-Line",
@@ -14136,7 +16106,13 @@
   "also": [
    "UORE115-SS01A",
    "UORE115-SS31A"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/ORE115.PDF"
+  }
  },
  {
   "brand": "U-Line",
@@ -14160,7 +16136,13 @@
   },
   "also": [
    "UODR124-SS01A"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/ODR124.PDF"
+  }
  },
  {
   "brand": "U-Line",
@@ -14184,7 +16166,13 @@
   },
   "also": [
    "UOKR124-SS01A"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/OKR124.PDF"
+  }
  },
  {
   "brand": "U-Line",
@@ -14208,7 +16196,13 @@
   },
   "also": [
    "UOFZ124-SS01B"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/OFZ124.PDF"
+  }
  },
  {
   "brand": "U-Line",
@@ -14229,6 +16223,12 @@
   "notes": "Cabinet cut-out per U-Line Outdoor Collection spec sheet. Preferred outlet location is the adjacent cabinet. A 15\" width works if the door protrudes past adjacent cabinetry. Needs a drain.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/OCR115.PDF"
   }
  },
  {
@@ -14253,7 +16253,13 @@
   },
   "also": [
    "OCP115"
-  ]
+  ],
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/OCL115.PDF"
+  }
  },
  {
   "brand": "U-Line",
@@ -14274,6 +16280,12 @@
   "notes": "Cabinet cut-out per U-Line Outdoor Collection spec sheet. Preferred outlet location is the adjacent cabinet.",
   "cutout_max_in": {
    "h": 34.375
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/ONP115.PDF"
   }
  },
  {
@@ -14295,6 +16307,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URRE424.PDF"
   }
  },
  {
@@ -14316,6 +16334,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URRE418.PDF"
   }
  },
  {
@@ -14337,6 +16361,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URRE415.PDF"
   }
  },
  {
@@ -14358,6 +16388,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBV424.PDF"
   }
  },
  {
@@ -14379,6 +16415,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBV418.PDF"
   }
  },
  {
@@ -14400,6 +16442,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBV415.PDF"
   }
  },
  {
@@ -14421,6 +16469,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBD424.PDF"
   }
  },
  {
@@ -14442,6 +16496,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URDR424.PDF"
   }
  },
  {
@@ -14463,6 +16523,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWC424.PDF"
   }
  },
  {
@@ -14484,6 +16550,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWC418.PDF"
   }
  },
  {
@@ -14505,6 +16577,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWC415.PDF"
   }
  },
  {
@@ -14526,6 +16604,12 @@
   "notes": "Cutout per U-Line Seamless Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWD424.PDF"
   }
  },
  {
@@ -14547,6 +16631,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URRE324.PDF"
   }
  },
  {
@@ -14568,6 +16658,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URRE315.PDF"
   }
  },
  {
@@ -14589,6 +16685,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBV324.PDF"
   }
  },
  {
@@ -14610,6 +16712,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBV315.PDF"
   }
  },
  {
@@ -14631,6 +16739,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URBD324.PDF"
   }
  },
  {
@@ -14652,6 +16766,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URDR324.PDF"
   }
  },
  {
@@ -14673,6 +16793,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWC324.PDF"
   }
  },
  {
@@ -14694,6 +16820,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWC315.PDF"
   }
  },
  {
@@ -14715,6 +16847,12 @@
   "notes": "Cutout per U-Line Home Collection spec sheet; U-Line rates it for indoor and outdoor use.",
   "cutout_max_in": {
    "h": 35.25
+  },
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.u-line.com/pub/media/u-line/spec_sheets/URWD324.PDF"
   }
  }
 ]

@@ -141,3 +141,61 @@ test("batch 5: refrigeration, Napoleon and Blaze jackets cite manufacturer docum
   assert.equal(ore.cutout_max_in.h, 35.125);
   assert.ok(live.filter(r => r.brand === "Napoleon").length >= 16);
 });
+
+test("flange: every record with a flange is well-formed, sourced and bigger than its cutout", () => {
+  for (const r of live.filter(x => x.flange)) {
+    const f = r.flange, c = r.cutout_in || {};
+    assert.ok(["face", "rim", "none"].includes(f.kind), `${r.model} kind ${f.kind}`);
+    assert.ok(f.source && f.source.length > 10, `${r.model} flange source`);
+    if (f.kind === "none") { assert.ok(f.w == null && f.h == null && f.d == null, `${r.model} none has no dims`); continue; }
+    const other = f.kind === "face" ? f.h : f.d;
+    assert.ok(f.w != null || f.overlap != null, `${r.model} flange has a width or an overlap`);
+    if (f.kind === "face") assert.equal(f.d, undefined, `${r.model} face flange has no depth`);
+    if (f.kind === "rim") assert.equal(f.h, undefined, `${r.model} rim flange has no height`);
+    if (f.w != null && c.w != null) assert.ok(f.w >= c.w, `${r.model} flange W ${f.w} < cutout W ${c.w}`);
+    const cOther = f.kind === "face" ? c.h : c.d;
+    if (other != null && cOther != null && f.kind === "face") assert.ok(other >= cOther, `${r.model} flange H ${other} < cutout H ${cOther}`);
+    if (f.overlap != null) assert.ok(f.overlap > 0 && f.overlap < 4, `${r.model} overlap ${f.overlap}`);
+  }
+});
+
+test("flange shows under the cutout on every model page, in JSON-LD, and in the hub index", () => {
+  const inch = v => { const s = Math.round(v * 16), w = Math.floor(s / 16), q = s % 16; if (!q) return w + '"'; const g = q % 8 === 0 ? 8 : q % 4 === 0 ? 4 : q % 2 === 0 ? 2 : 1; return (w ? w + " " : "") + q / g + "/" + 16 / g + '"'; };
+  for (const r of live) {
+    const html = read(pageOf(r));
+    const big = html.match(/<div class="co coBig"[\s\S]*?<div class="coMeta">/)[0];
+    const dimsAt = big.indexOf('class="coDims"'), flAt = big.indexOf('class="coOverall coFlange"');
+    assert.ok(flAt > dimsAt && dimsAt > 0, `${r.model}: flange line right under the cutout`);
+    const line = big.slice(flAt, big.indexOf("</div>", flAt));
+    const f = r.flange;
+    if (!f) assert.match(line, /Flange: <i>check spec sheet<\/i>/, r.model);
+    else if (f.kind === "none") assert.match(line, /Flange: none/, r.model);
+    else if (f.w != null) assert.ok(line.includes(`Flange: ${inch(f.w).replace(/"/g, "&quot;")}`) || line.includes(`Flange: ${inch(f.w)}`), `${r.model}: ${line}`);
+    const p = ld(html)[0]["@graph"].find(n => n["@type"] === "Product");
+    const prop = n => (p.additionalProperty.find(y => y.name === n) || {}).value;
+    if (f && f.kind !== "none") {
+      assert.equal(prop("Flange width") ?? null, f.w ?? null, r.model);
+      assert.equal(prop(f.kind === "rim" ? "Flange depth (top rim)" : "Flange height") ?? null, (f.kind === "rim" ? f.d : f.h) ?? null, r.model);
+    } else assert.equal(prop("Flange width"), undefined, r.model);
+  }
+  const hub = read(path.join(SITE, "dimensions/cutouts/index.html"));
+  const data = JSON.parse(hub.match(/<script type="application\/json" id="coData">([\s\S]*?)<\/script>/)[1]);
+  const byUrl = Object.fromEntries(data.r.map(x => [x[3], x]));
+  for (const r of live) {
+    const row = byUrl[`/dimensions/cutouts/${BRAND[r.brand]}/${slug(r.model)}/`];
+    assert.ok(row, r.model);
+    const f = r.flange;
+    if (!f) assert.equal(row[18], null, r.model);
+    else assert.deepEqual(row[18], [f.kind === "none" ? 0 : f.kind === "rim" ? 2 : 1, f.w ?? null, (f.kind === "rim" ? f.d : f.h) ?? null, f.overlap ?? null], r.model);
+  }
+  assert.match(hub, /function fl\(f\)/);
+});
+
+test("flange spot values match the manufacturer documents", () => {
+  const get = (b, m) => live.find(r => r.brand === b && r.model === m).flange;
+  assert.deepEqual([get("RCS", "VDD1").w, get("RCS", "VDD1").h], [33, 22]);
+  assert.deepEqual([get("RCS", "VIC2").w, get("RCS", "VIC2").d], [24.125, 18.1875]);
+  assert.deepEqual([get("Lynx", "LDR30T-4").w, get("Lynx", "LDR30T-4").h], [29.6875, 23]);
+  assert.equal(get("Blaze", "BLZ-4LTE3").kind, "rim");
+  assert.equal(get("Perlick", live.find(r => r.brand === "Perlick").model).kind, "none");
+});
