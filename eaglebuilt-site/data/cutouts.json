@@ -7756,7 +7756,15 @@
    "SZR32",
    "SIZPRO32",
    "SIZ32"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: SZRPRO32  32-1/2\" W x 25-3/4\" D",
+   "w": 32.5,
+   "d": 25.75,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Sizzler-Pro-Manual-080426.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7779,7 +7787,15 @@
   "popular": 2,
   "also": [
    "TRL32"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: TRLPRO32  31-7/8\" W x 25-1/2\" D",
+   "w": 31.875,
+   "d": 25.5,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/TRLPRO-Manual-073026.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7803,7 +7819,15 @@
    "SZR40",
    "SIZPRO40",
    "SIZ40"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: SZRPRO40  39-5/8\" W x 25-3/4\" D",
+   "w": 39.625,
+   "d": 25.75,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Sizzler-Pro-Manual-080426.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7826,7 +7850,15 @@
   "popular": 4,
   "also": [
    "TRL38"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: TRLPRO40  39-7/8\" W x 25-1/2\" D",
+   "w": 39.875,
+   "d": 25.5,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/TRLPRO-Manual-073026.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7849,7 +7881,15 @@
   "popular": 5,
   "also": [
    "SIZ26"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: SZR25  25\" W x 25-3/4\" D",
+   "w": 25,
+   "d": 25.75,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/SZR-Manual-073026.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7867,7 +7907,15 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: QUEST 30  30\" W x 26-5/8\" D",
+   "w": 30,
+   "d": 26.625,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Quest-Manual-081326.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7885,7 +7933,15 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: QUEST 36  36\" W x 26-5/8\" D",
+   "w": 36,
+   "d": 26.625,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Quest-Manual-081326.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7903,7 +7959,15 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: QUEST 42  42\" W x 26-5/8\" D",
+   "w": 42,
+   "d": 26.625,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Quest-Manual-081326.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -7921,7 +7985,15 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: SBG30  30\" W x 28\" D",
+   "w": 30,
+   "d": 28,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Resort-Manual-090326.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -8061,7 +8133,15 @@
    "SB2",
    "SIZSB2",
    "SIZPROSB2"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: SB2PRO  12-5/8\" W x 25-1/2\" D",
+   "w": 12.625,
+   "d": 25.5,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Double-Side-Burners-Manual-073026.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -8082,7 +8162,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SIZPROPB.",
   "also": [
    "SIZPROPB"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: PB2PRO  15-3/4\" W x 23-1/4\" D",
+   "w": 15.75,
+   "d": 23.25,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Power-Burner-Manual-073026.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -8103,7 +8191,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSSB1.",
   "also": [
    "SSSB1"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Summerset manual, OVERALL PRODUCT DIMENSIONS table: SB1  14\" W x 19-5/8\" D",
+   "w": 14,
+   "d": 19.625,
+   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/08/Single-Side-Burner-Manual-073026.pdf"
+  }
  },
  {
   "brand": "Summerset",
@@ -8718,7 +8814,15 @@
   "also": [
    "SSDV-16",
    "DV-16V"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 16.000\" W x 18.000\" H",
+   "w": 16,
+   "h": 18,
+   "source_url": "https://summersetgrills.com/products/16-x-18-vertical-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8759,7 +8863,15 @@
    "SSDV-18",
    "DV-18VL",
    "DV-18VR"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 17.000\" W x 22.000\" H",
+   "w": 17,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/18-x-22-vertical-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8780,7 +8892,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDV-20.",
   "also": [
    "SSDV-20"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 20.000\" W x 27.000\" H",
+   "w": 20,
+   "h": 27,
+   "source_url": "https://summersetgrills.com/products/20-x-27-vertical-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8801,7 +8921,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDH-27.",
   "also": [
    "SSDH-27"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 27.000\" W x 20.000\" H",
+   "w": 27,
+   "h": 20,
+   "source_url": "https://summersetgrills.com/products/27-x-20-horizontal-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8863,7 +8991,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-26.",
   "also": [
    "SSDD-26"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 26.000\" W x 22.000\" H",
+   "w": 26,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/26-double-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8884,7 +9020,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-30.",
   "also": [
    "SSDD-30"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 30.000\" W x 22.000\" H",
+   "w": 30,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/30-double-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8927,7 +9071,15 @@
    "SSDD-33",
    "DD-33V",
    "SSDD-33V"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 32.838\" W x 22.000\" H",
+   "w": 32.838,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/33-double-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8948,7 +9100,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-36.",
   "also": [
    "SSDD-36"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 36.000\" W x 22.000\" H",
+   "w": 36,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/36-double-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -8969,7 +9129,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-39.",
   "also": [
    "SSDD-39"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 39.000\" W x 22.000\" H",
+   "w": 39,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/39-double-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9008,7 +9176,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Front opening; the sheet gives no depth (n/a). Same cutout: SSDD-42.",
   "also": [
    "SSDD-42"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 42.000\" W x 22.000\" H",
+   "w": 42,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/42-double-access-door/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9156,7 +9332,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR1-17.",
   "also": [
    "SSDR1-17"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 16.958\" W x 12.536\" H",
+   "w": 16.958,
+   "h": 12.536,
+   "source_url": "https://summersetgrills.com/products/17-single-drawer/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9177,7 +9361,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR3-17.",
   "also": [
    "SSDR3-17"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 16.938\" W x 29.938\" H",
+   "w": 16.938,
+   "h": 29.938,
+   "source_url": "https://summersetgrills.com/products/17-triple-drawer/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9216,7 +9408,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR2-32H.",
   "also": [
    "SSDR2-32H"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 32.000\" W x 8.875\" H",
+   "w": 32,
+   "h": 8.875,
+   "source_url": "https://summersetgrills.com/products/32-double-horizontal-drawer/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9237,7 +9437,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR1-26U.",
   "also": [
    "SSDR1-26U"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 25.625\" W x 6.000\" H",
+   "w": 25.625,
+   "h": 6,
+   "source_url": "https://summersetgrills.com/products/26-utensil-drawer/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9302,7 +9510,15 @@
   "popular": 7,
   "also": [
    "SSDC2-33"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 32.875\" W x 22.000\" H",
+   "w": 32.875,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/33-2-drawer-and-access-door-combo/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9345,7 +9561,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-30.",
   "also": [
    "SSDC2-30"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 30.000\" W x 22.000\" H",
+   "w": 30,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/30-2-drawer-and-access-door-combo/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9384,7 +9608,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-36.",
   "also": [
    "SSDC2-36"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 36.000\" W x 22.000\" H",
+   "w": 36,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/36-2-drawer-and-access-door-combo/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9405,7 +9637,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-42.",
   "also": [
    "SSDC2-42"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 42.000\" W x 22.000\" H",
+   "w": 42,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/42-2-drawer-and-access-door-combo/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9426,7 +9666,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDC2-33LP.",
   "also": [
    "SSDC2-33LP"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 32.875\" W x 22.000\" H",
+   "w": 32.875,
+   "h": 22,
+   "source_url": "https://summersetgrills.com/products/33-2-drawer-vented-trash-or-lp-tank-pullout-drawer-combo/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9447,7 +9695,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTDC-17.",
   "also": [
    "SSTDC-17"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 17.735\" W x 30.297\" H",
+   "w": 17.735,
+   "h": 30.297,
+   "source_url": "https://summersetgrills.com/products/17-vertical-2-drawer-paper-towel-holder-combo/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9555,7 +9811,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSTD2-20.",
   "also": [
    "SSTD2-20"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 20.000\" W x 27.000\" H",
+   "w": 20,
+   "h": 27,
+   "source_url": "https://summersetgrills.com/products/20-2-bin-trash-recycling-drawer/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9573,7 +9837,15 @@
   "source_url": "https://summersetgrills.com/wp-content/uploads/2026/09/Summerset-Cutout-Sheet-082526.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526)."
+  "notes": "Cutout per Summerset Cutout Sheet (rev. 082526).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 14.500\" W x 26.364\" H",
+   "w": 14.5,
+   "h": 26.364,
+   "source_url": "https://summersetgrills.com/products/14-narrow-trash-drawer/"
+  }
  },
  {
   "brand": "Summerset",
@@ -9594,7 +9866,15 @@
   "notes": "Cutout per Summerset Cutout Sheet (rev. 082526). Same cutout: SSDR1-20LP.",
   "also": [
    "SSDR1-20LP"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Summerset line drawing (front view) on the product page: overall 20.000\" W x 27.000\" H",
+   "w": 20,
+   "h": 27,
+   "source_url": "https://summersetgrills.com/products/20-vented-liquid-propane-tank-or-trash-pullout-drawer/"
+  }
  },
  {
   "brand": "Summerset",
