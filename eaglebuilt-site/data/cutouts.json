@@ -9437,7 +9437,15 @@
   "also": [
    "TEBQ36G-C",
    "TEBQ36RS-C"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEBQ36R-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 36,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq36-specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9461,7 +9469,15 @@
   "also": [
    "TEBQ42G-C",
    "TEBQ42RS-C"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEBQ42R-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 42,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq42-specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9485,7 +9501,15 @@
   "also": [
    "TEBQ30G-C",
    "TEBQ30RS-C"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEBQ30R-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 30,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TEBQ30_Specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9504,7 +9528,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 3.25\" to the countertop notch for hood opening (C-Series).",
-  "designer_key": "TEBQ54RS-C"
+  "designer_key": "TEBQ54RS-C",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEBQ54RS-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 54,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebq54-specifications-1.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9522,7 +9554,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq42-specifications.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 5\" to the countertop notch for hood opening (Eagle One)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 5\" to the countertop notch for hood opening (Eagle One).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TE1BQ42RS spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 42,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq42-specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9540,7 +9580,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq54-specifications.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 5\" to the countertop notch for hood opening (Eagle One)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Add 5\" to the countertop notch for hood opening (Eagle One).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TE1BQ54RS spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 54,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/te1bq54-specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9579,7 +9627,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TETG30_Specifications.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TETG30-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 30,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/TETG30_Specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9597,7 +9653,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebc30-specifications.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEBC30-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 30,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tebc30-specifications.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9619,7 +9683,15 @@
   "designer_key": "TESB132-C",
   "also": [
    "TESB131-C"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TESB132-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 13,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tesb13-specifications_1.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9638,7 +9710,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
-  "designer_key": "TEPB24HG-C"
+  "designer_key": "TEPB24HG-C",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEPB24HG-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 24,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/tepb24-specifications_ceb9f178-b77f-43d8-92a6-7f198207b4ed.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9766,7 +9846,15 @@
   "status": "verified",
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet.",
   "designer_key": "TEAD36-C",
-  "popular": 5
+  "popular": 5,
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEAD36-C spec sheet (Dometic), front view of the unit",
+   "w": 36,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050776A_-_TEAD36-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9784,7 +9872,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050775A_-_TEAD30-C_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEAD30-C spec sheet (Dometic), front view of the unit",
+   "w": 30,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050775A_-_TEAD30-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9802,7 +9898,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050777A_-_TEAD42-C_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEAD42-C spec sheet (Dometic), front view of the unit",
+   "w": 42,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050777A_-_TEAD42-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9823,7 +9927,15 @@
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet. Same cutout: TEAD18R-C.",
   "also": [
    "TEAD18R-C"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEAD18L-C spec sheet (Dometic), front view of the unit",
+   "w": 18,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050773A_-_TEAD18_L_R_-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9844,7 +9956,15 @@
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Front opening; no depth on the sheet. Same cutout: TEAD24R-C.",
   "also": [
    "TEAD24R-C"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEAD24L-C spec sheet (Dometic), front view of the unit",
+   "w": 24,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050774A_-_TEAD24_L_R_-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9864,7 +9984,15 @@
   "status": "verified",
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
   "designer_key": "TEDD362-B",
-  "popular": 4
+  "popular": 4,
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEDD362-B spec sheet (Dometic), front view of the unit",
+   "w": 36,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050779A_-_TEDD362-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9882,7 +10010,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050778A_-_TEDD302-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEDD302-B spec sheet (Dometic), front view of the unit",
+   "w": 30,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050778A_-_TEDD302-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9900,7 +10036,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050780A_-_TEDD422-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEDD422-B spec sheet (Dometic), front view of the unit",
+   "w": 42,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050780A_-_TEDD422-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9918,7 +10062,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050781A_-_TEDS36-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEDS36-B spec sheet (Dometic), front view of the unit",
+   "w": 36,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050781A_-_TEDS36-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9936,7 +10088,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050782A_-_TEDS36T-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEDS36T-B spec sheet (Dometic), front view of the unit",
+   "w": 36,
+   "h": 34,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050782A_-_TEDS36T-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9955,7 +10115,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints width 12.13.",
-  "designer_key": "TESD132-B"
+  "designer_key": "TESD132-B",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TESD132-B spec sheet (Dometic), front view of the unit",
+   "w": 12.97,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050801A_-_TESD132-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9973,7 +10141,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050802A_-_TESD192-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints width 18.13."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints width 18.13.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TESD192-B spec sheet (Dometic), front view of the unit",
+   "w": 19,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050802A_-_TESD192-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -9991,7 +10167,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050803A_-_TESD301-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TESD301-B spec sheet (Dometic), front view of the unit",
+   "w": 30,
+   "h": 11.31,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050803A_-_TESD301-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10009,7 +10193,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050804A_-_TESD361-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints 14.38 x 26.63."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints 14.38 x 26.63.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TESD361-B spec sheet (Dometic), front view of the unit",
+   "w": 36,
+   "h": 16,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050804A_-_TESD361-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10027,7 +10219,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050811A_-_TEWD30-C_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEWD30-C spec sheet (Dometic), front view of the unit",
+   "w": 30,
+   "h": 11.5,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050811A_-_TEWD30-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10045,7 +10245,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050812A_-_TEWD42C-C_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints height 19.38."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet prints height 19.38.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Twin Eagles TEWD42C-C spec sheet (Dometic), front view of the unit",
+   "w": 42,
+   "h": 20.75,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050812A_-_TEWD42C-C_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10063,7 +10271,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050796A_-_TEOB30-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEOB30-B spec sheet, top view of the unit (W x D)",
+   "w": 30,
+   "d": 26.13,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050796A_-_TEOB30-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10081,7 +10297,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050795A_-_TEOB18-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEOB18-B spec sheet, top view of the unit (W x D)",
+   "w": 18,
+   "d": 25,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050795A_-_TEOB18-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10099,7 +10323,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050798A_-_TEOS24-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Faucet not included."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Faucet not included.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEOS24-B spec sheet, top view of the unit (W x D)",
+   "w": 24,
+   "d": 24,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050798A_-_TEOS24-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Twin Eagles",
@@ -10117,7 +10349,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050797A_-_TEOC24D-B_SPEC_SHEET.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet title reads '30 Inch Outdoor Cooler, Drop-in'; prints height 12.13."
+  "notes": "Cutout per the Twin Eagles specification sheet (twineagles.dometic.com/pages/specifications). Sheet title reads '30 Inch Outdoor Cooler, Drop-in'; prints height 12.13.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Twin Eagles TEOC24D-B spec sheet, top view of the unit (W x D)",
+   "w": 24,
+   "d": 24,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/4490050797A_-_TEOC24D-B_SPEC_SHEET.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -10141,7 +10381,15 @@
    "DHBQ38G-D",
    "DHBQ38R-D",
    "DHBQ38RS-D"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Delta Heat DHBQ38 spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own; the front view also shows 40.98 across the side fittings",
+   "w": 38,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ38_Specifications_107c2d5f-70a0-401d-937b-8da343b65f03.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -10165,7 +10413,15 @@
    "DHBQ32G-D",
    "DHBQ32R-D",
    "DHBQ32RS-D"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Delta Heat DHBQ32 spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own; the front view also shows 34.98 across the side fittings",
+   "w": 32,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ32_Specifications_f2b48c21-a897-4805-8d67-155c64825f8c.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -10186,7 +10442,15 @@
   "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications). Same cutout: DHBQ26G-D.",
   "also": [
    "DHBQ26G-D"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Delta Heat DHBQ26 spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 26,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHBQ26_Specifications_98ec2643-467d-4ef3-8179-d665247c2c1e.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -10204,7 +10468,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHTG32_Specifications_0457ed0d-62cb-42d9-accd-7b28f6788870.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Delta Heat DHTG32 spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 32,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHTG32_Specifications_0457ed0d-62cb-42d9-accd-7b28f6788870.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -10222,7 +10494,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHPW22_Specifications_6c7c1525-158f-4264-ab4c-d21d186d0cde.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Delta Heat DHPW22 spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 22,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHPW22_Specifications_6c7c1525-158f-4264-ab4c-d21d186d0cde.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -10240,7 +10520,15 @@
   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHSB2_Specifications_1.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications)."
+  "notes": "Cutout per the Delta Heat specification sheet (twineagles.dometic.com/pages/specifications).",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Delta Heat DHSB2-C spec sheet: front width of the unit; the depth of the top rim is not dimensioned on its own",
+   "w": 12,
+   "d": null,
+   "source_url": "https://cdn.shopify.com/s/files/1/0776/8175/4403/files/DHSB2_Specifications_1.pdf"
+  }
  },
  {
   "brand": "Delta Heat",
@@ -13166,7 +13454,15 @@
    "BE1-48RCI-L",
    "BE1-48C-N",
    "BE1-48C-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"G Width of control panel 47 15/16\"; \"K Front of cabinet (proud) to rear flange 23 5/16\"; side flanges 1 3/16, rear flange 1",
+   "w": 47.9375,
+   "d": 23.3125,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13194,7 +13490,15 @@
    "BE1-36RCI-L",
    "BE1-36C-N",
    "BE1-36C-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"G Width of control panel 35 15/16\"; \"K Front of cabinet (proud) to rear flange 23 5/16\"; side flanges 1 3/16, rear flange 1",
+   "w": 35.9375,
+   "d": 23.3125,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13217,7 +13521,15 @@
   "also": [
    "BE1-30AG-N",
    "BE1-30AG-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"B Overall width 30\"; \"G Front of cabinet (proud) to rear flange 23 1/2\"; side flanges 1 1/16, rear flange 1",
+   "w": 30,
+   "d": 23.5,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13239,7 +13551,15 @@
   "also": [
    "GDE1-30-N",
    "GDE1-30-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"B Overall width 30\"; \"G Front of cabinet (proud) to rear flange 23 1/2\"; side flanges 1 1/16, rear flange 1",
+   "w": 30,
+   "d": 23.5,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13262,7 +13582,15 @@
   "also": [
    "GDSBE1-302-N",
    "GDSBE1-302-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"B Overall width 30\"; \"G Front of cabinet (proud) to rear flange 23 1/2\"; side flanges 1 1/16, rear flange 7/8",
+   "w": 30,
+   "d": 23.5,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13284,7 +13612,15 @@
   "also": [
    "PBE1-24-N",
    "PBE1-24-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"B Overall width 24\"; \"H Front of cabinet (proud) to rear flange 23 1/2\"; side flanges 1 1/8, rear flange 1",
+   "w": 24,
+   "d": 23.5,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13307,7 +13643,15 @@
   "also": [
    "SBE1-142-N",
    "SBE1-142-L"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS Series 9 Planning Guide rev E data sheet: \"B Overall width 14 11/16\"; \"H Front of cabinet (proud) to rear flange 11 1/4\"; rear flange 3/4",
+   "w": 14.6875,
+   "d": 11.25,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/c59tpftbx8hjp5gcf3ttjfv/DCS-PlanningGuide-en-Series9-Cooking-0-90003357E-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13397,7 +13741,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\"."
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\".",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS ADR2 Access Drawers install guide 590841B, Fig. 1a: ADR2-48 W 48\" x H 21-7/8\"",
+   "w": 48,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13416,7 +13768,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\".",
-  "designer_key": "ADR2-36"
+  "designer_key": "ADR2-36",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS ADR2 Access Drawers install guide 590841B, Fig. 1a: ADR2-36 W 36\" x H 21-7/8\"",
+   "w": 36,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13434,7 +13794,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\"."
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\".",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS ADR2 Access Drawers install guide 590841B, Fig. 1a: ADR2-30 W 30\" x H 21-7/8\"",
+   "w": 30,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13452,7 +13820,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\"."
+  "notes": "Proud-install cutout per DCS ADR2 install guide (tolerance -0/+1/8\"). Depth not specified for the cutout; check spec sheet. Flush install: width +3/16\", height 22-1/16\".",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS ADR2 Access Drawers install guide 590841B, Fig. 1a: ADR2-24 W 24\" x H 21-7/8\"",
+   "w": 24,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/svkzw86cvttghx6hp65hv3vk/DCS_User_Install_Guide_ADR2_Access_Drawers_590841B.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13473,7 +13849,15 @@
   "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X48.",
   "also": [
    "ADN20X48"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Access Doors ADN install guide 241678, access door specifications: 47-15/16\" x 21-7/8\"",
+   "w": 47.9375,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13494,7 +13878,15 @@
   "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X36.",
   "also": [
    "ADN20X36"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Access Doors ADN install guide 241678, access door specifications: 35-15/16\" x 21-7/8\"",
+   "w": 35.9375,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13516,7 +13908,15 @@
   "designer_key": "ADN1-20X30",
   "also": [
    "ADN20X30"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Access Doors ADN install guide 241678, access door specifications: 30\" x 21-7/8\"",
+   "w": 30,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13537,7 +13937,15 @@
   "notes": "Cutout per DCS access door install guide (tolerance -0/+1/8\"). Depth not specified; check spec sheet. Same cutout: ADN20X24.",
   "also": [
    "ADN20X24"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Access Doors ADN install guide 241678, access door specifications: 24\" x 21-7/8\"",
+   "w": 24,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/8vq67gbfb9nn8r4ht3939m7/DCS_Install_Guide_Access_Doors_241678.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13555,7 +13963,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 9-13/16\" H."
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 9-13/16\" H.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Storage install guide 590615C, product dimensions: \"overall width of product\" x \"overall height of product\" 20 5/16\" x 9 5/8\"",
+   "w": 20.3125,
+   "h": 9.625,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13573,7 +13989,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 22-1/16\" H."
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 22-1/16\" H.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Storage install guide 590615C, product dimensions: \"overall width of product\" x \"overall height of product\" 20 5/16\" x 21 7/8\"",
+   "w": 20.3125,
+   "h": 21.875,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13592,7 +14016,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 29-5/16\" H.",
-  "designer_key": "TDT1-20"
+  "designer_key": "TDT1-20",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Storage install guide 590615C, product dimensions: \"overall width of product\" x \"overall height of product\" 20 5/16\" x 29 1/8\"",
+   "w": 20.3125,
+   "h": 29.125,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13611,7 +14043,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 20-1/2\" W \u00d7 29-5/16\" H.",
-  "designer_key": "TB1-20"
+  "designer_key": "TB1-20",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Storage install guide 590615C, product dimensions: \"overall width of product\" x \"overall height of product\" 20 5/16\" x 29 1/8\"",
+   "w": 20.3125,
+   "h": 29.125,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13629,7 +14069,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 42-3/16\" W \u00d7 30-11/16\" H."
+  "notes": "Proud-install cutout per DCS storage install guide (590615C); bottom of cutout min. 1-3/16\" above ground. Depth not specified; check spec sheet. Flush install: 42-3/16\" W \u00d7 30-11/16\" H.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS Storage install guide 590615C, product dimensions: \"overall width of product\" x \"overall height of product\" 42\" x 30 1/2\"",
+   "w": 42,
+   "h": 30.5,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/gzf8frvfrb3z3zg8s9ghcc94/DCS_Install_Guide_Storage_590615C.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13650,7 +14098,15 @@
   "notes": "Proud install per DCS WD1-30 install guide; depth is the minimum cabinet depth. Flush install: 30-3/16\" W \u00d7 16-3/16\" H, 26-3/16\" min. depth. Same cutout: WD1-30-SSOD.",
   "also": [
    "WD1-30-SSOD"
-  ]
+  ],
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "DCS WD1-30 warming drawer install guide 590833C, Fig. 03A: front 30\" x 16\"",
+   "w": 30,
+   "h": 16,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/xtv6r4zgv7t4h3vrrxhmfp6/DCS_User_Install_Guide_WD1-30-SSOD_Warming_Drawer_590833C.pdf"
+  }
  },
  {
   "brand": "DCS",
@@ -13668,7 +14124,15 @@
   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/7hwn5v5c9bkc4qrsxwkxcmsb/DCS-DataSheet-en-BC25-BeverageChillerSink-0-90000029-US-CA.pdf",
   "verified_date": "2026-11-21",
   "status": "verified",
-  "notes": "Cavity per DCS BC25 data sheet; min. 5/8\" from countertop front to cutout. Depth 21-11/16\" with bottle holder accessory."
+  "notes": "Cavity per DCS BC25 data sheet; min. 5/8\" from countertop front to cutout. Depth 21-11/16\" with bottle holder accessory.",
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "DCS BC25 data sheet: \"Overall width of chiller 26 3/8\"; \"Overall depth of chiller 21 15/16\"; \"Width of flange 9/16\"",
+   "w": 26.375,
+   "d": 21.9375,
+   "source_url": "https://dam.fisherpaykel.com/KZ3PKN00/at/7hwn5v5c9bkc4qrsxwkxcmsb/DCS-DataSheet-en-BC25-BeverageChillerSink-0-90000029-US-CA.pdf"
+  }
  },
  {
   "brand": "DCS",

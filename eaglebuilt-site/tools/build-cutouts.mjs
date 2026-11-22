@@ -264,7 +264,7 @@ function flangeLine(r) {
   if (!f) return `Flange: <i>check spec sheet</i>`;
   if (f.kind === "none") return `Flange: none &mdash; fits inside the opening`;
   const p = v => (inch(v) ? esc(inch(v)) : `<i>check spec sheet</i>`);
-  const dims = f.kind === "rim" ? `${p(f.w)} W &times; ${p(f.d)} D (top rim)` : `${p(f.w)} W &times; ${p(f.h)} H`;
+  const dims = f.kind === "rim" ? `${p(f.w)} W &times; ${p(f.d)} D (top footprint)` : `${p(f.w)} W &times; ${p(f.h)} H`;
   const lap = f.overlap != null ? ` &middot; overlaps the cutout ${esc(inch(f.overlap))} per side` : "";
   return (f.w == null && (f.h ?? f.d) == null && f.overlap != null) ? `Flange: <i>check spec sheet</i>${lap}` : `Flange: ${dims}${lap}`;
 }
@@ -360,7 +360,7 @@ const HUB_JS = `<script>
   function fl(f){if(!f)return 'Flange: <i>check spec sheet</i>';if(f[0]===0)return 'Flange: none &mdash; fits inside the opening';
     function p(v){var t=inch(v);return t?e(t):'<i>check spec sheet</i>';}var lap=f[3]!==null?' &middot; overlaps the cutout '+e(inch(f[3]))+' per side':'';
     if(f[1]===null&&f[2]===null)return 'Flange: <i>check spec sheet</i>'+lap;
-    return 'Flange: '+p(f[1])+' W &times; '+p(f[2])+(f[0]===2?' D (top rim)':' H')+lap;}
+    return 'Flange: '+p(f[1])+' W &times; '+p(f[2])+(f[0]===2?' D (top footprint)':' H')+lap;}
   var html=D.g.map(function(g,gi){
     var rows=D.r.filter(function(r){return r[14]===gi;}).map(function(r){
       var bq=r[1].toLowerCase();bq+=" "+bq.replace(/[^a-z0-9]+/g,"")+" "+bq.replace(/[^a-z0-9]+/g,"-");
@@ -611,7 +611,7 @@ for (const r of RECS) {
   if (r.cutout_in) add.push(pv("Cutout width", c.w, cm.w), pv("Cutout height", c.h, cm.h), pv("Cutout depth", c.d, cm.d));
   const f = r.flange;
   if (f && f.kind === "none") add.push({ "@type": "PropertyValue", name: "Flange", value: "none (fits inside the opening)" });
-  else if (f) add.push(pv("Flange width", f.w), f.kind === "rim" ? pv("Flange depth (top rim)", f.d) : pv("Flange height", f.h), pv("Flange overlap per side", f.overlap));
+  else if (f) add.push(pv("Flange width", f.w), f.kind === "rim" ? pv("Flange depth (top footprint)", f.d) : pv("Flange height", f.h), pv("Flange overlap per side", f.overlap));
   if (r.fuel_power) add.push({ "@type": "PropertyValue", name: "Fuel / power", value: r.fuel_power });
   const product = {
     "@type": "Product", "@id": ORIGIN + r.url + "#product", name: `${r.b.name} ${r.model} ${r.product_name}`,

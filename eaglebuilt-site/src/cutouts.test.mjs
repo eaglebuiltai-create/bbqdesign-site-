@@ -160,7 +160,7 @@ test("flange: every record with a flange is well-formed, sourced and bigger than
 });
 
 test("flange shows under the cutout on every model page, in JSON-LD, and in the hub index", () => {
-  const inch = v => { const s = Math.round(v * 16), w = Math.floor(s / 16), q = s % 16; if (!q) return w + '"'; const g = q % 8 === 0 ? 8 : q % 4 === 0 ? 4 : q % 2 === 0 ? 2 : 1; return (w ? w + " " : "") + q / g + "/" + 16 / g + '"'; };
+  const inch = v => { if (Math.abs(v * 16 - Math.round(v * 16)) > 1e-6) return (+v.toFixed(3)) + '"'; const s = Math.round(v * 16), w = Math.floor(s / 16), q = s % 16; if (!q) return w + '"'; const g = q % 8 === 0 ? 8 : q % 4 === 0 ? 4 : q % 2 === 0 ? 2 : 1; return (w ? w + " " : "") + q / g + "/" + 16 / g + '"'; };
   for (const r of live) {
     const html = read(pageOf(r));
     const big = html.match(/<div class="co coBig"[\s\S]*?<div class="coMeta">/)[0];
@@ -175,7 +175,7 @@ test("flange shows under the cutout on every model page, in JSON-LD, and in the 
     const prop = n => (p.additionalProperty.find(y => y.name === n) || {}).value;
     if (f && f.kind !== "none") {
       assert.equal(prop("Flange width") ?? null, f.w ?? null, r.model);
-      assert.equal(prop(f.kind === "rim" ? "Flange depth (top rim)" : "Flange height") ?? null, (f.kind === "rim" ? f.d : f.h) ?? null, r.model);
+      assert.equal(prop(f.kind === "rim" ? "Flange depth (top footprint)" : "Flange height") ?? null, (f.kind === "rim" ? f.d : f.h) ?? null, r.model);
     } else assert.equal(prop("Flange width"), undefined, r.model);
   }
   const hub = read(path.join(SITE, "dimensions/cutouts/index.html"));
