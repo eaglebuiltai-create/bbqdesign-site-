@@ -849,8 +849,10 @@ function gapNote(spec, gap) {
 function sentenceLeg(t) {
   if (/\b(bar side|of the bar|on the bar|the return|return leg)\b/.test(t)) return "return";
   if (/\b(grill side|cook side)\b/.test(t)) return "grill";
-  if (/\blong side\b/.test(t)) return "long";
-  if (/\bshort side\b/.test(t)) return "short";
+  if (/\b(?:long|big|bigger|longer) side\b/.test(t)) return "long";
+  /* "Small side" is what John called it out loud. The sheet of synonyms
+     costs nothing and the alternative is a shrug. */
+  if (/\b(?:short|small|little|shorter|smaller) side\b/.test(t)) return "short";
   if (/\bother side\b/.test(t)) return "other";
   if (/\bcorner\b/.test(t)) return "corner";
   return "";
@@ -1024,8 +1026,8 @@ function legIntent(t) {
   if (/\bother side of\b/.test(t)) return "";
   if (/\bother side\b/.test(t)) return "return";
   if (/\b(?:bar side|return leg|on the return|the return)\b/.test(t)) return "return";
-  if (/\bshort side\b/.test(t)) return "short";
-  if (/\blong side\b/.test(t)) return "long";
+  if (/\b(?:short|small|little|shorter|smaller) side\b/.test(t)) return "short";
+  if (/\b(?:long|big|bigger|longer) side\b/.test(t)) return "long";
   if (/\b(?:grill side|grill leg|main leg)\b/.test(t)) return "grill";
   return "";
 }
@@ -1385,6 +1387,101 @@ function sitNote(id) {
   return "";
 }
 
+/* How far along a leg a piece starts, and how wide it is - the same walk
+   gearSpan does, stopped at the piece we care about. */
+function offsetOf(items, id, gapIn, grillGap, spec, skip) {
+  const requested = gapIn == null ? 6 : gapIn;
+  const omit = skip || {};
+  let sum = 0, prev = "";
+  for (const other of items || []) {
+    if (omit[other]) continue;
+    const item = pieceFor(other, spec);
+    if (!item) continue;
+    const gap = prev ? gapWidth(prev, other, requested, grillGap) : 0;
+    if (other === id) return { before: sum + gap, w: item.w };
+    sum += gap + item.w;
+    prev = other;
+  }
+  return null;
+}
+
+/* "Center the grill", "center it on the small side", "center the bar".
+   A leg with no align, no shift and no pinned end already centres whatever
+   is on it - that is the even split in pack - so centring a whole leg is a
+   matter of clearing those. Centring one named piece is a shift of the
+   group that brings that piece to the middle.
+
+   Not triggered by a beverage center, bar center or refreshment center,
+   which are things you buy rather than things you do. */
+function centerOn(t, current) {
+  if (!current || !current.legs || !current.legs.length) return null;
+  if (/\b(?:beverage|bar|bartending|bartender|refreshment|prep|cooking)\s+cent(?:er|re)\b/.test(t)) return null;
+  if (!/\bcent(?:er|re)(?:ed|ing)?\b/.test(t)) return null;
+
+  const spec = cloneSpec(current);
+  spec.holdLengths = true;
+
+  /* "Center the bar" names a leg, not a piece. Without this it fell through
+     to the last piece mentioned and centred that instead - answering a
+     question nobody asked. sentenceLeg is shared, so the extra words live
+     here rather than widening it for every caller. */
+  const which = sentenceLeg(t)
+    || (/\bthe bar\b/.test(t) ? "return" : "")
+    || (/\bthe (?:grill|main)(?: leg| run)?\b/.test(t) && !findItems(t).length ? "grill" : "");
+  let legN = which ? resolveLeg(spec, which) : null;
+
+  const named = findItems(t).map(id => resolvePresent(id, spec)).filter(id => pieceOnSpec(spec, id));
+  let id = named[0] || "";
+  if (!id && !which) id = pronounItem(spec);
+  if (id && !legN) legN = spec.legs.find(l => (l.items || []).includes(id)) || null;
+  if (!legN) legN = spec.legs[0];
+  if (!legN) return null;
+  /* Named a leg and a piece that is not on it - the leg wins, and the piece
+     is only a hint about which one they meant. */
+  if (id && !(legN.items || []).includes(id)) id = "";
+
+  /* Remember how it sat, so a leg that was already centred can say so.
+     Replying "Done." and changing nothing is how a feature gets reported
+     as broken. */
+  const was = JSON.stringify([legN.align || "", legN.shift || 0, legN.slide || 0, !!legN.pinEnd]);
+
+  delete legN.align;
+  legN.slide = 0;
+  legN.pinEnd = false;
+
+  const items = legN.items || [];
+  let what = "";
+  /* One piece on the leg: centring it and centring the leg are the same act,
+     so call it by name rather than "everything on this leg". */
+  if (id && items.length === 1) {
+    legN.shift = 0;
+    what = theName(id);
+  } else if (id && items.length > 1) {
+    const span = gearSpan(items, spec.gapIn, spec.grillGap, spec, legN.overlay);
+    const at = offsetOf(items, id, spec.gapIn, spec.grillGap, spec, legN.overlay);
+    if (at) {
+      const spare = Math.max(0, legN.lengthIn - span);
+      legN.shift = Math.round(legN.lengthIn / 2 - (spare / 2 + at.before + at.w / 2));
+      what = theName(id);
+    }
+  }
+  if (!what) {
+    legN.shift = 0;
+    what = legName(legN);
+  }
+  if (id) spec.lastMentioned = id;
+  const now = JSON.stringify([legN.align || "", legN.shift || 0, legN.slide || 0, !!legN.pinEnd]);
+  if (was === now) {
+    /* The clone, not `current`. Handing back the caller's own spec object
+       let the next turn rebuild the island from scratch. */
+    /* Opens with "Centered" like every other note, so it survives the filter
+       in changeReply - and says why nothing moved, which is the whole point
+       of distinguishing this case. */
+    return { spec, brief: true, notes: ["Centered " + what + ", which is where it already sat."] };
+  }
+  return { spec, brief: true, notes: ["Centered " + what + "."] };
+}
+
 /* "A wok not a power burner" replaces the power burner with the wok. */
 function replaceNot(t, current) {
   if (!current || !/\bnot\s+(?:a|an|the)\b/.test(t)) return null;
@@ -1435,6 +1532,8 @@ function refine(t, current) {
   if (undone) return undone;
   const swapped = replaceNot(t, current);
   if (swapped) return swapped;
+  const centered = centerOn(t, current);
+  if (centered) return centered;
   const spec = cloneSpec(current);
   const movedGroup = moveGroup(t, current);
   if (movedGroup) return movedGroup;
@@ -2297,10 +2396,15 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
          other - a panel too thin to finish on. */
       const capA = takeFillers(Math.min(spare, END_CAP_IN));
       const capB = takeFillers(Math.min(Math.max(0, spare - capA.used), END_CAP_IN));
-      const rest = takeFillers(Math.max(0, spare - capA.used - capB.used));
-      const left = capA.sizes.slice();
-      const right = capB.sizes.slice();
-      rest.sizes.forEach((size, i) => (i % 2 ? right : left).push(size));
+      /* Split what is left by width, not by taking turns. Alternating the
+         sizes put a fill24 one side and a fill4 the other and called it
+         centred - which is what "center this leg" looked like it was
+         ignoring, because the layout barely moved. */
+      const over = Math.max(0, spare - capA.used - capB.used);
+      const restL = takeFillers(Math.floor(over / 2));
+      const restR = takeFillers(Math.max(0, over - restL.used));
+      const left = capA.sizes.concat(restL.sizes);
+      const right = capB.sizes.concat(restR.sizes);
       /* The near bucket is laid down before the first piece, so its first
          element is the outer edge and the cap is already there. The far
          bucket is laid outward from the last piece, so its cap has to be the
@@ -2686,7 +2790,11 @@ function describe(spec, notes) {
 }
 
 function changeReply(spec, notes) {
-  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece|Cleared |Turned |Set )/ .test(n));
+  /* A note only reaches the customer if it opens with one of these. A new
+     handler whose note starts any other way is silently swallowed and the
+     reply falls back to a bare "Done." - which is how centring looked like
+     it was ignoring the instruction. */
+  const changes = (notes || []).filter(n => /^(Made |Added |Removed |Moved |Swapped |Switched |Finish |That's |That piece|Cleared |Turned |Set |Centered )/ .test(n));
   const bar = spec.legs.find(l => l.role === "bar");
   const grill = spec.legs.find(l => l.role === "grill" || l.role === "main");
   const first = changes[0] || "";
