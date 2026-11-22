@@ -2717,9 +2717,15 @@ export function compileSpec(input, extraNotes) {
     else if (has12) blurb = "I left 12 inches beside the grill. A side burner, griddle, or sink needs that much.";
     else if (has6) blurb = "I added 6 inch filler panels between appliances.";
     else if (other) blurb = "I added " + other + " inch filler panels between appliances.";
-    if (blurb && !spec.saidFillers) notes.push(blurb + " Filler panels have no equipment price of their own. The build rate covers the extra length.");
+    /* Set the flag where the note is said, not on every turn. Setting it
+       below meant a first design with nothing between the appliances burned
+       the one explanation we get, and the customer whose fillers appear on
+       turn three never heard why their island grew. */
+    if (blurb && !spec.saidFillers) {
+      notes.push(blurb + " Filler panels have no equipment price of their own. The build rate covers the extra length.");
+      spec.saidFillers = true;
+    }
   }
-  spec.saidFillers = true;
   const mods = place(spec, packed);
   for (const legN of spec.legs) {
     for (const [id, host] of Object.entries(legN.overlay || {})) {

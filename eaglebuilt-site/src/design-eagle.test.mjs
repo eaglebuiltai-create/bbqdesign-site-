@@ -2078,6 +2078,29 @@ describe("john's tabletop oven and wok lines", () => {
     assert.equal(spaced.spec.legs[0].items.includes("ctwok"), false);
   });
 
+  test("the filler explanation waits for fillers, then is said once", () => {
+    /* The flag used to be set on every compile rather than where the note is
+       said, so a first design with nothing between the appliances burned the
+       one explanation we get. Someone whose fillers appeared on a later turn
+       watched their island grow and was never told why. */
+    const fillers = /Filler panels have no equipment price of their own/;
+
+    const bare = drawn("straight 12 ft island with a 32 inch blaze grill");
+    assert.doesNotMatch(bare.reply, fillers, "nothing between the pieces yet");
+    assert.equal(bare.spec.saidFillers, false, "nothing said, so nothing to suppress");
+
+    const filled = drawn("add a combo unit just below the grill, a double side burner, and a 20 inch fridge", bare.spec);
+    assert.match(filled.reply, fillers, "fillers appeared, so explain them");
+
+    const after = drawn("add a sink", filled.spec);
+    assert.doesNotMatch(after.reply, fillers, "said once is enough");
+
+    /* And the common case still holds: fillers on the first turn. */
+    const first = drawn(JOHN_RUN);
+    assert.match(first.reply, fillers);
+    assert.doesNotMatch(drawn("add a sink", first.spec).reply, fillers);
+  });
+
   test("a spoken walk only means a wok where a piece could be meant", () => {
     /* Speech-to-text writes "walk" for "wok". But customers also ask to be
        walked through a design, and a field walk is how we talk about the job.
