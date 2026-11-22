@@ -1,0 +1,1148 @@
+[
+ {
+  "brand": "Blaze",
+  "model": "BLZ-3BCM",
+  "product_name": "BCM 25\" 3-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 25,
+   "h": 21.25,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 23.25,
+   "h": 8.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-bcm-25-inch-3-burner-gas-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-4BCM",
+  "product_name": "BCM 32\" 4-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 32.5,
+   "h": 21.25,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-bcm-32-inch-4-burner-gas-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-4LTE3",
+  "product_name": "Premium LTE+ 32\" 4-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 32.5,
+   "h": 21.25,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-32-inch-4-burner-premium-lte-gas-grill-with-rear-burner-and-built-in-lighting-system/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-5LTE3",
+  "product_name": "Premium LTE+ 40\" 5-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 39.5,
+   "h": 21.25,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 38.375,
+   "h": 8.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-40-inch-5-burner-premium-lte-gas-grill-with-rear-burner-and-built-in-lighting-system/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-4LTE3MG",
+  "product_name": "Premium LTE+ Marine Grade 32\" 4-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 32.5,
+   "h": 21.25,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-4-burner-marine-grade-premium-lte/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "316L marine grade; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-4LTEPRO",
+  "product_name": "LTE PRO 32\" 4-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 32.5,
+   "h": 22.5,
+   "d": 27
+  },
+  "cutout_in": {
+   "w": 30.75,
+   "h": 9.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-32-inch-4-burner-gas-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-5LTEPRO",
+  "product_name": "LTE PRO 40\" 5-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 40.5,
+   "h": 22.5,
+   "d": 27
+  },
+  "cutout_in": {
+   "w": 38,
+   "h": 9.5,
+   "d": 21.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-40-inch-5-burner-gas-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-3PRO",
+  "product_name": "Professional LUX 34\" 3-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 34,
+   "h": 24.25,
+   "d": 28.75
+  },
+  "cutout_in": {
+   "w": 32.25,
+   "h": 10.5,
+   "d": 23.625
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-professional-34-inch-built-gas-grill-rear-infrared-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-4PRO",
+  "product_name": "Professional LUX 44\" 4-Burner Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 44.125,
+   "h": 24.125,
+   "d": 28.375
+  },
+  "cutout_in": {
+   "w": 42.5,
+   "h": 10.5,
+   "d": 23.625
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-professional-44-inch-4-burner-built-gas-grill-rear-infrared-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-4-CHAR",
+  "product_name": "32\" Built-In Charcoal Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 32.5,
+   "h": 21.25,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 30.625,
+   "h": 8.5,
+   "d": 21.25
+  },
+  "fuel_power": "Charcoal",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-32-charcoal-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "On blazegrills.com product page; not in the Sept 2026 catalog PDF; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SB1-LTE3",
+  "product_name": "LTE+ Built-In Single Side Burner",
+  "category": "side burner",
+  "overall_in": {
+   "w": 12.5,
+   "h": 4.5,
+   "d": 19.5
+  },
+  "cutout_in": {
+   "w": 11.25,
+   "h": 2.8125,
+   "d": 18
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-drop-in-single-side-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SB2-LTEPLUS",
+  "product_name": "LTE+ Built-In Double Side Burner",
+  "category": "side burner",
+  "overall_in": {
+   "w": 12.5,
+   "h": 9.75,
+   "d": 25
+  },
+  "cutout_in": {
+   "w": 11,
+   "h": 8.5,
+   "d": 20.75
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-double-side-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-PBLTE3",
+  "product_name": "LTE+ Built-In Power Burner",
+  "category": "power burner",
+  "overall_in": {
+   "w": 15.75,
+   "h": 10.5,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 14,
+   "h": 8,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-premium-lte-power-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-PBLTEPRO",
+  "product_name": "LTE PRO Built-In Power Burner",
+  "category": "power burner",
+  "overall_in": {
+   "w": 15.75,
+   "h": 11.25,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 14,
+   "h": 9.25,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-power-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-PROPB",
+  "product_name": "Professional LUX Built-In Power Burner",
+  "category": "power burner",
+  "overall_in": {
+   "w": 15.75,
+   "h": 11.25,
+   "d": 23
+  },
+  "cutout_in": {
+   "w": 14,
+   "h": 9.25,
+   "d": 19.5
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-professional-built-in-power-burner/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-GRIDDLE-LTE3",
+  "product_name": "LTE+ 30\" Built-In Gas Griddle",
+  "category": "griddle",
+  "overall_in": {
+   "w": 30.125,
+   "h": 16.3125,
+   "d": 28.25
+  },
+  "cutout_in": {
+   "w": 28.25,
+   "h": 11.1875,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-30-inch-gas-griddle/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-GRIDDLE40",
+  "product_name": "LTE PRO 40\" Built-In Gas Griddle",
+  "category": "griddle",
+  "overall_in": {
+   "w": 40,
+   "h": 16.3125,
+   "d": 29
+  },
+  "cutout_in": {
+   "w": 37.5,
+   "h": 11.1875,
+   "d": 24.25
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-lte-pro-40-inch-gas-griddle/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-LTE3OVN",
+  "product_name": "26\" Built-In Gas Outdoor Oven (pizza) with Bluetooth probes",
+  "category": "pizza oven",
+  "overall_in": {
+   "w": 26,
+   "h": 23.25,
+   "d": 29.1875
+  },
+  "cutout_in": {
+   "w": 24.5,
+   "h": 8.5625,
+   "d": 24.3125
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-26-inch-outdoor-oven-w-meat-probes/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Current 26\" oven; replaces BLZ-26-PZOVN on blazegrills.com; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-KMDO-SLV-LT",
+  "product_name": "Built-In 34\" Kamado Sleeve with Drawer",
+  "category": "kamado sleeve",
+  "overall_in": {
+   "w": 34,
+   "h": 33.875,
+   "d": null
+  },
+  "cutout_in": {
+   "w": 31.75,
+   "h": 33.25,
+   "d": 29.375
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-kamado-island-sleeve-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall depth conflicts between catalog (32 1/2) and product page (35 1/2); left null; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SSRF-15",
+  "product_name": "15\" 3.2 cu ft Outdoor Rated Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 15.125,
+   "h": 34.125,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 17.125,
+   "h": 35.125,
+   "d": 25.75
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/15-outdoor-refrigerator/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SSRF-126",
+  "product_name": "20\" 4.4 cu ft Compact Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 20.5,
+   "h": 32.75,
+   "d": 20.75
+  },
+  "cutout_in": {
+   "w": 22.5,
+   "h": 33.75,
+   "d": null
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/20-outdoor-compact-refrigerator/",
+  "verified_date": "2026-11-21",
+  "status": "unverified",
+  "notes": "Cutout depth conflicts: catalog 22 3/4 vs product page 23 3/4; left null; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SSRF-DBDR5.1",
+  "product_name": "23.5\" 5.1 cu ft Double Drawer Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 24,
+   "h": 34.125,
+   "d": 25.75
+  },
+  "cutout_in": {
+   "w": 26,
+   "h": 35.125,
+   "d": 24.75
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/double-drawer-refrigerator/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SSRF20-4.3",
+  "product_name": "20\" 4.3 cu ft Outdoor Rated Compact Fridge",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 20.625,
+   "h": 33.125,
+   "d": 24.5
+  },
+  "cutout_in": {
+   "w": 22.625,
+   "h": 34.125,
+   "d": 24.5
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-20-in-4-3-cu-ft-compact-fridge/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-GDBEV20-4.5",
+  "product_name": "20\" 4.5 cu ft Outdoor Rated Beverage Cooler",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 20.625,
+   "h": 33.125,
+   "d": 24.5
+  },
+  "cutout_in": {
+   "w": 22.625,
+   "h": 34.125,
+   "d": 24.5
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-20-in-4-5-cu-ft-beverage-cooler/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SSRF-5.5",
+  "product_name": "24\" 5.5 cu ft Outdoor Rated Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 24,
+   "h": 34.125,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 26,
+   "h": 35.125,
+   "d": 24.5
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/24-outdoor-refrigerator/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-GDBEV-5.5",
+  "product_name": "24\" 5.5 cu ft Outdoor Rated Beverage Cooler (glass door)",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 24,
+   "h": 34.125,
+   "d": 25.5
+  },
+  "cutout_in": {
+   "w": 26,
+   "h": 35.125,
+   "d": 24.5
+  },
+  "fuel_power": "Electric",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/glass-front-outdoor-beverage-cooler/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-ICEMKR-50GR",
+  "product_name": "15\" 50 lb Outdoor Ice Maker (gravity drain)",
+  "category": "ice maker",
+  "overall_in": {
+   "w": 14.625,
+   "h": 33,
+   "d": 25
+  },
+  "cutout_in": {
+   "w": 16.75,
+   "h": 34.25,
+   "d": 24.25
+  },
+  "fuel_power": "Electric; needs a drain",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-50-lb-15-inch-outdoor-ice-maker-gravity-drain/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "On blazegrills.com product page; not in the Sept 2026 catalog PDF; Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-ICE-DRW-H",
+  "product_name": "30\" Insulated Ice Drawer",
+  "category": "ice drawer",
+  "overall_in": {
+   "w": 27.75,
+   "h": 21.5,
+   "d": 22.125
+  },
+  "cutout_in": {
+   "w": 26.375,
+   "h": 19.75,
+   "d": 19.875
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-30-inch-insulated-ice-drawer/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-ICEB-WH",
+  "product_name": "22\" Drop-In Ice Bin Cooler / Wine Chiller",
+  "category": "ice bin",
+  "overall_in": {
+   "w": 21.75,
+   "h": 21.75,
+   "d": 21.75
+  },
+  "cutout_in": {
+   "w": 20.25,
+   "h": 20.25,
+   "d": 20.75
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-22-inch-ice-bin-cooler-wine-chiller/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-30CKT-SNK",
+  "product_name": "30\" Beverage Center with Sink and Ice Bin",
+  "category": "sink / bar center",
+  "overall_in": {
+   "w": 30,
+   "h": 24,
+   "d": 29
+  },
+  "cutout_in": {
+   "w": 28.25,
+   "h": 9,
+   "d": 23
+  },
+  "fuel_power": "Plumbing: hot/cold water and drain",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-beverage-center/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-TRLP-DRW-H",
+  "product_name": "18\" Roll-Out Trash / Propane Tank Drawer",
+  "category": "trash / propane",
+  "overall_in": {
+   "w": 20,
+   "h": 26.5,
+   "d": 17.75
+  },
+  "cutout_in": {
+   "w": 18.375,
+   "h": 24.25,
+   "d": 15.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-18-inch-roll-out-trash-propane-tank-storage-drawer/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-TREC-DRW-H",
+  "product_name": "Roll-Out Double Trash / Recycle Drawer",
+  "category": "trash / recycle",
+  "overall_in": {
+   "w": 19.875,
+   "h": 26.5,
+   "d": 24.375
+  },
+  "cutout_in": {
+   "w": 18.25,
+   "h": 24.125,
+   "d": 23.125
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-roll-out-double-trash-recycle-drawer/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-TRNW-DRW-H",
+  "product_name": "Narrow Trash Storage Drawer",
+  "category": "trash",
+  "overall_in": {
+   "w": 14,
+   "h": 26.5,
+   "d": 20.75
+  },
+  "cutout_in": {
+   "w": 11.75,
+   "h": 24.125,
+   "d": 18.625
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-narrow-trash-storage-drawer-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SV-1420-R-SC",
+  "product_name": "18\" Single Access Door, vertical (14 x 20)",
+  "category": "access door",
+  "overall_in": {
+   "w": 16.375,
+   "h": 22.5,
+   "d": 4.75
+  },
+  "cutout_in": {
+   "w": 14.125,
+   "h": 20.125,
+   "d": 2.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-18-inch-single-access-door-right-hinged-vertical/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SINGLE-2417-R-SC",
+  "product_name": "21\" Single Access Door, vertical (17 x 24)",
+  "category": "access door",
+  "overall_in": {
+   "w": 19.375,
+   "h": 26.5,
+   "d": 4.875
+  },
+  "cutout_in": {
+   "w": 17.125,
+   "h": 24.125,
+   "d": 2.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-21-inch-single-access-door-right-hinged-vertical/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-SH-2417-R-SC",
+  "product_name": "28\" Single Access Door, horizontal (24 x 17)",
+  "category": "access door",
+  "overall_in": {
+   "w": 26.5,
+   "h": 19.375,
+   "d": 4.875
+  },
+  "cutout_in": {
+   "w": 24.125,
+   "h": 17.125,
+   "d": 2.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-28-inch-single-access-door-right-hinged-horizontal/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-AD25-R-SC",
+  "product_name": "25\" Double Access Door, soft close",
+  "category": "access door",
+  "overall_in": {
+   "w": 23.5,
+   "h": 20.375,
+   "d": 4.75
+  },
+  "cutout_in": {
+   "w": 21.375,
+   "h": 18,
+   "d": 2.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-25-inch-double-access-door-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-AD32-R-SC",
+  "product_name": "32\" Double Access Door with paper towel holder, soft close",
+  "category": "access door",
+  "overall_in": {
+   "w": 30.875,
+   "h": 20.375,
+   "d": 4.75
+  },
+  "cutout_in": {
+   "w": 28.75,
+   "h": 18,
+   "d": 2.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-32-inch-double-access-door-with-paper-towel-holder/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-AD40-R-SC",
+  "product_name": "40\" Double Access Door with paper towel holder, soft close",
+  "category": "access door",
+  "overall_in": {
+   "w": 37.875,
+   "h": 20.375,
+   "d": 4.75
+  },
+  "cutout_in": {
+   "w": 35.875,
+   "h": 18,
+   "d": 2.5
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-40-inch-double-access-door-with-paper-towel-holder/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-DRW2-R-LT",
+  "product_name": "16\" Double Access Drawer",
+  "category": "drawer",
+  "overall_in": {
+   "w": 17.375,
+   "h": 21.625,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 15.5,
+   "h": 19.5,
+   "d": 20.25
+  },
+  "fuel_power": "LED lights",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-16-inch-double-access-drawer-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-DRW3-R-LT",
+  "product_name": "16\" Triple Access Drawer",
+  "category": "drawer",
+  "overall_in": {
+   "w": 17.375,
+   "h": 29.75,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 15.5,
+   "h": 27.5,
+   "d": 20.25
+  },
+  "fuel_power": "LED lights",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-16-inch-triple-access-drawer-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-30W-3DRW-LT",
+  "product_name": "30\" Triple Access Drawer",
+  "category": "drawer",
+  "overall_in": {
+   "w": 30.125,
+   "h": 29.75,
+   "d": 22.5
+  },
+  "cutout_in": {
+   "w": 28.25,
+   "h": 27.75,
+   "d": 20.125
+  },
+  "fuel_power": "LED lights",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-30-inch-triple-access-drawer-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-DDC-R-LTSC",
+  "product_name": "32\" Access Door + Double Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": {
+   "w": 32.375,
+   "h": 21.25,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 30.25,
+   "h": 19.125,
+   "d": 20.25
+  },
+  "fuel_power": "LED lights",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-32-inch-access-door-double-drawer-combo-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-DDC-R-39-LTSC",
+  "product_name": "39\" Access Door + Triple Drawer Combo",
+  "category": "door/drawer combo",
+  "overall_in": {
+   "w": 39.25,
+   "h": 21.375,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 37.25,
+   "h": 19.125,
+   "d": 20.125
+  },
+  "fuel_power": "LED lights",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-39-inch-access-door-and-triple-drawer-combo/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-DRY-STG2-SC",
+  "product_name": "Enclosed Dry Storage Cabinet with Shelf",
+  "category": "dry storage",
+  "overall_in": {
+   "w": 32.25,
+   "h": 21.25,
+   "d": 23.5
+  },
+  "cutout_in": {
+   "w": 29.875,
+   "h": 18.25,
+   "d": 21.375
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-stainless-steel-enclosed-dry-storage-cabinet-with-shelf/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-PTH-R-H",
+  "product_name": "Paper Towel Holder (built-in)",
+  "category": "accessory",
+  "overall_in": {
+   "w": 16,
+   "h": 9.75,
+   "d": 10.5
+  },
+  "cutout_in": {
+   "w": 14.125,
+   "h": 8.75,
+   "d": 8.875
+  },
+  "fuel_power": "None",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-paper-towel-holder-2/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-ISLAND-VENT",
+  "product_name": "6 x 14\" Island Vent Panel",
+  "category": "vent",
+  "overall_in": {
+   "w": 14,
+   "h": 6,
+   "d": null
+  },
+  "cutout_in": {
+   "w": 12.75,
+   "h": 5,
+   "d": null
+  },
+  "fuel_power": "None (required for LP islands)",
+  "spec_sheet_url": "https://www.blazegrills.com/wp-content/uploads/Sept-2026-Blaze-Product-Catalog.pdf",
+  "source_url": "https://www.blazegrills.com/product/blaze-island-vent/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Overall/cutout per Blaze Sept 2026 catalog and blazegrills.com product page; marine-grade -MG variants share the cutout where Blaze lists them."
+ },
+ {
+  "brand": "Blaze",
+  "model": "BLZ-26-PZOVN",
+  "product_name": "26\" Built-In Gas Pizza Oven with rotisserie (previous model)",
+  "category": "pizza oven",
+  "overall_in": null,
+  "cutout_in": null,
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG)",
+  "spec_sheet_url": null,
+  "source_url": "https://www.garcogrillsandmore.com/Blaze-BLZ-26-PZOVN-p/blz-26-pzovn.htm",
+  "verified_date": "2026-11-21",
+  "status": "unverified",
+  "notes": "No longer on blazegrills.com or in the Sept 2026 catalog (replaced by BLZ-LTE3OVN); still sold by dealers. Cutout not re-verified from a Blaze document."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GABR30",
+  "product_name": "30\" Built-In Grill, all Trellis burners, rotisserie",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 29,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG); lights/rotisserie need electrical",
+  "spec_sheet_url": "https://cdn.assetserver.net/_assets/hestan/pdf/gabr36ngtq-spec.pdf",
+  "source_url": "https://hestanappliances.com/wp-content/uploads/2026/04/Hestan-Outdoor-Catalog-2026.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout from Hestan built-in grill spec sheet (Rev D). Overall size not taken from a Hestan document; left null."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GABR36",
+  "product_name": "36\" Built-In Grill, all Trellis burners, rotisserie",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 35,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG); lights/rotisserie need electrical",
+  "spec_sheet_url": "https://cdn.assetserver.net/_assets/hestan/pdf/gabr36ngtq-spec.pdf",
+  "source_url": "https://hestanappliances.com/wp-content/uploads/2026/04/Hestan-Outdoor-Catalog-2026.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout from Hestan built-in grill spec sheet (Rev D). Overall size not taken from a Hestan document; left null."
+ },
+ {
+  "brand": "Hestan",
+  "model": "GABR42",
+  "product_name": "42\" Built-In Grill, all Trellis burners, rotisserie",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 41,
+   "h": 11.5,
+   "d": 23.5
+  },
+  "fuel_power": "Gas: propane or natural gas (order -LP or -NG); lights/rotisserie need electrical",
+  "spec_sheet_url": "https://cdn.assetserver.net/_assets/hestan/pdf/gabr36ngtq-spec.pdf",
+  "source_url": "https://hestanappliances.com/wp-content/uploads/2026/04/Hestan-Outdoor-Catalog-2026.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout from Hestan built-in grill spec sheet (Rev D). Overall size not taken from a Hestan document; left null."
+ },
+ {
+  "brand": "Yoder Smokers",
+  "model": "YS640S (center mount)",
+  "product_name": "YS640S Built-In Pellet Cooker, center mount",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 52.2,
+   "h": 35.7,
+   "d": 20.9
+  },
+  "cutout_in": {
+   "w": 32.875,
+   "h": null,
+   "d": 21.125
+  },
+  "fuel_power": "Wood pellets; electric controller",
+  "spec_sheet_url": "https://www.yodersmokers.com/wp-content/uploads/2024/12/YS640_Center-Mount-Built-in_Dim-Sheet.pdf",
+  "source_url": "https://www.yodersmokers.com/pellet/ys-640-built-in-pellet-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Structure must support at least 350 lb. Cutout is a top opening; no height given."
+ },
+ {
+  "brand": "Yoder Smokers",
+  "model": "YS640S (notch mount)",
+  "product_name": "YS640S Built-In Pellet Cooker, notch mount",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 52.2,
+   "h": 35.7,
+   "d": 20.9
+  },
+  "cutout_in": {
+   "w": 56.5,
+   "h": null,
+   "d": 21.25
+  },
+  "fuel_power": "Wood pellets; electric controller",
+  "spec_sheet_url": "https://www.yodersmokers.com/wp-content/uploads/2024/12/YS640_Notch-Mount_Built-in_Dim-Sheet.pdf",
+  "source_url": "https://www.yodersmokers.com/pellet/ys-640-built-in-pellet-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Structure must support at least 350 lb."
+ }
+]
