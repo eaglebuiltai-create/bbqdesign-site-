@@ -107,24 +107,24 @@ export function publicConfig() {
    the corner). Prices are the catalog's p field. Under-counter keys are the
    combo or door defaultUnder() would pick for that width. */
 export const CATALOG = {
-  grill: { k: "BLZ-4LTE3", spoken: "a 32 inch Blaze grill", w: 32.625, p: 2499, under: "BLZ-DDC-R-LTSC" },
-  "grill-40": { k: "BLZ-5LTE3", spoken: "a 40 inch Blaze grill", w: 40.375, p: 2999, under: "BLZ-DDC-R-39-LTSC" },
-  "side-burner": { k: "BLZ-SB2-LTEPLUS", spoken: "a double side burner", w: 13, p: 949 },
-  "side-burner-single": { k: "BLZ-SB1-LTE3", spoken: "a single side burner", w: 13.25, p: 549 },
-  fridge: { k: "BLZ-SSRF20-4.3", spoken: "a 20 inch fridge", w: 24.625, p: 1549 },
-  "fridge-24": { k: "BLZ-SSRF-5.5", spoken: "a 24 inch fridge", w: 28, p: 2199 },
-  sink: { k: "BLZ-30CKT-SNK", spoken: "a 30 inch sink", w: 30.25, p: 1899, under: "BLZ-AD25-R-SC" },
-  /* Blaze 30" beverage center: sink plus ice bin. Same SKU and $1899 as the
-     designer catalog (BLZ-30CKT-SNK, "Sink + ice bin"). Bartending station,
-     cocktail station, and bar center are this unit, not a separate price. */
-  "bev-sink": { k: "BLZ-30CKT-SNK", spoken: "a 30 inch bartending station", w: 30.25, p: 1899, under: "BLZ-AD25-R-SC" },
-  power: { k: "BLZ-PBLTE3", spoken: "a power burner", w: 16, p: 1499 },
-  griddle: { k: "BLZ-GRIDDLE-LTE3", spoken: "a 30 inch griddle", w: 30.25, p: 2749, under: "BLZ-AD25-R-SC" },
-  pizza: { k: "BLZ-26-PZOVN", spoken: "a 26 inch pizza oven", w: 26.5, p: 2499 },
+  grill: { k: "BLZ-4LTE3", spoken: "a 32 inch Blaze grill", w: 32.625, p: 3239, under: "BLZ-DDC-R-LTSC" },
+  "grill-40": { k: "BLZ-5LTE3", spoken: "a 40 inch Blaze grill", w: 40.375, p: 3887, under: "BLZ-DDC-R-39-LTSC" },
+  "side-burner": { k: "BLZ-SB2-LTEPLUS", spoken: "a double side burner", w: 13, p: 1139 },
+  "side-burner-single": { k: "BLZ-SB1-LTE3", spoken: "a single side burner", w: 13.25, p: 659 },
+  fridge: { k: "BLZ-SSRF20-4.3", spoken: "a 20 inch fridge", w: 24.625, p: 1662 },
+  "fridge-24": { k: "BLZ-SSRF-5.5", spoken: "a 24 inch fridge", w: 28, p: 2394 },
+  sink: { k: "BLZ-30CKT-SNK", spoken: "a 30 inch sink", w: 30.25, p: 2031, under: "BLZ-AD25-R-SC" },
+  /* Blaze 30" beverage center: sink plus ice bin. Same SKU and MSRP as the
+     designer catalog (BLZ-30CKT-SNK). Bartending station, cocktail station,
+     and bar center are this unit, not a separate price. */
+  "bev-sink": { k: "BLZ-30CKT-SNK", spoken: "a 30 inch bartending station", w: 30.25, p: 2031, under: "BLZ-AD25-R-SC" },
+  power: { k: "BLZ-PBLTE3", spoken: "a power burner", w: 16, p: 1813 },
+  griddle: { k: "BLZ-GRIDDLE-LTE3", spoken: "a 30 inch griddle", w: 30.25, p: 2980, under: "BLZ-AD25-R-SC" },
+  pizza: { k: "BLZ-LTE3OVN", spoken: "a 26 inch pizza oven", w: 26.5, p: 3959 },
   ctpizza: { k: "ctpizza", spoken: "a countertop pizza oven", w: 24, p: 0 },
   trash: { k: "BLZ-TRLP-DRW-H", spoken: "a trash drawer", w: 20.375, p: 695 },
   door: { k: "BLZ-AD32-R-SC", spoken: "a 32 inch access door", w: 30.75, p: 521 },
-  "door-25": { k: "BLZ-AD25-R-SC", spoken: "a 25 inch access door", w: 23.375, p: 429 },
+  "door-25": { k: "BLZ-AD25-R-SC", spoken: "a 25 inch access door", w: 23.375, p: 463 },
   "door-40": { k: "BLZ-AD40-R-SC", spoken: "a 40 inch access door", w: 37.875, p: 579 },
   /* 17x24 vertical and 24x17 horizontal. MSRP $463.24 for both, BBQGuys
      access-door list, checked 2026-11-21 (current price there is $429):
@@ -132,16 +132,16 @@ export const CATALOG = {
      Same list price at https://www.garcogrillsandmore.com/Blaze-BLZ-single-2417-R-p/blz-single-2417-r-sc.htm
      and https://www.garcogrillsandmore.com/Blaze-BLZ-SH-22417-R-SC-p/blz-sh-2417-r-sc.htm
      Stored price is that MSRP rounded to the dollar, matching the designer catalog. */
-  "door-v": { k: "BLZ-SINGLE-2417-R-SC", spoken: "a 17 inch single access door", w: 19, p: 463 },
+  "door-v": { k: "BLZ-SINGLE-2417-R-SC", spoken: "a 17 inch single access door", w: 19.125, p: 463 },
   "door-h": { k: "BLZ-SH-2417-R-SC", spoken: "a 24 inch horizontal access door", w: 26.125, p: 463 },
   /* Real catalog SKUs. "combo unit" is the door + drawer combo, not a side burner. */
   combo: { k: "BLZ-DDC-R-LTSC", spoken: "a door and drawer combo", w: 32.25, p: 986 },
   drawer: { k: "BLZ-DRW2-R-LT", spoken: "a double drawer", w: 17.5, p: 812 },
   "drawer-3": { k: "BLZ-DRW3-R-LT", spoken: "a triple drawer", w: 17.5, p: 1044 },
-  bev: { k: "BLZ-GDBEV-5.5", spoken: "a beverage refrigerator", w: 28, p: 2049 },
+  bev: { k: "BLZ-GDBEV-5.5", spoken: "a beverage refrigerator", w: 28, p: 2197 },
   ctwok: { k: "ctwok", spoken: "a countertop wok", w: 16, p: 0 },
-  ice: { k: "BLZ-ICEMKR-50GR", spoken: "a 15 inch ice maker", w: 18.75, p: 2749 },
-  smoker: { k: "YS640S-CM", spoken: "a pellet smoker", w: 54.2, p: 3049 },
+  ice: { k: "BLZ-ICEMKR-50GR", spoken: "a 15 inch ice maker", w: 18.75, p: 2969 },
+  smoker: { k: "YS640S-CM", spoken: "a pellet smoker", w: 54.2, p: null, quote: true },
   corner: { k: "corner24", spoken: "a corner", w: 24, p: 349 }
 };
 
@@ -388,10 +388,13 @@ function resolvePresent(id, spec) {
 
 /* Designer catalog prices. Hestan grills are GABR30 / GABR36 / GABR42. */
 const HESTAN_GRILLS = {
-  30: { k: "GABR30", w: 31, p: 8099, spoken: "a 30 inch Hestan grill" },
-  36: { k: "GABR36", w: 37, p: 10299, spoken: "a 36 inch Hestan grill" },
-  42: { k: "GABR42", w: 43, p: 11099, spoken: "a 42 inch Hestan grill" }
+  30: { k: "GABR30", w: 31, p: null, quote: true, spoken: "a 30 inch Hestan grill" },
+  36: { k: "GABR36", w: 37, p: null, quote: true, spoken: "a 36 inch Hestan grill" },
+  42: { k: "GABR42", w: 43, p: null, quote: true, spoken: "a 42 inch Hestan grill" }
 };
+const SKU_ALIAS = { "BLZ-26-PZOVN": "BLZ-LTE3OVN" };
+/* Unders that are not their own catalog row. The 39 inch combo sits under the 40 inch grill. */
+const EXTRA_PRICES = { "BLZ-DDC-R-39-LTSC": 1044 };
 
 function hestanGrill(inches) {
   const want = Number(inches) || 32;
@@ -2283,25 +2286,42 @@ export function legChip(spec) {
   return feet(legs[0].lengthIn) + " + " + rest.join(" + ") + (rest.length > 1 ? " returns" : " return");
 }
 
+function canonSku(key) {
+  return SKU_ALIAS[key] || key;
+}
+
 export function decodeDesign(code) {
-  const json = decodeURIComponent(escape(atob(code)));
-  return JSON.parse(json);
+  const design = JSON.parse(decodeURIComponent(escape(atob(code))));
+  if (Array.isArray(design.m)) {
+    design.m = design.m.map(row => {
+      const next = row.slice();
+      if (next[0]) next[0] = canonSku(next[0]);
+      if (next[5]) next[5] = canonSku(next[5]);
+      return next;
+    });
+  }
+  return design;
 }
 
 /* Equipment dollars for the modules actually in the design code. Fillers are
-   zero. This is the same SKU price the designer quotes, recomputed every turn. */
+   zero. Quote-only SKUs add nothing. Recomputed from the current code every turn. */
 export function equipmentTotal(code) {
   const design = decodeDesign(code);
-  const prices = { corner24: 349 };
-  for (const item of Object.values(CATALOG)) if (item && item.k) prices[item.k] = item.p || 0;
-  for (const grill of Object.values(HESTAN_GRILLS)) prices[grill.k] = grill.p;
+  const prices = { corner24: 349, ...EXTRA_PRICES };
+  for (const item of Object.values(CATALOG)) {
+    if (item && item.k && item.p != null) prices[item.k] = item.p;
+  }
   const keys = [];
   let equipment = 0;
+  const add = (key) => {
+    const sku = canonSku(key);
+    if (!sku || String(sku).startsWith("fill")) return;
+    equipment += prices[sku] || 0;
+  };
   for (const row of design.m || []) {
-    const key = row[0];
-    keys.push(key);
-    if (!String(key).startsWith("fill")) equipment += prices[key] || 0;
-    if (row[5]) equipment += prices[row[5]] || 0;
+    keys.push(row[0]);
+    add(row[0]);
+    if (row[5]) add(row[5]);
   }
   return { keys, equipment };
 }
@@ -2472,6 +2492,12 @@ function describe(spec, notes) {
       ? " The counter is " + counter.n + ", which the designer lists as a quote add, so I won't put a price on it."
       : " The counter is " + counter.n + ".";
   }
+  const quoted = (spec.legs || []).some(l => (l.items || []).some(id => {
+    const piece = pieceFor(id, spec);
+    return piece && piece.quote;
+  }));
+  if (quoted && spec.brand === "hestan") text += " The Hestan is priced by quote; your estimate covers the build and the Blaze pieces.";
+  else if (quoted) text += " That equipment is priced by quote; your estimate covers the build and the Blaze pieces.";
   text += " The price on the design comes from the catalog and the build rates. Tell me what to change, or save it when it looks right.";
   return joinSentences([text].concat(notes || []));
 }

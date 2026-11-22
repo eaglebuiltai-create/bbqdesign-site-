@@ -1715,7 +1715,7 @@ describe("john's straight run", () => {
 describe("adjacent pieces and nudges", () => {
   test("a bartending station is the Blaze beverage center and sits 12 inches from the grill", () => {
     assert.equal(CATALOG["bev-sink"].k, "BLZ-30CKT-SNK");
-    assert.equal(CATALOG["bev-sink"].p, 1899);
+    assert.equal(CATALOG["bev-sink"].p, 2031);
     const lines = [
       "put a bartending station just left of the grill",
       "add a bartender station just to the left of the grill",
@@ -1741,7 +1741,7 @@ describe("adjacent pieces and nudges", () => {
 
   test("put a power burner to the left of the griddle adds the burner, not a question about the griddle", () => {
     assert.equal(CATALOG.power.k, "BLZ-PBLTE3");
-    assert.equal(CATALOG.power.p, 1499);
+    assert.equal(CATALOG.power.p, 1813);
     const built = drawn("straight 12 ft island with a griddle and a fridge");
     const first = drawn("put a power burner to the left of the griddle", built.spec);
     assert.deepEqual(first.spec.legs[0].items, ["power", "griddle", "fridge"], first.reply);
@@ -1819,7 +1819,7 @@ describe("adjacent pieces and nudges", () => {
     assert.deepEqual(back.spec.legs[0].items, ["griddle", "power", "fridge"], back.reply);
     assert.match(back.reply, /Moved the power burner back to the right of the 30 inch griddle/);
     assert.equal(CATALOG.power.k, "BLZ-PBLTE3");
-    assert.equal(CATALOG.power.p, 1499);
+    assert.equal(CATALOG.power.p, 1813);
     assert.doesNotMatch(back.reply, /\$\d/);
     const earlier = drawn("move it back", back.spec);
     assert.deepEqual(earlier.spec.legs[0].items, ["power", "griddle", "fridge"], earlier.reply);
@@ -1885,9 +1885,10 @@ describe("john's preview lines", () => {
 
   test("Hesston Grille with the Hestan sidebar is a Hestan grill, not Blaze", () => {
     const page = readFileSync(new URL("../site/design/app/index.html", import.meta.url), "utf8");
-    assert.match(page, /\["GABR30",[^\]]+8099/);
-    assert.match(page, /\["GABR36",[^\]]+10299/);
-    assert.match(page, /\["GABR42",[^\]]+11099/);
+    assert.match(page, /\["GABR30",[^\]]+null/);
+    assert.match(page, /\["GABR36",[^\]]+null/);
+    assert.match(page, /\["GABR42",[^\]]+null/);
+    assert.doesNotMatch(page, /\["GABR30",[^\]]*8099/);
     for (const said of ["Hesston Grille", "Heston grill", "Hessten grille", "Hestan grille"]) {
       const built = interpret("build a 10 ft straight island with a " + said, null, { brand: "hestan" });
       const keys = decodeDesign(built.code).m.map(row => row[0]);
@@ -1960,7 +1961,7 @@ describe("john's preview lines", () => {
     const priced = equipmentTotal(steps[0].code);
     assert.ok(priced.keys.includes("GABR30"), priced.keys.join(","));
     assert.equal(priced.keys.includes("BLZ-4LTE3"), false);
-    assert.ok(priced.equipment >= 8099);
+    assert.equal(priced.equipment, 7904);
     for (const step of steps) {
       assert.equal(step.spec.brand, "hestan", step.reply);
       const quote = equipmentTotal(step.code);
@@ -1983,6 +1984,31 @@ describe("john's preview lines", () => {
     const moved = interpret("need to use that other Pizza Oven on the other leg of the L shape", built.spec);
     assert.match(moved.reply, /to the return/, moved.reply);
     assert.doesNotMatch(moved.reply, /\bon the return\b/);
+  });
+});
+
+describe("catalog msrp and quote adds", () => {
+  test("blaze prices are msrp, hestan and the smoker are quote adds, and the 40 inch under is priced", () => {
+    assert.equal(CATALOG.grill.p, 3239);
+    assert.equal(CATALOG.pizza.k, "BLZ-LTE3OVN");
+    assert.equal(CATALOG.pizza.p, 3959);
+    assert.equal(CATALOG.pizza.w, 26.5);
+    assert.equal(CATALOG["door-v"].w, 19.125);
+    assert.equal(CATALOG.smoker.p, null);
+    assert.equal(CATALOG.smoker.quote, true);
+    const hestan = interpret("straight 10 ft island with a grill", null, { brand: "hestan", brandExplicit: true });
+    assert.match(hestan.reply, /priced by quote/);
+    assert.doesNotMatch(hestan.reply, /\$\d/);
+    assert.equal(equipmentTotal(hestan.code).keys.includes("GABR30"), true);
+    assert.equal(equipmentTotal(hestan.code).equipment, 986);
+    const forty = interpret("straight 12 ft island with a 40 inch grill");
+    assert.equal(equipmentTotal(forty.code).equipment, 4931);
+    const old = Buffer.from(JSON.stringify({ v: 4, m: [["BLZ-26-PZOVN", 0, 0, 0, 0, "", 0, 0, 0, 0]] })).toString("base64");
+    assert.equal(decodeDesign(old).m[0][0], "BLZ-LTE3OVN");
+    assert.equal(equipmentTotal(old).equipment, 3959);
+    assert.equal(equipmentTotal(interpret("straight 10 ft island with a grill and a fridge").code).equipment, 5887);
+    assert.equal(equipmentTotal(interpret("L shaped island, 12 ft grill side with a grill and a fridge, 8 ft return").code).equipment, 6236);
+    assert.equal(equipmentTotal(interpret("U shaped kitchen, 12 ft main with a grill, 6 ft each side").code).equipment, 4225);
   });
 });
 
