@@ -139,7 +139,8 @@ export const CATALOG = {
   drawer: { k: "BLZ-DRW2-R-LT", spoken: "a double drawer", w: 17.5, p: 812 },
   "drawer-3": { k: "BLZ-DRW3-R-LT", spoken: "a triple drawer", w: 17.5, p: 1044 },
   bev: { k: "BLZ-GDBEV-5.5", spoken: "a beverage refrigerator", w: 28, p: 2197 },
-  ctwok: { k: "ctwok", spoken: "a countertop wok", w: 16, p: 0 },
+  /* Distinct from the power burner. Sits on the slab, so it has no cutout. */
+  ctwok: { k: "ctwok", spoken: "a countertop wok burner", w: 16, p: 0 },
   ice: { k: "BLZ-ICEMKR-50GR", spoken: "a 15 inch ice maker", w: 18.75, p: 2969 },
   smoker: { k: "YS640S-CM", spoken: "a pellet smoker", w: 54.2, p: null, quote: true },
   corner: { k: "corner24", spoken: "a corner", w: 24, p: 349 }
@@ -184,10 +185,11 @@ const ITEM_RES = [
   [/single side burner/, "side-burner-single"],
   [/side burner combo|double side burner|side burner|sideburner/, "side-burner"],
   [/table\s*top\s*(?:walk|wok)|tabletop\s*(?:walk|wok)/, "ctwok"],
-  [/power burner|\bwok\b/, "power"],
+  [/power burner/, "power"],
+  [/\bwok\b/, "ctwok"],
   [/\b40\s*(?:inch|in)?\s*(?:\w+\s+){0,2}grill/, "grill-40"],
   [/griddle/, "griddle"],
-  [/pizza oven on top|pizza on top|countertop pizza|tabletop pizza/, "ctpizza"],
+  [/pizza oven on top|pizza on top|counter\s*top pizza|table\s*top pizza|tabletop pizza/, "ctpizza"],
   [/pizza oven|\bpizza\b/, "pizza"],
   [/smoker/, "smoker"],
   [/ice maker|icemaker/, "ice"],
@@ -222,6 +224,9 @@ function num(token) {
 
 export function normalize(text) {
   let t = String(text || "").toLowerCase().replace(/[’']/g, "'");
+  /* "walk-in" is a cooler. A bare "walk" is how speech-to-text hears "wok". */
+  t = t.replace(/\bwalk-ins?\b/g, "walkin");
+  t = t.replace(/\bwalk\s+ins?\b(?=\s+(?:fridge|refrigerator|cooler|freezer|kegerator|unit)\b)/g, "walkin");
   t = t.replace(/\bel[\s-]*shaped?\b/g, "l shaped");
   t = t.replace(/\byou[\s-]*shaped?\b/g, "u shaped");
   t = t.replace(/(\d+(?:\.\d+)?)\s*(?:"|″|”)/g, "$1 inch ");
@@ -251,6 +256,7 @@ export function normalize(text) {
   });
   t = t.replace(/\b12\s*(?:inch(?:es)?|in)?\s*to\s*2\s*ft(?:\s*away)?\b/g, " grillgap ");
   t = t.replace(/\bi want to refrigerator\b/g, "i want a refrigerator");
+  t = t.replace(/\bwalk\b/g, "wok");
   return t.replace(/\s+/g, " ").trim();
 }
 
@@ -958,7 +964,7 @@ function slidePiece(t, current) {
     const way = sign > 0 ? "toward the open end, away from the corner" : "back toward the corner";
     return { spec, brief: true, notes: ["Moved " + CATALOG[pieceId].spoken + " " + Math.abs(moved) + " inches " + way + "."] };
   }
-  const spare = Math.max(0, legN.lengthIn - gearSpan(legN.items, spec.gapIn, spec.grillGap));
+  const spare = Math.max(0, legN.lengthIn - gearSpan(legN.items, spec.gapIn, spec.grillGap, spec, legN.overlay));
   const cur = Number(legN.shift) || 0;
   const next = Math.max(-spare, Math.min(spare, cur + sign * amount));
   const moved = Math.round((next - cur) * 10) / 10;
@@ -1003,7 +1009,7 @@ function otherLeg(spec, fromLeg) {
 
 function legIntent(t) {
   if (/\bother leg\b/.test(t)) return "opposite";
-  if (/\bmove\b/.test(t) && /\bover\b/.test(t)) return "opposite";
+  if (/\bmove\b/.test(t) && /\bover\b/.test(t) && !/\b(?:over|above)\s+(?:the\s+)?(?:fridge|refrigerator|grill|sink|griddle|burner|counter)\b/.test(t)) return "opposite";
   if (/\bother side of\b/.test(t)) return "";
   if (/\bother side\b/.test(t)) return "return";
   if (/\b(?:bar side|return leg|on the return|the return)\b/.test(t)) return "return";
@@ -1052,6 +1058,7 @@ function flipBeside(t, current) {
   const wasLeft = from.items.indexOf(subject) < from.items.indexOf(anchor);
   const base = from.bases && from.bases[subject];
   if (base) delete from.bases[subject];
+  clearOverlay(from, subject);
   from.items = from.items.filter(id => id !== subject);
   const at = from.items.indexOf(anchor);
   if (wasLeft) from.items.splice(at + 1, 0, subject);
@@ -1116,6 +1123,7 @@ function moveAcross(t, current) {
   }
   const base = fromLeg.bases && fromLeg.bases[id];
   if (base) delete fromLeg.bases[id];
+  clearOverlay(fromLeg, id);
   fromLeg.items = (fromLeg.items || []).filter(x => x !== id);
   if (id === "ctpizza" || id === "ctwok") fromLeg.slide = 0;
   dest.items = dest.items || [];
@@ -1354,10 +1362,64 @@ function moveBack(t, current) {
   return { spec, brief: true, notes: ["Moved " + theName(spot.id) + " back " + besidePhrase(spec, spot.id) + "."] };
 }
 
+function sitNote(id) {
+  if (id === "ctwok") return "The countertop wok burner sits on the counter and has no equipment price in the catalog.";
+  if (id === "ctpizza") return "The countertop pizza oven sits on the counter, with no cutout and no equipment price in the catalog.";
+  const piece = CATALOG[id];
+  if (piece && piece.quote) return piece.spoken.replace(/^an? /, "The ") + " is priced by quote; your estimate covers the build and the Blaze pieces.";
+  return "";
+}
+
+/* "A wok not a power burner" replaces the power burner with the wok. */
+function replaceNot(t, current) {
+  if (!current || !/\bnot\s+(?:a|an|the)\b/.test(t)) return null;
+  const parts = t.split(/\bnot\s+(?:a|an|the)\b/);
+  if (parts.length < 2) return null;
+  const want = findItems(parts[0]);
+  const reject = findItems(parts.slice(1).join(" ")).filter(id => !want.includes(id));
+  if (!want.length || !reject.length) return null;
+  const x = resolvePresent(want[0], current);
+  const y = resolvePresent(reject[0], current);
+  if (!CATALOG[x] || !CATALOG[y] || x === y) return null;
+  const spec = cloneSpec(current);
+  spec.holdLengths = true;
+  let yLeg = null;
+  let yAt = -1;
+  spec.legs.forEach(legN => {
+    const at = (legN.items || []).indexOf(y);
+    if (at >= 0 && !yLeg) { yLeg = legN; yAt = at; }
+  });
+  const xOn = pieceOnSpec(spec, x);
+  const yName = CATALOG[y].spoken.replace(/^an? /, "a ");
+  const extra = sitNote(x);
+  if (!yLeg && xOn) {
+    return { clarify: theName(x).replace(/^the /, "The ") + " is already on this island. There isn't " + yName + " to replace." };
+  }
+  if (!yLeg) {
+    const dest = spec.legs[0];
+    dest.items = dest.items || [];
+    dest.items.push(x);
+    spec.lastAdded = [x];
+    spec.lastMentioned = x;
+    return { spec, brief: true, notes: ["Added " + CATALOG[x].spoken + ". There isn't " + yName + " to replace." + (extra ? " " + extra : "")] };
+  }
+  clearOverlay(yLeg, y);
+  if (xOn) {
+    yLeg.items.splice(yAt, 1);
+    return { spec, brief: true, notes: ["Removed " + CATALOG[y].spoken + ". " + theName(x).replace(/^the /, "The ") + " stays." + (extra ? " " + extra : "")] };
+  }
+  yLeg.items.splice(yAt, 1, x);
+  spec.lastAdded = [x];
+  spec.lastMentioned = x;
+  return { spec, brief: true, notes: ["Swapped " + theName(y) + " for " + CATALOG[x].spoken + "." + (extra ? " " + extra : "")] };
+}
+
 function refine(t, current) {
   if (!current) return null;
   const undone = moveBack(t, current);
   if (undone) return undone;
+  const swapped = replaceNot(t, current);
+  if (swapped) return swapped;
   const spec = cloneSpec(current);
   const movedGroup = moveGroup(t, current);
   if (movedGroup) return movedGroup;
@@ -1436,6 +1498,15 @@ function refine(t, current) {
             hit = true;
           }
         }
+      }
+      if (l.overlay) {
+        for (const id of Object.keys(l.overlay)) {
+          if (ids.includes(id)) {
+            delete l.overlay[id];
+            hit = true;
+          }
+        }
+        if (!Object.keys(l.overlay).length) delete l.overlay;
       }
     });
     if (!hit) return { spec: current, brief: true, notes: ["That piece isn't on the design."] };
@@ -1571,6 +1642,7 @@ function placePhrase(where, anchor) {
   if (where === "main") return " on the main run";
   if (where === "bar") return " under the bar";
   if (where === "under") return " in the base under the grill";
+  if (where === "over") return " on the counter over " + who;
   if (where === "next" || where === "rightadj") return " next to " + who;
   if (where === "leftadj") return " just left of " + who;
   return "";
@@ -1635,6 +1707,7 @@ function layoutKey(spec) {
   return JSON.stringify((spec.legs || []).map(l => ({
     items: l.items || [],
     bases: l.bases || null,
+    overlay: l.overlay || null,
     pin: !!l.pinEnd
   })));
 }
@@ -1645,6 +1718,12 @@ function unchangedReply(t, spec) {
   if (id) id = resolvePresent(id, spec);
   const piece = id && pieceFor(id, spec);
   const name = piece ? piece.spoken.replace(/^an? /, "The ") : "That piece";
+  if (id && pieceOnSpec(spec, id)) {
+    for (const legN of spec.legs || []) {
+      const host = legN.overlay && legN.overlay[id];
+      if (host) return name + " is already on the counter over " + theName(host) + ".";
+    }
+  }
   if (id && pieceOnSpec(spec, id) && /\b(?:other leg|other side|the return|on the return)\b/.test(t)) {
     const onReturn = (spec.legs || []).some(l => (l.role === "bar" || l.role === "return" || l.role === "right" || l.role === "left") && (l.items || []).includes(id) && l.role !== "grill" && l.role !== "main");
     if (onReturn) return name + " is already on the return.";
@@ -1751,8 +1830,28 @@ function isFullLayout(t) {
 
 /* A fridge already on the right stays the right end. Left, right, and
    "under the grill" insert around it instead of appending past it. */
+function clearOverlay(legN, id) {
+  if (!legN || !legN.overlay || !id || !legN.overlay[id]) return;
+  delete legN.overlay[id];
+  if (!Object.keys(legN.overlay).length) delete legN.overlay;
+}
+
+/* "Over the fridge" sits on the slab above that bay. It is not a new cutout,
+   and it does not take the fridge's place in the run. */
 function placeOnLeg(leg, id, where, fresh, keepFridgeEnd, anchor) {
   leg.items = leg.items || [];
+  if (where === "over") {
+    leg.items = leg.items.filter(x => x !== id);
+    const at = anchor ? leg.items.indexOf(anchor) : -1;
+    if (at >= 0) leg.items.splice(at, 0, id);
+    else leg.items.push(id);
+    if (anchor) {
+      if (!leg.overlay) leg.overlay = {};
+      leg.overlay[id] = anchor;
+    }
+    return;
+  }
+  clearOverlay(leg, id);
   if (!fresh) {
     if ((where === "main" || where === "return") && leg.items.includes(id)) return;
     leg.items = leg.items.filter(x => x !== id);
@@ -1862,6 +1961,7 @@ function mentionHits(text) {
 }
 
 function referenceRelation(before) {
+  if (/\b(?:over|above|on top of)\s+the\s*$/.test(before)) return "over";
   if (/\b(?:just\s+to\s+the\s+left\s+of|just\s+left\s+of|to\s+the\s+left\s+of|left\s+of)\s+the\s*$/.test(before)) return "leftadj";
   if (/\b(?:immediately\s+right\s+of|to\s+the\s+right\s+of|right\s+of)\s+the\s*$/.test(before)) return "rightadj";
   if (/\b(?:right\s+next\s+to|next\s+to|beside)\s+the\s*$/.test(before)) return "next";
@@ -2000,7 +2100,8 @@ function addEquipment(t, current) {
     note += " Room for " + stools + " stools.";
   }
   const tail = [];
-  if (hits.some(h => h.id === "ctwok")) tail.push("The countertop wok sits on the counter and has no equipment price in the catalog.");
+  if (hits.some(h => h.id === "ctwok")) tail.push(sitNote("ctwok"));
+  if (hits.some(h => h.id === "ctpizza")) tail.push(sitNote("ctpizza"));
   for (const hit of hits) if (hit.sizeNote) tail.push(hit.sizeNote);
   spec.lastAdded = added.map(h => h.id);
   for (const hit of moved) noteMove(spec, current, hit.id);
@@ -2026,11 +2127,13 @@ function gapWidth(prev, id, requested, grillGap) {
   return want > 0 ? nearestFiller(want) : 0;
 }
 
-function gearSpan(items, gapIn, grillGap, spec) {
+function gearSpan(items, gapIn, grillGap, spec, skip) {
   const requested = gapIn == null ? 6 : gapIn;
+  const omit = skip || {};
   let sum = 0;
   let prev = "";
   for (const id of items || []) {
+    if (omit[id]) continue;
     const item = pieceFor(id, spec);
     if (!item) continue;
     if (prev) sum += gapWidth(prev, id, requested, grillGap);
@@ -2046,7 +2149,7 @@ function spillToReturn(spec) {
   if (!spec || spec.shape !== "ell" || (spec.legs || []).length < 2) return;
   const main = spec.legs[0];
   const ret = spec.legs[1];
-  if (gearSpan(main.items, spec.gapIn, spec.grillGap, spec) <= main.lengthIn + 4) return;
+  if (gearSpan(main.items, spec.gapIn, spec.grillGap, spec, main.overlay) <= main.lengthIn + 4) return;
   for (const id of ["bev-sink", "ctpizza", "pizza"]) {
     const at = (main.items || []).indexOf(id);
     if (at < 0) continue;
@@ -2089,11 +2192,13 @@ function takeFillers(want) {
   return { sizes, used: sizes.reduce((sum, size) => sum + size, 0) };
 }
 
-function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerInset, align, panels, shift, spec) {
+function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerInset, align, panels, shift, spec, skip) {
   const requested = gapIn == null ? 6 : gapIn;
+  const omit = skip || {};
   const extras = Array.isArray(panels) ? panels : [];
   const pieces = [];
   for (const id of items) {
+    if (omit[id]) continue;
     const item = pieceFor(id, spec);
     if (!item) continue;
     pieces.push({ id, k: item.k, w: item.w, u: underFor(id, items, bases) });
@@ -2394,6 +2499,14 @@ export function validateSpec(input) {
     if (raw.slide) out.slide = Math.round(Number(raw.slide) || 0);
     if (raw.align === "left" || raw.align === "right") out.align = raw.align;
     if (raw.shift) out.shift = Math.round(Number(raw.shift) || 0);
+    const overlay = {};
+    if (raw.overlay && typeof raw.overlay === "object") {
+      for (const id of Object.keys(raw.overlay)) {
+        const host = raw.overlay[id];
+        if (CATALOG[id] && CATALOG[host]) overlay[id] = host;
+      }
+    }
+    if (Object.keys(overlay).length) out.overlay = overlay;
     const panels = Array.isArray(raw.panels) ? raw.panels : [];
     out.panels = panels.slice(0, 8).map(panel => ({
       w: nearestFiller(Number(panel && panel.w) || 6),
@@ -2420,6 +2533,7 @@ export function validateSpec(input) {
       lastDir: src.lastDir === 1 || src.lastDir === -1 ? src.lastDir : 0,
       moveHist: cleanHist(src.moveHist),
       pending: Array.isArray(src.pending) ? src.pending.filter(id => CATALOG[id]).slice(0, 12) : [],
+      saidFillers: !!src.saidFillers,
       legs
     }
   };
@@ -2539,17 +2653,17 @@ export function compileSpec(input, extraNotes) {
   if (hold) {
     for (const l of spec.legs) {
       if (!l.fixed) continue;
-      const ask = gearSpan(l.items || [], spec.gapIn, spec.grillGap, spec);
+      const ask = gearSpan(l.items || [], spec.gapIn, spec.grillGap, spec, l.overlay);
       if (ask <= l.lengthIn + 4) continue;
       const dropped = [];
-      while ((l.items || []).length && gearSpan(l.items, spec.gapIn, spec.grillGap, spec) > l.lengthIn + 4) dropped.push(l.items.pop());
+      while ((l.items || []).length && gearSpan(l.items, spec.gapIn, spec.grillGap, spec, l.overlay) > l.lengthIn + 4) dropped.push(l.items.pop());
       dropped.reverse();
       const moved = [];
       const pending = [];
       for (const id of dropped) {
         const home = spec.legs.find(o => {
           if (o === l) return false;
-          const span = gearSpan((o.items || []).concat(id), spec.gapIn, spec.grillGap, spec);
+          const span = gearSpan((o.items || []).concat(id), spec.gapIn, spec.grillGap, spec, o.overlay);
           const room = o.fixed ? o.lengthIn : Math.max(o.lengthIn, span);
           return span <= room + 4;
         });
@@ -2576,7 +2690,7 @@ export function compileSpec(input, extraNotes) {
   }
   const packed = spec.legs.map(l => {
     const inset = counterLanding(l);
-    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap, inset, l.align || "", l.panels || [], l.shift || 0, spec);
+    const result = pack(l.items, Math.min(HARD_MAX, l.lengthIn), !!l.pinEnd, l.bases, spec.gapIn, hold && l.fixed, spec.grillGap, inset, l.align || "", l.panels || [], l.shift || 0, spec, l.overlay);
     if (inset >= 24 && (l.items || []).includes("ctpizza") && !notes.some(n => /corner before the pizza/.test(n))) {
       notes.push("I left " + feet(inset) + " of counter at the corner before the pizza oven.");
     }
@@ -2596,9 +2710,21 @@ export function compileSpec(input, extraNotes) {
     else if (has12) blurb = "I left 12 inches beside the grill. A side burner, griddle, or sink needs that much.";
     else if (has6) blurb = "I added 6 inch filler panels between appliances.";
     else if (other) blurb = "I added " + other + " inch filler panels between appliances.";
-    if (blurb) notes.push(blurb + " Filler panels have no equipment price of their own. The build rate covers the extra length.");
+    if (blurb && !spec.saidFillers) notes.push(blurb + " Filler panels have no equipment price of their own. The build rate covers the extra length.");
   }
+  spec.saidFillers = true;
   const mods = place(spec, packed);
+  for (const legN of spec.legs) {
+    for (const [id, host] of Object.entries(legN.overlay || {})) {
+      if (!(legN.items || []).includes(id)) continue;
+      const piece = pieceFor(id, spec);
+      const hostPiece = pieceFor(host, spec);
+      if (!piece || !hostPiece) continue;
+      const at = mods.find(m => m.k === hostPiece.k);
+      if (!at) continue;
+      mods.push({ k: piece.k, x: at.x, y: at.y, r: at.r || 0, u: "" });
+    }
+  }
   const code = encodeDesign(spec, mods);
   const link = CONFIG.designer.shareOrigin + CONFIG.designer.pagePath + "#d=" + code;
   const dropped = [];
