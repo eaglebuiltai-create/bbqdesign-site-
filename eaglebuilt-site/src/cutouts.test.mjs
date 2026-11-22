@@ -149,7 +149,8 @@ test("flange: every record with a flange is well-formed, sourced and bigger than
     assert.ok(f.source && f.source.length > 10, `${r.model} flange source`);
     if (f.kind === "none") { assert.ok(f.w == null && f.h == null && f.d == null, `${r.model} none has no dims`); continue; }
     const other = f.kind === "face" ? f.h : f.d;
-    assert.ok(f.w != null || f.overlap != null, `${r.model} flange has a width or an overlap`);
+    assert.ok(f.w != null || f.overlap != null || f.overlap_lr != null, `${r.model} flange has a width or an overlap`);
+    if (f.overlap_lr != null) assert.ok(f.overlap == null && f.overlap_tb > 0 && f.overlap_tb < 4 && f.overlap_lr < 4, `${r.model} side overlaps`);
     if (f.kind === "face") assert.equal(f.d, undefined, `${r.model} face flange has no depth`);
     if (f.kind === "rim") assert.equal(f.h, undefined, `${r.model} rim flange has no height`);
     if (f.w != null && c.w != null) assert.ok(f.w >= c.w, `${r.model} flange W ${f.w} < cutout W ${c.w}`);
@@ -169,6 +170,7 @@ test("flange shows under the cutout on every model page, in JSON-LD, and in the 
     const line = big.slice(flAt, big.indexOf("</div>", flAt));
     const f = r.flange;
     if (!f) assert.match(line, /Flange: <i>check spec sheet<\/i>/, r.model);
+    else if (f.w == null && f.kind !== "none") assert.match(line, /per side|each side|check spec sheet/, r.model);
     else if (f.kind === "none") assert.match(line, /Flange: none/, r.model);
     else if (f.w != null) assert.ok(line.includes(`Flange: ${inch(f.w).replace(/"/g, "&quot;")}`) || line.includes(`Flange: ${inch(f.w)}`), `${r.model}: ${line}`);
     const p = ld(html)[0]["@graph"].find(n => n["@type"] === "Product");
@@ -186,7 +188,7 @@ test("flange shows under the cutout on every model page, in JSON-LD, and in the 
     assert.ok(row, r.model);
     const f = r.flange;
     if (!f) assert.equal(row[18], null, r.model);
-    else assert.deepEqual(row[18], [f.kind === "none" ? 0 : f.kind === "rim" ? 2 : 1, f.w ?? null, (f.kind === "rim" ? f.d : f.h) ?? null, f.overlap ?? null], r.model);
+    else assert.deepEqual(row[18], [f.kind === "none" ? 0 : f.kind === "rim" ? 2 : 1, f.w ?? null, (f.kind === "rim" ? f.d : f.h) ?? null, f.overlap ?? null].concat(f.overlap_lr != null ? [f.overlap_lr, f.overlap_tb] : []), r.model);
   }
   assert.match(hub, /function fl\(f\)/);
 });

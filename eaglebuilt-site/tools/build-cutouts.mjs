@@ -264,9 +264,12 @@ function flangeLine(r) {
   if (!f) return `Flange: <i>check spec sheet</i>`;
   if (f.kind === "none") return `Flange: none &mdash; fits inside the opening`;
   const p = v => (inch(v) ? esc(inch(v)) : `<i>check spec sheet</i>`);
+  const other = f.kind === "rim" ? f.d : f.h;
+  const lap = f.overlap != null ? `${esc(inch(f.overlap))} per side`
+    : f.overlap_lr != null ? `${esc(inch(f.overlap_lr))} each side, ${esc(inch(f.overlap_tb))} top &amp; bottom` : "";
+  if (f.w == null && other == null) return lap ? `Flange: ${lap} <i>(overall size: check spec sheet)</i>` : `Flange: <i>check spec sheet</i>`;
   const dims = f.kind === "rim" ? `${p(f.w)} W &times; ${p(f.d)} D (top footprint)` : `${p(f.w)} W &times; ${p(f.h)} H`;
-  const lap = f.overlap != null ? ` &middot; overlaps the cutout ${esc(inch(f.overlap))} per side` : "";
-  return (f.w == null && (f.h ?? f.d) == null && f.overlap != null) ? `Flange: <i>check spec sheet</i>${lap}` : `Flange: ${dims}${lap}`;
+  return `Flange: ${dims}${lap ? ` &middot; ${lap}` : ""}`;
 }
 function verifiedBadge(r) {
   return r.verified
@@ -358,9 +361,10 @@ const HUB_JS = `<script>
   function ov(w,h,d){if(w===null&&h===null&&d===null)return 'Overall size: <i>check spec sheet</i>';
     function p(v,l){var t=inch(v);return t?e(t)+" "+l:"<i>check spec sheet</i> "+l;}return "Overall: "+p(w,"W")+" &times; "+p(h,"H")+" &times; "+p(d,"D");}
   function fl(f){if(!f)return 'Flange: <i>check spec sheet</i>';if(f[0]===0)return 'Flange: none &mdash; fits inside the opening';
-    function p(v){var t=inch(v);return t?e(t):'<i>check spec sheet</i>';}var lap=f[3]!==null?' &middot; overlaps the cutout '+e(inch(f[3]))+' per side':'';
-    if(f[1]===null&&f[2]===null)return 'Flange: <i>check spec sheet</i>'+lap;
-    return 'Flange: '+p(f[1])+' W &times; '+p(f[2])+(f[0]===2?' D (top footprint)':' H')+lap;}
+    function p(v){var t=inch(v);return t?e(t):'<i>check spec sheet</i>';}
+    var lap=f[3]!==null?e(inch(f[3]))+' per side':f.length>4?e(inch(f[4]))+' each side, '+e(inch(f[5]))+' top &amp; bottom':'';
+    if(f[1]===null&&f[2]===null)return lap?'Flange: '+lap+' <i>(overall size: check spec sheet)</i>':'Flange: <i>check spec sheet</i>';
+    return 'Flange: '+p(f[1])+' W &times; '+p(f[2])+(f[0]===2?' D (top footprint)':' H')+(lap?' &middot; '+lap:'');}
   var html=D.g.map(function(g,gi){
     var rows=D.r.filter(function(r){return r[14]===gi;}).map(function(r){
       var bq=r[1].toLowerCase();bq+=" "+bq.replace(/[^a-z0-9]+/g,"")+" "+bq.replace(/[^a-z0-9]+/g,"-");
@@ -447,7 +451,7 @@ const brandNames = list => [...new Set(list.map(r => r.b.name))];
     return [r.model, r.b.name, r.product_name, r.url, c.w ?? null, c.h ?? null, c.d ?? null, cm.w ?? null, cm.d ?? null,
       o.w ?? null, o.h ?? null, o.d ?? null, r.verified ? 1 : 0, r.spec_sheet_url || "", groupsUsed.indexOf(r.g),
       hubSearchText(r), r.discontinued ? (r.replaced_by || "-") : "", cm.h ?? null,
-      r.flange ? [r.flange.kind === "none" ? 0 : r.flange.kind === "rim" ? 2 : 1, r.flange.w ?? null, (r.flange.kind === "rim" ? r.flange.d : r.flange.h) ?? null, r.flange.overlap ?? null] : null];
+      r.flange ? [r.flange.kind === "none" ? 0 : r.flange.kind === "rim" ? 2 : 1, r.flange.w ?? null, (r.flange.kind === "rim" ? r.flange.d : r.flange.h) ?? null, r.flange.overlap ?? null].concat(r.flange.overlap_lr != null ? [r.flange.overlap_lr, r.flange.overlap_tb] : []) : null];
   });
   const popular = recs.filter(r => r.popularRank).sort((a, b) => a.popularRank - b.popularRank).slice(0, 24);
   const body = `<section class="coGroup" id="popular" style="border-top:0;padding:22px 0 4px" data-popular>
@@ -611,7 +615,8 @@ for (const r of RECS) {
   if (r.cutout_in) add.push(pv("Cutout width", c.w, cm.w), pv("Cutout height", c.h, cm.h), pv("Cutout depth", c.d, cm.d));
   const f = r.flange;
   if (f && f.kind === "none") add.push({ "@type": "PropertyValue", name: "Flange", value: "none (fits inside the opening)" });
-  else if (f) add.push(pv("Flange width", f.w), f.kind === "rim" ? pv("Flange depth (top footprint)", f.d) : pv("Flange height", f.h), pv("Flange overlap per side", f.overlap));
+  else if (f) add.push(pv("Flange width", f.w), f.kind === "rim" ? pv("Flange depth (top footprint)", f.d) : pv("Flange height", f.h), pv("Flange per side", f.overlap),
+    pv("Flange each side (left/right)", f.overlap_lr), pv("Flange top and bottom", f.overlap_tb));
   if (r.fuel_power) add.push({ "@type": "PropertyValue", name: "Fuel / power", value: r.fuel_power });
   const product = {
     "@type": "Product", "@id": ORIGIN + r.url + "#product", name: `${r.b.name} ${r.model} ${r.product_name}`,
@@ -630,7 +635,7 @@ for (const r of RECS) {
   const facts = [
     `<li><b>Category:</b> ${esc(CAT_LABEL[r.category] || r.category)}</li>`,
     r.fuel_power ? `<li><b>Fuel / power:</b> ${esc(r.fuel_power)}</li>` : "",
-    `<li><b>Flange:</b> ${flangeLine(r).replace(/^Flange: /, "")}${r.flange && r.flange.source ? ` <span style="color:var(--muted)">(${esc(r.flange.source)})</span>` : ""}</li>`,
+    `<li><b>Flange:</b> ${flangeLine(r).replace(/^Flange: /, "")}${r.flange && r.flange.source ? ` <span style="color:var(--muted)">(${esc(r.flange.source)}${r.flange.source_url && r.flange.source_url !== r.spec_sheet_url ? ` &middot; <a href="${esc(r.flange.source_url)}" target="_blank" rel="noopener nofollow">source &#8599;</a>` : ""})</span>` : ""}</li>`,
     `<li><b>Overall size:</b> ${overallLine(r).replace(/^Overall(?: size)?: /, "")}</li>`,
     `<li><b>Source:</b> ${esc(r.notes)}</li>`,
     r.aliases.length ? `<li><b>Replaces:</b> ${r.aliases.map(a => esc(a)).join(", ")} (previous model, no longer in Blaze's catalog). ${retiredInfo.filter(x => r.aliases.includes(x.model)).some(x => !x.cutout_in) ? "The older unit's cutout was not re-verified from a Blaze document — if you are fitting one, check its own manual." : ""}</li>` : "",
