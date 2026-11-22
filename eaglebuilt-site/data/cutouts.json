@@ -2565,6 +2565,14 @@
   "cutout_max_in": {
    "w": 32,
    "d": 19.75
+  },
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Napoleon data sheet N415-0646 (manufacturer PDF, dealer-hosted): \"Overall width of appliance 33 1/2\", \"Overall depth of appliance 27 5/8\"",
+   "w": 33.5,
+   "d": 27.625,
+   "source_url": "https://bbqdirect.com/media/pdf/Napoleon_BIG32RB32-Built-In-700-Data-Sheet.pdf"
   }
  },
  {
@@ -2588,6 +2596,14 @@
   "cutout_max_in": {
    "w": 38,
    "d": 19.75
+  },
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Napoleon data sheet N415-0648 (manufacturer PDF, dealer-hosted): \"Overall width of appliance 39 1/2\", \"Overall depth of appliance 27 5/8\"",
+   "w": 39.5,
+   "d": 27.625,
+   "source_url": "https://bbqdirect.com/media/pdf/Napoleon_BIG38RB38-Built-In-700-Data-Sheet.pdf"
   }
  },
  {
@@ -2611,6 +2627,14 @@
   "cutout_max_in": {
    "w": 44,
    "d": 19.75
+  },
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Napoleon data sheet N415-0650 (manufacturer PDF, dealer-hosted): \"Overall width of appliance 45 1/2\", \"Overall depth of appliance 27 5/8\"",
+   "w": 45.5,
+   "d": 27.625,
+   "source_url": "https://bbqdirect.com/media/pdf/BIG44RB44-Built-In-700-Data-Sheet.pdf"
   }
  },
  {
@@ -2677,6 +2701,14 @@
   "cutout_max_in": {
    "w": 12,
    "d": 20.75
+  },
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "Napoleon data sheet N415-0640 (manufacturer PDF, dealer-hosted): \"Overall width of appliance 13 1/2\", \"Overall depth of appliance 22\"",
+   "w": 13.5,
+   "d": 22,
+   "source_url": "https://www.backyardliving.dk/xmedia/3zon5yp4/n415-0640_bib10rt_10-built-in-700_burner_data-sheet_lores.pdf"
   }
  },
  {
@@ -2696,7 +2728,15 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Opening per Napoleon BIPRO 500 manual N415-0251 (built-in unit opening dimensions). Current model BIPRO500RBNSS-3 / -PSS-3: confirm against its manual N415-0541.",
-  "popular": 4
+  "popular": 4,
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "napoleon.com product specifications for the current BIPRO500RBNSS-3: Width 32.5 in, Depth 25 in (overall grill head)",
+   "w": 32.5,
+   "d": 25,
+   "source_url": "https://www.napoleon.com/en/us/grills/products/built-gas-grills/built-prestige-pro-series/built-prestige-pro-500-rb-bipro500rbnss-3"
+  }
  },
  {
   "brand": "Napoleon",
@@ -2736,7 +2776,15 @@
   "also": [
    "BIPRO825RBIPSS-3",
    "BIPRO825RBINSS-3"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "napoleon.com product specifications for the current BIPRO825RBINSS-3: Width 56 in, Depth 25.25 in (overall grill head)",
+   "w": 56,
+   "d": 25.25,
+   "source_url": "https://www.napoleon.com/en/us/grills/products/built-gas-grills/built-prestige-pro-series/built-prestige-pro-825-rbi-bipro825rbinss-3"
+  }
  },
  {
   "brand": "Napoleon",
@@ -2759,7 +2807,15 @@
   "also": [
    "BIPRO665RBNSS-3",
    "BIPRO665RBPSS-3"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "napoleon.com product specifications for the current BIPRO665RBNSS-3: Width 41.75 in, Depth 25.5 in (overall grill head)",
+   "w": 41.75,
+   "d": 25.5,
+   "source_url": "https://www.napoleon.com/en/us/grills/products/built-gas-grills/built-prestige-pro-series/built-prestige-pro-665-rb-bipro665rbnss-3"
+  }
  },
  {
   "brand": "Napoleon",
@@ -2781,7 +2837,15 @@
   "also": [
    "BIP500RBNSS-3",
    "BIP500RBPSS-3"
-  ]
+  ],
+  "flange": {
+   "kind": "rim",
+   "overlap": null,
+   "source": "napoleon.com product specifications for the current BIP500RBPSS-3: Width 32.5 in, Depth 25.5 in (overall grill head)",
+   "w": 32.5,
+   "d": 25.5,
+   "source_url": "https://www.napoleon.com/en/us/grills/products/built-gas-grills/built-prestige-series/built-prestige-500-rb-bip500rbpss-3"
+  }
  },
  {
   "brand": "Napoleon",
@@ -2935,9 +2999,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 53\u00bc\", (G) overall depth 30\u00bd\"",
+   "w": 53.25,
+   "d": 30.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -2963,9 +3027,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 40\u00bc\", (G) overall depth 30\u00bd\"",
+   "w": 40.25,
+   "d": 30.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -2991,9 +3055,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 34\u00bd\", (G) overall depth 30\u00bd\"",
+   "w": 34.5,
+   "d": 30.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3019,9 +3083,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 38\u00be\", (G) overall depth 30\u00bd\"",
+   "w": 38.75,
+   "d": 30.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3046,9 +3110,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 33\", (G) overall depth 30\u00bd\"",
+   "w": 33,
+   "d": 30.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3072,9 +3136,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 33\u00bd\", (G) overall depth 26\"",
+   "w": 33.5,
+   "d": 26,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3098,9 +3162,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 27\", (G) overall depth 26\"",
+   "w": 27,
+   "d": 26,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3124,9 +3188,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 52\u00bc\", (G) overall depth 30\"",
+   "w": 52.25,
+   "d": 30,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3150,9 +3214,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 39\u00be\", (G) overall depth 25\u00be\"",
+   "w": 39.75,
+   "d": 25.75,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3176,9 +3240,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 34\u00bc\", (G) overall depth 25\u00be\"",
+   "w": 34.25,
+   "d": 25.75,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3202,9 +3266,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 27\u00be\", (G) overall depth 25\u00be\"",
+   "w": 27.75,
+   "d": 25.75,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3228,9 +3292,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 28\", (G) overall depth 23\u00bc\"",
+   "w": 28,
+   "d": 23.25,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3254,9 +3318,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 35\u00bd\", (G) overall depth 29\u00be\"",
+   "w": 35.5,
+   "d": 29.75,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3280,9 +3344,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 29\u00bd\", (G) overall depth 29\u00be\"",
+   "w": 29.5,
+   "d": 29.75,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3358,9 +3422,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.6 Drop-In \"General Dimensions\": (E) 45\" wide, (F) 26\u00bd\" deep",
+   "w": 45,
+   "d": 26.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3384,9 +3448,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 34\u00bd\", (G) overall depth 29\u00bd\"",
+   "w": 34.5,
+   "d": 29.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
@@ -3410,9 +3474,9 @@
   "flange": {
    "kind": "rim",
    "overlap": 1.5,
-   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout)",
-   "w": null,
-   "d": null,
+   "source": "Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), p.2: \"Most grill & accessory hangers measure 1\u00bd\" all around\" (the hanger rests on the left, right and back of the countertop cutout); Fire Magic Product Specifications Guide (L-C1-01326 Rev. 0), pp.4-6 \"General Dimensions\": (E) overall width 34\u00bd\", (G) overall depth 29\u00bd\"",
+   "w": 34.5,
+   "d": 29.5,
    "source_url": "https://firemagicgrills.com/pdf/FM_Product-Spec-Guide.pdf"
   }
  },
