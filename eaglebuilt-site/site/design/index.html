@@ -762,12 +762,16 @@ var CONFIG = {
 
   // Adjust the form to the chosen gate.
   if (CONFIG.gate === "email") {
-    ["fName", "fPhone", "fWhen"].forEach(function (id) {
+    /* The name stays visible. bbqdesign.ai asks for it on the same step, so
+       hiding it here meant someone arriving from there gave a name at one
+       door and lost it at the next - and it is THIS gate that writes the CRM
+       record. Phone and timeline stay hidden: three fields, the same three
+       the other front door asks for. */
+    ["fPhone", "fWhen"].forEach(function (id) {
       var f = document.getElementById(id);
       if (f) { f.required = false; f.closest(".field").style.display = "none"; }
     });
-    var rowE = document.getElementById("rowNameZip");
-    if (rowE) rowE.style.gridTemplateColumns = "1fr";
+    /* Name and ZIP share the row again, so it keeps its two columns. */
     document.getElementById("startHead").textContent = "Where are you building?";
     document.getElementById("startLede").textContent =
       "Your ZIP sets local pricing. Your email opens the designer, and we use it " +
