@@ -84,13 +84,26 @@ try {
 # ---------------------------------------------------------------- verify
 Step "verify against the live site"
 
-# Check the Worker's own hostname, not eaglebuilt.ai. The custom domain sits
-# behind Cloudflare's edge cache, which once returned CF-Cache-Status: HIT on
-# 814 stale pages while this script happily printed "Deployed and verified" -
-# it only looked at two files that happened to be current. The Worker
-# hostname is the origin, so it cannot give a false MATCH.
+# Check the Worker's own hostname first, then eaglebuilt.ai separately, so a
+# file that never shipped reads differently from one that shipped and is still
+# cached at the edge. The custom domain once returned CF-Cache-Status: HIT on
+# 814 stale pages while this script printed "Deployed and verified".
+#
+# The Worker hostname is NOT an uncached origin - it answers HIT too. It is
+# only the less-cached of the two, so both fetches carry a cache-buster. A
+# stale copy can therefore cost a false DIFFERS, never a false MATCH: a cached
+# body that hashes equal to the local file is the content we wanted anyway.
 $ORIGIN = 'https://fragrant-butterfly-5c92.eaglebuilt.workers.dev'
 $PUBLIC = 'https://eaglebuilt.ai'
+
+# Cloudflare may ignore a query string when it builds a cache key for static
+# assets, so this is a nudge rather than a guarantee - which is exactly why
+# the DIFFERS message says to check what wrangler uploaded rather than
+# asserting the deploy failed.
+function Add-CacheBuster([string]$url) {
+  $sep = if ($url.Contains('?')) { '&' } else { '?' }
+  return $url + $sep + 'cb=' + [guid]::NewGuid().ToString('N')
+}
 
 # A cutout page is in the list because those 814 generated files are the
 # largest block of output and the easiest to leave stale: they are rebuilt
@@ -121,7 +134,7 @@ foreach ($c in $checks) {
   if (-not (Test-Path $local)) { "  SKIP     $($c.path) (not on disk)"; continue }
   $tmp = [System.IO.Path]::GetTempFileName()
   try {
-    (New-Object System.Net.WebClient).DownloadFile($ORIGIN + $c.route, $tmp)
+    (New-Object System.Net.WebClient).DownloadFile((Add-CacheBuster ($ORIGIN + $c.route)), $tmp)
     $l = Get-Body $local
     $v = Get-Body $tmp
     if ($l.hash -eq $v.hash) {
@@ -137,7 +150,7 @@ foreach ($c in $checks) {
     # older copy from cache - a separate problem with a separate fix, and one
     # that reads as "working fine" from the origin's point of view.
     try {
-      $req = [System.Net.HttpWebRequest]::Create($PUBLIC + $c.route)
+      $req = [System.Net.HttpWebRequest]::Create((Add-CacheBuster ($PUBLIC + $c.route)))
       $req.Method = 'GET'
       $req.Timeout = 60000
       $res = $req.GetResponse()
