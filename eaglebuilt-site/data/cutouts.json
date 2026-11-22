@@ -19864,5 +19864,700 @@
   "verified_date": "2026-11-21",
   "status": "verified",
   "notes": "Masonry countertop cutout 16 1/8\" W x 25\" D per the Kalamazoo specification sheet, with 2\" minimum clearance underneath the countertop for gas fittings."
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGB0002S",
+  "product_name": "Memphis Elite Built-In ITC3 Wood Fire Grill",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 39,
+   "h": 28,
+   "d": 29
+  },
+  "cutout_in": {
+   "w": 42.625,
+   "h": 16.75,
+   "d": 24.5
+  },
+  "fuel_power": "Fuel: wood pellets; power: 110/120VAC dedicated circuit",
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2021/09/VG0893_A1_bi_instructions.pdf",
+  "source_url": "https://memphisgrills.com/product/memphis-elite-built-in-itc3/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout A 42 5/8\" W x B 16 3/4\" H x C 24 1/2\" D (+/- 1/8\"), to the finished surfaces, per Memphis VG0893 Built-In Cutout Dimensions; 3 1/2\" minimum below the cavity. Model number VGB0002S-2.",
+  "popular": 1,
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Memphis product specifications: Dimensions 39\" (width) vs Cut-out 42-5/8\" (width). The grill body is narrower than the opening and sits inside it on built-in brackets; no trim flange.",
+   "source_url": "https://memphisgrills.com/content/uploads/2021/09/VG0893_A1_bi_instructions.pdf"
+  }
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGB0001S",
+  "product_name": "Memphis Pro Built-In ITC3 Wood Fire Grill",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 28,
+   "h": 28,
+   "d": 29
+  },
+  "cutout_in": {
+   "w": 30.25,
+   "h": 16.75,
+   "d": 24.5
+  },
+  "fuel_power": "Fuel: wood pellets; power: 110/120VAC dedicated circuit",
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2021/09/VG0892_A1_bi_instructions.pdf",
+  "source_url": "https://memphisgrills.com/product/memphis-pro-built-in-itc3/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cutout A 30 1/4\" W x B 16 3/4\" H x C 24 1/2\" D (+/- 1/8\"), to the finished surfaces, per Memphis VG0892 Built-In Cutout Dimensions; 3 1/2\" minimum below the cavity.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Memphis product specifications: Dimensions 28\" (width) vs Cut-out 30-1/4\" (width). The grill body is narrower than the opening and sits inside it on built-in brackets; no trim flange.",
+   "source_url": "https://memphisgrills.com/content/uploads/2021/09/VG0892_A1_bi_instructions.pdf"
+  }
+ },
+ {
+  "brand": "Memphis",
+  "model": "MG01-06-001",
+  "product_name": "Memphis Elevate Built-In Pellet Grill",
+  "category": "pellet smoker",
+  "overall_in": {
+   "w": 30,
+   "h": 30,
+   "d": 31
+  },
+  "cutout_in": {
+   "w": 30.25,
+   "h": 16.75,
+   "d": 24.5
+  },
+  "fuel_power": "Fuel: wood pellets; power: 110/120VAC dedicated circuit",
+  "spec_sheet_url": "https://memphisgrills.com/product/memphis-elevate-built-in-pellet-grill/",
+  "source_url": "https://memphisgrills.com/product/memphis-elevate-built-in-pellet-grill/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Cut-out 16-3/4\" H x 30-1/4\" W x 24-1/2\" D per the Memphis product specifications. Grill head MG01-06-001 with built-in brackets MG11-06-001.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Memphis product specifications: Dimensions 30\" (width) vs Cut-out 30-1/4\" (width). The grill body is narrower than the opening and sits inside it on built-in brackets; no trim flange.",
+   "source_url": "https://memphisgrills.com/product/memphis-elevate-built-in-pellet-grill/"
+  }
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC21DB4",
+  "product_name": "Memphis 21\" Four Drawer Stack",
+  "category": "drawer",
+  "overall_in": {
+   "w": 21,
+   "h": 30.5,
+   "d": 20
+  },
+  "cutout_in": {
+   "w": 20.375,
+   "h": 29.125,
+   "d": 21.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "source_url": "https://memphisgrills.com/product/four-drawer-stack-21/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 20.375\" W x 29 1/8\" H x 21 1/8\" D per the Memphis Built-in Drawer Cabinet Installation Instructions and the product page.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Memphis product page: Dimensions (actual) 30 1/2 x 21 x 20 in. (H x W x D, matching the installation sheet order of the cutout 29 1/8 x 20 3/8 x 21 1/8)",
+   "w": 21,
+   "h": 30.5,
+   "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf"
+  }
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC21DB3",
+  "product_name": "Memphis 21\" Three Drawer Stack",
+  "category": "drawer",
+  "overall_in": {
+   "w": 21,
+   "h": 30.5,
+   "d": 20
+  },
+  "cutout_in": {
+   "w": 20.375,
+   "h": 29.125,
+   "d": 21.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "source_url": "https://memphisgrills.com/product/three-drawer-stack-21/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 20.375\" W x 29 1/8\" H x 21 1/8\" D per the Memphis Built-in Drawer Cabinet Installation Instructions and the product page.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Memphis product page: Dimensions (actual) 30 1/2 x 21 x 20 in. (H x W x D, matching the installation sheet order of the cutout 29 1/8 x 20 3/8 x 21 1/8)",
+   "w": 21,
+   "h": 30.5,
+   "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf"
+  }
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC15DB2",
+  "product_name": "Memphis 15\" Two Drawer Stack",
+  "category": "drawer",
+  "overall_in": {
+   "w": 15,
+   "h": 30.5,
+   "d": 20
+  },
+  "cutout_in": {
+   "w": 14.375,
+   "h": 29.125,
+   "d": 21.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "source_url": "https://memphisgrills.com/product/two-drawer-stack-15/",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 14.375\" W x 29 1/8\" H x 21 1/8\" D per the Memphis Built-in Drawer Cabinet Installation Instructions and the product page.",
+  "flange": {
+   "kind": "face",
+   "overlap": null,
+   "source": "Memphis product page: Dimensions (actual) 30 1/2 x 15 x 20 in. (H x W x D, matching the installation sheet order of the cutout 29 1/8 x 14 3/8 x 21 1/8)",
+   "w": 15,
+   "h": 30.5,
+   "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf"
+  }
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC30LD1",
+  "product_name": "Memphis Lower Drawer (Pro)",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.75,
+   "h": 11.625,
+   "d": 21.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 27.75\" W x 11 5/8\" H x 21 1/8\" D per the Memphis Built-in Drawer Cabinet Installation Instructions."
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC42LD1",
+  "product_name": "Memphis Lower Drawer (Elite)",
+  "category": "drawer",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 40.125,
+   "h": 11.625,
+   "d": 21.125
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Drawer-Cabinet-Installation.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 40.125\" W x 11 5/8\" H x 21 1/8\" D per the Memphis Built-in Drawer Cabinet Installation Instructions."
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC30AD",
+  "product_name": "Memphis Lower Access Doors (Pro)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 27.375,
+   "h": 11.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Access-Doors-Installation.pdf",
+  "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Access-Doors-Installation.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 27.375\" W x 11 1/2\" H per the Memphis Built-in Access Door Installation Instructions (depth not given)."
+ },
+ {
+  "brand": "Memphis",
+  "model": "VGC42AD",
+  "product_name": "Memphis Lower Access Doors (Elite)",
+  "category": "access door",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 39.75,
+   "h": 11.5,
+   "d": null
+  },
+  "fuel_power": null,
+  "spec_sheet_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Access-Doors-Installation.pdf",
+  "source_url": "https://memphisgrills.com/content/uploads/2017/10/Memphis-Grills-Access-Doors-Installation.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Rough opening 39.75\" W x 11 1/2\" H per the Memphis Built-in Access Door Installation Instructions (depth not given)."
+ },
+ {
+  "brand": "Weber",
+  "model": "SB38 S",
+  "product_name": "Weber Summit SB38 S Built-In Gas Grill",
+  "category": "grill",
+  "overall_in": {
+   "w": 41,
+   "h": 36.375,
+   "d": 31.5
+  },
+  "cutout_in": {
+   "w": 41.25,
+   "h": null,
+   "d": 26.25
+  },
+  "fuel_power": "Gas: natural gas or liquid propane",
+  "spec_sheet_url": "https://static.pcrichard.com/docs/1500043_Installation-Instructions_01.pdf",
+  "source_url": "https://amer.weber.com/en-us/products/summit-sb38-s-built-in-gas-grill-natural-gas-stainlesssteel-1500043",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "US Installation Guide (NG): built-in cutout 41 1/4\" W (+/- 1/4\") x 26 1/4\" D (+/- 1/8\"), 36\" maximum countertop height. Full-height bay: the grill and its under-grill cabinet sit on the floor inside the opening. Natural gas 1500043; liquid propane 1500042. The Australian guide lists a different cutout (41 1/2\" x 26 1/2\").",
+  "popular": 1,
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Weber SB38 S Installation Guide: GRILL DIMENSIONS 41\" W x 31 1/2\" D vs BUILT-IN CUTOUT 41 1/4\" W. The grill is narrower than the opening and slides into it; no trim flange.",
+   "source_url": "https://static.pcrichard.com/docs/1500043_Installation-Instructions_01.pdf"
+  }
+ },
+ {
+  "brand": "Kamado Joe",
+  "model": "KJ15041123",
+  "product_name": "Kamado Joe Classic Joe Konnected Joe (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.8,
+   "h": 14.4,
+   "d": 22.8
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 22.8\" diameter (W and D shown are the diameter); H is the height from the bottom of the grill feet to the top of the counter (14.4\"). Add a latch notch at the front of the hole: 4.7\" deep x 9.3\" wide, 3.6\" from the counter edge. Per the Kamado Joe Outdoor Kitchen Size Guide (also in the Built-In guide PDF). The grill sits on ceramic feet.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Kamado Joe Outdoor Kitchen Size Guide: C \"Width of base of grill dome\" 22.3 in; O \"Width of circular counter cutout\" 22.8 in. The ceramic body drops through the hole; no trim flange.",
+   "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide"
+  }
+ },
+ {
+  "brand": "Kamado Joe",
+  "model": "KJ23NRHC",
+  "product_name": "Kamado Joe Classic Joe II (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.8,
+   "h": 14.4,
+   "d": 22.8
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 22.8\" diameter (W and D shown are the diameter); H is the height from the bottom of the grill feet to the top of the counter (14.4\"). Add a latch notch at the front of the hole: 4.7\" deep x 9.3\" wide, 3.6\" from the counter edge. Per the Kamado Joe Outdoor Kitchen Size Guide (also in the Built-In guide PDF). The grill sits on ceramic feet.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Kamado Joe Outdoor Kitchen Size Guide: C \"Width of base of grill dome\" 22.3 in; O \"Width of circular counter cutout\" 22.8 in. The ceramic body drops through the hole; no trim flange.",
+   "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide"
+  }
+ },
+ {
+  "brand": "Kamado Joe",
+  "model": "KJ15040721",
+  "product_name": "Kamado Joe Classic Joe III (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 22.8,
+   "h": 17.3,
+   "d": 22.8
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 22.8\" diameter (W and D shown are the diameter); H is the height from the bottom of the grill feet to the top of the counter (17.3\"). Add a latch notch at the front of the hole: 4.7\" deep x 9.3\" wide, 3.6\" from the counter edge. Per the Kamado Joe Outdoor Kitchen Size Guide (also in the Built-In guide PDF). The grill sits on ceramic feet.",
+  "popular": 1,
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Kamado Joe Outdoor Kitchen Size Guide: C \"Width of base of grill dome\" 22.3 in; O \"Width of circular counter cutout\" 22.8 in. The ceramic body drops through the hole; no trim flange.",
+   "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide"
+  }
+ },
+ {
+  "brand": "Kamado Joe",
+  "model": "KJ15042425",
+  "product_name": "Kamado Joe Big Joe Konnected Joe (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.1,
+   "h": 17.6,
+   "d": 28.1
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 28.1\" diameter (W and D shown are the diameter); H is the height from the bottom of the grill feet to the top of the counter (17.6\"). Add a latch notch at the front of the hole: 5.2\" deep x 13.2\" wide, 5.6\" from the counter edge. Per the Kamado Joe Outdoor Kitchen Size Guide (also in the Built-In guide PDF). The grill sits on ceramic feet.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Kamado Joe Outdoor Kitchen Size Guide: C \"Width of base of grill dome\" 27.6 in; O \"Width of circular counter cutout\" 28.1 in. The ceramic body drops through the hole; no trim flange.",
+   "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide"
+  }
+ },
+ {
+  "brand": "Kamado Joe",
+  "model": "BJ24NRHC",
+  "product_name": "Kamado Joe Big Joe II (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.1,
+   "h": 17.6,
+   "d": 28.1
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 28.1\" diameter (W and D shown are the diameter); H is the height from the bottom of the grill feet to the top of the counter (17.6\"). Add a latch notch at the front of the hole: 5.2\" deep x 13.2\" wide, 5.6\" from the counter edge. Per the Kamado Joe Outdoor Kitchen Size Guide (also in the Built-In guide PDF). The grill sits on ceramic feet.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Kamado Joe Outdoor Kitchen Size Guide: C \"Width of base of grill dome\" 27.6 in; O \"Width of circular counter cutout\" 28.1 in. The ceramic body drops through the hole; no trim flange.",
+   "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide"
+  }
+ },
+ {
+  "brand": "Kamado Joe",
+  "model": "KJ15040821",
+  "product_name": "Kamado Joe Big Joe III (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 28.1,
+   "h": 20.8,
+   "d": 28.1
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 28.1\" diameter (W and D shown are the diameter); H is the height from the bottom of the grill feet to the top of the counter (20.8\"). Add a latch notch at the front of the hole: 5.2\" deep x 13.2\" wide, 5.6\" from the counter edge. Per the Kamado Joe Outdoor Kitchen Size Guide (also in the Built-In guide PDF). The grill sits on ceramic feet.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Kamado Joe Outdoor Kitchen Size Guide: C \"Width of base of grill dome\" 27.6 in; O \"Width of circular counter cutout\" 28.1 in. The ceramic body drops through the hole; no trim flange.",
+   "source_url": "https://www.kamadojoe.com/blogs/kamado-joe-blog/kamado-joe-built-in-grill-guide"
+  }
+ },
+ {
+  "brand": "Big Green Egg",
+  "model": "Large EGG",
+  "product_name": "Big Green Egg Large EGG (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 21.25,
+   "h": 15,
+   "d": 21.25
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://attachments.gorgias.help/bgJ1Q6QWlQn7vXKO/hc/30BVo7vlVr6rvzmQ/2024110103-dd5dcf8a-82a2-48d6-89e4-ddf37d27becd-built-in-specs-final-large-egg.pdf",
+  "source_url": "https://attachments.gorgias.help/bgJ1Q6QWlQn7vXKO/hc/30BVo7vlVr6rvzmQ/2024110103-dd5dcf8a-82a2-48d6-89e4-ddf37d27becd-built-in-specs-final-large-egg.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 21.25\" diameter (W and D shown are the diameter), which leaves a small air gap around the ceramics. H is the shelf height: 15\" from the countertop down to the shelf, with the EGG resting on a Big Green Egg Table Nest. Keep the rear wall at least 20\" from the center of the hole. Per the Big Green Egg Large EGG Built-In Specifications.",
+  "popular": 1,
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Big Green Egg Built-In Specifications: \"DIAMETER OF HOLE CUTOUT (ensures small air gap between ceramics and surrounding surface)\". The EGG drops through the hole; no trim flange.",
+   "source_url": "https://attachments.gorgias.help/bgJ1Q6QWlQn7vXKO/hc/30BVo7vlVr6rvzmQ/2024110103-dd5dcf8a-82a2-48d6-89e4-ddf37d27becd-built-in-specs-final-large-egg.pdf"
+  }
+ },
+ {
+  "brand": "Big Green Egg",
+  "model": "XLarge EGG",
+  "product_name": "Big Green Egg XLarge EGG (built-in)",
+  "category": "grill",
+  "overall_in": null,
+  "cutout_in": {
+   "w": 26.5,
+   "h": 11.75,
+   "d": 26.5
+  },
+  "fuel_power": "Charcoal (kamado)",
+  "spec_sheet_url": "https://attachments.gorgias.help/bgJ1Q6QWlQn7vXKO/hc/30BVo7vlVr6rvzmQ/2024110103-ae60c3a7-3f75-49e1-88d1-3569e8d94da6-built-in-specs-xlarge-egg-v1.pdf",
+  "source_url": "https://attachments.gorgias.help/bgJ1Q6QWlQn7vXKO/hc/30BVo7vlVr6rvzmQ/2024110103-ae60c3a7-3f75-49e1-88d1-3569e8d94da6-built-in-specs-xlarge-egg-v1.pdf",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Round countertop hole, 26.5\" diameter (W and D shown are the diameter), which leaves a small air gap around the ceramics. H is the shelf height: 11.75\" from the countertop down to the shelf, with the EGG resting on a Big Green Egg Table Nest. Keep the rear wall at least 23.5\" from the center of the hole. Per the Big Green Egg X-Large EGG Built-In Specifications.",
+  "flange": {
+   "kind": "none",
+   "overlap": null,
+   "source": "Big Green Egg Built-In Specifications: \"DIAMETER OF HOLE CUTOUT (ensures small air gap between ceramics and surrounding surface)\". The EGG drops through the hole; no trim flange.",
+   "source_url": "https://attachments.gorgias.help/bgJ1Q6QWlQn7vXKO/hc/30BVo7vlVr6rvzmQ/2024110103-ae60c3a7-3f75-49e1-88d1-3569e8d94da6-built-in-specs-xlarge-egg-v1.pdf"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPR627OS",
+  "product_name": "Summit 24\" Wide Outdoor All-Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.63,
+   "h": 34,
+   "d": 23.5
+  },
+  "cutout_in": {
+   "w": 23.625,
+   "h": 34.125,
+   "d": 23.625
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPR627OS",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Same as SCR2464 in the table): 34.125\" H x 23.625\" D x 23.625\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "popular": 1,
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SCR611GLOS",
+  "product_name": "Summit 24\" Wide Outdoor Beverage Center",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.38,
+   "h": 34,
+   "d": 23.5
+  },
+  "cutout_in": {
+   "w": 23.625,
+   "h": 34.125,
+   "d": 23.625
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SCR611GLOS",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Same as SCR2464 in the table): 34.125\" H x 23.625\" D x 23.625\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPFF51OS",
+  "product_name": "Summit 24\" Wide Outdoor All-Freezer",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.63,
+   "h": 34,
+   "d": 23.5
+  },
+  "cutout_in": {
+   "w": 23.625,
+   "h": 34.125,
+   "d": 23.625
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPFF51OS",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Same as SCR2464 in the table): 34.125\" H x 23.625\" D x 23.625\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPR316OS",
+  "product_name": "Summit 15\" Wide Outdoor All-Refrigerator",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 14.88,
+   "h": 34.25,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 15,
+   "h": 34.125,
+   "d": 22.75
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPR316OS",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Same as SCR1536BG in the table): 34.125\" H x 22.75\" D x 15\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPR618OSADA",
+  "product_name": "Summit 24\" Wide Outdoor All-Refrigerator, ADA Compliant",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.38,
+   "h": 32,
+   "d": 17.75
+  },
+  "cutout_in": {
+   "w": 23.625,
+   "h": 32.125,
+   "d": 18
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPR618OSADA",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Listed in the table): 32.125\" H x 18\" D x 23.625\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPR621OS",
+  "product_name": "Summit 21\" Wide Outdoor All-Refrigerator, ADA Compliant",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 20.75,
+   "h": 32,
+   "d": 22
+  },
+  "cutout_in": {
+   "w": 21,
+   "h": 32.125,
+   "d": 22
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPR621OS",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Listed in the table): 32.125\" H x 22\" D x 21\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPR624OS",
+  "product_name": "Summit 24\" Wide Outdoor All-Refrigerator, ADA Compliant",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.38,
+   "h": 32,
+   "d": 22
+  },
+  "cutout_in": {
+   "w": 23.625,
+   "h": 32.125,
+   "d": 22
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPR624OS",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Listed in the table): 32.125\" H x 22\" D x 23.625\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/289?m=SCR611GLOS"
+  }
+ },
+ {
+  "brand": "Summit Appliance",
+  "model": "SPR627OSPNR",
+  "product_name": "Summit 24\" Wide Outdoor All-Refrigerator (Panel Not Included)",
+  "category": "refrigerator",
+  "overall_in": {
+   "w": 23.38,
+   "h": 33.88,
+   "d": 22.75
+  },
+  "cutout_in": {
+   "w": 23.625,
+   "h": 34.125,
+   "d": 22.75
+  },
+  "fuel_power": "Electric: 115V",
+  "spec_sheet_url": "https://www.summitappliance.com/document/937?m=SPR627OS",
+  "source_url": "https://www.summitappliance.com/catalog/model/SPR627OSPNR",
+  "verified_date": "2026-11-21",
+  "status": "verified",
+  "notes": "Built-in niche (A x B x C) per the Summit user manual \"Built-In Under-Counter Instructions\" table (Listed in the table): 34.125\" H x 22.75\" D x 23.625\" W. Leave the front ventilation grille clear. Product dimensions from the Summit model page.",
+  "flange": {
+   "kind": "none",
+   "source": "Undercounter unit: the maker gives a rough opening it slides into; no trim flange.",
+   "overlap": null,
+   "source_url": "https://www.summitappliance.com/document/937?m=SPR627OS"
+  }
  }
 ]
