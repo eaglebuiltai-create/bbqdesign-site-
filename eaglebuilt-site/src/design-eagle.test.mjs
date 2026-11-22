@@ -66,7 +66,7 @@ const PHRASES = [
   }],
   ["simple 6 ft island with a sink and a small grill", {
     shape: "straight",
-    legs: [{ role: "main", lengthIn: 75, items: ["sink", "grill"] }]
+    legs: [{ role: "main", lengthIn: 87, items: ["sink", "grill"] }]
   }],
   ["U-shape, 14 ft back with a grill and a double side burner, 5 ft left with a fridge, 5 ft right with a sink", {
     shape: "yu",
@@ -1627,7 +1627,11 @@ describe("john's straight run", () => {
     const built = drawn(OPENING);
     const left = drawn("now move both items to the left", built.spec);
     const keys = decodeDesign(left.code).m.map(row => row[0]);
-    assert.equal(keys[0], "BLZ-4LTE3", left.reply + " " + keys.join(","));
+    /* Pushed as far left as a run can go, which is up against the end cap
+       rather than the edge of the slab. Nothing finishes flush against an
+       appliance, however hard you shove it. */
+    assert.ok(String(keys[0]).startsWith("fill"), keys.join(","));
+    assert.equal(keys[1], "BLZ-4LTE3", left.reply + " " + keys.join(","));
     assert.ok(String(keys[keys.length - 1]).startsWith("fill"), keys.join(","));
     assert.deepEqual(gapsBetweenGear(left.code).map(gap => gap.fills), [["fill6"]]);
     assert.equal(left.spec.legs[0].bases.grill, "drawer");
@@ -1637,7 +1641,8 @@ describe("john's straight run", () => {
     const right = drawn("now move both items to the right", left.spec);
     const rightKeys = decodeDesign(right.code).m.map(row => row[0]);
     assert.ok(String(rightKeys[0]).startsWith("fill"), rightKeys.join(","));
-    assert.equal(rightKeys[rightKeys.length - 1], "BLZ-SSRF20-4.3");
+    assert.ok(String(rightKeys[rightKeys.length - 1]).startsWith("fill"), rightKeys.join(","));
+    assert.equal(rightKeys[rightKeys.length - 2], "BLZ-SSRF20-4.3", rightKeys.join(","));
     assert.match(right.reply, /right end/);
   });
 

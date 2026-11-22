@@ -147,6 +147,10 @@ export const CATALOG = {
 };
 
 const FILLERS = [24, 16, 12, 8, 6, 4];
+/* A run never finishes flush against an appliance - it finishes on a panel.
+   Six inches is the least John will build, so a leg grows to make room for
+   one rather than drawing something nobody can pour. */
+const END_CAP_IN = 6;
 const MIN_LEG = 48;
 const MAX_LEG = 240;
 const HARD_MAX = 288;
@@ -1093,7 +1097,11 @@ function moveAcross(t, current) {
   const which = legIntent(t);
   if (!which) return null;
   let ids = findItems(t).map(id => resolvePresent(id, current));
-  if (!ids.length && /\bit\b/.test(t)) {
+  /* "Move it to the other side" worked; "move to the other side" did not,
+     because the fallback was gated on the word "it" being there. Dropping the
+     pronoun is how people actually talk, and the sentence means the same
+     thing - so take the piece we were last talking about either way. */
+  if (!ids.length) {
     const one = pronounItem(current);
     if (!one) return { clarify: "Tell me which piece should move to the other leg." };
     ids = [one];
@@ -2225,6 +2233,27 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
     target = base;
     if (!quiet) notes.push("Those pieces and the filler panels need about " + feet(base) + ", so this leg is longer than asked. About " + feet(fit) + " would fit them.");
   }
+  /* When the last piece is pinned to the end of the run, nothing is placed
+     after it - so without this the island finishes flush against a fridge or
+     a drawer stack, which is not a thing that gets built. Reserve a cap
+     before the slack is shared out, and grow the leg if it is already full.
+     Skipped when a shift or a corner inset is already deciding where the
+     slack goes; those place their own fillers at both ends. */
+  /* Every run finishes on a panel at both ends. The pinned case is the one
+     that gets reported, because the piece is deliberately placed at the end -
+     but any leg whose pieces fill it has the same fault at both ends, and
+     that is most short legs. Skipped where something else is already deciding
+     the ends: a corner inset (that end is the corner, not an end of the
+     island), a shift the customer asked for, or an explicit left alignment,
+     which is how a run is pushed against a wall. */
+  const capsEnd = pieces.length > 0 && cornerInset == null;
+  const wantCaps = END_CAP_IN * 2;
+  if (capsEnd && target - base < wantCaps - 0.01) {
+    const added = Math.round(base + wantCaps - target);
+    target = base + wantCaps;
+    notes.push("I added " + added + " inches so the run finishes on a panel at each end, "
+      + "rather than flush against an appliance.");
+  }
   let remain = target - base;
   const spare = remain;
   const fillers = [];
@@ -2242,18 +2271,47 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
     buckets = [corner.sizes, end.sizes];
   } else if (delta) {
     const baseLeft = align === "left" ? 0 : (pinEnd || align === "right" ? spare : Math.round(spare / 2));
-    const leftIn = Math.max(0, Math.min(Math.max(0, spare), baseLeft + delta));
+    /* Slide the pieces as asked, but not past a cap at either end. Moving
+       everything to one side used to put the first piece flush with the edge,
+       which is the same thing we stopped doing at the pinned end. */
+    const room = Math.max(0, spare);
+    const lo = Math.min(END_CAP_IN, room), hi = Math.max(lo, room - END_CAP_IN);
+    const leftIn = Math.max(lo, Math.min(hi, baseLeft + delta));
     const left = takeFillers(leftIn);
     const right = takeFillers(Math.max(0, spare - left.used));
     buckets = [left.sizes, right.sizes];
   } else if (align === "left") {
-    buckets = [[], takeFillers(spare).sizes];
+    const cap = takeFillers(Math.min(spare, END_CAP_IN));
+    buckets = [cap.sizes, takeFillers(Math.max(0, spare - cap.used)).sizes];
   } else if (pinEnd || align === "right") {
-    buckets = [takeFillers(spare).sizes, []];
+    /* Cap first, rest to the other end. Pinned means the last piece holds
+       this end of the run, not that the run ends on the appliance itself. */
+    const cap = takeFillers(Math.min(spare, END_CAP_IN));
+    const rest = takeFillers(spare - cap.used);
+    buckets = [rest.sizes, cap.sizes];
   } else {
     const endCount = pieces.length ? 2 : 1;
-    buckets = Array.from({ length: endCount }, () => []);
-    fillers.forEach((size, i) => buckets[i % endCount].push(size));
+    if (endCount === 2) {
+      /* A cap for each end first, then share what is left. Alternating the
+         whole list instead gave ends like fill16 one side and fill4 the
+         other - a panel too thin to finish on. */
+      const capA = takeFillers(Math.min(spare, END_CAP_IN));
+      const capB = takeFillers(Math.min(Math.max(0, spare - capA.used), END_CAP_IN));
+      const rest = takeFillers(Math.max(0, spare - capA.used - capB.used));
+      const left = capA.sizes.slice();
+      const right = capB.sizes.slice();
+      rest.sizes.forEach((size, i) => (i % 2 ? right : left).push(size));
+      /* The near bucket is laid down before the first piece, so its first
+         element is the outer edge and the cap is already there. The far
+         bucket is laid outward from the last piece, so its cap has to be the
+         final element or it ends up inboard and something thinner finishes
+         the run - which is how fill6 ... fill4 was getting out. */
+      right.reverse();
+      buckets = [left, right];
+    } else {
+      buckets = [[]];
+      fillers.forEach((size, i) => buckets[i % endCount].push(size));
+    }
   }
   const pushEnd = (bucket) => { for (const size of bucket || []) seq.push({ k: "fill" + size, w: size, u: "" }); };
   const pushPanel = (panel) => seq.push({ k: "fill" + panel.w, w: panel.w, u: "" });
@@ -2273,7 +2331,11 @@ function pack(items, targetIn, pinEnd, bases, gapIn, locked, grillGap, cornerIns
       extras.filter(panel => panel.at === "after" && panel.after === pieces[i].id).forEach(pushPanel);
     }
     extras.filter(panel => panel.at === "end").forEach(pushPanel);
-    if (align === "left" || !pinEnd || delta) pushEnd(buckets[1]);
+    /* Always push the far end. It used to be skipped whenever the run was
+       pinned, which is exactly the case that now has a cap to place - and the
+       same skip quietly dropped the end bucket on a pinned corner leg too.
+       Where there is genuinely nothing to place, the bucket is empty. */
+    pushEnd(buckets[1]);
   }
   const span = seq.reduce((sum, part) => sum + part.w, 0);
   return { seq, span, notes, between: between.map(gap => gap.w) };
