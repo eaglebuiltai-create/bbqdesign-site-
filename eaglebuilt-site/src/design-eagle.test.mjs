@@ -2030,3 +2030,123 @@ describe("hold to talk", () => {
     assert.equal(prefersScribe(android), false);
   });
 });
+
+function moduleAt(code, key) {
+  const row = decodeDesign(code).m.find(part => part[0] === key);
+  return row ? row[1] + ":" + row[2] : "";
+}
+
+const JOHN_RUN = "straight 12 ft island with a 32 inch blaze grill, a combo unit just below the grill, a double side burner, and a 20 inch fridge";
+
+describe("john's tabletop oven and wok lines", () => {
+  test("the straight run is a 12 ft blaze grill with the combo under it", () => {
+    const built = drawn(JOHN_RUN);
+    assert.equal(built.spec.legs[0].lengthIn, 144);
+    assert.deepEqual(built.spec.legs[0].items, ["grill", "side-burner", "fridge"]);
+    assert.equal(built.spec.legs[0].bases.grill, "combo");
+    assert.match(built.reply, /Filler panels have no equipment price of their own/);
+  });
+
+  test("table top pizza oven is the countertop oven, not the 26 inch built-in", () => {
+    const built = drawn(JOHN_RUN);
+    const before = equipmentTotal(built.code).equipment;
+    const step = drawn("now let's add a table top pizza oven", built.spec);
+    assert.ok(step.spec.legs[0].items.includes("ctpizza"), step.reply);
+    assert.equal(step.spec.legs[0].items.includes("pizza"), false);
+    assert.equal(step.spec.legs[0].lengthIn, 144);
+    assert.equal(equipmentTotal(step.code).equipment, before);
+    assert.equal(equipmentTotal(step.code).keys.includes("BLZ-LTE3OVN"), false);
+    assert.equal(equipmentTotal(step.code).keys.includes("ctpizza"), true);
+    const row = decodeDesign(step.code).m.find(part => part[0] === "ctpizza");
+    assert.equal(row[5], "");
+    assert.match(step.reply, /countertop pizza oven|tabletop pizza oven/);
+    assert.doesNotMatch(step.reply, /26 inch/);
+    assert.doesNotMatch(step.reply, /Filler panels have no equipment price of their own/);
+  });
+
+  test("walk is a wok, and a walk-in cooler is still a fridge", () => {
+    const built = drawn(JOHN_RUN);
+    const step = drawn("add a walk", built.spec);
+    assert.ok(step.spec.legs[0].items.includes("ctwok"), step.reply);
+    assert.equal(step.spec.legs[0].items.includes("power"), false);
+    assert.doesNotMatch(step.reply, /power burner/);
+    assert.match(step.reply, /wok/);
+    const cooler = drawn("straight 10 ft island with a grill and a walk-in cooler");
+    assert.deepEqual(cooler.spec.legs[0].items, ["grill", "fridge"]);
+    const spaced = drawn("straight 10 ft island with a walk in refrigerator");
+    assert.deepEqual(spaced.spec.legs[0].items, ["fridge"]);
+    assert.equal(spaced.spec.legs[0].items.includes("ctwok"), false);
+  });
+
+  test("add a walk over the refrigerator places the wok on the fridge and does not move it", () => {
+    const built = drawn(JOHN_RUN);
+    const fridgeAt = moduleAt(built.code, "BLZ-SSRF20-4.3");
+    const once = drawn("add a walk over the refrigerator", built.spec);
+    assert.ok(once.spec.legs[0].items.includes("ctwok"), once.reply);
+    assert.equal(once.spec.legs[0].items.filter(id => id === "ctwok").length, 1);
+    assert.equal(once.spec.legs[0].items.includes("power"), false);
+    assert.equal(once.spec.legs[0].overlay.ctwok, "fridge");
+    assert.equal(moduleAt(once.code, "BLZ-SSRF20-4.3"), fridgeAt);
+    assert.equal(moduleAt(once.code, "ctwok"), fridgeAt);
+    assert.match(once.reply, /wok/i);
+    assert.match(once.reply, /over the 20 inch fridge/);
+    assert.doesNotMatch(once.reply, /power burner|Moved a 20 inch fridge|fridge is already/i);
+    assert.doesNotMatch(once.reply, /Filler panels have no equipment price of their own/);
+    const twice = drawn("add a walk over the refrigerator", once.spec);
+    assert.equal(twice.spec.legs[0].items.filter(id => id === "ctwok").length, 1);
+    assert.equal(moduleAt(twice.code, "BLZ-SSRF20-4.3"), fridgeAt);
+    assert.match(twice.reply, /already on the counter over the 20 inch fridge/);
+    assert.doesNotMatch(twice.reply, /fridge is already|power burner/i);
+  });
+
+  test("Wok above the fridge adds a wok burner and leaves the fridge where it is", () => {
+    const built = drawn(JOHN_RUN);
+    const fridgeAt = moduleAt(built.code, "BLZ-SSRF20-4.3");
+    const before = equipmentTotal(built.code).equipment;
+    const step = drawn("Wok above the fridge", built.spec);
+    assert.equal(step.spec.legs[0].overlay.ctwok, "fridge");
+    assert.equal(step.spec.legs[0].items.includes("power"), false);
+    assert.equal(moduleAt(step.code, "BLZ-SSRF20-4.3"), fridgeAt);
+    assert.equal(moduleAt(step.code, "ctwok"), fridgeAt);
+    assert.equal(equipmentTotal(step.code).equipment, before);
+    assert.match(step.reply, /countertop wok burner/);
+    assert.match(step.reply, /no equipment price/);
+    assert.doesNotMatch(step.reply, /power burner|Moved a 20 inch fridge/);
+    assert.doesNotMatch(step.reply, /Filler panels have no equipment price of their own/);
+  });
+
+  test("a walk not a power burner replaces the power burner with the wok", () => {
+    const built = drawn("straight 12 ft island with a 32 inch blaze grill and a power burner");
+    assert.ok(built.spec.legs[0].items.includes("power"));
+    const step = drawn("a walk not a power burner Wok", built.spec);
+    assert.equal(step.spec.legs[0].items.includes("power"), false);
+    assert.ok(step.spec.legs[0].items.includes("ctwok"), step.reply);
+    assert.equal(equipmentTotal(step.code).keys.includes("BLZ-PBLTE3"), false);
+    assert.equal(equipmentTotal(step.code).keys.includes("ctwok"), true);
+    assert.match(step.reply, /Swapped the power burner for a countertop wok burner/);
+    assert.doesNotMatch(step.reply, /power burner is already/i);
+    assert.doesNotMatch(step.reply, /Filler panels have no equipment price of their own/);
+  });
+
+  test("john's five lines on the straight run", () => {
+    let step = drawn(JOHN_RUN);
+    const lines = [
+      "now let's add a table top pizza oven",
+      "add a walk over the refrigerator",
+      "add a walk over the refrigerator",
+      "Wok above the fridge",
+      "a walk not a power burner Wok"
+    ];
+    for (const line of lines) {
+      step = drawn(line, step.spec);
+      assert.doesNotMatch(step.reply, /Filler panels have no equipment price of their own/, line + " -> " + step.reply);
+      assert.doesNotMatch(step.reply, /26 inch|power burner is already|Moved a 20 inch fridge/, line + " -> " + step.reply);
+    }
+    assert.match(step.reply, /isn't a power burner to replace|countertop wok burner/);
+    assert.ok(step.spec.legs[0].items.includes("ctpizza"));
+    assert.ok(step.spec.legs[0].items.includes("ctwok"));
+    assert.equal(step.spec.legs[0].items.includes("pizza"), false);
+    assert.equal(step.spec.legs[0].items.includes("power"), false);
+    assert.equal(step.spec.legs[0].lengthIn, 144);
+  });
+});
