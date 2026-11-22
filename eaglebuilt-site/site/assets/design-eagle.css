@@ -201,7 +201,11 @@ body[data-embed="1"] .shell { height: 100dvh; }
     overflow: hidden;
   }
   .stage {
-    flex: 0 0 55%;
+    /* 0 1, not 0 0: 55% is what the stage would like, not what it takes.
+       With shrink off, the thread's floor below pushed the composer, the
+       mic, Draw and the booking bar clean off the bottom of the screen.
+       min-height is what stops it giving away too much. */
+    flex: 0 1 55%;
     min-height: 300px;
     height: auto;
     order: 0;
@@ -233,6 +237,15 @@ body[data-embed="1"] .shell { height: 100dvh; }
   .book a.btn { width: 100%; justify-content: center; min-height: 40px; font-size: 0; }
   .book a.btn::before { content: "Book a session"; font-size: 14px; }
   .log { min-height: 0; }
+  /* The conversation needs a floor of its own. The stage took 55% of the
+     screen and the composer and booking bar took most of what was left, so
+     on a 412 x 915 phone the thread came out 117px against 739px of content
+     - a two-line strip with the message cut off top and bottom, which is
+     what it looks like when something is broken. The stage can give way:
+     55% stays its preference, and it only shrinks as far as this floor
+     makes it. Measured on that phone it settles at 300px of island against
+     295px of conversation, and the opening message fits whole. */
+  .thread { min-height: 220px; }
 }
 @media (max-width: 480px) {
   .composer { flex-wrap: wrap; }
