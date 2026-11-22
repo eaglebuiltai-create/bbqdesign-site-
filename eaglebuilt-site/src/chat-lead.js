@@ -121,7 +121,17 @@ export async function acceptLead(env, input, meta) {
   }
 
   const page = cleanPage(ctx.page);
-  const lead = { ...parsed.lead, page };
+  const lead = { ...parsed.lead, page, source: "chat" };
+  return commitLead(env, lead);
+}
+
+/**
+ * Store a lead that has already been validated and fan it out.
+ * Chat leads and Design Eagle leads share this path. Design Eagle passes
+ * source, zip, link, spec, and a subject. Missing channels still don't
+ * block the others.
+ */
+export async function commitLead(env, lead) {
   const fp = await fingerprint(lead);
   const now = Date.now();
   const seen = recent.get(fp);
@@ -153,12 +163,20 @@ export async function acceptLead(env, input, meta) {
     name: lead.name,
     phone: lead.phone,
     email: lead.email || null,
-    city: lead.city,
-    project: lead.project,
+    city: lead.city || "",
+    project: lead.project || "",
     page: lead.page || null,
-    source: "chat",
+    source: lead.source || "chat",
     delivery: { kv: "pending", slack: "pending", email: "pending", crm: "pending" }
   };
+  if (lead.zip) record.zip = lead.zip;
+  if (lead.notes) record.notes = lead.notes;
+  if (lead.link) record.link = lead.link;
+  if (lead.spec) record.spec = lead.spec;
+  if (lead.specSummary) record.specSummary = lead.specSummary;
+  if (lead.renderNote) record.renderNote = lead.renderNote;
+  if (lead.subject) record.subject = lead.subject;
+  if (lead.designSummary) record.designSummary = lead.designSummary;
 
   const delivery = { kv: "skipped", slack: "pending", email: "pending", crm: "pending" };
   if (kv && typeof kv.put === "function") {
@@ -207,18 +225,27 @@ export async function acceptLead(env, input, meta) {
 }
 
 export function leadPlain(lead) {
-  return [
-    "A visitor asked for a quote, consultation, pricing, or a callback in the eaglebuilt.ai chat.",
+  const intro = lead.source === "design-eagle"
+    ? "A visitor saved an island in Design Eagle."
+    : "A visitor asked for a quote, consultation, pricing, or a callback in the eaglebuilt.ai chat.";
+  const lines = [
+    intro,
     "",
     "Name: " + lead.name,
     "Phone: " + lead.phone,
     "Email: " + (lead.email || "(not given)"),
-    "City: " + lead.city,
-    "Project: " + lead.project,
+    "City: " + (lead.city || "(not given)"),
+    "Project: " + (lead.project || "(not given)"),
     "Page: " + (lead.page || "(not sent)"),
     "Received: " + lead.receivedAt,
     "Lead id: " + lead.id
-  ].join("\n");
+  ];
+  if (lead.zip) lines.push("ZIP: " + lead.zip);
+  if (lead.notes) lines.push("Notes: " + lead.notes);
+  if (lead.link) lines.push("Design link: " + lead.link);
+  if (lead.specSummary) lines.push("Layout: " + lead.specSummary);
+  if (lead.renderNote) lines.push("Render: " + lead.renderNote);
+  return lines.join("\n");
 }
 
 async function notifySlack(env, lead) {
@@ -259,7 +286,7 @@ async function notifyEmail(env, lead) {
   const message = {
     to,
     from: LEAD_FROM,
-    subject: "Chat lead — " + lead.name + " (" + lead.city + ")",
+    subject: lead.subject || ("Chat lead — " + lead.name + " (" + lead.city + ")"),
     text: leadPlain(lead)
   };
   if (lead.email) message.replyTo = { email: lead.email, name: lead.name };
@@ -286,11 +313,11 @@ async function notifyCrm(env, lead) {
       headers: { "Content-Type": "application/json", "x-api-key": key },
       body: JSON.stringify({
         email: lead.email,
-        zip: "",
+        zip: lead.zip || "",
         name: lead.name,
         phone: lead.phone,
-        source: "chat",
-        designSummary: "City: " + lead.city + "\nProject: " + lead.project
+        source: lead.source || "chat",
+        designSummary: lead.designSummary || ("City: " + lead.city + "\nProject: " + lead.project)
       }),
       signal: AbortSignal.timeout(8000)
     });
@@ -308,15 +335,18 @@ async function notifyCrm(env, lead) {
 function slackText(lead) {
   const s = slackSafe;
   return [
-    "*New EagleBuilt chat lead*",
+    lead.source === "design-eagle" ? "*New Design Eagle lead*" : "*New EagleBuilt chat lead*",
     "Name: " + s(lead.name),
     "Phone: " + s(lead.phone),
     "Email: " + s(lead.email || "(not given)"),
-    "City: " + s(lead.city),
-    "Project: " + s(lead.project),
+    "City: " + s(lead.city || "(not given)"),
+    "Project: " + s(lead.project || "(not given)"),
     "Page: " + s(lead.page || "(not sent)"),
-    "Lead id: " + s(lead.id)
-  ].join("\n");
+    "Lead id: " + s(lead.id),
+    lead.zip ? "ZIP: " + s(lead.zip) : "",
+    lead.link ? "Design: " + s(lead.link) : "",
+    lead.specSummary ? "Layout: " + s(lead.specSummary) : ""
+  ].filter(Boolean).join("\n");
 }
 
 function slackSafe(value) {
@@ -358,7 +388,7 @@ function prune(map, now) {
 }
 
 async function fingerprint(lead) {
-  const raw = [lead.phone.replace(/\D/g, ""), lead.name.toLowerCase(), lead.project.toLowerCase()].join("|");
+  const raw = [lead.phone.replace(/\D/g, ""), lead.name.toLowerCase(), String(lead.project || "").toLowerCase(), lead.dedupeExtra || ""].join("|");
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
   return [...new Uint8Array(buf)].slice(0, 12).map(b => b.toString(16).padStart(2, "0")).join("");
 }

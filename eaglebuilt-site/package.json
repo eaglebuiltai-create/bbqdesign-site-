@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test --test-concurrency=1 src/lead.test.mjs"
+    "test": "node --test --test-concurrency=1 src/lead.test.mjs src/design-eagle.test.mjs src/design-eagle-phrases.test.mjs src/design-eagle-view3d.test.mjs src/cutouts.test.mjs"
   }
 }

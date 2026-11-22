@@ -1,0 +1,249 @@
+/* Colors match CONFIG in eagle-engine.js. The page script overwrites these
+   from that object so a white-label change has one source. */
+:root {
+  --bg: #070A12;
+  --bg2: #0B111C;
+  --panel: #0F1826;
+  --line: #1E2C42;
+  --text: #E7EEF7;
+  --muted: #8DA0B8;
+  --dim: #5F7391;
+  --accent: #2E9BFF;
+  --accent2: #1668C4;
+  --hot: #E8342B;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { overflow: hidden; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+a { color: #7FC4FF; }
+.top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(11, 17, 28, .94);
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 800; letter-spacing: .04em; font-size: 14px; }
+.brand i { font-style: normal; color: var(--hot); }
+.brand span { color: var(--muted); font-weight: 650; letter-spacing: 0; margin-left: 8px; }
+.top a.phone {
+  margin-left: auto;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 750;
+  font-size: 14px;
+}
+body[data-embed="1"] .top { display: none; }
+.shell {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  height: calc(100dvh - 46px);
+  min-height: 0;
+}
+body[data-embed="1"] .shell { height: 100dvh; }
+.stage { position: relative; min-width: 0; min-height: 0; background: #0B1018; }
+.stage iframe { width: 100%; height: 100%; border: 0; background: #0B1018; }
+.empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  text-align: center;
+  color: var(--muted);
+}
+.empty[hidden], .stage iframe[hidden] { display: none; }
+.chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+}
+.chatHead {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg2);
+}
+.chatHead b { display: block; font-size: 15px; }
+.chatHead span { color: var(--muted); font-size: 12.5px; }
+.thread { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; }
+.log {
+  flex: 1;
+  overflow: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.msg {
+  max-width: 92%;
+  padding: 9px 12px;
+  border-radius: 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.msg.bot { align-self: flex-start; background: var(--bg2); border: 1px solid var(--line); }
+.msg.user { align-self: flex-end; background: linear-gradient(180deg, var(--accent), var(--accent2)); }
+.price {
+  align-self: flex-start;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 0 4px 4px;
+}
+.composer, .save {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid var(--line);
+  background: var(--bg2);
+}
+.composer input, .save input, .save textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  border: 1px solid #2A3B57;
+  background: #0A121E;
+  font-size: 16px;
+}
+.save { flex-direction: column; }
+.save label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--dim); font-weight: 700; }
+.save label em { font-style: normal; font-weight: 600; color: var(--muted); }
+.row { display: flex; gap: 8px; }
+.row label { flex: 1; }
+.save textarea { min-height: 64px; resize: vertical; }
+.go, .secondary {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-weight: 750;
+  min-height: 44px;
+}
+.go { color: #fff; background: linear-gradient(180deg, var(--accent), var(--accent2)); }
+.secondary { background: transparent; color: var(--text); border: 1px solid #2A3B57; }
+.go:disabled { opacity: .55; }
+.err { color: #E7C89A; font-size: 13px; margin: 0; }
+.book {
+  margin: 4px 10px 12px;
+  padding: 12px;
+  border: 1px solid #2A3B57;
+  border-radius: 12px;
+  background: #101827;
+}
+.book h3 { margin: 0 0 6px; font-size: 15px; }
+.book p { margin: 0 0 8px; color: var(--muted); font-size: 13.5px; }
+.book a.btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  background: var(--hot);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 750;
+}
+.hear {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--accent);
+  font: 600 12px/1.4 inherit;
+  cursor: pointer;
+}
+.live {
+  flex: 1 0 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.composer input { flex: 1 1 140px; }
+.mic, #mic {
+  min-width: 108px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+@media (max-width: 860px) {
+  .shell {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 46px);
+    max-height: calc(100dvh - 46px);
+    overflow: hidden;
+  }
+  .stage {
+    flex: 0 0 55%;
+    min-height: 300px;
+    height: auto;
+    order: 0;
+  }
+  .chat {
+    position: relative;
+    flex: 1 1 auto;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    order: 2;
+    overflow: hidden;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    transform: none;
+  }
+  .composer, .save, .book { flex-shrink: 0; }
+  .book {
+    order: 5;
+    margin: 0;
+    padding: 8px 10px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: var(--bg2);
+  }
+  .book h3, .book p { display: none; }
+  .book a.btn { width: 100%; justify-content: center; min-height: 40px; font-size: 0; }
+  .book a.btn::before { content: "Book a session"; font-size: 14px; }
+  .log { min-height: 0; }
+}
+@media (max-width: 480px) {
+  .composer { flex-wrap: wrap; }
+  .live, .composer input { flex: 1 0 100%; }
+  #mic, #composer > .go, #openSave {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat { transition: none; }
+}
