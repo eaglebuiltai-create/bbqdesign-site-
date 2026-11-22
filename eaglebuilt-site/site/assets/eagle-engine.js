@@ -256,7 +256,14 @@ export function normalize(text) {
   });
   t = t.replace(/\b12\s*(?:inch(?:es)?|in)?\s*to\s*2\s*ft(?:\s*away)?\b/g, " grillgap ");
   t = t.replace(/\bi want to refrigerator\b/g, "i want a refrigerator");
-  t = t.replace(/\bwalk\b/g, "wok");
+  /* Only where a piece could be meant: "a walk", "a tabletop walk", "walk
+     burner". Rewriting every bare "walk" put a wok burner on the island when
+     someone asked us to walk them through the design, or asked when we walk
+     the site - and a field walk is how we talk about the job. "For a walk"
+     and "take a walk" are not orders either. */
+  t = t.replace(/\b(counter\s*top|table\s*top|tabletop)\s+walk\b/g, "$1 wok");
+  t = t.replace(/\bwalk\s+burner\b/g, "wok burner");
+  t = t.replace(/(?<!\b(?:for|take|takes|taking|took|went)\s)\b(a|an|the|another)\s+walk\b/g, "$1 wok");
   return t.replace(/\s+/g, " ").trim();
 }
 
