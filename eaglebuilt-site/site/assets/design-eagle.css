@@ -201,11 +201,16 @@ body[data-embed="1"] .shell { height: 100dvh; }
     overflow: hidden;
   }
   .stage {
-    /* 0 1, not 0 0: 55% is what the stage would like, not what it takes.
+    /* 0 1, not 0 0: this is what the stage would like, not what it takes.
        With shrink off, the thread's floor below pushed the composer, the
        mic, Draw and the booking bar clean off the bottom of the screen.
-       min-height is what stops it giving away too much. */
-    flex: 0 1 55%;
+       min-height is what stops it giving away too much.
+
+       45 rather than 55 because .chat sits at min-height 0 and will shrink
+       under its own contents rather than force the stage back - so at 55 the
+       composer's bottom edge fell 5px past the fold on a 412 x 915 phone
+       with an empty thread. The floor keeps the island from getting small. */
+    flex: 0 1 45%;
     min-height: 300px;
     height: auto;
     order: 0;
