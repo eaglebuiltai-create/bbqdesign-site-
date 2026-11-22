@@ -78,14 +78,21 @@ id = "7f4c0642b9574cfb8f1740accdfa54bb"
 name = "EMAIL"
 destination_address = "info@eaglebuilt.ai"
 
-# Optional training log of turns that did not land. Unbound, the worker
-# ignores them, so production stays off until you create the namespace,
-# paste the id, and set the read token:
-#   npx wrangler kv namespace create EAGLE_MISSES
-#   npx wrangler secret put MISS_LOG_TOKEN
-# [[kv_namespaces]]
-# binding = "EAGLE_MISSES"
-# id = "<paste>"
+# Training log of turns that did not land: the phrase, the reply, the design
+# before and after, and whether it was spoken or typed. classifyTurn only
+# reports the ones worth keeping - unchanged, partial, help, repeat - so this
+# is the list of things people asked for and did not get, which is exactly
+# what the phrase suite wants as test cases.
+#
+# recordMiss drops anything carrying a name, email or phone, and anything
+# shaped like a contact card. It records what was asked, not who asked.
+#
+# Reading it back needs a token the worker checks on
+# /api/design-eagle/misses, so the log is write-only from the public side:
+#   npx.cmd --yes wrangler secret put MISS_LOG_TOKEN
+[[kv_namespaces]]
+binding = "EAGLE_MISSES"
+id = "fc1c5c9c4fed405e80eb0b47cd3999c7"
 
 # Shared rate-limit counter. See the comment at the top of this file.
 [[durable_objects.bindings]]
