@@ -365,6 +365,11 @@ function cleanPage(value) {
   const s = clean(value, 200);
   if (!s) return "";
   if (!/^\/[A-Za-z0-9/_\-.]*$/.test(s)) return "";
+  /* Same two holes the Design Eagle side had: "//evil.example.com" is a
+     protocol-relative URL that passes for a path by starting with a slash,
+     and ".." walks. Neither is dangerous where this lands today, both are
+     wrong the day someone renders it as a link. See originPath. */
+  if (s.startsWith("//") || s.includes("..")) return "";
   return s;
 }
 

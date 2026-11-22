@@ -13,6 +13,7 @@ import {
   equipmentTotal,
   legChip,
   holdLongEnough,
+  originPath,
   prefersScribe,
   usableTranscript,
   interpret,
@@ -549,6 +550,51 @@ describe("design eagle save", () => {
       assert.equal(mailed.bcc[0], "info@eaglebuilt.ai");
       assert.equal(mailed.attachments[0].filename, "your-design.jpg");
       assert.match(mailed.text, /design-eagle\/#d=/);
+    } finally {
+      globalThis.fetch = orig;
+    }
+  });
+
+  test("the stored lead records the page that sent the visitor", async () => {
+    /* The whole point of ?from=. Without it every Design Eagle lead carried
+       the same constant, so a lead from a cutout page was indistinguishable
+       from one that arrived cold - on the 814 pages search traffic lands on. */
+    const spec = drawn("straight 10 foot island with a grill and a fridge").spec;
+    const orig = globalThis.fetch;
+    globalThis.fetch = async () => new Response(JSON.stringify({ id: "email_1" }), { status: 200 });
+    const stored = kv => {
+      const key = [...kv.store.keys()].find(k => k.startsWith("lead:"));
+      assert.ok(key, "no lead was written to KV");
+      return JSON.parse(kv.store.get(key));
+    };
+    /* A distinct person per case: leads are deduped on a fingerprint of the
+       contact plus the design, so reusing one would silently drop the second
+       and third saves and the test would pass on an empty store. */
+    const envFor = kv => ({
+      CHAT_LEADS: kv,
+      RESEND_API_KEY: "re_test",
+      EMAIL: { async send() { return { messageId: "lead-mail" }; } }
+    });
+    const save = async (kv, who, phone, extra, ip) => post("/api/design-eagle/save", {
+      name: who, email: who.toLowerCase().replace(/\W+/g, "") + "@example.com",
+      phone, t: Date.now() - 20000, spec, ...extra
+    }, envFor(kv), ip);
+
+    try {
+      const a = memoryKv();
+      await save(a, "Dana Fox", "9165550131", { from: "/dimensions/cutouts/lynx/lsk18/" }, "203.0.113.31");
+      assert.equal(stored(a).page, "/dimensions/cutouts/lynx/lsk18/");
+
+      /* No origin at all falls back to Design Eagle's own path. */
+      const b = memoryKv();
+      await save(b, "Reese Vale", "9165550132", {}, "203.0.113.32");
+      assert.equal(stored(b).page, "/design-eagle/");
+
+      /* A junk origin costs attribution, never the lead. */
+      const c = memoryKv();
+      const junk = await save(c, "Mo Quill", "9165550133", { from: "https://evil.example.com/x" }, "203.0.113.33");
+      assert.equal(junk.data.leadSubmitted, true, "a bad origin must not cost the lead");
+      assert.equal(stored(c).page, "/design-eagle/");
     } finally {
       globalThis.fetch = orig;
     }
@@ -2076,6 +2122,37 @@ describe("john's tabletop oven and wok lines", () => {
     const spaced = drawn("straight 10 ft island with a walk in refrigerator");
     assert.deepEqual(spaced.spec.legs[0].items, ["fridge"]);
     assert.equal(spaced.spec.legs[0].items.includes("ctwok"), false);
+  });
+
+  test("a lead carries the page that sent it, or falls back honestly", () => {
+    /* Design Eagle is its own page, so location.pathname there is always
+       "/design-eagle/" - which is exactly what every lead used to report,
+       from a constant. The referring page rides in ?from=, and this is the
+       gate it passes through. A bad value must cost attribution, never the
+       lead, so everything rejected falls back rather than throwing. */
+    const page = v => originPath(v) || CONFIG.leads.page;
+
+    assert.equal(originPath("/dimensions/cutouts/alfresco/agbc-14/"), "/dimensions/cutouts/alfresco/agbc-14/");
+    assert.equal(page("/dimensions/cutouts/alfresco/agbc-14/"), "/dimensions/cutouts/alfresco/agbc-14/");
+    assert.equal(page(null), "/design-eagle/", "a cold arrival still reports something");
+    assert.equal(page(""), "/design-eagle/");
+
+    for (const bad of [
+      "https://evil.example.com/x",
+      "//evil.example.com",            // protocol-relative, passes for a path
+      "/dimensions/../../etc/passwd",  // walks
+      "javascript:alert(1)",
+      "dimensions/cutouts/",           // no leading slash
+      "/dimensions/cutouts/?q=<script>"
+    ]) {
+      assert.equal(originPath(bad), "", bad + " should not be accepted as a page");
+      assert.equal(page(bad), "/design-eagle/", bad + " should fall back, not throw");
+    }
+
+    /* The link the generator actually writes, decoded the way a browser does. */
+    const href = "/design-eagle/?from=%2Fdimensions%2Fcutouts%2Ftwin-eagles%2Fteob18-b%2F";
+    const from = new URLSearchParams(href.split("?")[1]).get("from");
+    assert.equal(page(from), "/dimensions/cutouts/twin-eagles/teob18-b/");
   });
 
   test("the filler explanation waits for fillers, then is said once", () => {

@@ -3,7 +3,7 @@
  * Typed turns and a future voice transcript both call applyTurn(), which
  * runs the same layout engine. The 3D view is the existing designer.
  */
-import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn, usableTranscript, holdLongEnough, prefersScribe } from "./eagle-engine.js";
+import { CONFIG, interpret, summaryReply, validateContact, claimsSent, classifyTurn, usableTranscript, holdLongEnough, prefersScribe, originPath } from "./eagle-engine.js";
 import { HANDOFF, spokenSummary, wantsSave, voiceSessionResult, voicePlayResult, VOICE_CAPPED } from "./eagle-voice.js";
 
 const state = {
@@ -11,6 +11,12 @@ const state = {
   code: "",
   link: "",
   openedAt: Date.now(),
+  /* The page that sent them here, read once at load. Read later and a share
+     link or a back button could have rewritten the query out from under us. */
+  from: (function () {
+    try { return originPath(new URLSearchParams(location.search).get("from")); }
+    catch (err) { return ""; }
+  })(),
   frameReady: false,
   price: null,
   voiceToken: "",
@@ -266,6 +272,7 @@ async function onSave(event) {
     notes: document.getElementById("notes").value,
     hp: document.getElementById("hp").value,
     t: state.openedAt,
+    from: state.from,
     spec: state.spec
   };
   const checked = validateContact(body);

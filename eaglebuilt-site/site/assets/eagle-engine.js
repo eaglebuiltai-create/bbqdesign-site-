@@ -2830,6 +2830,25 @@ export function usableTranscript(text) {
   return words.join(" ");
 }
 
+/* Where the visitor came from, carried across the hop into Design Eagle.
+   Design Eagle is its own page, so location.pathname here would always read
+   "/design-eagle/" and every lead would claim the same origin - which is what
+   it did, from a hardcoded constant. The referring page arrives as ?from= and
+   is validated to the same shape the chat path demands of a page: a site
+   path, nothing absolute, no scheme, no host. Anything else becomes "" and
+   the caller falls back, so a mangled link costs attribution, never a lead. */
+export function originPath(value) {
+  const s = String(value == null ? "" : value).trim().slice(0, 200);
+  if (!s) return "";
+  if (!/^\/[A-Za-z0-9/_\-.]*$/.test(s)) return "";
+  if (s.includes("..")) return "";
+  /* "//evil.example.com" is a protocol-relative URL, not a path, and it slips
+     past the test above by starting with a slash. Harmless in a lead record,
+     an open redirect the day anyone treats this value as an href. */
+  if (s.startsWith("//")) return "";
+  return s;
+}
+
 export function prefersScribe(ua) {
   const agent = String(ua || "");
   const iOS = /iPhone|iPad|iPod/.test(agent);

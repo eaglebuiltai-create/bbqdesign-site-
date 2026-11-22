@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { originPath } from "../site/assets/eagle-engine.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site");
@@ -14,6 +15,8 @@ const BRAND_SLUG = { "Yoder Smokers": "yoder", "Diablo Grills": "diablo-grills" 
 const BRAND = Object.fromEntries([...new Set(DATA.map(r => r.brand))].map(b => [b, BRAND_SLUG[b] || b.toLowerCase().replace(/[^a-z0-9]+/g, "-")]));
 const slug = s => s.toLowerCase().replace(/[()]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const pageOf = r => path.join(SITE, "dimensions/cutouts", BRAND[r.brand], slug(r.model), "index.html");
+/* The same page as a site path, which is what its Design Eagle link carries. */
+const pathOf = r => `/dimensions/cutouts/${BRAND[r.brand]}/${slug(r.model)}/`;
 const retired = new Set(DATA.filter(r => r.model === "BLZ-26-PZOVN" || (r.discontinued && r.replaced_by && !r.cutout_in)).map(r => r.model));
 const live = DATA.filter(r => !retired.has(r.model));
 const read = f => fs.readFileSync(f, "utf8");
@@ -39,8 +42,16 @@ test("one page per live model, titled '<Brand> <Model> Cutout Dimensions | Eagle
        than the wording. Design Eagle used to appear only in the fallback
        prose, which left the best-qualified pages never mentioning it. */
     assert.match(html, /href="\/design\/app\//);
-    assert.match(html, /href="\/design-eagle\/"/);
+    /* Design Eagle is its own page, so a bare link loses where the visitor
+       came from and the lead reports a constant. Every page must hand its
+       own path across in ?from=. */
+    const eagle = html.match(/href="\/design-eagle\/\?from=([^"]*)"/);
+    assert.ok(eagle, "no Design Eagle link carrying an origin: " + r.model);
+    assert.equal(decodeURIComponent(eagle[1]), pathOf(r),
+      "the Design Eagle link should carry this page's own path");
     assert.match(html, /\(916\) 359-9692/);
+    assert.equal(originPath(decodeURIComponent(eagle[1])), pathOf(r),
+      "the carried path must survive the validator the lead runs it through");
   }
 });
 

@@ -41,6 +41,7 @@ import {
   compileSpec,
   interpret,
   layoutSummary,
+  originPath,
   publicConfig,
   saveReply,
   validateContact,
@@ -708,7 +709,11 @@ async function designEagleSave(request, env) {
     zip: person.zip,
     notes: person.notes,
     project: (summary + (person.notes ? ". Notes: " + person.notes : "")).slice(0, 400),
-    page: EAGLE.leads.page,
+    /* The page that sent them, when the link carried it. Without this every
+       Design Eagle lead reported the same constant, so one from a cutout page
+       was indistinguishable from one that arrived cold - and those 814 pages
+       are where the search traffic lands. */
+    page: originPath(d && d.from) || EAGLE.leads.page,
     source: EAGLE.leads.source,
     link: built.link,
     spec: built.spec,

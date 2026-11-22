@@ -406,13 +406,19 @@ function toolsBar(placeholder, jump) {
 }
 const emptyMsg = `<p class="coEmpty" id="coEmpty" hidden>No model matches that yet. Call <a href="tel:${TEL}">${PHONE}</a> and we will look it up, or check the manufacturer's spec sheet.</p>`;
 
-const ctaBand = (title, text, href, label) => `<section class="alt">
+/* Design Eagle is its own page, so once someone lands there nothing on the
+   page says where they came from - every lead used to report the same
+   constant. The referring path rides along in ?from= and ends up on the lead,
+   which is the only way to tell a cutout-page lead from a cold one. */
+const eagleHref = from => "/design-eagle/" + (from ? "?from=" + encodeURIComponent(from) : "");
+
+const ctaBand = (title, text, href, label, from) => `<section class="alt">
   <div class="wrap">
     <div class="band">
       <h2>${esc(title)}</h2>
       <p>${esc(text)}</p>
       <div class="heroCta" style="justify-content:center">
-        <a href="/design-eagle/" class="btn">Talk it through with Design Eagle</a>
+        <a href="${eagleHref(from)}" class="btn">Talk it through with Design Eagle</a>
         <a href="${href}" class="btn ghost">${esc(label)}</a>
       </div>
       <p class="heroNote" style="margin-top:16px">Rather talk to a builder? <a href="tel:${TEL}">${PHONE}</a></p>
@@ -498,7 +504,7 @@ ${emptyMsg}
   <p class="heroNote" style="margin:18px 0 0">${nVerified} of ${recs.length} models verified against the manufacturer's spec sheet or product page on ${AUDIT_DATE}. A blank field means the sources disagree or don't publish it — it says <i>check spec sheet</i> instead of a guess.</p>
 </div>
 
-${ctaBand("Design an island with this", "Pick a layout in the designer and drop in the grill, doors and fridge you looked up here. It checks the fit against the island depth and the pieces around it.", "/design/app/", "Design an island with this")}
+${ctaBand("Design an island with this", "Pick a layout in the designer and drop in the grill, doors and fridge you looked up here. It checks the fit against the island depth and the pieces around it.", "/design/app/", "Design an island with this", url)}
 </main>
 
 ${footer(brandNames(recs))}
@@ -580,7 +586,7 @@ ${body}
 ${emptyMsg}
 </div>
 ${extra ? extra.html : ""}
-${ctaBand("Design an island with this", `Every ${b.name} model on this page is in the designer. Drop one in and it checks the fit.`, "/design/app/", "Design an island with this")}
+${ctaBand("Design an island with this", `Every ${b.name} model on this page is in the designer. Drop one in and it checks the fit.`, "/design/app/", "Design an island with this", url)}
 </main>
 
 ${footer([b.name])}
@@ -674,8 +680,8 @@ ${deep ? `    <div class="note warn"><p><b>Plan a 30-inch-deep island.</b> This 
          mentioning it at all. -->
     <div class="coCta">
 ${r.key ? `      <a class="btn" href="${designHref(r)}">Design an island with this</a>
-      <a class="btn ghost" href="/design-eagle/">Talk it through with Design Eagle</a>`
-        : `      <a class="btn" href="/design-eagle/">Talk it through with Design Eagle</a>
+      <a class="btn ghost" href="${eagleHref(r.url)}">Talk it through with Design Eagle</a>`
+        : `      <a class="btn" href="${eagleHref(r.url)}">Talk it through with Design Eagle</a>
       <a class="btn ghost" href="${designHref(r)}">Open the designer</a>`}
     </div>
     <p class="heroNote">${r.key ? `Opens the designer with the ${esc(r.model)} already placed, or say what you want and Design Eagle builds it.` : `Tell Design Eagle what you want and it builds the island as you talk. The designer has the ${esc(r.b.name)} tab if you would rather place the ${esc(r.model)} yourself.`} Rather talk to a builder? <a href="tel:${TEL}">${PHONE}</a></p>
