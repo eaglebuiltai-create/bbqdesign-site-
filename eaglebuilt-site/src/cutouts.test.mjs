@@ -32,7 +32,14 @@ test("one page per live model, titled '<Brand> <Model> Cutout Dimensions | Eagle
     assert.ok(t.includes(r.model.split(" ")[0]), t);
     assert.match(html, /<link rel="canonical" href="https:\/\/eaglebuilt\.ai\/dimensions\/cutouts\//);
     assert.match(html, /Always confirm with the manufacturer's spec sheet before cutting/);
-    assert.match(html, /Design an island with this/);
+    /* The label varies by page: a model the designer carries reads "Design
+       an island with this" and drops straight in, one it does not reads
+       "Open the designer". What every page owes the reader is a way into
+       the designer and a way into Design Eagle, so assert the routes rather
+       than the wording. Design Eagle used to appear only in the fallback
+       prose, which left the best-qualified pages never mentioning it. */
+    assert.match(html, /href="\/design\/app\//);
+    assert.match(html, /href="\/design-eagle\/"/);
     assert.match(html, /\(916\) 359-9692/);
   }
 });

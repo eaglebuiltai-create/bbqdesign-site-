@@ -412,8 +412,8 @@ const ctaBand = (title, text, href, label) => `<section class="alt">
       <h2>${esc(title)}</h2>
       <p>${esc(text)}</p>
       <div class="heroCta" style="justify-content:center">
-        <a href="${href}" class="btn">${esc(label)}</a>
-        <a href="/design-eagle/" class="btn ghost">Talk it through with Design Eagle</a>
+        <a href="/design-eagle/" class="btn">Talk it through with Design Eagle</a>
+        <a href="${href}" class="btn ghost">${esc(label)}</a>
       </div>
       <p class="heroNote" style="margin-top:16px">Rather talk to a builder? <a href="tel:${TEL}">${PHONE}</a></p>
     </div>
@@ -664,11 +664,21 @@ ${crumbsHtml(crumbs)}
 ${deep ? `    <div class="note warn"><p><b>Plan a 30-inch-deep island.</b> This cutout is ${esc(inch(c.d))} deep; anything past about 23 1/2&quot; leaves no workable structure in a 24-inch island.</p></div>\n` : ""}    <ul class="coFacts">
       ${facts}
     </ul>
+    <!-- Which button leads depends on how much this page already knows. When
+         the designer carries the model, "already placed" is the concrete
+         offer and it leads. When it does not, the old copy sent people off to
+         hunt through a brand tab - so Design Eagle leads instead, because
+         saying what you want beats going looking for it. Either way Design
+         Eagle is a button on every page: it used to appear only in the
+         fallback prose, which left the 139 best-qualified pages never
+         mentioning it at all. -->
     <div class="coCta">
-      <a class="btn" href="${designHref(r)}">Design an island with this</a>
-      <a class="btn ghost" href="tel:${TEL}">Call ${PHONE}</a>
+${r.key ? `      <a class="btn" href="${designHref(r)}">Design an island with this</a>
+      <a class="btn ghost" href="/design-eagle/">Talk it through with Design Eagle</a>`
+        : `      <a class="btn" href="/design-eagle/">Talk it through with Design Eagle</a>
+      <a class="btn ghost" href="${designHref(r)}">Open the designer</a>`}
     </div>
-    <p class="heroNote">${r.key ? `Opens the designer with the ${esc(r.model)} already placed.` : `Opens the designer; pick the ${esc(r.model)} from the ${esc(r.b.name)} tab, or <a href="/design-eagle/">tell Design Eagle</a> what you want.`}</p>
+    <p class="heroNote">${r.key ? `Opens the designer with the ${esc(r.model)} already placed, or say what you want and Design Eagle builds it.` : `Tell Design Eagle what you want and it builds the island as you talk. The designer has the ${esc(r.b.name)} tab if you would rather place the ${esc(r.model)} yourself.`} Rather talk to a builder? <a href="tel:${TEL}">${PHONE}</a></p>
   </div>
 </section>
 ${siblings.length ? `
