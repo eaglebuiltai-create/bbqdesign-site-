@@ -131,17 +131,16 @@ const sortRecs = list => GROUPS.flatMap(g => list.filter(r => r.g === g));
 
 /* ---------- shared chrome ----------------------------------------------- */
 const tpl = fs.readFileSync(path.join(SITE, "dimensions/clearances/index.html"), "utf8");
-/* The header is lifted whole from the clearances page, including its voice
-   button - which carries that page's path in ?from=. Every page needs its
-   own, or 814 pages would report a lead as having come from the clearances
-   page. The header is otherwise identical everywhere. */
-const HEADER_TPL = tpl.match(/<header>[\s\S]*?<\/header>/)[0];
-if (!/\/design-eagle\/\?from=/.test(HEADER_TPL)) {
-  throw new Error("the clearances header has no Design Eagle button to rewrite - did the markup change?");
+/* Lifted whole from the clearances page and used as-is. It briefly had to be
+   rewritten per page, because its voice button carried that page's path in
+   ?from= and all 814 would otherwise have claimed the visitor came from the
+   clearances page. The referrer does that job now, so the header is one
+   string again - which is also 814 fewer distinct URLs for Google to crawl. */
+const HEADER = tpl.match(/<header>[\s\S]*?<\/header>/)[0];
+if (/\/design-eagle\/\?from=/.test(HEADER)) {
+  throw new Error("the clearances header still carries ?from= - the static pages need cleaning too, "
+    + "or every generated page will publish a URL that only exists to be crawled.");
 }
-const header = from => HEADER_TPL.replace(
-  /href="\/design-eagle\/\?from=[^"]*"/,
-  'href="/design-eagle/?from=' + encodeURIComponent(from) + '"');
 const FOOTER_COLS = tpl.match(/<footer>[\s\S]*?<div class="legal">/)[0]
   .replace(/href="\/dimensions\/cutouts\/blaze\/">Grill cutouts/g, 'href="/dimensions/cutouts/">Equipment cutouts');
 
@@ -241,7 +240,7 @@ ${CSS}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-${header(canonical)}
+${HEADER}
 `;
 }
 
@@ -416,11 +415,21 @@ function toolsBar(placeholder, jump) {
 }
 const emptyMsg = `<p class="coEmpty" id="coEmpty" hidden>No model matches that yet. Call <a href="tel:${TEL}">${PHONE}</a> and we will look it up, or check the manufacturer's spec sheet.</p>`;
 
-/* Design Eagle is its own page, so once someone lands there nothing on the
-   page says where they came from - every lead used to report the same
-   constant. The referring path rides along in ?from= and ends up on the lead,
-   which is the only way to tell a cutout-page lead from a cold one. */
-const eagleHref = from => "/design-eagle/" + (from ? "?from=" + encodeURIComponent(from) : "");
+/* One URL, deliberately. Design Eagle is its own page, so once someone lands
+   there nothing on the page says where they came from - and a lead that
+   cannot be traced to a cutout page cannot tell us whether these 814 pages
+   are earning anything. That used to ride along in ?from=.
+
+   It does not any more. A query parameter in the href made this one page into
+   833 crawlable URLs, and Search Console filed 433 of them under "alternate
+   page with proper canonical tag" - crawled on a day when 142 real cutout
+   pages were still waiting to be indexed. The canonical meant none of it was
+   penalised; it was crawl budget spent on nothing, on the pages whose entire
+   purpose is to be crawled.
+
+   design-eagle.js reads document.referrer instead, which carries the full
+   path on a same-origin navigation. Same attribution, one URL. */
+const eagleHref = () => "/design-eagle/";
 
 const ctaBand = (title, text, href, label, from) => `<section class="alt">
   <div class="wrap">
@@ -428,7 +437,7 @@ const ctaBand = (title, text, href, label, from) => `<section class="alt">
       <h2>${esc(title)}</h2>
       <p>${esc(text)}</p>
       <div class="heroCta" style="justify-content:center">
-        <a href="${eagleHref(from)}" class="btn">Talk it through with Design Eagle</a>
+        <a href="${eagleHref()}" class="btn">Talk it through with Design Eagle</a>
         <a href="${href}" class="btn ghost">${esc(label)}</a>
       </div>
       <p class="heroNote" style="margin-top:16px">Rather talk to a builder? <a href="tel:${TEL}">${PHONE}</a></p>
@@ -687,7 +696,7 @@ ${deep ? `    <div class="note warn"><p><b>Plan a 30-inch-deep island.</b> This 
          appear only in the fallback prose, which left the 139 pages holding
          the exact piece never mentioning it at all. -->
     <div class="coCta">
-      <a class="btn" href="${eagleHref(r.url)}">Talk it through with Design Eagle</a>
+      <a class="btn" href="${eagleHref()}">Talk it through with Design Eagle</a>
       <a class="btn ghost" href="${designHref(r)}">${r.key ? "Design an island with this" : "Open the designer"}</a>
     </div>
     <p class="heroNote">${r.key ? `Opens the designer with the ${esc(r.model)} already placed, or say what you want and Design Eagle builds it.` : `Tell Design Eagle what you want and it builds the island as you talk. The designer has the ${esc(r.b.name)} tab if you would rather place the ${esc(r.model)} yourself.`} Rather talk to a builder? <a href="tel:${TEL}">${PHONE}</a></p>

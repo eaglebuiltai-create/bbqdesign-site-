@@ -12,10 +12,32 @@ const state = {
   link: "",
   openedAt: Date.now(),
   /* The page that sent them here, read once at load. Read later and a share
-     link or a back button could have rewritten the query out from under us. */
+     link or a back button could have rewritten it out from under us.
+
+     The referrer, not a query parameter. Carrying ?from= in the href turned
+     this one page into 833 crawlable URLs: Search Console had 433 of them
+     filed under "alternate page with proper canonical tag", crawled on a day
+     when 142 real cutout pages were still waiting to be indexed. The canonical
+     meant Google handled them correctly, so nothing was penalised - it was
+     just crawl budget spent on nothing, on the pages whose whole job is to
+     get crawled.
+
+     Same-origin navigation sends the full path under the default referrer
+     policy, so this still knows which cutout page sent someone. A privacy
+     setting that strips the referrer costs attribution on that visit, never
+     the lead. ?from= is still honoured if it is there, so older links and
+     anything hand-built keep working. */
   from: (function () {
-    try { return originPath(new URLSearchParams(location.search).get("from")); }
-    catch (err) { return ""; }
+    try {
+      const asked = originPath(new URLSearchParams(location.search).get("from"));
+      if (asked) return asked;
+      if (!document.referrer) return "";
+      const ref = new URL(document.referrer, location.href);
+      if (ref.origin !== location.origin) return "";
+      const path = originPath(ref.pathname);
+      /* A reload or an internal bounce is not an origin. */
+      return path === location.pathname ? "" : path;
+    } catch (err) { return ""; }
   })(),
   frameReady: false,
   price: null,

@@ -42,16 +42,20 @@ test("one page per live model, titled '<Brand> <Model> Cutout Dimensions | Eagle
        than the wording. Design Eagle used to appear only in the fallback
        prose, which left the best-qualified pages never mentioning it. */
     assert.match(html, /href="\/design\/app\//);
-    /* Design Eagle is its own page, so a bare link loses where the visitor
-       came from and the lead reports a constant. Every page must hand its
-       own path across in ?from=. */
-    const eagle = html.match(/href="\/design-eagle\/\?from=([^"]*)"/);
-    assert.ok(eagle, "no Design Eagle link carrying an origin: " + r.model);
-    assert.equal(decodeURIComponent(eagle[1]), pathOf(r),
-      "the Design Eagle link should carry this page's own path");
+    /* One URL, no query. Carrying the origin in ?from= made this one page
+       into 833 crawlable URLs and Search Console filed 433 of them as
+       alternates of the canonical, crawled while real cutout pages waited to
+       be indexed. design-eagle.js reads document.referrer instead, so the
+       attribution survives and the crawler sees a single address. */
+    assert.match(html, /href="\/design-eagle\/"/,
+      "no Design Eagle link on " + r.model);
+    assert.doesNotMatch(html, /\/design-eagle\/\?/,
+      "a query on the Design Eagle link is a URL that exists only to be crawled: " + r.model);
     assert.match(html, /\(916\) 359-9692/);
-    assert.equal(originPath(decodeURIComponent(eagle[1])), pathOf(r),
-      "the carried path must survive the validator the lead runs it through");
+    /* The path this page would hand Design Eagle as a referrer still has to
+       survive the validator the lead record runs it through. */
+    assert.equal(originPath(pathOf(r)), pathOf(r),
+      "this page's own path must pass the origin validator");
   }
 });
 
