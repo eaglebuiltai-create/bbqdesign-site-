@@ -492,6 +492,42 @@ async function designs(request, env, url) {
   }
 }
 
+/* Which of the three worlds a signup is in, from the ZIP the gate already
+   collects. The CRM's lead inbox shows a source column and nothing else
+   about geography, and a Sacramento prospect is about one lead in fifteen,
+   so without this the ones John can actually build for sit unread among the
+   out-of-state ones. The three words mirror ebArea() in
+   site/assets/track.js on purpose: the same vocabulary tags the CRM row and
+   the GA4 event, so the two can be read against each other.
+
+     service     the Sacramento metro we build in
+     california  elsewhere in CA, a drive or a partner job
+     other       the rest of the US
+     unknown     no usable ZIP
+
+   An unknown ZIP leaves the source exactly as the browser sent it. A row
+   that says nothing about area is clearer than one that says "unknown", and
+   it keeps rows written before this change comparable.
+
+   Stricter than ebArea() on length: a US ZIP is five digits, or nine with
+   the +4. ebArea() accepts three so a partial still buckets for reporting,
+   but here a wrong tag could put someone in or out of a call list, so a
+   phone number typed into the ZIP field has to read as unknown instead. */
+function areaFromZip(zip) {
+  const z = String(zip == null ? "" : zip).replace(/[^0-9]/g, "");
+  if (z.length !== 5 && z.length !== 9) return "unknown";
+  const n = parseInt(z.slice(0, 3), 10);
+  if (!Number.isFinite(n)) return "unknown";
+  if (n >= 956 && n <= 958) return "service";
+  return (n >= 900 && n <= 961) ? "california" : "other";
+}
+
+const AREA_LABEL = {
+  service:    "service area",
+  california: "california",
+  other:      "out of area"
+};
+
 async function leads(request, env) {
   /* Trimmed for the same reason as the Resend key — a shell-piped secret can
      carry a trailing newline, which would corrupt the header and read as a
@@ -515,6 +551,14 @@ async function leads(request, env) {
   const email = String(d.email || "").trim().slice(0, 254);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return json({ ok: false, error: "bad email" }, 200);
 
+  /* Area first, so it is the first thing visible in the inbox's SOURCE
+     column and so sorting by source groups every local lead together.
+     Prefixing also means the label survives the 100-character cap - a
+     truncated funnel name is still readable, a truncated label is not. */
+  const given = clean(d.source, 100) || "designer";
+  const label = AREA_LABEL[areaFromZip(d.zip)] || "";
+  const source = label ? (label + " / " + given).slice(0, 100) : given;
+
   /* Only these fields are ever forwarded, each capped. The browser cannot use
      this route to push arbitrary shapes at the CRM. ZIP is optional on the
      gate, so it may legitimately be empty. */
@@ -523,7 +567,7 @@ async function leads(request, env) {
     zip:    clean(d.zip, 20),
     name:   clean(d.name, 200) || null,
     phone:  clean(d.phone, 40) || null,
-    source: clean(d.source, 100) || "designer",
+    source,
     /* The CRM accepts free text or an object here. Flatten an object to JSON
        ourselves so String() can never turn one into "[object Object]". */
     designSummary: (d.designSummary && typeof d.designSummary === "object"

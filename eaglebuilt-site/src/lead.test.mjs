@@ -574,3 +574,92 @@ test("a request for an emailed design is not described as sent unless the lead w
 });
 
 });
+
+describe("CRM lead area tagging", { concurrency: 1 }, () => {
+
+/* Over ninety per cent of designer signups are outside the Sacramento metro,
+   which buried the handful that were not. The worker tags the source with the
+   area so the CRM inbox can be read at a glance - see areaFromZip. */
+
+let ipN = 0;
+async function ingest(body) {
+  ipN += 1;
+  const seen = [];
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    if (String(url).includes("crm.eaglebuilt.ai")) {
+      seen.push(JSON.parse(init.body));
+      return new Response("{}", { status: 200 });
+    }
+    return new Response("ok", { status: 200 });
+  };
+  try {
+    /* A fresh address each time: the leads bucket caps at 12 per IP and these
+       cases would otherwise share one and start getting 429s. */
+    const res = await post("/api/leads", body, {
+      CRM_INGEST_URL: "https://crm.eaglebuilt.ai/api/leads",
+      CRM_LEADS_API_KEY: "test-key"
+    }, "203.0.113." + ipN);
+    assert.equal(res.data.ok, true);
+  } finally {
+    globalThis.fetch = orig;
+  }
+  assert.equal(seen.length, 1);
+  return seen[0];
+}
+
+test("a Sacramento ZIP marks the lead as the service area", async () => {
+  const granite = await ingest({ email: "a@example.com", zip: "95746", source: "design-landing" });
+  assert.equal(granite.source, "service area / design-landing");
+  /* The raw ZIP still goes through untouched - the tag is advisory. */
+  assert.equal(granite.zip, "95746");
+
+  const roseville = await ingest({ email: "b@example.com", zip: "95678", source: "design-landing" });
+  assert.equal(roseville.source, "service area / design-landing");
+});
+
+test("California outside the metro is a drive, not the service area", async () => {
+  const sd = await ingest({ email: "c@example.com", zip: "92120", source: "design-landing" });
+  assert.equal(sd.source, "california / design-landing");
+});
+
+test("another state is out of area", async () => {
+  const fl = await ingest({ email: "d@example.com", zip: "33414", source: "design-landing" });
+  assert.equal(fl.source, "out of area / design-landing");
+});
+
+test("a ZIP+4 still reads as its five-digit prefix", async () => {
+  const plus4 = await ingest({ email: "e@example.com", zip: "95746-1234", source: "design-landing" });
+  assert.equal(plus4.source, "service area / design-landing");
+});
+
+test("a ZIP we cannot read leaves the source exactly as it came", async () => {
+  /* Nothing at all. The gate treats ZIP as optional. */
+  const none = await ingest({ email: "f@example.com", zip: "", source: "design-landing" });
+  assert.equal(none.source, "design-landing");
+
+  /* A phone number typed into the ZIP field. Ten digits, and its first three
+     are Sacramento's area code - exactly the input that must not read as
+     local, because the tag decides whether John rings someone. */
+  const phoneInZip = await ingest({ email: "g@example.com", zip: "9167518607", source: "design-landing" });
+  assert.equal(phoneInZip.source, "design-landing");
+
+  /* A three-digit partial. ebArea() buckets this for reporting; here it must
+     not, for the same reason as above. */
+  const partial = await ingest({ email: "h@example.com", zip: "956", source: "design-landing" });
+  assert.equal(partial.source, "design-landing");
+});
+
+test("a lead with no source still gets tagged", async () => {
+  const bare = await ingest({ email: "i@example.com", zip: "95630" });
+  assert.equal(bare.source, "service area / designer");
+});
+
+test("the area label survives the length cap, the funnel name is what truncates", async () => {
+  const long = await ingest({ email: "j@example.com", zip: "33414", source: "x".repeat(100) });
+  assert.equal(long.source.length, 100);
+  assert.ok(long.source.startsWith("out of area / "));
+});
+
+});
+
