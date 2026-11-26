@@ -111,6 +111,7 @@ function Add-CacheBuster([string]$url) {
 $checks = @(
   @{ path = 'site/design/app/index.html';                              route = '/design/app/' },
   @{ path = 'site/assets/eagle-engine.js';                             route = '/assets/eagle-engine.js' },
+  @{ path = 'site/assets/track.js';                                    route = '/assets/track.js' },
   @{ path = 'site/dimensions/cutouts/alfresco/agbc-14/index.html';     route = '/dimensions/cutouts/alfresco/agbc-14/' },
   @{ path = 'site/dimensions/cutouts/index.html';                      route = '/dimensions/cutouts/' }
 )
