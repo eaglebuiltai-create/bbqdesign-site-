@@ -2880,12 +2880,20 @@ function gripAt(px, py){
   return null;
 }
 
+/* Reported once per visit, the first time they place a piece by hand. Quick
+   Build and Design Eagle push straight into S.mods and report themselves, so
+   this stays a clean count of someone starting to build one by hand. */
+let sentFirstPiece = false;
 function addModule(k, x, y, silent){
   const m = { id:S.nextId++, k, x, y, r:0 };
   if (BYKEY[k].flex) m.cw = BYKEY[k].w;
   if (isAbove(BYKEY[k])) m.u = defaultUnder(m);
   const sn = snap(m); m.x = sn.x; m.y = sn.y;
   S.mods.push(m); S.sel = m.id;
+  if (!sentFirstPiece){
+    sentFirstPiece = true;
+    window.ebTrack && window.ebTrack("design_first_piece", { piece: k });
+  }
   if (!silent) refresh();
   return m;
 }
@@ -7043,7 +7051,10 @@ function downloadCanvas(cv, name){
   document.body.appendChild(a); a.click(); a.remove();
 }
 function exportAll(){
-  if (!S.mods.length){ toast("Add some components first"); return; }
+  if (!S.mods.length){
+    window.ebTrack && window.ebTrack("design_empty_action", { action: "export" });
+    toast("Add some components first"); return;
+  }
   const keep = S.sel; S.sel = null;
   draw2d(); downloadCanvas(c2d, "eaglebuilt-plan.png");
   drawEl();
@@ -7054,6 +7065,7 @@ function exportAll(){
       downloadCanvas(active3dCanvas(), "eaglebuilt-3d-view.png");
       S.sel = keep; refresh();
       toast("Downloaded plan, elevation and 3D view");
+      window.ebTrack && window.ebTrack("design_export", { pieces: S.mods.length });
     }, 260);
   }, 260);
 }
@@ -7340,7 +7352,11 @@ function designShot(){
 }
 
 function openModal(){
-  if (!S.mods.length){ toast("Design your island first — then get a quote"); return; }
+  if (!S.mods.length){
+    window.ebTrack && window.ebTrack("design_empty_action", { action: "quote" });
+    toast("Design your island first — then get a quote"); return;
+  }
+  window.ebTrack && window.ebTrack("quote_open", { pieces: S.mods.length });
   const q = priceIt(), t = q.t;
   $("#leadSummary").innerHTML =
     `<div class="ql"><span>Island</span><b>${ftin(t.width)} × ${ftin(t.depth)}</b></div>` +
@@ -7812,9 +7828,13 @@ $("#btnReset").onclick = () => {
   S.mods = []; S.sel = null; S.nextId = 1; fit(); refresh();
 };
 $("#btnShare").onclick = () => {
-  if (!S.mods.length){ toast("Add some components first"); return; }
+  if (!S.mods.length){
+    window.ebTrack && window.ebTrack("design_empty_action", { action: "share" });
+    toast("Add some components first"); return;
+  }
   history.replaceState(null, "", "#d=" + encodeState());
   copyText(shareURL(), "Shareable design link copied");
+  window.ebTrack && window.ebTrack("design_share", { pieces: S.mods.length });
 };
 $("#btnExport").onclick = exportAll;
 $("#btnQuote").onclick = openModal;
@@ -7849,7 +7869,10 @@ function designFileName(name){
 }
 
 function saveDesignFile(){
-  if (!S.mods.length){ toast("Design something first"); return; }
+  if (!S.mods.length){
+    window.ebTrack && window.ebTrack("design_empty_action", { action: "save_file" });
+    toast("Design something first"); return;
+  }
   const name = ($("#histName").value || "").trim();
   const t = takeoff();
   const payload = {
@@ -7869,6 +7892,7 @@ function saveDesignFile(){
     const a = document.createElement("a");
     a.href = url; a.download = designFileName(name);
     document.body.appendChild(a); a.click(); a.remove();
+    window.ebTrack && window.ebTrack("design_save_file", { pieces: S.mods.length });
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     toast(name ? ("Saved \u201c" + name + "\u201d") : "Design saved");
   } catch (e) { toast("Could not save that file"); }

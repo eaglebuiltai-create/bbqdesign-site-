@@ -14,6 +14,18 @@
      landing_lead   the ads landing form was delivered            (/outdoor-kitchens-sacramento/)
      chat_lead      the site chat submitted a lead                (chat widget)
 
+   And the steps between opening the designer and sending it, so a drop-off can
+   be read as a step rather than guessed at. These carry no Ads label on purpose
+   - they are engagement, not leads, and counting them as conversions would
+   teach the Ads account to buy the wrong person:
+     design_first_piece  they placed a piece by hand        (kitchen designer)
+     quote_open          the quote form was opened          (kitchen designer)
+     design_export       plan, elevation and 3D downloaded  (kitchen designer)
+     design_save_file    the .eagle design file downloaded  (kitchen designer)
+     design_share        the share link was copied          (kitchen designer)
+     design_empty_action pressed Export, Share, Save or Get a quote with an
+                         empty island - they thought they were finished
+
    Only ever fired on a CONFIRMED success — after the lead has actually been
    delivered — so a failed send can never be counted as a lead.
    ========================================================================== */
