@@ -751,3 +751,141 @@ test("the designer copy of the list has not drifted from the worker one", () => 
 });
 
 });
+
+describe("bbqdesign lead sync", { concurrency: 1 }, () => {
+
+/* bbqdesign.ai writes its form fills to its own KV namespace and emails John.
+   They never reached the CRM, so a lead from the Meta run sat in a store
+   nobody opened. The scheduled handler forwards anything new. */
+
+function bbqKv(seed = {}) {
+  const store = new Map(Object.entries(seed));
+  return {
+    store,
+    async get(k) { return store.has(k) ? store.get(k) : null; },
+    async put(k, v) { store.set(k, String(v)); },
+    async list({ prefix } = {}) {
+      const keys = [...store.keys()]
+        .filter((k) => !prefix || k.startsWith(prefix))
+        .map((name) => ({ name }));
+      return { keys };
+    }
+  };
+}
+
+/* Fixture addresses use example.net, not example.com: the sync treats any
+   @example.com address as one of the deploy-check rows and skips it, which
+   is exactly what these tests need NOT to happen. */
+const lead = (o) => JSON.stringify(o);
+
+/* Runs the real scheduled handler. No waitUntil on the context, so the
+   handler awaits rather than detaching - that branch exists for this. */
+async function runSync(kv, { crmStatus = 200 } = {}) {
+  const sent = [];
+  const orig = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    if (String(url).includes("crm.eaglebuilt.ai")) {
+      sent.push(JSON.parse(init.body));
+      return new Response("{}", { status: crmStatus });
+    }
+    return new Response("ok", { status: 200 });
+  };
+  try {
+    await worker.scheduled({}, {
+      BBQ_LEADS: kv,
+      CRM_INGEST_URL: "https://crm.eaglebuilt.ai/api/leads",
+      CRM_LEADS_API_KEY: "test-key"
+    }, {});
+  } finally {
+    globalThis.fetch = orig;
+  }
+  return sent;
+}
+
+test("the first run sets a cursor and forwards nothing", async () => {
+  /* The seven rows already in there are four of John's tests, one overseas
+     form fill and one lead that reached the CRM another way. A backfill would
+     have put all of it in the inbox. */
+  const kv = bbqKv({
+    "lead:2026-11-17T16:08:02.044Z:aaa": lead({ name: "Sample Lead", zip: "45373", email: "ohio@example.net" })
+  });
+  const sent = await runSync(kv);
+  assert.equal(sent.length, 0);
+  assert.ok(await kv.get("sync:crm-cursor"), "a cursor should have been written");
+});
+
+test("a new lead is forwarded, tagged with its area", async () => {
+  const kv = bbqKv({
+    "sync:crm-cursor": "2026-11-01T00:00:00.000Z",
+    "lead:2026-11-17T16:08:02.044Z:aaa": lead({
+      name: "Sample Lead", zip: "45373", email: "ohio@example.net",
+      path: "diy", page: "https://bbqdesign.ai/?fbclid=abc", ip_country: "US"
+    })
+  });
+  const sent = await runSync(kv);
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].email, "ohio@example.net");
+  assert.equal(sent[0].zip, "45373");
+  /* Ohio, so out of area - same vocabulary as every other lead. */
+  assert.equal(sent[0].source, "out of area / bbqdesign diy");
+  const summary = JSON.parse(sent[0].designSummary);
+  assert.equal(summary.from, "bbqdesign.ai");
+  assert.equal(summary.fromFacebook, true, "an fbclid means it came from the ad");
+  assert.equal(await kv.get("sync:crm-cursor"), "2026-11-17T16:08:02.044Z");
+});
+
+test("a Sacramento lead through bbqdesign is tagged as one", async () => {
+  const kv = bbqKv({
+    "sync:crm-cursor": "2026-11-01T00:00:00.000Z",
+    "lead:2026-11-20T10:00:00.000Z:bbb": lead({
+      name: "Someone Local", zip: "95746", email: "local@example.org",
+      path: "done-for-you", page: "https://bbqdesign.ai/"
+    })
+  });
+  const sent = await runSync(kv);
+  assert.equal(sent.length, 1);
+  assert.equal(sent[0].source, "service area / bbqdesign done-for-you");
+  assert.equal(JSON.parse(sent[0].designSummary).fromFacebook, false);
+});
+
+test("test rows are not forwarded, but the cursor still moves past them", async () => {
+  const kv = bbqKv({
+    "sync:crm-cursor": "2026-10-01T00:00:00.000Z",
+    "lead:2026-10-30T16:25:32.491Z:aaa": lead({ name: "TEST LEAD (Grok Bot deploy check)", zip: "95814", email: "test@example.com", page: "curl" }),
+    "lead:2026-11-01T20:35:43.756Z:bbb": lead({ name: "TEST LEAD (video deploy check)", zip: "95814", email: "test@example.com", page: "curl" })
+  });
+  const sent = await runSync(kv);
+  assert.equal(sent.length, 0);
+  assert.equal(await kv.get("sync:crm-cursor"), "2026-11-01T20:35:43.756Z");
+});
+
+test("a second run does not send the same lead again", async () => {
+  const kv = bbqKv({
+    "sync:crm-cursor": "2026-11-01T00:00:00.000Z",
+    "lead:2026-11-17T16:08:02.044Z:aaa": lead({ name: "Sample Lead", zip: "45373", email: "ohio@example.net" })
+  });
+  assert.equal((await runSync(kv)).length, 1);
+  assert.equal((await runSync(kv)).length, 0);
+});
+
+test("a CRM failure leaves the cursor so the lead is retried", async () => {
+  /* Stepping over a lead the CRM never received would lose it for good. */
+  const kv = bbqKv({
+    "sync:crm-cursor": "2026-11-01T00:00:00.000Z",
+    "lead:2026-11-17T16:08:02.044Z:aaa": lead({ name: "Sample Lead", zip: "45373", email: "ohio@example.net" })
+  });
+  const failed = await runSync(kv, { crmStatus: 503 });
+  assert.equal(failed.length, 1, "it tried");
+  assert.equal(await kv.get("sync:crm-cursor"), "2026-11-01T00:00:00.000Z", "cursor must not move");
+
+  const retried = await runSync(kv);
+  assert.equal(retried.length, 1, "and the next run picks it up again");
+  assert.equal(await kv.get("sync:crm-cursor"), "2026-11-17T16:08:02.044Z");
+});
+
+test("no binding and no CRM configured are both harmless", async () => {
+  await worker.scheduled({}, {}, {});
+  await worker.scheduled({}, { BBQ_LEADS: bbqKv() }, {});
+});
+
+});

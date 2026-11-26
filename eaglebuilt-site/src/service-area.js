@@ -64,3 +64,19 @@ export const AREA_LABEL = {
   design: "design only",
   tool:   "out of area"
 };
+
+/* The source string a lead is filed under, with its area on the front.
+ * Area first so sorting by source groups the local ones, and so the label
+ * survives the CRM's 100-character cap: a truncated funnel name is still
+ * readable, a truncated label is not. An unreadable ZIP leaves the source
+ * exactly as it came - a row that says nothing about area is clearer than
+ * one that says "unknown".
+ *
+ * Both the live /api/leads route and the bbqdesign sync call this, so the
+ * tag on a row never depends on which door the lead came through. */
+export function taggedSource(source, zip) {
+  const given = String(source == null ? "" : source)
+    .replace(/[\r\n]+/g, " ").trim().slice(0, 100) || "designer";
+  const label = AREA_LABEL[areaFromZip(zip)] || "";
+  return label ? (label + " / " + given).slice(0, 100) : given;
+}

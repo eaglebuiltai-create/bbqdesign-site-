@@ -94,6 +94,21 @@ destination_address = "info@eaglebuilt.ai"
 binding = "EAGLE_MISSES"
 id = "fc1c5c9c4fed405e80eb0b47cd3999c7"
 
+# bbqdesign.ai is a separate site on its own worker, and its "design it for
+# me" form writes here rather than to the CRM. A lead sat in this namespace
+# through the Meta run of 14-25 Nov 2026 and was found only by going to look.
+# The scheduled handler in src/worker.js forwards anything new into the CRM,
+# tagged with its area like every other lead. Read-mostly: the only key this
+# worker writes is sync:crm-cursor.
+[[kv_namespaces]]
+binding = "BBQ_LEADS"
+id = "15144f3aa21c4ea0946cbad725a1f7b9"
+
+# Quarter-hourly. These arrive about one a month, so this is about a lead
+# not sitting unseen for half a day rather than about throughput.
+[triggers]
+crons = [ "*/15 * * * *" ]
+
 # Shared rate-limit counter. See the comment at the top of this file.
 [[durable_objects.bindings]]
 name = "EAGLE_LIMITS"
