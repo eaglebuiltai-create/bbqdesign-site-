@@ -7055,7 +7055,7 @@ function exportAll(){
     window.ebTrack && window.ebTrack("design_empty_action", { action: "export" });
     toast("Add some components first"); return;
   }
-  const keep = S.sel; S.sel = null;
+  const keep = S.sel, pieceCount = S.mods.length; S.sel = null;
   draw2d(); downloadCanvas(c2d, "eaglebuilt-plan.png");
   drawEl();
   setTimeout(() => {
@@ -7065,7 +7065,7 @@ function exportAll(){
       downloadCanvas(active3dCanvas(), "eaglebuilt-3d-view.png");
       S.sel = keep; refresh();
       toast("Downloaded plan, elevation and 3D view");
-      window.ebTrack && window.ebTrack("design_export", { pieces: S.mods.length });
+      window.ebTrack && window.ebTrack("design_export", { pieces: pieceCount });
     }, 260);
   }, 260);
 }
