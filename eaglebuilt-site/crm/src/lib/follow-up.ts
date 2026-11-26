@@ -38,9 +38,54 @@ export function firstName(lead: FollowUpLead): string {
 
 export type FollowUp = { key: FollowUpKey; label: string; when: string; subject: string; body: string };
 
+const text = (v: unknown): string => (typeof v === "string" ? v.trim() : "");
+
+/**
+ * What of a lead's design summary belongs in an email to the customer.
+ *
+ * designSummary arrives as free text or as JSON, and the JSON differs by
+ * funnel. It was being pasted in whole, which put a wall of raw JSON and
+ * several thousand characters of base64 into the one email a customer who
+ * finished a design was ever going to get.
+ *
+ * Only three things in there are theirs: what they laid out, the number, and
+ * a link back to it. Which funnel they came through, whether they clicked an
+ * ad, what country the form saw - that is ours, and it stays out.
+ *
+ * Returns "" when there is nothing a customer would want, which is also how
+ * followUps() decides they never sent a design.
+ */
+export function customerSummary(raw?: string | null): string {
+  const s = (raw || "").trim();
+  if (!s) return "";
+  // Free text, which is what INTEGRATION.md allows alongside JSON.
+  if (!s.startsWith("{")) return s;
+
+  let parsed: unknown;
+  try { parsed = JSON.parse(s); } catch { return ""; }
+  if (!parsed || typeof parsed !== "object") return "";
+  const o = parsed as Record<string, unknown>;
+
+  const out: string[] = [];
+  const spec = text(o.spec);
+  if (spec) out.push(spec);
+
+  const estimate = text(o.estimate);
+  if (estimate) {
+    if (out.length) out.push("");
+    out.push("Project total: " + estimate);
+  }
+
+  // The designer has handed out http:// share links. Never send a customer one.
+  const link = text(o.design_link).replace(/^http:\/\//i, "https://");
+  if (link) out.push("", "Your design: " + link);
+
+  return out.join("\n").trim();
+}
+
 export function followUps(lead: FollowUpLead): FollowUp[] {
   const hi = firstName(lead);
-  const spec = (lead.designSummary || "").trim();
+  const spec = customerSummary(lead.designSummary);
 
   const budget: FollowUp = {
     key: "budget",
