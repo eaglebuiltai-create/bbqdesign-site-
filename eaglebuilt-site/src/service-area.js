@@ -49,6 +49,11 @@ export function areaFromZip(zip) {
   if (SERVICE_ZIPS.has(five)) return "build";
   const n = parseInt(five.slice(0, 3), 10);
   if (!Number.isFinite(n)) return "unknown";
+  /* 952 and 953 are Stockton, Lodi, Manteca, Tracy and Modesto: the northern
+     San Joaquin valley, which is south of here rather than Northern
+     California. The four 952 ZIPs inside the circle are unaffected, because
+     the service list above is tested first. */
+  if (n === 952 || n === 953) return "tool";
   return (n >= 940 && n <= 961) ? "design" : "tool";
 }
 

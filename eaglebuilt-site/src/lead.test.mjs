@@ -698,7 +698,7 @@ test("the two foothill towns added by hand are in", () => {
 test("too far to build, near enough to draw", () => {
   for (const [zip, town] of [
     ["95687", "Vacaville"], ["95928", "Chico"], ["96161", "Truckee"],
-    ["95207", "Stockton"], ["96150", "South Lake Tahoe"], ["94110", "San Francisco"]
+    ["96150", "South Lake Tahoe"], ["94110", "San Francisco"], ["95404", "Santa Rosa"]
   ]) {
     assert.equal(areaFromZip(zip), "design", town + " (" + zip + ")");
   }
@@ -707,9 +707,27 @@ test("too far to build, near enough to draw", () => {
 test("outside Northern California is the free tool and nothing more", () => {
   for (const [zip, where] of [
     ["90036", "Los Angeles"], ["92120", "San Diego"], ["93730", "Fresno"],
-    ["33414", "Florida"], ["75081", "Texas"], ["99516", "Alaska"]
+    ["33414", "Florida"], ["75081", "Texas"], ["99516", "Alaska"],
+    /* John: "stockton in south". 952 and 953 are the northern San Joaquin
+       valley - Stockton, Lodi, Manteca, Tracy, Modesto - and he counts them
+       as south rather than Northern California. */
+    ["95207", "Stockton"], ["95240", "Lodi"], ["95336", "Manteca"],
+    ["95304", "Tracy"], ["95350", "Modesto"]
   ]) {
     assert.equal(areaFromZip(zip), "tool", where + " (" + zip + ")");
+  }
+});
+
+test("a San Joaquin ZIP inside the circle is still ours to build", () => {
+  /* Four 952 ZIPs sit inside the 40 miles. 952 as a band reads "tool" now,
+     so this pins the order: the service list is tested before the band, and
+     excluding Stockton must never cut off a neighbour we would drive to. */
+  for (const [zip, town] of [
+    ["95220", "Acampo"], ["95226", "Campo Seco"],
+    ["95227", "Clements"], ["95254", "Wallace"]
+  ]) {
+    assert.ok(SERVICE_ZIPS.has(zip), town + " (" + zip + ") should be in the list");
+    assert.equal(areaFromZip(zip), "build", town + " (" + zip + ")");
   }
 });
 
