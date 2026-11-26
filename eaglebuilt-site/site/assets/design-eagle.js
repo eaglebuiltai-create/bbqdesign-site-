@@ -385,7 +385,11 @@ document.getElementById("saveBack").addEventListener("click", () => {
 
 window.DesignEagle = {
   applyTurn,
-  getState: () => ({ spec: state.spec, code: state.code, link: state.link }),
+  /* `from` is here because attribution is now derived from the referrer
+     rather than read off the URL, so there is nothing visible to check it
+     against. Without it the only way to see what a lead would record is to
+     submit one. */
+  getState: () => ({ spec: state.spec, code: state.code, link: state.link, from: state.from }),
   config: CONFIG
 };
 
